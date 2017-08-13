@@ -1,5 +1,5 @@
 (defproject boodle "0.1.0-SNAPSHOT"
-  :description "boodle: a simple accounting web app"
+  :description "boodle: a simple accounting SPA"
   :url "http://github.com/manuel-uberti/boodle"
   :license {:name "Eclipse Public License"
             :url "http://www.eclipse.org/legal/epl-v10.html"}
