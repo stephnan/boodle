@@ -40,7 +40,7 @@
 
 (defn save-expense
   [title save-event]
-  (let [categories @(rf/subscribe [:categories])
+  (let [categories (conj @(rf/subscribe [:categories]) {:id "" :name ""})
         row @(rf/subscribe [:expenses-row])]
     [:div.modal-content
      [:div.modal-header.panel-heading
