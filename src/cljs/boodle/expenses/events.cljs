@@ -49,7 +49,7 @@
   [expense]
   (v/validate-input
    (:amount expense)
-   [{:message "Importo: deve essere un numero"
+   [{:message "Importo: deve essere un numero (es.: 3,55)"
      :check-fn v/valid-amount?}]))
 
 (defn validate-expense
