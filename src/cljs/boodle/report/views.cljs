@@ -58,7 +58,7 @@
              :on-change #(rf/dispatch [:change-to
                                        (-> % .-target .-value)])}]]
           [:div.six.columns
-           [:label "Categorie"]
+           [:label "Categoria"]
            [:select.u-full-width
             {:value (v/or-empty-string (:categories @params))
              :on-change #(rf/dispatch [:change-categories
