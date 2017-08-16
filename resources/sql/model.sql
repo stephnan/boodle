@@ -17,5 +17,5 @@ create user admin with password 'admin';
 grant all privileges on database "boodle" to admin;
 grant all privileges on table categories to admin;
 grant all privileges on table expenses to admin;
-grant all privileges on table categories_id_seq to admin
+grant all privileges on table categories_id_seq to admin;
 grant all privileges on table expenses_id_seq to admin;
