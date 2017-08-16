@@ -1,10 +1,12 @@
 (ns boodle.api.resources.expense
   (:require
-   [boodle.model.expenses :as model]))
+   [boodle.model.expenses :as model]
+   [boodle.utils.numbers :as numbers]))
 
 (defn find-all
   []
-  (model/select-all))
+  (let [expenses (model/select-all)]
+    (map numbers/convert-amount expenses)))
 
 (defn find-by-id
   [id]
@@ -16,11 +18,17 @@
 
 (defn insert!
   [expense]
-  (model/insert! expense))
+  (let [amount-str (:amount expense)
+        amount (clojure.string/replace amount-str #"," ".")
+        expense (assoc expense :amount (Double/parseDouble amount))]
+    (model/insert! expense)))
 
 (defn update!
   [expense]
-  (model/update! expense))
+  (let [amount-str (:amount expense)
+        amount (clojure.string/replace amount-str #"," ".")
+        expense (assoc expense :amount (Double/parseDouble amount))]
+    (model/update! expense)))
 
 (defn delete!
   [id]

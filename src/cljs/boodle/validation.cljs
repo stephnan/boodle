@@ -38,7 +38,7 @@
    s
    (fn [s]
      (or (number? s)
-         (boolean (re-matches #"\d+" s))))))
+         (boolean (re-matches #"\d+\,?\d+" s))))))
 
 (defn validate-input
   "Validate an input field against a list of requirements.

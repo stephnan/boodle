@@ -76,7 +76,7 @@
          [:hr]
 
          [:div {:style {:text-align "center"}}
-          [:h5 (str "Totale: " (v/or-zero @total) "€")]]
+          [:h5 "Totale: " [:strong (str (v/or-zero @total) "€")]]]
 
          [:div {:style {:padding-top "1em"}}
           [data-table]]]]])))

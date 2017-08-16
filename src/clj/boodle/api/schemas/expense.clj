@@ -6,10 +6,10 @@
    :date schema/Inst
    :category schema/Int
    :item schema/Str
-   :amount (schema/pred double?)})
+   :amount schema/Str})
 
 (schema/defschema Body
   {:date schema/Inst
    :category schema/Int
    :item schema/Str
-   :amount (schema/pred double?)})
+   :amount schema/Str})
