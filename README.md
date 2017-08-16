@@ -2,6 +2,9 @@
 
 Simple accounting SPA in Clojure and ClojureScript.
 
+## Screenshot
+![Screenshot](https://github.com/manuel-uberti/boodle/blob/master/screenshot.png)
+
 boodle uses these Clojure/ClojureScript libraries:
 
 - [http-kit](http://www.http-kit.org/)
