@@ -13,16 +13,14 @@
   (testing "Testing category find API endpoint"
     (with-redefs [c/find-all (fn [] {:item "test"})]
       (let [request (mock/request :get "/api/category/find")
-            response (http/app request)
-            body (json/parse-string (:body response) true)]
+            response (http/app request)]
         (is (= (:status response) 200))))))
 
 (deftest test-find-by-id
   (testing "Testing category find by id API endpoint"
     (with-redefs [c/find-by-id (fn [id] id)]
       (let [request (mock/request :get "/api/category/find/1")
-            response (http/app request)
-            body (json/parse-string (:body response) true)]
+            response (http/app request)]
         (is (= (:status response) 200))))))
 
 (deftest test-insert
@@ -31,8 +29,7 @@
       (let [body (json/generate-string {:name "test" :monthly-budget 1})
             request (-> (mock/request :post "/api/category/insert" body)
                         (mock/content-type "application/json"))
-            response (http/app request)
-            body (json/parse-string (:body response) true)]
+            response (http/app request)]
         (is (= (:status response) 200))))))
 
 (deftest test-update
@@ -41,16 +38,14 @@
       (let [body (json/generate-string {:name "test" :monthly-budget 1})
             request (-> (mock/request :put "/api/category/update/1" body)
                         (mock/content-type "application/json"))
-            response (http/app request)
-            body (json/parse-string (:body response) true)]
+            response (http/app request)]
         (is (= (:status response) 200))))))
 
 (deftest test-delete
   (testing "Testing category delete API endpoint"
     (with-redefs [c/delete! (fn [id] id)]
       (let [request (mock/request :delete "/api/category/delete/1")
-            response (http/app request)
-            body (json/parse-string (:body response) true)]
+            response (http/app request)]
         (is (= (:status response) 200))))))
 
 ;;; Expenses
@@ -58,16 +53,14 @@
   (testing "Testing expense find API endpoint"
     (with-redefs [e/find-all (fn [] {:item "test"})]
       (let [request (mock/request :get "/api/expense/find")
-            response (http/app request)
-            body (json/parse-string (:body response) true)]
+            response (http/app request)]
         (is (= (:status response) 200))))))
 
 (deftest test-find-by-id
   (testing "Testing expense find by id API endpoint"
     (with-redefs [e/find-by-id (fn [id] id)]
       (let [request (mock/request :get "/api/expense/find/1")
-            response (http/app request)
-            body (json/parse-string (:body response) true)]
+            response (http/app request)]
         (is (= (:status response) 200))))))
 
 (deftest test-insert
@@ -76,8 +69,7 @@
       (let [body (json/generate-string {:item "test" :amount 1})
             request (-> (mock/request :post "/api/expense/insert" body)
                         (mock/content-type "application/json"))
-            response (http/app request)
-            body (json/parse-string (:body response) true)]
+            response (http/app request)]
         (is (= (:status response) 200))))))
 
 (deftest test-update
@@ -86,16 +78,14 @@
       (let [body (json/generate-string {:item "test" :amount 2})
             request (-> (mock/request :put "/api/expense/update/1" body)
                         (mock/content-type "application/json"))
-            response (http/app request)
-            body (json/parse-string (:body response) true)]
+            response (http/app request)]
         (is (= (:status response) 200))))))
 
 (deftest test-delete
   (testing "Testing expense delete API endpoint"
     (with-redefs [e/delete! (fn [id] id)]
       (let [request (mock/request :delete "/api/expense/delete/1")
-            response (http/app request)
-            body (json/parse-string (:body response) true)]
+            response (http/app request)]
         (is (= (:status response) 200))))))
 
 ;;; Report
