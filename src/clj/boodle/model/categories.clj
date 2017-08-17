@@ -7,7 +7,7 @@
 
 (defn select-by-id
   [id]
-  (db/query ["SELECT * FROM categories WHERE id = ?" id]))
+  (db/query ["SELECT * FROM categories WHERE id = cast(? as integer)" id]))
 
 (defn select-by-name
   [category-name]
@@ -20,9 +20,10 @@
 (defn update!
   [id category-name monthly-budget]
   (db/update!
-   ["UPDATE categories SET name = ?, monthly_budget = ? WHERE id = ?"
+   ["UPDATE categories SET name = ?, monthly_budget = ?
+     WHERE id = cast(? as integer)"
     category-name monthly-budget id]))
 
 (defn delete!
   [id]
-  (db/delete! ["DELETE FROM categories WHERE id = ?" id]))
+  (db/delete! ["DELETE FROM categories WHERE id = cast(? as integer)" id]))
