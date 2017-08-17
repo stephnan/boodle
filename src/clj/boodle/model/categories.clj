@@ -14,15 +14,18 @@
   (db/query ["SELECT * FROM categories WHERE name = ?" category-name]))
 
 (defn insert!
-  [params]
-  (db/insert! :categories params))
+  [category]
+  (let [{:keys [name monthly-budget]} category]
+    (db/update! ["INSERT INTO categories(name, monthly_budget)
+                  VALUES( ?, cast(? as double precision))"
+                 name monthly-budget])))
 
 (defn update!
-  [id category-name monthly-budget]
-  (db/update!
-   ["UPDATE categories SET name = ?, monthly_budget = ?
-     WHERE id = cast(? as integer)"
-    category-name monthly-budget id]))
+  [category]
+  (let [{:keys [id category-name monthly-budget]} category]
+    (db/update! ["UPDATE categories SET name = ?, monthly_budget = ?
+                  WHERE id = cast(? as integer)"
+                 category-name monthly-budget id])))
 
 (defn delete!
   [id]

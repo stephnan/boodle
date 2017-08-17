@@ -34,10 +34,6 @@
             :return s.category/Response
             :summary "returns the category identified by id"
             (r.category/find-by-id id))
-   (api/GET "/find/:name" [category-name]
-            :return s.category/Response
-            :summary "returns the category identified by category-name"
-            (r.category/find-by-name category-name))
    (api/POST "/insert" []
              :return s.category/Response
              :body [category s.category/Body]
@@ -63,10 +59,6 @@
             :return s.expense/Response
             :summary "returns the expense identified by id"
             (r.expense/find-by-id id))
-   (api/GET "/find/:item" [item]
-            :return [s.expense/Response]
-            :summary "returns the expenses with item"
-            (r.expense/find-by-item item))
    (api/POST "/insert" []
              :return s.expense/Response
              :body [expense s.expense/Body]
