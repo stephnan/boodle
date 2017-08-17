@@ -2,6 +2,7 @@
   (:require
    [boodle.api.resources.category :as c]
    [boodle.api.resources.expense :as e]
+   [boodle.api.resources.report :as r]
    [boodle.services.http :as http]
    [cheshire.core :as json]
    [clojure.test :refer :all]
@@ -95,4 +96,16 @@
       (let [request (mock/request :delete "/api/expense/delete/1")
             response (http/app request)
             body (json/parse-string (:body response) true)]
+        (is (= (:status response) 200))))))
+
+;;; Report
+(deftest test-data
+  (testing "Testing report data API endpoint"
+    (with-redefs [r/get-data (fn [params] params)]
+      (let [body (json/generate-string {:from (java.util.Date.)
+                                        :to (java.util.Date.)
+                                        :categories []})
+            request (-> (mock/request :post "/api/report/data" body)
+                        (mock/content-type "application/json"))
+            response (http/app request)]
         (is (= (:status response) 200))))))
