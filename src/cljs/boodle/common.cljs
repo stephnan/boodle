@@ -17,9 +17,9 @@
        [:h5 [:a {:href "/report"} "Report"]]]]
      [:hr
       {:style
-       {:margin-top "0"
+       {:margin-top 0
         :margin-bottom "1rem"
-        :border-width "0"
+        :border-width 0
         :border-top "1px solid #E1E1E1"}}]]))
 
 (defn page-title [title]
