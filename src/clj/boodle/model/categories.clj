@@ -22,10 +22,10 @@
 
 (defn update!
   [category]
-  (let [{:keys [id category-name monthly-budget]} category]
+  (let [{:keys [id name monthly-budget]} category]
     (db/update! ["UPDATE categories SET name = ?, monthly_budget = ?
                   WHERE id = cast(? as integer)"
-                 category-name monthly-budget id])))
+                 name monthly-budget id])))
 
 (defn delete!
   [id]
