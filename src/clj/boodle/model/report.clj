@@ -5,15 +5,15 @@
 
 (defn categories->in
   [l]
-  (if (sequential? l)
-    (when-not (empty? l)
+  (when-not (empty? l)
+    (if (sequential? l)
       (str
        "AND e.id_category IN ("
        (->> (map #(str "cast(" % " as integer)") l)
             (interpose ", ")
             (apply str))
-       ")"))
-    (str "AND e.id_category = cast(" l "as integer)")))
+       ")")
+      (str "AND e.id_category = cast(" l " as integer)"))))
 
 (defn get-data
   [from to categories]
