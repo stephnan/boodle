@@ -40,6 +40,13 @@
      (or (number? s)
          (boolean (re-matches #"\d+\,?\d+" s))))))
 
+(defn not-empty?
+  [value]
+  (check-nil-then-predicate
+   value
+   (fn [v]
+     (not (empty? v)))))
+
 (defn validate-input
   "Validate an input field against a list of requirements.
    Keep throwing error until all requirements are met."
