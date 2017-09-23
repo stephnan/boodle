@@ -7,7 +7,22 @@
    [re-frame.core :as rf]))
 
 (rf/reg-event-db
- :change-date
+ :expenses-change-from
+ (fn [db [_ value]]
+   (assoc-in db [:expenses :params :from] value)))
+
+(rf/reg-event-db
+ :expenses-change-to
+ (fn [db [_ value]]
+   (assoc-in db [:expenses :params :to] value)))
+
+(rf/reg-event-db
+ :expenses-change-categories
+ (fn [db [_ value]]
+   (assoc-in db [:expenses :params :categories] value)))
+
+(rf/reg-event-db
+ :expenses-change-date
  (fn [db [_ value]]
    (assoc-in db [:expenses :row :date] value)))
 
@@ -132,3 +147,38 @@
                            [:get-expenses-rows]
                            [:bad-response])
       :dispatch [:modal {:show? false :child nil}]))))
+
+(defn validate-from
+  [params]
+  (v/validate-input
+   (:from params)
+   [{:message "Da: deve rispettare il pattern dd/mm/yyyy"
+     :check-fn v/valid-date?}]))
+
+(defn validate-to
+  [params]
+  (v/validate-input
+   (:to params)
+   [{:message "A: deve rispettare il pattern dd/mm/yyyy"
+     :check-fn v/valid-date?}]))
+
+(defn validate-params
+  [params]
+  (let [result []]
+    (-> result
+        (into (validate-from params))
+        (into (validate-to params)))))
+
+(rf/reg-event-fx
+ :get-expenses-by-date
+ (fn [{db :db} _]
+   (let [params (get-in db [:expenses :params])
+         not-valid (validate-params params)]
+     (if-not (empty? not-valid)
+       (rf/dispatch [:validation-error not-valid])
+       (assoc
+        (ajax/post-request "/api/expense/find-by-date-and-categories"
+                           params
+                           [:load-expenses]
+                           [:bad-response])
+        :db (assoc db :show-validation false))))))

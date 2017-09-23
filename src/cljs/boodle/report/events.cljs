@@ -6,17 +6,17 @@
    [re-frame.core :as rf]))
 
 (rf/reg-event-db
- :change-from
+ :report-change-from
  (fn [db [_ value]]
    (assoc-in db [:report :params :from] value)))
 
 (rf/reg-event-db
- :change-to
+ :report-change-to
  (fn [db [_ value]]
    (assoc-in db [:report :params :to] value)))
 
 (rf/reg-event-db
- :change-categories
+ :report-change-categories
  (fn [db [_ value]]
    (assoc-in db [:report :params :categories] value)))
 

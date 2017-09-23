@@ -6,12 +6,11 @@
 
 (defn render-row
   [row]
-  (let [categories (rf/subscribe [:categories])]
-    [:tr {:key (random-uuid)}
-     [:td (:date row)]
-     [:td (:category row)]
-     [:td (:item row)]
-     [:td (str (:amount row) "€")]]))
+  [:tr {:key (random-uuid)}
+   [:td (:date row)]
+   [:td (:category row)]
+   [:td (:item row)]
+   [:td (str (:amount row) "€")]])
 
 (defn data-table
   []
@@ -47,7 +46,7 @@
             {:type "text"
              :placeholder "dd/mm/yyyy"
              :value (v/or-empty-string (:from @params))
-             :on-change #(rf/dispatch [:change-from
+             :on-change #(rf/dispatch [:report-change-from
                                        (-> % .-target .-value)])}]]
           [:div.three.columns
            [:label "A"]
@@ -55,13 +54,13 @@
             {:type "text"
              :placeholder "dd/mm/yyyy"
              :value (v/or-empty-string (:to @params))
-             :on-change #(rf/dispatch [:change-to
+             :on-change #(rf/dispatch [:report-change-to
                                        (-> % .-target .-value)])}]]
           [:div.six.columns
            [:label "Categoria"]
            [:select.u-full-width
             {:value (v/or-empty-string (:categories @params))
-             :on-change #(rf/dispatch [:change-categories
+             :on-change #(rf/dispatch [:report-change-categories
                                        (-> % .-target .-value)])}
             (map common/render-option categories)]]]
 

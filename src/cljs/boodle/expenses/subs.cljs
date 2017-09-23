@@ -27,3 +27,8 @@
  :show-delete-expense-modal
  (fn [db _]
    (:show-delete-expense-modal db)))
+
+(rf/reg-sub
+ :expenses-params
+ (fn [db _]
+   (get-in db [:expenses :params])))
