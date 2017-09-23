@@ -21,6 +21,13 @@
   [item]
   (db/query ["SELECT * FROM expenses WHERE item = ?" item]))
 
+(defn select-by-date
+  [from to]
+  (db/query ["SELECT * FROM expenses WHERE
+              date >= TO_DATE(?, 'DD/MM/YYYY')
+              AND date <= TO_DATE(?, 'DD/MM/YYYY')"
+             from to]))
+
 (defn insert!
   [expense]
   (let [{:keys [date category item amount]} expense]

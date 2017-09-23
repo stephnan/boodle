@@ -64,6 +64,13 @@
             response (http/app request)]
         (is (= (:status response) 200))))))
 
+(deftest test-find-by-date
+  (testing "Testing expense find by date API endpoint"
+    (with-redefs [e/find-by-date (fn [f t] f)]
+      (let [request (mock/request :get "/api/expense/find/1/2")
+            response (http/app request)]
+        (is (= (:status response) 200))))))
+
 (deftest test-insert
   (testing "Testing expense insert API endpoint"
     (with-redefs [e/insert! (fn [expense] expense)]

@@ -16,6 +16,10 @@
   [item]
   (model/select-by-item item))
 
+(defn find-by-date
+  [from to]
+  (model/select-by-date from to))
+
 (defn insert!
   [expense]
   (let [amount-str (:amount expense)
