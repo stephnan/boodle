@@ -7,15 +7,15 @@ Simple accounting SPA in Clojure and ClojureScript.
 
 boodle uses these Clojure/ClojureScript libraries:
 
-- [http-kit](http://www.http-kit.org/)
-- [dire](https://github.com/MichaelDrogalis/dire)
-- [hikari-cp](https://github.com/tomekw/hikari-cp)
+- [bidi](https://github.com/juxt/bidi)
 - [compojure](https://github.com/weavejester/compojure)
 - [compojure-api](https://github.com/metosin/compojure-api)
+- [dire](https://github.com/MichaelDrogalis/dire)
+- [hikari-cp](https://github.com/tomekw/hikari-cp)
+- [http-kit](http://www.http-kit.org/)
 - [mount](https://github.com/tolitius/mount)
-- [ring](https://github.com/ring-clojure/ring)
 - [re-frame](https://github.com/Day8/re-frame)
-- [bidi](https://github.com/juxt/bidi)
+- [ring](https://github.com/ring-clojure/ring)
 
 boodle runs on [PostgreSQL](https://www.postgresql.org) 9.6.3 and uses
 [Skeleton](http://getskeleton.com/) to style the UI.
