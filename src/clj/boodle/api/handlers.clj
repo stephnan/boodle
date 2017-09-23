@@ -59,10 +59,11 @@
             :return s.expense/Response
             :summary "returns the expense identified by id"
             (r.expense/find-by-id id))
-   (api/GET "/find/:from/:to" [from to]
-            :return s.expense/Response
-            :summary "returns the expenses between from and to"
-            (r.expense/find-by-date from to))
+   (api/POST "/find-by-date-and-categories" []
+             :return s.expense/Response
+             :body [expenses-by-date s.expense/ByDateAndCategories]
+             :summary "returns the expenses filtered by date and categories"
+             (r.expense/find-by-date-and-categories expenses-by-date))
    (api/POST "/insert" []
              :return s.expense/Response
              :body [expense s.expense/Body]

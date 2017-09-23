@@ -19,10 +19,12 @@
     (with-redefs [model/select-by-item (fn [n] n)]
       (is (= (e/find-by-item "test") "test")))))
 
-(deftest test-find-by-date
-  (testing "Testing find expenses by date resource"
-    (with-redefs [model/select-by-date (fn [f t] [f t])]
-      (is (= (e/find-by-date "1" "2") ["1" "2"])))))
+(deftest test-find-by-date-and-categories
+  (testing "Testing find expenses by date and categories resource"
+    (with-redefs [model/select-by-date-and-categories
+                  (fn [f t c] [{:item "test" :amount 3.50}])]
+      (is (= (e/find-by-date-and-categories {:from "1" :to "2" :categories []})
+             [{:item "test" :amount "3,5"}])))))
 
 (deftest test-insert
   (testing "Testing insert expense resource"

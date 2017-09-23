@@ -13,3 +13,8 @@
    :category schema/Int
    :item schema/Str
    :amount schema/Str})
+
+(schema/defschema ByDateAndCategories
+  {:from schema/Str
+   :to schema/Str
+   :categories (schema/pred seq?)})

@@ -8,8 +8,9 @@
   (db/query ["SELECT id, date, category, item, amount FROM (
                 SELECT e.id, TO_CHAR(e.date, 'dd/mm/yyyy') AS date,
                 e.date as temp_date,
-                e.id_category as category,
+                c.name as category,
                 e.item, e.amount FROM expenses e
+                INNER JOIN categories c on e.id_category = c.id
                 ORDER BY temp_date DESC
                 LIMIT 20) t"]))
 
@@ -21,12 +22,32 @@
   [item]
   (db/query ["SELECT * FROM expenses WHERE item = ?" item]))
 
-(defn select-by-date
-  [from to]
-  (db/query ["SELECT * FROM expenses WHERE
-              date >= TO_DATE(?, 'DD/MM/YYYY')
-              AND date <= TO_DATE(?, 'DD/MM/YYYY')"
-             from to]))
+(defn categories->in
+  [l]
+  (when-not (empty? l)
+    (if (sequential? l)
+      (str
+       "AND e.id_category IN ("
+       (->> (map #(str "cast(" % " as integer)") l)
+            (interpose ", ")
+            (apply str))
+       ")")
+      (str "AND e.id_category = cast(" l " as integer)"))))
+
+(defn select-by-date-and-categories
+  [from to categories]
+  (db/query
+   [(str
+     "SELECT id, date, category, item, amount FROM (
+       SELECT e.id, TO_CHAR(e.date, 'dd/mm/yyyy') AS date,
+       e.date as temp_date, c.name as category, e.item, e.amount
+       FROM expenses e
+       INNER JOIN categories c on e.id_category = c.id
+       WHERE e.date >= TO_DATE(?, 'DD/MM/YYYY')
+       AND e.date <= TO_DATE(?, 'DD/MM/YYYY') "
+     (categories->in categories)
+     " ORDER BY temp_date DESC) t")
+    from to]))
 
 (defn insert!
   [expense]
