@@ -45,7 +45,9 @@
   (check-nil-then-predicate
    value
    (fn [v]
-     (not (empty? v)))))
+     (if (seqable? v)
+       (not (empty? v))
+       true))))
 
 (defn validate-input
   "Validate an input field against a list of requirements.
