@@ -60,7 +60,7 @@
         [:div.six.columns
          [:label "Categoria"]
          [:select.u-full-width
-          {:value (v/or-empty-string (:category row))
+          {:value (v/or-empty-string (:id-category row))
            :on-change #(rf/dispatch [:change-category
                                      (-> % .-target .-value)])}
           (map common/render-option categories)]]]

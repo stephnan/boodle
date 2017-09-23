@@ -5,9 +5,10 @@
 
 (defn select-all
   []
-  (db/query ["SELECT id, date, category, item, amount FROM (
+  (db/query ["SELECT id, date, id_category, category, item, amount FROM (
                 SELECT e.id, TO_CHAR(e.date, 'dd/mm/yyyy') AS date,
                 e.date as temp_date,
+                c.id as id_category,
                 c.name as category,
                 e.item, e.amount FROM expenses e
                 INNER JOIN categories c on e.id_category = c.id
@@ -38,9 +39,10 @@
   [from to categories]
   (db/query
    [(str
-     "SELECT id, date, category, item, amount FROM (
+     "SELECT id, date, id_category, category, item, amount FROM (
        SELECT e.id, TO_CHAR(e.date, 'dd/mm/yyyy') AS date,
-       e.date as temp_date, c.name as category, e.item, e.amount
+       e.date as temp_date, c.id as id_category, c.name as category,
+       e.item, e.amount
        FROM expenses e
        INNER JOIN categories c on e.id_category = c.id
        WHERE e.date >= TO_DATE(?, 'DD/MM/YYYY')
@@ -51,7 +53,7 @@
 
 (defn insert!
   [expense]
-  (let [{:keys [date category item amount]} expense]
+  (let [{:keys [date id-category item amount]} expense]
     (db/update! ["INSERT INTO expenses(date, id_category, item, amount)
                   VALUES(
                     TO_DATE(?, 'DD/MM/YYYY'),
@@ -59,17 +61,17 @@
                     ?,
                     cast(? as double precision)
                   )"
-                 date category item amount])))
+                 date id-category item amount])))
 
 (defn update!
   [expense]
-  (let [{:keys [id date category item amount]} expense]
+  (let [{:keys [id date id-category item amount]} expense]
     (db/update! ["UPDATE expenses SET date = TO_DATE(?, 'DD/MM/YYYY'),
                  id_category = cast(? as integer),
                  item = ?,
                  amount = cast(? as double precision)
                  WHERE id = ?"
-                 date category item amount id])))
+                 date id-category item amount id])))
 
 (defn delete!
   [id]

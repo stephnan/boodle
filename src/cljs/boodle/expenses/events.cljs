@@ -29,7 +29,7 @@
 (rf/reg-event-db
  :change-category
  (fn [db [_ value]]
-   (assoc-in db [:expenses :row :category] value)))
+   (assoc-in db [:expenses :row :id-category] value)))
 
 (rf/reg-event-db
  :change-item
@@ -67,12 +67,20 @@
    [{:message "Importo: deve essere un numero (es.: 3,55)"
      :check-fn v/valid-amount?}]))
 
+(defn validate-category
+  [expense]
+  (v/validate-input
+   (:id-category expense)
+   [{:message "Categoria: selezionare una categoria"
+     :check-fn v/not-empty?}]))
+
 (defn validate-expense
   [expense]
   (let [result []]
     (-> result
         (into (validate-date expense))
-        (into (validate-amount expense)))))
+        (into (validate-amount expense))
+        (into (validate-category expense)))))
 
 (rf/reg-event-fx
  :edit-expense
