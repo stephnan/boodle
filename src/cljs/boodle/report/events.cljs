@@ -15,16 +15,23 @@
    (assoc-in db [:report :params :to] value)))
 
 (rf/reg-event-db
+ :report-change-item
+ (fn [db [_ value]]
+   (assoc-in db [:report :params :item] value)))
+
+(rf/reg-event-db
  :report-change-categories
  (fn [db [_ value]]
    (assoc-in db [:report :params :categories] value)))
 
 (defn validate-from
   [params]
-  (v/validate-input
-   (:from params)
-   [{:message "Da: deve rispettare il pattern dd/mm/yyyy"
-     :check-fn v/valid-date?}]))
+  (let [item (:item params)]
+    (when (empty? item)
+      (v/validate-input
+       (:from params)
+       [{:message "Da: deve rispettare il pattern dd/mm/yyyy"
+         :check-fn v/valid-date?}]))))
 
 (defn validate-to
   [params]

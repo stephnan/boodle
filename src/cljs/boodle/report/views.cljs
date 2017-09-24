@@ -55,7 +55,14 @@
              :value (v/or-empty-string (:to @params))
              :on-change #(rf/dispatch [:report-change-to
                                        (-> % .-target .-value)])}]]
-          [:div.six.columns
+          [:div.three.columns
+           [:label "Oggetto"]
+           [:input.u-full-width
+            {:type "text"
+             :value (v/or-empty-string (:item @params))
+             :on-change #(rf/dispatch [:report-change-item
+                                       (-> % .-target .-value)])}]]
+          [:div.three.columns
            [:label "Categoria"]
            [:select.u-full-width
             {:value (v/or-empty-string (:categories @params))
