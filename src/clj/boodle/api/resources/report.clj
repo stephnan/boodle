@@ -5,9 +5,9 @@
 
 (defn get-data
   [params]
-  (let [{from :from to :to categories :categories} params
+  (let [{from :from to :to item :item categories :categories} params
         to (if (nil? to) (dates/today) to)
-        expenses (model/select-by-date-and-categories from to categories)
+        expenses (model/report from to item categories)
         total (apply + (map :amount expenses))
         data (map numbers/convert-amount expenses)]
     (-> {}

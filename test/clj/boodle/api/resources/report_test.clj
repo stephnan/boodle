@@ -5,8 +5,7 @@
 
 (deftest test-get-date
   (testing "Testing get data resource"
-    (with-redefs [model/select-by-date-and-categories
-                  (fn [from to categories]
-                    [{:item "test" :amount 3.50}])]
-      (is (= (r/get-data {:from "" :to "" :categories []})
+    (with-redefs [model/report (fn [from to item categories]
+                                 [{:item "test" :amount 3.50}])]
+      (is (= (r/get-data {:from "" :to "" :item "" :categories []})
              {:data [{:item "test" :amount "3,5"}] :total "3,5"})))))

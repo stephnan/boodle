@@ -21,17 +21,17 @@
   [item]
   (db/query ["SELECT * FROM expenses WHERE item = ?" item]))
 
-(defn categories->in
+(defn categories-filter
   [l]
   (when-not (empty? l)
     (if (sequential? l)
       (str
-       "AND e.id_category IN ("
+       " AND e.id_category IN ("
        (->> (map #(str "cast(" % " as integer)") l)
             (interpose ", ")
             (apply str))
-       ")")
-      (str "AND e.id_category = cast(" l " as integer)"))))
+       ") ")
+      (str "AND e.id_category = cast(" l " as integer) "))))
 
 (defn select-by-date-and-categories
   [from to categories]
@@ -45,9 +45,36 @@
        INNER JOIN categories c on e.id_category = c.id
        WHERE e.date >= TO_DATE(?, 'DD/MM/YYYY')
        AND e.date <= TO_DATE(?, 'DD/MM/YYYY') "
-     (categories->in categories)
+     (categories-filter categories)
      " ORDER BY temp_date DESC) t")
     from to]))
+
+(defn from-filter
+  [from]
+  (when-not (or (nil? from) (empty? from))
+    (str " AND e.date >= TO_DATE('" from "', 'DD/MM/YYYY')")))
+
+(defn item-filter
+  [item]
+  (when-not (or (nil? item) (empty? item))
+    (str " AND e.item ilike '%" item "%'")))
+
+(defn report
+  [from to item categories]
+  (db/query
+   [(str
+     "SELECT id, date, id_category, category, item, amount FROM (
+       SELECT e.id, TO_CHAR(e.date, 'dd/mm/yyyy') AS date,
+       e.date as temp_date, c.id as id_category, c.name as category,
+       e.item, e.amount
+       FROM expenses e
+       INNER JOIN categories c on e.id_category = c.id
+       WHERE e.date <= TO_DATE(?, 'DD/MM/YYYY')"
+     (from-filter from)
+     (item-filter item)
+     (categories-filter categories)
+     " ORDER BY temp_date DESC) t")
+    to]))
 
 (defn insert!
   [expense]
