@@ -1,15 +1,14 @@
 (ns boodle.services.http
-  (:require
-   [boodle.api.routes :as api]
-   [boodle.services.configuration :as config]
-   [boodle.templates :as templates]
-   [compojure
-    [core :as compojure]
-    [route :as route]]
-   [mount.core :as mount]
-   [org.httpkit.server :as server]
-   [ring.middleware.reload :as reload]
-   [ring.util.http-response :as response]))
+  (:require [boodle.api.routes :as api]
+            [boodle.services.configuration :as config]
+            [boodle.templates :as templates]
+            [compojure
+             [core :as compojure]
+             [route :as route]]
+            [mount.core :as mount]
+            [org.httpkit.server :as server]
+            [ring.middleware.reload :as reload]
+            [ring.util.http-response :as response]))
 
 (compojure/defroutes app
   (-> (compojure/routes

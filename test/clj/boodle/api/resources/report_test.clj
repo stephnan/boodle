@@ -1,8 +1,7 @@
 (ns boodle.api.resources.report-test
-  (:require
-   [boodle.api.resources.report :as r]
-   [boodle.model.expenses :as model]
-   [clojure.test :refer :all]))
+  (:require [boodle.api.resources.report :as r]
+            [boodle.model.expenses :as model]
+            [clojure.test :refer :all]))
 
 (deftest test-get-date
   (testing "Testing get data resource"

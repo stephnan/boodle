@@ -1,21 +1,15 @@
 (ns boodle.services.postgresql
-  (:require
-   [boodle.services.configuration :as config]
-   [boodle.utils.exceptions :as ex]
-   [cheshire.core :as cheshire]
-   [clojure.java.jdbc :as jdbc]
-   [dire.core :as dire]
-   [hikari-cp.core :as hikari]
-   [mount.core :as mount]
-   [taoensso.timbre :as log])
-  (:import org.postgresql.util.PGobject
-           clojure.lang.IPersistentMap
-           clojure.lang.IPersistentVector
-           [java.sql
-            BatchUpdateException
-            Date
-            Timestamp
-            PreparedStatement]))
+  (:require [boodle.services.configuration :as config]
+            [boodle.utils.exceptions :as ex]
+            [cheshire.core :as cheshire]
+            [clojure.java.jdbc :as jdbc]
+            [dire.core :as dire]
+            [hikari-cp.core :as hikari]
+            [mount.core :as mount]
+            [taoensso.timbre :as log])
+  (:import [clojure.lang IPersistentMap IPersistentVector]
+           [java.sql Date Timestamp]
+           org.postgresql.util.PGobject))
 
 (defn format-date [v]
   (.format (java.text.SimpleDateFormat. "dd/MM/yyyy") v))

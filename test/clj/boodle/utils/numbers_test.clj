@@ -1,7 +1,6 @@
 (ns boodle.utils.numbers-test
-  (:require
-   [boodle.utils.numbers :as n]
-   [clojure.test :refer :all]))
+  (:require [boodle.utils.numbers :as n]
+            [clojure.test :refer :all]))
 
 (deftest test-en->ita
   (testing "Testing conversion between English and Italian double"

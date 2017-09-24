@@ -1,8 +1,7 @@
 (ns boodle.api.resources.category-test
-  (:require
-   [boodle.api.resources.category :as c]
-   [boodle.model.categories :as model]
-   [clojure.test :refer :all]))
+  (:require [boodle.api.resources.category :as c]
+            [boodle.model.categories :as model]
+            [clojure.test :refer :all]))
 
 (deftest test-find-all
   (testing "Testing find all categories resource"

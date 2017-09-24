@@ -1,9 +1,8 @@
 (ns boodle.expenses.views
-  (:require
-   [boodle.common :as common]
-   [boodle.modal :as modal]
-   [boodle.validation :as v]
-   [re-frame.core :as rf]))
+  (:require [boodle.common :as common]
+            [boodle.modal :as modal]
+            [boodle.validation :as v]
+            [re-frame.core :as rf]))
 
 (defn render-row
   [row]

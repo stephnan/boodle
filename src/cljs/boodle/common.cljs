@@ -1,6 +1,5 @@
 (ns boodle.common
-  (:require
-   [re-frame.core :as rf]))
+  (:require [re-frame.core :as rf]))
 
 (defn header []
   (fn []

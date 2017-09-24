@@ -1,10 +1,9 @@
 (ns boodle.expenses.events
-  (:require
-   [boodle.ajax :as ajax]
-   [boodle.modal :as modal]
-   [boodle.validation :as v]
-   [day8.re-frame.http-fx]
-   [re-frame.core :as rf]))
+  (:require [boodle.ajax :as ajax]
+            [boodle.modal :as modal]
+            [boodle.validation :as v]
+            [day8.re-frame.http-fx]
+            [re-frame.core :as rf]))
 
 (rf/reg-event-db
  :expenses-change-from
@@ -168,7 +167,7 @@
   (v/validate-input
    (:to params)
    [{:message "A: deve rispettare il pattern dd/mm/yyyy"
-     :check-fn v/valid-date?}]))
+     :check-fn v/valid-optional-date?}]))
 
 (defn validate-params
   [params]

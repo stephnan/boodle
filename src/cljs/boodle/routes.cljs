@@ -1,8 +1,7 @@
 (ns boodle.routes
-  (:require
-   [bidi.bidi :as bidi]
-   [pushy.core :as pushy]
-   [re-frame.core :as rf]))
+  (:require [bidi.bidi :as bidi]
+            [pushy.core :as pushy]
+            [re-frame.core :as rf]))
 
 (def routes
   ["/" {"" :expenses-home

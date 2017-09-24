@@ -1,6 +1,5 @@
 (ns boodle.validation
-  (:require
-   [re-frame.core :as rf]))
+  (:require [re-frame.core :as rf]))
 
 (defn or-empty-string
   "Return the original value or an empty string when the value is nil."
@@ -25,9 +24,24 @@
     false
     (predicate value)))
 
+(defn optional-then-predicate
+  "Apply the predicate when value is not nil, otherwise return true.
+   This is useful for optional fields."
+  [value predicate]
+  (if (nil? value)
+    true
+    (predicate value)))
+
 (defn valid-date?
   [s]
   (check-nil-then-predicate
+   s
+   (fn [s]
+     (boolean (re-matches #"\d\d/\d\d/\d\d\d\d" s)))))
+
+(defn valid-optional-date?
+  [s]
+  (optional-then-predicate
    s
    (fn [s]
      (boolean (re-matches #"\d\d/\d\d/\d\d\d\d" s)))))

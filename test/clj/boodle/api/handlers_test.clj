@@ -1,13 +1,12 @@
 (ns boodle.api.handlers-test
-  (:require
-   [boodle.api.resources
-    [category :as c]
-    [expense :as e]
-    [report :as r]]
-   [boodle.services.http :as http]
-   [cheshire.core :as json]
-   [clojure.test :refer :all]
-   [ring.mock.request :as mock]))
+  (:require [boodle.api.resources
+             [category :as c]
+             [expense :as e]
+             [report :as r]]
+            [boodle.services.http :as http]
+            [cheshire.core :as json]
+            [clojure.test :refer :all]
+            [ring.mock.request :as mock]))
 
 ;;; Categories
 (deftest test-find

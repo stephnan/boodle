@@ -1,7 +1,5 @@
 (ns boodle.model.expenses
-  (:require
-   [boodle.services.postgresql :as db]
-   [taoensso.timbre :as log]))
+  (:require [boodle.services.postgresql :as db]))
 
 (defn select-all
   []

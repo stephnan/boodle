@@ -1,7 +1,6 @@
 (ns boodle.services.configuration
-  (:require
-   [boodle.utils.files :as files]
-   [mount.core :as mount]))
+  (:require [boodle.utils.files :as files]
+            [mount.core :as mount]))
 
 (defonce ^:private config-path "conf/config.edn")
 

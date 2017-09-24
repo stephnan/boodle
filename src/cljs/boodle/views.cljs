@@ -1,7 +1,6 @@
 (ns boodle.views
-  (:require
-   [boodle.expenses.views :as expenses-views]
-   [boodle.report.views :as report-views]))
+  (:require [boodle.expenses.views :as expenses-views]
+            [boodle.report.views :as report-views]))
 
 (defn- panels [panel-name]
   (case panel-name

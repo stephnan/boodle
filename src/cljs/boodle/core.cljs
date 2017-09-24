@@ -1,15 +1,14 @@
 (ns boodle.core
-  (:require
-   [boodle.events]
-   [boodle.expenses.events]
-   [boodle.expenses.subs]
-   [boodle.report.events]
-   [boodle.report.subs]
-   [boodle.routes :as routes]
-   [boodle.subs]
-   [boodle.views :as views]
-   [re-frame.core :as rf]
-   [reagent.core :as reagent]))
+  (:require [boodle.events]
+            [boodle.expenses.events]
+            [boodle.expenses.subs]
+            [boodle.report.events]
+            [boodle.report.subs]
+            [boodle.routes :as routes]
+            [boodle.subs]
+            [boodle.views :as views]
+            [re-frame.core :as rf]
+            [reagent.core :as reagent]))
 
 (defn main-panel []
   (let [active-panel (rf/subscribe [:active-panel])]

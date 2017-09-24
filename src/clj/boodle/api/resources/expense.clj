@@ -1,7 +1,8 @@
 (ns boodle.api.resources.expense
-  (:require
-   [boodle.model.expenses :as model]
-   [boodle.utils.numbers :as numbers]))
+  (:require [boodle.model.expenses :as model]
+            [boodle.utils
+             [dates :as dates]
+             [numbers :as numbers]]))
 
 (defn find-all
   []
@@ -18,7 +19,8 @@
 
 (defn find-by-date-and-categories
   [params]
-  (let [{from :from to :to categories :categories} params]
+  (let [{from :from to :to categories :categories} params
+        to (if (nil? to) (dates/today) to)]
     (->> (model/select-by-date-and-categories from to categories)
          (map numbers/convert-amount))))
 

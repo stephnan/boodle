@@ -1,8 +1,7 @@
 (ns boodle.api.resources.expense-test
-  (:require
-   [boodle.api.resources.expense :as e]
-   [boodle.model.expenses :as model]
-   [clojure.test :refer :all]))
+  (:require [boodle.api.resources.expense :as e]
+            [boodle.model.expenses :as model]
+            [clojure.test :refer :all]))
 
 (deftest test-find-all
   (testing "Testing find all expenses resource"

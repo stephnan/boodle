@@ -1,15 +1,14 @@
 (ns boodle.api.handlers
-  (:require
-   [boodle.api.resources
-    [category :as r.category]
-    [expense :as r.expense]
-    [report :as r.report]]
-   [boodle.api.schemas
-    [category :as s.category]
-    [expense :as s.expense]
-    [report :as s.report]]
-   [compojure.api.sweet :as api]
-   [ring.util.http-response :as response]))
+  (:require [boodle.api.resources
+             [category :as r.category]
+             [expense :as r.expense]
+             [report :as r.report]]
+            [boodle.api.schemas
+             [category :as s.category]
+             [expense :as s.expense]
+             [report :as s.report]]
+            [compojure.api.sweet :as api]
+            [ring.util.http-response :as response]))
 
 (api/defapi apis
   {:coercion nil

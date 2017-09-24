@@ -1,9 +1,8 @@
 (ns boodle.api.resources.category
-  (:require
-   [boodle.model.categories :as model]
-   [boodle.utils.exceptions :as ex]
-   [dire.core :as dire]
-   [taoensso.timbre :as log]))
+  (:require [boodle.model.categories :as model]
+            [boodle.utils.exceptions :as ex]
+            [dire.core :as dire]
+            [taoensso.timbre :as log]))
 
 (defn find-all
   []

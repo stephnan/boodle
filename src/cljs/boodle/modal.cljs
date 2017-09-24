@@ -1,8 +1,7 @@
 (ns boodle.modal
-  (:require
-   [boodle.validation :as v]
-   [re-frame.core :as rf]
-   [boodle.common :as common]))
+  (:require [boodle.validation :as v]
+            [re-frame.core :as rf]
+            [boodle.common :as common]))
 
 (defn modal-panel
   [{:keys [child size show?]}]
