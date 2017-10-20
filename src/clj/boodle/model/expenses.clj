@@ -76,6 +76,22 @@
      " ORDER BY temp_date DESC) t")
     to]))
 
+(defn totals-for-categories
+  [from to item]
+  (db/query
+   [(str
+     "SELECT id, date, id_category, category, item, amount FROM (
+       SELECT e.id, TO_CHAR(e.date, 'dd/mm/yyyy') AS date,
+       e.date as temp_date, c.id as id_category, c.name as category,
+       e.item, e.amount
+       FROM expenses e
+       INNER JOIN categories c on e.id_category = c.id
+       WHERE e.date <= TO_DATE(?, 'DD/MM/YYYY')"
+     (from-filter from)
+     (item-filter item)
+     " ORDER BY temp_date DESC) t")
+    to]))
+
 (defn insert!
   [expense]
   (let [{:keys [date id-category item amount]} expense]

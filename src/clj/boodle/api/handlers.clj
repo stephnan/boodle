@@ -84,4 +84,8 @@
              :return [s.report/Response]
              :body [params s.report/Body]
              :summary "returns all the data for the required report"
-             (response/ok (r.report/get-data params)))))
+             (let [params params]
+               (let [categories (get params :categories nil)]
+                 (if (or (nil? categories) (empty? categories))
+                   (response/ok (r.report/find-totals-for-categories params))
+                   (response/ok (r.report/get-data params))))))))

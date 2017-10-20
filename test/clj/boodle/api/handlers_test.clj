@@ -101,7 +101,8 @@
 ;;; Report
 (deftest test-data
   (testing "Testing report data API endpoint"
-    (with-redefs [r/get-data (fn [params] params)]
+    (with-redefs [r/find-totals-for-categories (fn [params] params)
+                  r/get-data (fn [params] params)]
       (let [body (json/generate-string {:from (java.util.Date.)
                                         :to (java.util.Date.)
                                         :categories []})

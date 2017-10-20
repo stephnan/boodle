@@ -3,7 +3,13 @@
             [boodle.validation :as v]
             [re-frame.core :as rf]))
 
-(defn render-row
+(defn render-category-total-row
+  [row]
+  [:tr {:key (random-uuid)}
+   [:td (first row)]
+   [:td (str (second row) "€")]])
+
+(defn render-report-row
   [row]
   [:tr {:key (random-uuid)}
    [:td (:date row)]
@@ -11,19 +17,31 @@
    [:td (:item row)]
    [:td (str (:amount row) "€")]])
 
+(defn category-selected?
+  [rows]
+  (every? true? (map #(contains? % :id) rows)))
+
 (defn data-table
   []
   (let [rows (rf/subscribe [:report-data])]
     (fn []
-      [:table.u-full-width
-       [:thead
-        [:tr
-         [:th "Data"]
-         [:th "Categoria"]
-         [:th "Oggetto"]
-         [:th "Importo"]]]
-       [:tbody
-        (doall (map render-row @rows))]])))
+      (if (category-selected? @rows)
+        [:table.u-full-width
+         [:thead
+          [:tr
+           [:th "Data"]
+           [:th "Categoria"]
+           [:th "Oggetto"]
+           [:th "Importo"]]]
+         [:tbody
+          (doall (map render-report-row @rows))]]
+        [:table.u-full-width
+         [:thead
+          [:tr
+           [:th "Categoria"]
+           [:th "Importo"]]]
+         [:tbody
+          (doall (map render-category-total-row @rows))]]))))
 
 (defn home-panel
   []
