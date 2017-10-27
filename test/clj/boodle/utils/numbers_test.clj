@@ -1,11 +1,18 @@
 (ns boodle.utils.numbers-test
   (:require [boodle.utils.numbers :as n]
-            [clojure.test :refer :all]))
+            [clojure.test :refer :all]
+            [clojure.test.check :as tc]
+            [clojure.test.check.clojure-test :refer [defspec]]
+            [clojure.test.check.generators :as gen]
+            [clojure.test.check.properties :as prop]))
 
-(deftest test-en->ita
-  (testing "Testing conversion between English and Italian double"
-    (let [x 3.50]
-      (is (= (n/en->ita x) "3,5")))))
+(defspec converted-amount-always-contains-comma
+  100
+  (prop/for-all
+   [v (->> (gen/double* {:infinite? false :NaN? false :min 1 :max 10000})
+           (gen/fmap n/en->ita)
+           (gen/vector))]
+   (every? (complement nil?) (map #(re-matches #"\d+,\d+" %) v))))
 
 (deftest test-convert-amount
   (testing "Testing amount conversion"
