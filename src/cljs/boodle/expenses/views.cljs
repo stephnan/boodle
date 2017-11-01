@@ -84,10 +84,14 @@
              [:button.button.button-primary
               {:on-click #(rf/dispatch [:get-expenses-by-date])}
               "Cerca spese"]]
-            [:span
+            [:span {:style {:padding-right "1em"}}
              [:button.button.button-primary
               {:on-click #(rf/dispatch [:create-expense])}
-              "Aggiungi"]]]]]
+              "Aggiungi"]]
+            [:span
+             [:button.button.button-primary
+              {:on-click #(rf/dispatch [:reset-search])}
+              "Reset"]]]]]
 
          [modal/modal]
 

@@ -95,7 +95,11 @@
 (rf/reg-event-fx
  :update-expense
  (fn [{db :db} [_ _]]
-   (let [expense (get-in db [:expenses :row])
+   (let [params (get-in db [:expenses :params])
+         success-evn (if (empty? params)
+                       [:get-expenses-rows]
+                       [:get-expenses-by-date])
+         expense (get-in db [:expenses :row])
          id (:id expense)
          not-valid (validate-expense expense)]
      (if-not (empty? not-valid)
@@ -103,7 +107,7 @@
        (assoc
         (ajax/put-request (str "/api/expense/update/" id)
                           expense
-                          [:get-expenses-rows]
+                          success-evn
                           [:bad-response])
         :db (assoc db :show-validation false)
         :dispatch [:modal {:show? false :child nil}])))))
@@ -189,3 +193,12 @@
                            [:load-expenses]
                            [:bad-response])
         :db (assoc db :show-validation false))))))
+
+(rf/reg-event-fx
+ :reset-search
+ (fn [{db :db} _]
+   (assoc
+    (ajax/get-request "/api/expense/find"
+                     [:load-expenses]
+                     [:bad-response])
+    :db (assoc-in db [:expenses :params] {}))))
