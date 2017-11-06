@@ -9,21 +9,21 @@
             [ring.mock.request :as mock]))
 
 ;;; Categories
-(deftest test-find
+(deftest find-test
   (testing "Testing category find API endpoint"
     (with-redefs [c/find-all (fn [] {:item "test"})]
       (let [request (mock/request :get "/api/category/find")
             response (http/app request)]
         (is (= (:status response) 200))))))
 
-(deftest test-find-by-id
+(deftest find-by-id-test
   (testing "Testing category find by id API endpoint"
     (with-redefs [c/find-by-id (fn [id] id)]
       (let [request (mock/request :get "/api/category/find/1")
             response (http/app request)]
         (is (= (:status response) 200))))))
 
-(deftest test-insert
+(deftest insert-test
   (testing "Testing category insert API endpoint"
     (with-redefs [c/insert! (fn [category] category)]
       (let [body (json/generate-string {:name "test" :monthly-budget 1})
@@ -32,7 +32,7 @@
             response (http/app request)]
         (is (= (:status response) 200))))))
 
-(deftest test-update
+(deftest update-test
   (testing "Testing category update API endpoint"
     (with-redefs [c/update! (fn [category] category)]
       (let [body (json/generate-string {:name "test" :monthly-budget 1})
@@ -41,7 +41,7 @@
             response (http/app request)]
         (is (= (:status response) 200))))))
 
-(deftest test-delete
+(deftest delete-test
   (testing "Testing category delete API endpoint"
     (with-redefs [c/delete! (fn [id] id)]
       (let [request (mock/request :delete "/api/category/delete/1")
@@ -99,7 +99,7 @@
         (is (= (:status response) 200))))))
 
 ;;; Report
-(deftest test-data
+(deftest data-test
   (testing "Testing report data API endpoint"
     (with-redefs [r/find-totals-for-categories (fn [params] params)
                   r/get-data (fn [params] params)]

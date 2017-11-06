@@ -3,34 +3,34 @@
             [boodle.model.categories :as model]
             [clojure.test :refer :all]))
 
-(deftest test-find-all
+(deftest find-all-test
   (testing "Testing find all categories resource"
     (with-redefs [model/select-all (fn [] {:item "test"})]
       (is (= (c/find-all) {:item "test"})))))
 
-(deftest test-find-by-id
+(deftest find-by-id-test
   (testing "Testing find category by id resource"
     (with-redefs [model/select-by-id (fn [id] id)]
       (is (= (c/find-by-id "1") "1")))))
 
-(deftest test-find-by-name
+(deftest find-by-name-test
   (testing "Testing find category by name resource"
     (with-redefs [model/select-by-name (fn [n] n)]
       (is (= (c/find-by-name "test") "test")))))
 
-(deftest test-insert
+(deftest insert-test
   (testing "Testing insert category resource"
     (with-redefs [model/insert! (fn [category] category)]
       (let [category {:name "test"}]
         (is (= (c/insert! category) {:name "test"}))))))
 
-(deftest test-update
+(deftest update-test
   (testing "Testing update category resource"
     (with-redefs [model/update! (fn [category] category)]
       (let [category {:name "test update"}]
         (is (= (c/update! category) {:name "test update"}))))))
 
-(deftest test-delete
+(deftest delete-test
   (testing "Testing delete category resource"
     (with-redefs [model/delete! (fn [id] id)]
       (is (= (c/delete! "1") "1")))))

@@ -3,7 +3,7 @@
             [boodle.model.expenses :as model]
             [clojure.test :refer :all]))
 
-(deftest test-get-date
+(deftest get-date-test
   (testing "Testing get data resource"
     (with-redefs [model/report (fn [from to item categories]
                                  [{:item "test" :amount 3.50}])]
