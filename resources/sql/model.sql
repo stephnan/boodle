@@ -20,7 +20,7 @@ create table aims (
 create table transactions (
         id serial primary key,
         id_aim integer references aims(id),
-        type numeric,
+        type smallint,
         item varchar(1000),
         amount numeric(7,2),
         date date
