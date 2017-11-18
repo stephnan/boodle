@@ -1,8 +1,10 @@
 (ns boodle.api.handlers-test
   (:require [boodle.api.resources
+             [aim :as a]
              [category :as c]
              [expense :as e]
-             [report :as r]]
+             [report :as r]
+             [transaction :as t]]
             [boodle.services.http :as http]
             [cheshire.core :as json]
             [clojure.test :refer :all]
@@ -95,6 +97,86 @@
   (testing "Testing expense delete API endpoint"
     (with-redefs [e/delete! (fn [id] id)]
       (let [request (mock/request :delete "/api/expense/delete/1")
+            response (http/app request)]
+        (is (= (:status response) 200))))))
+
+;;; Aims
+(deftest find-test
+  (testing "Testing aim find API endpoint"
+    (with-redefs [a/find-all (fn [] {:item "test"})]
+      (let [request (mock/request :get "/api/aim/find")
+            response (http/app request)]
+        (is (= (:status response) 200))))))
+
+(deftest find-by-id-test
+  (testing "Testing aim find by id API endpoint"
+    (with-redefs [a/find-by-id (fn [id] id)]
+      (let [request (mock/request :get "/api/aim/find/1")
+            response (http/app request)]
+        (is (= (:status response) 200))))))
+
+(deftest insert-test
+  (testing "Testing aim insert API endpoint"
+    (with-redefs [a/insert! (fn [aim] aim)]
+      (let [body (json/generate-string {:name "test" :monthly-budget 1})
+            request (-> (mock/request :post "/api/aim/insert" body)
+                        (mock/content-type "application/json"))
+            response (http/app request)]
+        (is (= (:status response) 200))))))
+
+(deftest update-test
+  (testing "Testing aim update API endpoint"
+    (with-redefs [a/update! (fn [aim] aim)]
+      (let [body (json/generate-string {:name "test" :monthly-budget 1})
+            request (-> (mock/request :put "/api/aim/update/1" body)
+                        (mock/content-type "application/json"))
+            response (http/app request)]
+        (is (= (:status response) 200))))))
+
+(deftest delete-test
+  (testing "Testing aim delete API endpoint"
+    (with-redefs [a/delete! (fn [id] id)]
+      (let [request (mock/request :delete "/api/aim/delete/1")
+            response (http/app request)]
+        (is (= (:status response) 200))))))
+
+;;; Transactions
+(deftest find-test
+  (testing "Testing transaction find API endpoint"
+    (with-redefs [t/find-all (fn [] {:item "test"})]
+      (let [request (mock/request :get "/api/transaction/find")
+            response (http/app request)]
+        (is (= (:status response) 200))))))
+
+(deftest find-by-id-test
+  (testing "Testing transaction find by id API endpoint"
+    (with-redefs [t/find-by-id (fn [id] id)]
+      (let [request (mock/request :get "/api/transaction/find/1")
+            response (http/app request)]
+        (is (= (:status response) 200))))))
+
+(deftest insert-test
+  (testing "Testing transaction insert API endpoint"
+    (with-redefs [t/insert! (fn [transaction] transaction)]
+      (let [body (json/generate-string {:name "test" :monthly-budget 1})
+            request (-> (mock/request :post "/api/transaction/insert" body)
+                        (mock/content-type "application/json"))
+            response (http/app request)]
+        (is (= (:status response) 200))))))
+
+(deftest update-test
+  (testing "Testing transaction update API endpoint"
+    (with-redefs [t/update! (fn [transaction] transaction)]
+      (let [body (json/generate-string {:name "test" :monthly-budget 1})
+            request (-> (mock/request :put "/api/transaction/update/1" body)
+                        (mock/content-type "application/json"))
+            response (http/app request)]
+        (is (= (:status response) 200))))))
+
+(deftest delete-test
+  (testing "Testing transaction delete API endpoint"
+    (with-redefs [t/delete! (fn [id] id)]
+      (let [request (mock/request :delete "/api/transaction/delete/1")
             response (http/app request)]
         (is (= (:status response) 200))))))
 

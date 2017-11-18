@@ -1,12 +1,16 @@
 (ns boodle.api.handlers
   (:require [boodle.api.resources
+             [aim :as r.aim]
              [category :as r.category]
              [expense :as r.expense]
-             [report :as r.report]]
+             [report :as r.report]
+             [transaction :as r.transaction]]
             [boodle.api.schemas
+             [aim :as s.aim]
              [category :as s.category]
              [expense :as s.expense]
-             [report :as s.report]]
+             [report :as s.report]
+             [transaction :as s.transaction]]
             [compojure.api.sweet :as api]
             [ring.util.http-response :as response]))
 
@@ -74,6 +78,54 @@
     (api/DELETE "/delete/:id" [id]
       :summary "deletes the expense identified by id"
       (r.expense/delete! id)))
+
+  (api/context "/api/aim" [id aim-name]
+    :tags ["operations"]
+    (api/GET "/find" []
+      :return [s.aim/Response]
+      :summary "returns all the aims"
+      (r.aim/find-all))
+    (api/GET "/find/:id" [id]
+      :return s.aim/Response
+      :summary "returns the aim identified by id"
+      (r.transaction/find-by-id id))
+    (api/POST "/insert" []
+      :return s.aim/Response
+      :body [aim s.aim/Body]
+      :summary "inserts an aim"
+      (r.aim/insert! aim))
+    (api/PUT "/update/:id" [id]
+      :return s.aim/Response
+      :body [aim s.aim/Body]
+      :summary "updates the aim identified by id"
+      (r.aim/update! aim))
+    (api/DELETE "/delete/:id" [id]
+      :summary "deletes the aim identified by id"
+      (r.aim/delete! id)))
+
+  (api/context "/api/transaction" [id transaction-name]
+    :tags ["operations"]
+    (api/GET "/find" []
+      :return [s.transaction/Response]
+      :summary "returns all the transactions"
+      (r.transaction/find-all))
+    (api/GET "/find/:id" [id]
+      :return s.transaction/Response
+      :summary "returns the transaction identified by id"
+      (r.transaction/find-by-id id))
+    (api/POST "/insert" []
+      :return s.transaction/Response
+      :body [transaction s.transaction/Body]
+      :summary "inserts an transaction"
+      (r.transaction/insert! transaction))
+    (api/PUT "/update/:id" [id]
+      :return s.transaction/Response
+      :body [transaction s.transaction/Body]
+      :summary "updates the transaction identified by id"
+      (r.transaction/update! transaction))
+    (api/DELETE "/delete/:id" [id]
+      :summary "deletes the transaction identified by id"
+      (r.transaction/delete! id)))
 
   (api/context "/api/report" []
     :tags ["operations"]
