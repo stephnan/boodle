@@ -116,7 +116,7 @@
     (api/POST "/insert" []
       :return s.transaction/Response
       :body [transaction s.transaction/Body]
-      :summary "inserts an transaction"
+      :summary "inserts a transaction"
       (r.transaction/insert! transaction))
     (api/PUT "/update/:id" [id]
       :return s.transaction/Response
