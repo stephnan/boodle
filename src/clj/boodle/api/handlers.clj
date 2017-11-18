@@ -24,7 +24,7 @@
      {:version "0.0.1"
       :title "boodle APIs"
       :description "These are all the boodle APIs"}
-     :tags [{:name "operations"}]}}}
+     :tags [{:name "operations"} {:name "information"}]}}}
 
   (api/context "/api/category" [id category-name]
     :tags ["operations"]
@@ -128,7 +128,7 @@
       (r.transaction/delete! id)))
 
   (api/context "/api/report" []
-    :tags ["operations"]
+    :tags ["information"]
     (api/POST "/data" []
       :return [s.report/Response]
       :body [params s.report/Body]
