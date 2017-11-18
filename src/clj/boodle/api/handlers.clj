@@ -88,7 +88,15 @@
     (api/GET "/find/:id" [id]
       :return s.aim/Response
       :summary "returns the aim identified by id"
-      (r.transaction/find-by-id id))
+      (r.aim/find-by-id id))
+    (api/GET "/active" []
+      :return [s.aim/Response]
+      :summary "returns all the active aims"
+      (r.aim/find-active))
+    (api/GET "/archived" []
+      :return [s.aim/Response]
+      :summary "returns all the archived aims"
+      (r.aim/find-archived))
     (api/POST "/insert" []
       :return s.aim/Response
       :body [aim s.aim/Body]

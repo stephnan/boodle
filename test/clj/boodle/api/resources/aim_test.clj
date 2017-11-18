@@ -18,6 +18,16 @@
     (with-redefs [model/select-by-name (fn [n] n)]
       (is (= (a/find-by-name "test") "test")))))
 
+(deftest find-active-test
+  (testing "Testing find active aims resource"
+    (with-redefs [model/select-active (fn [] {:item "test"})]
+      (is (= (a/find-active) {:item "test"})))))
+
+(deftest find-archived-test
+  (testing "Testing find archived aims resource"
+    (with-redefs [model/select-archived (fn [] {:item "test"})]
+      (is (= (a/find-archived) {:item "test"})))))
+
 (deftest insert-test
   (testing "Testing insert aim resource"
     (with-redefs [model/insert! (fn [aim] aim)]

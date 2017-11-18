@@ -13,6 +13,14 @@
   [name]
   (model/select-by-name name))
 
+(defn find-active
+  []
+  (model/select-active))
+
+(defn find-archived
+  []
+  (model/select-archived))
+
 (defn insert!
   [category]
   (model/insert! category))

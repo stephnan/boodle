@@ -115,6 +115,20 @@
             response (http/app request)]
         (is (= (:status response) 200))))))
 
+(deftest find-active-test
+  (testing "Testing aim find active API endpoint"
+    (with-redefs [a/find-active (fn [] {:item "test"})]
+      (let [request (mock/request :get "/api/aim/active")
+            response (http/app request)]
+        (is (= (:status response) 200))))))
+
+(deftest find-archived-test
+  (testing "Testing aim find archived API endpoint"
+    (with-redefs [a/find-archived (fn [] {:item "test"})]
+      (let [request (mock/request :get "/api/aim/archived")
+            response (http/app request)]
+        (is (= (:status response) 200))))))
+
 (deftest insert-test
   (testing "Testing aim insert API endpoint"
     (with-redefs [a/insert! (fn [aim] aim)]

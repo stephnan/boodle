@@ -13,6 +13,14 @@
   [aim-name]
   (db/query ["SELECT * FROM aims WHERE name = ?" aim-name]))
 
+(defn select-active
+  []
+  (db/query ["SELECT * FROM aims WHERE archived = false"]))
+
+(defn select-archived
+  []
+  (db/query ["SELECT * FROM aims WHERE archived = true"]))
+
 (defn insert!
   [aim]
   (let [{:keys [name target archived]} aim]
