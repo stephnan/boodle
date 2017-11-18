@@ -14,6 +14,7 @@
   (-> (compojure/routes
        (route/resources "/")
        (compojure/GET "/" [] (response/ok (templates/index-html)))
+       (compojure/GET "/aims" [] (response/ok (templates/index-html)))
        (compojure/GET "/report" [] (response/ok (templates/index-html)))
        api/routes)
       reload/wrap-reload))

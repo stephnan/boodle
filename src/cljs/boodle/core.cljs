@@ -1,5 +1,7 @@
 (ns boodle.core
   (:require [boodle.events]
+            [boodle.aims.events]
+            [boodle.aims.subs]
             [boodle.expenses.events]
             [boodle.expenses.subs]
             [boodle.report.events]

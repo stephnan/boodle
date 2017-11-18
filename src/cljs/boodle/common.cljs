@@ -5,12 +5,15 @@
   (fn []
     [:div.container
      [:div.row
-      [:div.eight.columns
+      [:div.seven.columns
        {:style {:margin-top ".1em"}}
        [:h2 "boodle"]]
       [:div.one.column
        {:style {:margin-top ".8em"}}
        [:h5 [:a {:href "/"} "Spese"]]]
+      [:div.one.column
+       {:style {:margin-top ".8em" :margin-right "-0.8em"}}
+       [:h5 [:a {:href "/aims"} "Mete"]]]
       [:div.one.column
        {:style {:margin-top ".8em"}}
        [:h5 [:a {:href "/report"} "Report"]]]]
