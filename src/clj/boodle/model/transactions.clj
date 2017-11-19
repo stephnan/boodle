@@ -15,7 +15,7 @@
 
 (defn select-by-aim
   [id-aim]
-  (db/query ["SELECT t.id, t.id_aim, a.name as aim, a.target, t.type, t.item,
+  (db/query ["SELECT t.id, t.id_aim, a.name as aim, a.target, t.item,
               t.amount, t.date FROM transactions t
               INNER JOIN aims a ON t.id_aim = a.id
               WHERE t.id_aim = cast(? as integer)
@@ -24,20 +24,20 @@
 
 (defn insert!
   [transaction]
-  (let [{:keys [id-aim type item amount]} transaction
+  (let [{:keys [id-aim item amount]} transaction
         today (db/format-date (java.util.Date.))]
-    (db/update! ["INSERT INTO transactions(id_aim, type, item, amount, date)
+    (db/update! ["INSERT INTO transactions(id_aim, item, amount, date)
                   VALUES(?, ?, ?, cast(? as double precision),
                          TO_DATE(?, 'DD/MM/YYYY'))"
-                 id-aim type item amount today])))
+                 id-aim item amount today])))
 
 (defn update!
   [transaction]
-  (let [{:keys [id id-aim type item amount]} transaction]
-    (db/update! ["UPDATE transactions SET id_aim = ?, type = ?, item = ?,
+  (let [{:keys [id id-aim item amount]} transaction]
+    (db/update! ["UPDATE transactions SET id_aim = ?, item = ?,
                          amount = cast(? as double precision)
                   WHERE id = cast(? as integer)"
-                 id-aim type item amount])))
+                 id-aim item amount])))
 
 (defn delete!
   [id]
