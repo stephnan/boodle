@@ -25,7 +25,7 @@
 (defspec expense-must-contain-converted-amount
   100
   (prop/for-all [expense gen-expense]
-    (->> expense
-         n/convert-amount
-         (:amount)
-         converted-amount?)))
+    (-> expense
+        (n/convert-amount :amount)
+        (:amount)
+        converted-amount?)))

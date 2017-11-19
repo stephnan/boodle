@@ -1,9 +1,11 @@
 (ns boodle.api.resources.aim
-  (:require [boodle.model.aims :as model]))
+  (:require [boodle.model.aims :as model]
+            [boodle.utils.numbers :as numbers]))
 
 (defn find-all
   []
-  (model/select-all))
+  (->> (model/select-all)
+       (map #(numbers/convert-amount % :target))))
 
 (defn find-by-id
   [id]

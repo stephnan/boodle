@@ -10,7 +10,7 @@
         to (if (nil? to) (dates/today) to)
         expenses (model/report from to item categories)
         total (apply + (map :amount expenses))
-        data (map numbers/convert-amount expenses)]
+        data (map #(numbers/convert-amount % :amount) expenses)]
     (-> {}
         (assoc :data data)
         (assoc :total (numbers/en->ita total)))))

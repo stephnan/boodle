@@ -7,7 +7,7 @@
 (defn find-all
   []
   (->> (model/select-all)
-       (map numbers/convert-amount)))
+       (map #(numbers/convert-amount % :amount))))
 
 (defn find-by-id
   [id]
@@ -22,7 +22,7 @@
   (let [{from :from to :to categories :categories} params
         to (if (nil? to) (dates/today) to)]
     (->> (model/select-by-date-and-categories from to categories)
-         (map numbers/convert-amount))))
+         (map #(numbers/convert-amount % :amount)))))
 
 (defn insert!
   [expense]

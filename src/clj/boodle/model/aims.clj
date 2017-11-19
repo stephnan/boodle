@@ -21,6 +21,12 @@
   []
   (db/query ["SELECT * FROM aims WHERE archived = true"]))
 
+(defn select-aims-with-transactions
+  []
+  (db/query ["SELECT a.id, a.name as aim, a.target, t.amount
+              FROM transactions t
+              INNER JOIN aims a ON t.id_aim = a.id"]))
+
 (defn insert!
   [aim]
   (let [{:keys [name target archived]} aim]

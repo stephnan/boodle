@@ -7,7 +7,7 @@
       (clojure.string/replace #"\." ",")))
 
 (defn convert-amount
-  [expense]
-  (->> (:amount expense)
+  [m k]
+  (->> (get m k 0)
        en->ita
-       (assoc expense :amount)))
+       (assoc m k)))
