@@ -5,8 +5,8 @@
 
 (deftest find-all-test
   (testing "Testing find all aims resource"
-    (with-redefs [model/select-all (fn [] {:item "test"})]
-      (is (= (a/find-all) {:item "test"})))))
+    (with-redefs [model/select-all (fn [] [{:item "test" :target 10.50}])]
+      (is (= (a/find-all) [{:item "test" :target "10,5"}])))))
 
 (deftest find-by-id-test
   (testing "Testing find aim by id resource"
