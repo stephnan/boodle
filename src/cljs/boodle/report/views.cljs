@@ -55,6 +55,7 @@
        [:div.container {:style {:margin-top "1em"}}
         [common/page-title "Report"]
         [v/validation-msg-box]
+
         [:div.form
          [:div.row
           [:div.three.columns

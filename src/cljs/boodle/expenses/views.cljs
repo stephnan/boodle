@@ -50,6 +50,7 @@
        [:div.container {:style {:margin-top "1em"}}
         [common/page-title "Spese"]
         [v/validation-msg-box]
+
         [:div.form
          [:div.row
           [:div.three.columns
