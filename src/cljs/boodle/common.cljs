@@ -5,18 +5,21 @@
   (fn []
     [:div.container
      [:div.row
-      [:div.seven.columns
+      [:div.six.columns
        {:style {:margin-top ".1em"}}
        [:h2 "boodle"]]
       [:div.one.column
        {:style {:margin-top ".8em"}}
        [:h5 [:a {:href "/"} "Spese"]]]
       [:div.one.column
-       {:style {:margin-top ".8em" :margin-right "-0.8em"}}
-       [:h5 [:a {:href "/aims"} "Mete"]]]
-      [:div.one.column
        {:style {:margin-top ".8em"}}
-       [:h5 [:a {:href "/report"} "Report"]]]]
+       [:h5 [:a {:href "/report"} "Report"]]]
+      [:div.one.column
+       {:style {:margin-top ".8em" :color "#8e908c"}}
+       [:h5 "|"]]
+      [:div.one.column
+       {:style {:margin-top ".8em" :margin-left "-1.8em"}}
+       [:h5 [:a {:href "/aims"} "Mete"]]]]
      [:hr
       {:style
        {:margin-top 0
