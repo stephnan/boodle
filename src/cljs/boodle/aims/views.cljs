@@ -7,13 +7,14 @@
 (defn render-row
   [row]
   (let [amount (:amount row)
+        amount-str (if (pos? amount) (str "+" amount) amount)
         color (if (pos? amount) "#718c00" "#c82829")]
     [:tr {:key (random-uuid)}
      [:td (:date row)]
      [:td (:item row)]
      [:td
       {:style {:color color}}
-      [:strong (str amount "€")]]]))
+      [:strong (str amount-str "€")]]]))
 
 (defn transactions-table
   []
