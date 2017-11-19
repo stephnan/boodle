@@ -15,7 +15,8 @@
 
 (defn select-by-aim
   [id-aim]
-  (db/query ["SELECT * FROM transactions WHERE id_aim = ?" id-aim]))
+  (db/query ["SELECT * FROM transactions WHERE id_aim = ? order by date desc"
+             id-aim]))
 
 (defn insert!
   [transaction]
