@@ -42,7 +42,7 @@
        e.date as temp_date, c.id as id_category, c.name as category,
        e.item, e.amount
        FROM expenses e
-       INNER JOIN categories c on e.id_category = c.id
+       INNER JOIN categories c ON e.id_category = c.id
        WHERE e.date >= TO_DATE(?, 'DD/MM/YYYY')
        AND e.date <= TO_DATE(?, 'DD/MM/YYYY') "
      (categories-filter categories)
@@ -68,7 +68,7 @@
        e.date as temp_date, c.id as id_category, c.name as category,
        e.item, e.amount
        FROM expenses e
-       INNER JOIN categories c on e.id_category = c.id
+       INNER JOIN categories c ON e.id_category = c.id
        WHERE e.date <= TO_DATE(?, 'DD/MM/YYYY')"
      (from-filter from)
      (item-filter item)
@@ -85,7 +85,7 @@
        e.date as temp_date, c.id as id_category, c.name as category,
        e.item, e.amount
        FROM expenses e
-       INNER JOIN categories c on e.id_category = c.id
+       INNER JOIN categories c ON e.id_category = c.id
        WHERE e.date <= TO_DATE(?, 'DD/MM/YYYY')"
      (from-filter from)
      (item-filter item)

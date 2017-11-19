@@ -6,9 +6,18 @@
             [re-frame.core :as rf]))
 
 (rf/reg-event-db
+ :load-transactions
+ (fn [db [_ result]]
+   (assoc-in db [:aims :aim :transactions] result)))
+
+(rf/reg-event-fx
  :aims-change-active
- (fn [db [_ value]]
-   (assoc-in db [:aims :params :active] value)))
+ (fn [{db :db} [_ value]]
+   (assoc
+    (ajax/get-request (str "/api/transaction/aim/" value)
+                      [:load-transactions]
+                      [:bad-response])
+    :db (assoc-in db [:aims :params :active] value))))
 
 (rf/reg-event-db
  :aims-change-archived

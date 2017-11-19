@@ -15,7 +15,11 @@
 
 (defn select-by-aim
   [id-aim]
-  (db/query ["SELECT * FROM transactions WHERE id_aim = ? order by date desc"
+  (db/query ["SELECT t.id, t.id_aim, a.name as aim, a.target, t.type, t.item,
+              t.amount, t.date FROM transactions t
+              INNER JOIN aims a ON t.id_aim = a.id
+              WHERE t.id_aim = cast(? as integer)
+              ORDER BY date DESC"
              id-aim]))
 
 (defn insert!

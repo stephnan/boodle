@@ -18,3 +18,8 @@
  :aims-params
  (fn [db _]
    (get-in db [:aims :params])))
+
+(rf/reg-sub
+ :aim-transactions
+ (fn [db _]
+   (get-in db [:aims :aim :transactions])))
