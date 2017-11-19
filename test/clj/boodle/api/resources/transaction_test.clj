@@ -18,6 +18,11 @@
     (with-redefs [model/select-by-item (fn [n] n)]
       (is (= (t/find-by-item "test") "test")))))
 
+(deftest find-by-aim-test
+  (testing "Testing find transaction by aim resource"
+    (with-redefs [model/select-by-aim (fn [a] a)]
+      (is (= (t/find-by-aim 1) 1)))))
+
 (deftest insert-test
   (testing "Testing insert transaction resource"
     (with-redefs [model/insert! (fn [transaction] transaction)]

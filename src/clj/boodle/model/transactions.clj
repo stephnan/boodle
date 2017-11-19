@@ -13,6 +13,10 @@
   [transaction-item]
   (db/query ["SELECT * FROM transactions WHERE item = ?" transaction-item]))
 
+(defn select-by-aim
+  [id-aim]
+  (db/query ["SELECT * FROM transactions WHERE id_aim = ?" id-aim]))
+
 (defn insert!
   [transaction]
   (let [{:keys [id-aim type item amount]} transaction

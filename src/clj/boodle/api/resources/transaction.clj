@@ -13,6 +13,10 @@
   [name]
   (model/select-by-item name))
 
+(defn find-by-aim
+  [id-aim]
+  (model/select-by-aim id-aim))
+
 (defn insert!
   [category]
   (model/insert! category))

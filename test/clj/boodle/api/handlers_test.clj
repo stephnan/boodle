@@ -169,6 +169,13 @@
             response (http/app request)]
         (is (= (:status response) 200))))))
 
+(deftest find-by-aim-test
+  (testing "Testing transaction find by aim id API endpoint"
+    (with-redefs [t/find-by-aim (fn [id] id)]
+      (let [request (mock/request :get "/api/transaction/aim/1")
+            response (http/app request)]
+        (is (= (:status response) 200))))))
+
 (deftest insert-test
   (testing "Testing transaction insert API endpoint"
     (with-redefs [t/insert! (fn [transaction] transaction)]
