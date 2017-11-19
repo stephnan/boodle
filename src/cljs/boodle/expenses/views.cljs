@@ -98,5 +98,5 @@
 
          [:hr]
 
-         [:div {:style {:padding-top "1em"}}
+         [:div {:style {:padding-top ".1em"}}
           [expenses-table]]]]])))

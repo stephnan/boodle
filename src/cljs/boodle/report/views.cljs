@@ -99,8 +99,8 @@
 
          [:hr]
 
-         [:div {:style {:text-align "center"}}
+         [:div {:style {:text-align "center" :margin-top "-0.8em"}}
           [:h5 "Totale: " [:strong (str (v/or-zero @total) "€")]]]
 
-         [:div {:style {:padding-top "1em"}}
+         [:div
           [data-table]]]]])))

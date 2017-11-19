@@ -24,23 +24,22 @@
             amount-left (- target tot-amount)]
         [:div
          [:div.row
-          [:div
+          {:style {:text-align "center" :margin-top "-1.8em"}}
+          [:div.four.columns
            {:style {:text-align "center"}}
-           [:div.four.columns
-            {:style {:text-align "center"}}
-            [:h5 "Obiettivo: "
-             [:strong {:style {:color "#718c00"}}
-              (str (v/or-zero target) "€")]]]
-           [:div.four.columns
-            {:style {:text-align "center"}}
-            [:h5 "Risparmi: "
-             [:strong {:style {:color "#f5871f"}}
-              (str (v/or-zero tot-amount) "€")]]]
-           [:div.four.columns
-            {:style {:text-align "center"}}
-            [:h5 "Da versare: "
-             [:strong {:style {:color "#c82829"}}
-              (str (v/or-zero amount-left) "€")]]]]]
+           [:h5 "Obiettivo: "
+            [:strong {:style {:color "#718c00"}}
+             (str (v/or-zero target) "€")]]]
+          [:div.four.columns
+           {:style {:text-align "center"}}
+           [:h5 "Risparmiato: "
+            [:strong {:style {:color "#f5871f"}}
+             (str (v/or-zero tot-amount) "€")]]]
+          [:div.four.columns
+           {:style {:text-align "center"}}
+           [:h5 "Rimanente: "
+            [:strong {:style {:color "#c82829"}}
+             (str (v/or-zero amount-left) "€")]]]]
 
          [:table.u-full-width
           [:thead
@@ -82,6 +81,23 @@
              :on-change #(rf/dispatch [:aims-change-archived
                                        (-> % .-target .-value)])}
             (map common/render-option archived-aims)]]]]
+
+        [:div.row
+         [:div.twelve.columns
+          {:style {:margin-top "1.5em"}}
+          [:div {:style {:text-align "center"}}
+           [:span {:style {:padding-right "1em"}}
+            [:button.button.button-primary
+             ;; {:on-click #(rf/dispatch [:get-expenses-by-date])}
+             "Crea meta"]]
+           [:span {:style {:padding-right "1em"}}
+            [:button.button.button-primary
+             ;; {:on-click #(rf/dispatch [:create-expense])}
+             "Aggiungi movimento"]]
+           [:span
+            [:button.button.button-primary
+             ;; {:on-click #(rf/dispatch [:reset-search])}
+             "Archivia meta"]]]]]
 
         [:hr]
 
