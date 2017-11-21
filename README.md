@@ -19,7 +19,7 @@ boodle uses these Clojure/ClojureScript libraries:
 - [re-frame](https://github.com/Day8/re-frame)
 - [ring](https://github.com/ring-clojure/ring)
 
-boodle runs on [PostgreSQL](https://www.postgresql.org) 9.6.3 and uses
+boodle runs on [PostgreSQL](https://www.postgresql.org) 9.6.6 and uses
 [Skeleton](http://getskeleton.com/) to style the UI.
 
 The modal panel is a customised version of [re-frame-modal](https://github.com/benhowell/re-frame-modal).
