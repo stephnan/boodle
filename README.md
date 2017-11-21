@@ -1,6 +1,6 @@
 # boodle
 
-[![Dependencies Status](https://versions.deps.co/manuel-uberti/boodle/status.svg)](https://versions.deps.co/manuel-uberti/boodle)
+[![Build Status](https://travis-ci.org/manuel-uberti/boodle.svg?branch=master)](https://travis-ci.org/manuel-uberti/boodle)[![Dependencies Status](https://versions.deps.co/manuel-uberti/boodle/status.svg)](https://versions.deps.co/manuel-uberti/boodle)
 
 Simple accounting SPA in Clojure and ClojureScript.
 
