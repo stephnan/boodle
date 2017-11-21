@@ -6,40 +6,41 @@
 
   :dependencies
   [;; Clojure
-   [cheshire "5.7.1"]
-   [clojure.java-time "0.3.0"]
-   [com.taoensso/encore "2.87.0"]
+   [cheshire "5.8.0"]
+   [clojure.java-time "0.3.1"]
+   [com.taoensso/encore "2.92.0"]
    [com.taoensso/timbre "4.10.0" :exclusions [com.taoennso/encore]]
    [dire "0.5.4"]
-   [expound "0.1.0"]
+   [expound "0.3.4"]
    [hiccup "1.0.5"]
-   [hikari-cp "1.7.6"]
+   [hikari-cp "1.8.2"]
    [http-kit "2.2.0"]
-   [metosin/compojure-api "1.1.10"]
+   [metosin/compojure-api "1.1.11"]
    [metosin/ring-http-response "0.9.0"]
    [mount "0.1.11"]
    [org.clojure/clojure "1.9.0-alpha17"]
-   [org.clojure/java.jdbc "0.7.0-beta5"]
+   [org.clojure/java.jdbc "0.7.3"]
    [org.clojure/test.check "0.9.0"]
-   [org.postgresql/postgresql "9.4.1212"]
+   [org.clojure/tools.reader "1.1.1"]
+   [org.postgresql/postgresql "42.1.4"]
    [prone "1.1.4"]
-   [ring "1.6.1"]
-   [ring/ring-defaults "0.3.0"]
+   [ring "1.6.3"]
+   [ring/ring-defaults "0.3.1"]
    [ring/ring-json "0.4.0"]
-   [ring/ring-mock "0.3.1"]
+   [ring/ring-mock "0.3.2"]
    [ring-middleware-format "0.7.2"]
 
    ;; ClojureScript
-   [bidi "2.1.1"]
-   [cljs-ajax "0.6.0"]
+   [bidi "2.1.2"]
+   [cljs-ajax "0.7.3"]
    [day8.re-frame/http-fx "0.1.4"]
-   [kibu/pushy "0.3.7"]
-   [org.clojure/clojurescript "1.9.521"]
-   [re-frame "0.9.4"]
+   [kibu/pushy "0.3.8"]
+   [org.clojure/clojurescript "1.9.946"]
+   [re-frame "0.10.2"]
    [reagent "0.7.0"]
    [reagent-utils "0.2.1"]]
 
-  :plugins [[lein-cljsbuild "1.1.6"]]
+  :plugins [[lein-cljsbuild "1.1.7"]]
   :repl-options {:nrepl-middleware [cemerick.piggieback/wrap-cljs-repl]}
   :figwheel {:css-dirs ["resources/public/css"]}
 
@@ -54,10 +55,10 @@
 
   :profiles
   {:dev
-   {:dependencies [[binaryage/devtools "0.9.4"]
+   {:dependencies [[binaryage/devtools "0.9.7"]
                    [com.cemerick/piggieback "0.2.2"]
-                   [figwheel-sidecar "0.5.11"]]
-    :plugins [[lein-figwheel "0.5.11"]]}}
+                   [figwheel-sidecar "0.5.14"]]
+    :plugins [[lein-figwheel "0.5.14"]]}}
 
   :cljsbuild
   {:builds
