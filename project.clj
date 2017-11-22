@@ -11,7 +11,6 @@
    [com.taoensso/encore "2.92.0"]
    [com.taoensso/timbre "4.10.0" :exclusions [com.taoennso/encore]]
    [dire "0.5.4"]
-   [expound "0.3.4"]
    [hiccup "1.0.5"]
    [hikari-cp "1.8.2"]
    [http-kit "2.2.0"]
