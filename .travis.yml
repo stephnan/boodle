@@ -1,4 +1,4 @@
 language: clojure
-script: lein test
+script: lein eftest
 jdk:
 - oraclejdk8
