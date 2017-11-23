@@ -27,7 +27,7 @@
   (let [{:keys [id-aim item amount]} transaction
         today (db/format-date (java.util.Date.))]
     (db/update! ["INSERT INTO transactions(id_aim, item, amount, date)
-                  VALUES(?, ?, ?, cast(? as double precision),
+                  VALUES(?, ?, cast(? as double precision),
                          TO_DATE(?, 'DD/MM/YYYY'))"
                  id-aim item amount today])))
 
@@ -37,7 +37,7 @@
     (db/update! ["UPDATE transactions SET id_aim = ?, item = ?,
                          amount = cast(? as double precision)
                   WHERE id = cast(? as integer)"
-                 id-aim item amount])))
+                 id-aim item amount id])))
 
 (defn delete!
   [id]

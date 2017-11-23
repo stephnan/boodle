@@ -18,12 +18,12 @@
   (model/select-by-aim id-aim))
 
 (defn insert!
-  [category]
-  (model/insert! category))
+  [transaction]
+  (model/insert! transaction))
 
 (defn update!
-  [category]
-  (model/update! category))
+  [transaction]
+  (model/update! transaction))
 
 (defn delete!
   [id]

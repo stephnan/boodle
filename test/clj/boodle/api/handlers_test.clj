@@ -154,6 +154,13 @@
             response (http/app request)]
         (is (= (:status response) 200))))))
 
+(deftest transactions-test
+  (testing "Testing aim with transactions API endpoint"
+    (with-redefs [a/aims-with-transactions (fn [] {:item "test"})]
+      (let [request (mock/request :get "/api/aim/transactions")
+            response (http/app request)]
+        (is (= (:status response) 200))))))
+
 ;;; Transactions
 (deftest find-test
   (testing "Testing transaction find API endpoint"

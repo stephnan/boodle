@@ -109,7 +109,11 @@
       (r.aim/update! aim))
     (api/DELETE "/delete/:id" [id]
       :summary "deletes the aim identified by id"
-      (r.aim/delete! id)))
+      (r.aim/delete! id))
+    (api/GET "/transactions" []
+      :return [s.aim/Response]
+      :summary "returns all the aims with their transactions"
+      (r.aim/aims-with-transactions)))
 
   (api/context "/api/transaction" [id transaction-name]
     :tags ["operations"]

@@ -4,8 +4,14 @@
 (def Response
   {:id schema/Int
    :name schema/Str
-   :target (schema/pred double?)
+   :target schema/Num
    :archived schema/Bool})
+
+(def Transactions
+  {:aim schema/Str
+   :target schema/Num
+   :saved schema/Num
+   :amount schema/Num})
 
 (schema/defschema Body
   {:name schema/Str

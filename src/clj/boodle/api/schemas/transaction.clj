@@ -6,7 +6,7 @@
    :id-aim schema/Int
    :type schema/Int
    :item schema/Str
-   :amount (schema/pred double?)
+   :amount schema/Num
    :date schema/Inst})
 
 (schema/defschema Body

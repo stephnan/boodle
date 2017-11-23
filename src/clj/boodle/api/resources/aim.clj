@@ -24,13 +24,28 @@
   (model/select-archived))
 
 (defn insert!
-  [category]
-  (model/insert! category))
+  [aim]
+  (model/insert! aim))
 
 (defn update!
-  [category]
-  (model/update! category))
+  [aim]
+  (model/update! aim))
 
 (defn delete!
   [id]
   (model/delete! id))
+
+(defn aims-with-transactions
+  []
+  (let [aims (model/select-aims-with-transactions)]
+    (->> (group-by :aim aims)
+         (reduce-kv
+          (fn [m k v]
+            (let [target (-> (first (map :target v)))
+                  saved (->> (map :amount v)
+                             (apply +))
+                  left (-> (- target saved))]
+              (assoc m k {:target (numbers/en->ita target)
+                          :saved (numbers/en->ita saved)
+                          :left (numbers/en->ita left)})))
+          {}))))
