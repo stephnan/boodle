@@ -41,10 +41,9 @@
     (->> (group-by :aim aims)
          (reduce-kv
           (fn [m k v]
-            (let [target (-> (first (map :target v)))
-                  saved (->> (map :amount v)
-                             (apply +))
-                  left (-> (- target saved))]
+            (let [target (first (map :target v))
+                  saved (apply + (map :amount v))
+                  left (- target saved)]
               (assoc m k {:target (numbers/en->ita target)
                           :saved (numbers/en->ita saved)
                           :left (numbers/en->ita left)})))
