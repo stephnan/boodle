@@ -7,7 +7,7 @@
 (defn amounts
   []
   (fn []
-    (let [rows (rf/subscribe [:aim-transactions])]
+    (let [rows (rf/subscribe [:active-aim-transactions])]
       (let [target (:target (first @rows))
             tot-amount (reduce + (map :amount @rows))
             amount-left (- target tot-amount)]
@@ -43,9 +43,9 @@
       [:strong (str amount-str "€")]]]))
 
 (defn transactions-table
-  []
+  [aim-type]
   (fn []
-    (let [rows (rf/subscribe [:aim-transactions])]
+    (let [rows (rf/subscribe [aim-type])]
       [:table.u-full-width
        [:thead
         [:tr
@@ -66,7 +66,7 @@
      [:td (str (:left amounts) "€")]
      [:td]]))
 
-(defn summary
+(defn summary-table
   []
   (fn []
     (let [rows (rf/subscribe [:aims-summary])]
@@ -81,15 +81,28 @@
        [:tbody
         (doall (map render-summary-row @rows))]])))
 
+(defn active-aims-table
+  []
+  (fn []
+    (let [aim-selected (rf/subscribe [:selected-active-aim])]
+      (if @aim-selected
+        [:div
+         [amounts]
+         [transactions-table :active-aim-transactions]]
+        [summary-table]))))
+
+(defn achieved-aims-table
+  []
+  (fn []
+    [transactions-table :achieved-aim-transactions]))
+
 (defn home-panel
   []
   (fn []
     (let [active-aims (conj @(rf/subscribe [:active-aims]) {:id "" :name ""})
           achieved-aims (conj @(rf/subscribe [:achieved-aims])
                               {:id "" :name ""})
-          params (rf/subscribe [:aims-params])
-          aims-summary @(rf/subscribe [:aims-summary])
-          aim-transactions @(rf/subscribe [:aim-transactions])]
+          params (rf/subscribe [:aims-params])]
       [:div
        [common/header]
 
@@ -99,21 +112,13 @@
 
         [:div.form
          [:div.row
-          [:div.six.columns
+          [:div.twelve.columns
            [:label "Attive"]
            [:select.u-full-width
             {:value (v/or-empty-string (:active @params))
              :on-change #(rf/dispatch [:aims-change-active
                                        (-> % .-target .-value)])}
-            (map common/render-option active-aims)]]
-
-          [:div.six.columns
-           [:label "Raggiunte"]
-           [:select.u-full-width
-            {:value (v/or-empty-string (:achieved @params))
-             :on-change #(rf/dispatch [:aims-change-achieved
-                                       (-> % .-target .-value)])}
-            (map common/render-option achieved-aims)]]]]
+            (map common/render-option active-aims)]]]]
 
         [:div.row
          [:div.twelve.columns
@@ -133,12 +138,21 @@
              "Raggiunta"]]]]]
 
         [:hr]
-        (.log js/console aims-summary)
-        [summary]
-        ;; (if (and @summary (empty? @aim-transactions))
-        ;;   [:div {:style {:padding-top "1em"}}
-        ;;    [summary]]
-        ;;   [:div {:style {:padding-top "1em"}}
-        ;;    [amounts]
-        ;;    [transactions-table]])
-        ]])))
+
+        [:div {:style {:padding-top "1em"}}
+         [active-aims-table]]
+
+        [:hr]
+
+        [common/page-title "Archivio"]
+        [:div.row
+         [:div.twelve.columns
+          [:label "Raggiunte"]
+          [:select.u-full-width
+           {:value (v/or-empty-string (:achieved @params))
+            :on-change #(rf/dispatch [:aims-change-achieved
+                                      (-> % .-target .-value)])}
+           (map common/render-option achieved-aims)]]]
+
+        [:div {:style {:padding-top "1em" :padding-bottom ".1em"}}
+         [achieved-aims-table]]]])))
