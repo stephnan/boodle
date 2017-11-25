@@ -26,8 +26,8 @@
 
 (defn expenses-table
   []
-  (let [rows (rf/subscribe [:expenses-rows])]
-    (fn []
+  (fn []
+    (let [rows (rf/subscribe [:expenses-rows])]
       [:table.u-full-width
        [:thead
         [:tr

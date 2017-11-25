@@ -23,8 +23,8 @@
 
 (defn data-table
   []
-  (let [rows (rf/subscribe [:report-data])]
-    (fn []
+  (fn []
+    (let [rows (rf/subscribe [:report-data])]
       (if (category-selected? @rows)
         [:table.u-full-width
          [:thead
