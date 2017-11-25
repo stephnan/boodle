@@ -54,7 +54,7 @@
  :load-summary
  (fn [db [_ result]]
    (let [sorted (sort-by key result)]
-     (assoc db :aims-summary sorted))))
+     (assoc-in db [:aims :summary] sorted))))
 
 (rf/reg-event-fx
  :get-aims-with-transactions

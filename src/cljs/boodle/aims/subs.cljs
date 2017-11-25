@@ -24,7 +24,8 @@
  (fn [db _]
    (get-in db [:aims :aim :transactions])))
 
-(rf/reg-sub
+(rf/reg-sub-raw
  :aims-summary
  (fn [db _]
-   (get-in db [:aims :summary])))
+   (rf/dispatch [:get-aims-with-transactions])
+   (r/reaction (get-in @db [:aims :summary]))))

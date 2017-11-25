@@ -60,23 +60,26 @@
   (let [aim (first row)
         amounts (second row)]
     [:tr {:key (random-uuid)}
-     [:td aim]
-     [:td (str (:target amounts) "€")]
-     [:td (str (:saved amounts) "€")]
-     [:td (str (:left amounts) "€")]]))
+     [:td {:style {:padding-right "30em"}} aim]
+     [:td {:style {:padding-right "2em"}} (str (:target amounts) "€")]
+     [:td {:style {:padding-right "3em"}} (str (:saved amounts) "€")]
+     [:td (str (:left amounts) "€")]
+     [:td]]))
 
 (defn summary
   []
-  (let [rows (rf/subscribe [:aims-summary])]
-    [:table.u-full-width
-     [:thead
-      [:tr
-       [:th "Meta"]
-       [:th "Obiettivo"]
-       [:th "Risparmiato"]
-       [:th "Rimanente"]]]
-     [:tbody
-      (doall (map render-summary-row @rows))]]))
+  (fn []
+    (let [rows (rf/subscribe [:aims-summary])]
+      [:table.u-full-width
+       [:thead
+        [:tr
+         [:th "Meta"]
+         [:th "Obiettivo"]
+         [:th "Risparmiato"]
+         [:th "Rimanente"]
+         [:th]]]
+       [:tbody
+        (doall (map render-summary-row @rows))]])))
 
 (defn home-panel
   []
@@ -84,7 +87,9 @@
     (let [active-aims (conj @(rf/subscribe [:active-aims]) {:id "" :name ""})
           achieved-aims (conj @(rf/subscribe [:achieved-aims])
                               {:id "" :name ""})
-          params (rf/subscribe [:aims-params])]
+          params (rf/subscribe [:aims-params])
+          aims-summary @(rf/subscribe [:aims-summary])
+          aim-transactions @(rf/subscribe [:aim-transactions])]
       [:div
        [common/header]
 
@@ -128,7 +133,12 @@
              "Raggiunta"]]]]]
 
         [:hr]
-
-        [:div {:style {:padding-top "1em"}}
-         [amounts]
-         [transactions-table]]]])))
+        (.log js/console aims-summary)
+        [summary]
+        ;; (if (and @summary (empty? @aim-transactions))
+        ;;   [:div {:style {:padding-top "1em"}}
+        ;;    [summary]]
+        ;;   [:div {:style {:padding-top "1em"}}
+        ;;    [amounts]
+        ;;    [transactions-table]])
+        ]])))
