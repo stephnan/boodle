@@ -42,7 +42,7 @@
          (reduce-kv
           (fn [m k v]
             (let [target (first (map :target v))
-                  saved (apply + (map :amount v))
+                  saved (apply + (->> (map :amount v) (map numbers/or-zero)))
                   left (- target saved)]
               (assoc m k {:target (numbers/en->ita target)
                           :saved (numbers/en->ita saved)

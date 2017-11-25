@@ -29,3 +29,8 @@
         (n/convert-amount :amount)
         (:amount)
         converted-amount?)))
+
+(defspec amount-nil-safely-returns-zero
+  100
+  (prop/for-all [amount gen/double]
+    (not (nil? (n/or-zero amount)))))

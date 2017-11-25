@@ -11,3 +11,9 @@
   (->> (get m k 0)
        en->ita
        (assoc m k)))
+
+(defn or-zero
+  [x]
+  (if x
+    x
+    0))
