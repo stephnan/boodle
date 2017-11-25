@@ -21,22 +21,22 @@
    (assoc-in db [:expenses :params :categories] value)))
 
 (rf/reg-event-db
- :change-date
+ :expense-change-date
  (fn [db [_ value]]
    (assoc-in db [:expenses :row :date] value)))
 
 (rf/reg-event-db
- :change-category
+ :expense-change-category
  (fn [db [_ value]]
    (assoc-in db [:expenses :row :id-category] value)))
 
 (rf/reg-event-db
- :change-item
+ :expense-change-item
  (fn [db [_ value]]
    (assoc-in db [:expenses :row :item] value)))
 
 (rf/reg-event-db
- :change-amount
+ :expense-change-amount
  (fn [db [_ value]]
    (assoc-in db [:expenses :row :amount] value)))
 

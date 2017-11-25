@@ -126,7 +126,7 @@
           [:div {:style {:text-align "center"}}
            [:span {:style {:padding-right "1em"}}
             [:button.button.button-primary
-             ;; {:on-click #(rf/dispatch [:get-expenses-by-date])}
+             {:on-click #(rf/dispatch [:create-aim])}
              "Crea meta"]]
            [:span {:style {:padding-right "1em"}}
             [:button.button.button-primary
@@ -136,6 +136,8 @@
             [:button.button.button-primary
              ;; {:on-click #(rf/dispatch [:reset-search])}
              "Raggiunta"]]]]]
+
+        [modal/modal]
 
         [:hr]
 

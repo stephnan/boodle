@@ -54,13 +54,13 @@
           {:type "text"
            :placeholder "dd/mm/yyyy"
            :value (v/or-empty-string (:date row))
-           :on-change #(rf/dispatch [:change-date
+           :on-change #(rf/dispatch [:expense-change-date
                                      (-> % .-target .-value)])}]]
         [:div.six.columns
          [:label "Categoria"]
          [:select.u-full-width
           {:value (v/or-empty-string (:id-category row))
-           :on-change #(rf/dispatch [:change-category
+           :on-change #(rf/dispatch [:expense-change-category
                                      (-> % .-target .-value)])}
           (map common/render-option categories)]]]
        [:div.row
@@ -70,14 +70,14 @@
          [:input.u-full-width
           {:type "text"
            :value (v/or-empty-string (:item row))
-           :on-change #(rf/dispatch [:change-item
+           :on-change #(rf/dispatch [:expense-change-item
                                      (-> % .-target .-value)])}]]
         [:div.six.columns
          [:label "Importo (€)"]
          [:input.u-full-width
           {:type "text"
            :value (v/or-empty-string (:amount row))
-           :on-change #(rf/dispatch [:change-amount
+           :on-change #(rf/dispatch [:expense-change-amount
                                      (-> % .-target .-value)])}]]]]]
      [:hr]
      [:div.modal-footer
@@ -114,3 +114,40 @@
          [:button.button.button-primary
           {:type "button" :title "Ok"
            :on-click #(rf/dispatch [:delete-expense])} "Cancella spesa"]]]]]]))
+
+(defn save-aim
+  [title save-event]
+  (let [row @(rf/subscribe [:aims-row])]
+    [:div.modal-content
+     [:div.modal-header.panel-heading
+      [:h5.modal-title title]]
+     [:div.modal-body
+      [v/validation-msg-box]
+      [:div.form
+       [:div.row
+        [:div.six.columns
+         [:label "Nome"]
+         [:input.u-full-width
+          {:type "text"
+           :value (v/or-empty-string (:name row))
+           :on-change #(rf/dispatch [:aim-change-name
+                                     (-> % .-target .-value)])}]]
+        [:div.six.columns
+         [:label "Obiettivo (€)"]
+         [:input.u-full-width
+          {:type "text"
+           :value (v/or-empty-string (:target row))
+           :on-change #(rf/dispatch [:aim-change-target
+                                     (-> % .-target .-value)])}]]]]]
+     [:hr]
+     [:div.modal-footer
+      [:div.modal-buttons
+       [:div.row
+        [:div.eight.columns
+         [:button.button
+          {:type "button" :title "Annulla"
+           :on-click #(rf/dispatch [:close-modal])} "Annulla"]]
+        [:div.three.columns
+         [:button.button.button-primary
+          {:type "button" :title "Ok"
+           :on-click #(rf/dispatch save-event)} "Ok"]]]]]]))

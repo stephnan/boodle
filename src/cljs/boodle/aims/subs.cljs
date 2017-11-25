@@ -9,6 +9,11 @@
    (r/reaction (:active-aims @db))))
 
 (rf/reg-sub-raw
+ :aims-row
+ (fn [db _]
+   (r/reaction (get-in @db [:aims :row]))))
+
+(rf/reg-sub-raw
  :achieved-aims
  (fn [db _]
    (rf/dispatch [:get-achieved-aims])
