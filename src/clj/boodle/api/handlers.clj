@@ -113,7 +113,7 @@
     (api/GET "/transactions" []
       :return [s.aim/Response]
       :summary "returns all the aims with their transactions"
-      (r.aim/aims-with-transactions)))
+      (response/ok (r.aim/aims-with-transactions))))
 
   (api/context "/api/transaction" [id transaction-name]
     :tags ["operations"]
