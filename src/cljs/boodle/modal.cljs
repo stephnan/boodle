@@ -100,8 +100,10 @@
       [:h5.modal-title "Cancella spesa"]]
      [:div.modal-body
       [:p
-       {:style {:text-align "center"}}
-       "Confermi la cancellazione della spesa?"]]
+       {:style {:text-align "center" :color "#c82829"}}
+       [:i.fa.fa-exclamation-triangle]
+       " Confermi la cancellazione della spesa? "
+       [:i.fa.fa-exclamation-triangle]]]
      [:hr]
      [:div.modal-footer
       [:div.modal-buttons
@@ -151,3 +153,28 @@
          [:button.button.button-primary
           {:type "button" :title "Ok"
            :on-click #(rf/dispatch save-event)} "Ok"]]]]]]))
+
+(defn delete-aim
+  []
+  (let [row @(rf/subscribe [:aims-row])]
+    [:div.modal-content
+     [:div.modal-header.panel-heading
+      [:h5.modal-title "Cancella meta"]]
+     [:div.modal-body
+      [:p
+       {:style {:text-align "center" :color "#c82829"}}
+       [:i.fa.fa-exclamation-triangle]
+       " Confermi la cancellazione della meta (movimenti inclusi)? "
+       [:i.fa.fa-exclamation-triangle]]]
+     [:hr]
+     [:div.modal-footer
+      [:div.modal-buttons
+       [:div.row
+        [:div.six.columns
+         [:button.button
+          {:type "button" :title "Annulla"
+           :on-click #(rf/dispatch [:close-modal])} "Annulla"]]
+        [:div.three.columns
+         [:button.button.button-primary
+          {:type "button" :title "Ok"
+           :on-click #(rf/dispatch [:delete-aim])} "Cancella meta"]]]]]]))

@@ -18,7 +18,7 @@
 (rf/reg-event-db
  :load-summary
  (fn [db [_ result]]
-   (let [sorted (sort-by key result)]
+   (let [sorted (sort-by (fn [e] (:name (second e))) result)]
      (assoc-in db [:aims :summary] sorted))))
 
 (rf/reg-event-fx
@@ -125,14 +125,66 @@
  :save-aim
  (fn [{db :db} [_ _]]
    (let [aim (get-in db [:aims :row])
-         id (:id aim)
          not-valid (validate-aim aim)]
      (if-not (empty? not-valid)
        (rf/dispatch [:validation-error not-valid])
        (assoc
         (ajax/post-request "/api/aim/insert"
                            aim
-                           [:get-active-aims]
+                           [:get-aims-with-transactions]
                            [:bad-response])
         :db (assoc db :show-validation false)
-        :dispatch [:modal {:show? false :child nil}])))))
+        :dispatch-n (list [:modal {:show? false :child nil}]
+                          [:get-active-aims]))))))
+
+(rf/reg-event-fx
+ :edit-aim
+ (fn [{db :db} [_ id]]
+   (let [aims (get-in db [:aims :summary])
+         row (-> (filter #(= (name (first %)) id) aims)
+                 first
+                 second
+                 (assoc :id id)
+                 (assoc :achieved false))]
+     {:db (assoc-in db [:aims :row] row)
+      :dispatch
+      [:modal
+       {:show? true
+        :child [modal/save-aim "Modifica meta" [:update-aim]]}]})))
+
+(rf/reg-event-fx
+ :update-aim
+ (fn [{db :db} [_ _]]
+   (let [aim (get-in db [:aims :row])
+         id (:id aim)
+         not-valid (validate-aim aim)]
+     (if-not (empty? not-valid)
+       (rf/dispatch [:validation-error not-valid])
+       (assoc
+        (ajax/put-request (str "/api/aim/update/" id)
+                          aim
+                          [:get-aims-with-transactions]
+                          [:bad-response])
+        :db (assoc db :show-validation false)
+        :dispatch-n (list [:modal {:show? false :child nil}]
+                          [:get-active-aims]))))))
+
+(rf/reg-event-fx
+ :remove-aim
+ (fn [{db :db} [_ id]]
+   {:db (assoc-in db [:aims :row :id] id)
+    :dispatch
+    [:modal
+     {:show? true
+      :child [modal/delete-aim]}]}))
+
+(rf/reg-event-fx
+ :delete-aim
+ (fn [{db :db} [_ _]]
+   (let [id (get-in db [:aims :row :id])]
+     (assoc
+      (ajax/delete-request (str "/api/aim/delete/" id)
+                           [:get-aims-with-transactions]
+                           [:bad-response])
+      :dispatch-n (list [:modal {:show? false :child nil}]
+                        [:get-active-aims])))))

@@ -31,14 +31,14 @@
 (deftest insert-test
   (testing "Testing insert aim resource"
     (with-redefs [model/insert! (fn [aim] aim)]
-      (let [aim {:name "test"}]
-        (is (= (a/insert! aim) {:name "test"}))))))
+      (let [aim {:name "test" :target "3,5"}]
+        (is (= (a/insert! aim) {:name "test" :target 3.50}))))))
 
 (deftest update-test
   (testing "Testing update aim resource"
     (with-redefs [model/update! (fn [aim] aim)]
-      (let [aim {:name "test update"}]
-        (is (= (a/update! aim) {:name "test update"}))))))
+      (let [aim {:name "test update" :target "3,5"}]
+        (is (= (a/update! aim) {:name "test update" :target 3.50}))))))
 
 (deftest delete-test
   (testing "Testing delete aim resource"
@@ -50,4 +50,4 @@
     (with-redefs [model/select-aims-with-transactions
                   (fn [] [{:id 1, :aim "T", :target 1, :amount 1}])]
       (is (= (a/aims-with-transactions)
-             {"T" {:target "1", :saved "1", :left "0"}})))))
+             {1 {:name "T" :target "1", :saved "1", :left "0"}})))))

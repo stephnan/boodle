@@ -57,14 +57,32 @@
 
 (defn render-summary-row
   [row]
-  (let [aim (first row)
-        amounts (second row)]
+  (let [aim-id (name (first row))
+        aim-values (second row)]
     [:tr {:key (random-uuid)}
-     [:td {:style {:padding-right "30em"}} aim]
-     [:td {:style {:padding-right "2em"}} (str (:target amounts) "€")]
-     [:td {:style {:padding-right "3em"}} (str (:saved amounts) "€")]
-     [:td (str (:left amounts) "€")]
-     [:td]]))
+     [:td {:style {:padding-right "15em"}}
+      (:name aim-values)]
+     [:td {:style {:padding-right "2em"}}
+      (str (:target aim-values) "€")]
+     [:td {:style {:padding-right "3em"}}
+      (str (:saved aim-values) "€")]
+     [:td {:style {:padding-right "3em"}}
+      (str (:left aim-values) "€")]
+     [:td
+      [:div.container
+       {:style {:padding-top ".4em"
+                :padding-bottom ".4em"
+                :padding-right "1.5em"}}
+       [:div.row
+        [:div.nine.columns
+         [:button.button.button-icon
+          {:on-click #(rf/dispatch [:edit-aim aim-id])}
+          [:i.fa.fa-pencil]]]
+        [:div.three.columns
+         {:style {}}
+         [:button.button.button-icon
+          {:on-click #(rf/dispatch [:remove-aim aim-id])}
+          [:i.fa.fa-remove]]]]]]]))
 
 (defn summary-table
   []
@@ -77,7 +95,7 @@
          [:th "Obiettivo"]
          [:th "Risparmiato"]
          [:th "Rimanente"]
-         [:th]]]
+         [:th "Azioni"]]]
        [:tbody
         (doall (map render-summary-row @rows))]])))
 

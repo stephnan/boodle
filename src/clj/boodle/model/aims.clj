@@ -30,10 +30,10 @@
 
 (defn insert!
   [aim]
-  (let [{:keys [name target achieved]} aim]
+  (let [{:keys [name target]} aim]
     (db/update! ["INSERT INTO aims(name, target, achieved)
-                  VALUES (?, cast(? as double precision), ?)"
-                 name target achieved])))
+                  VALUES (?, cast(? as double precision), false)"
+                 name target])))
 
 (defn update!
   [aim]
@@ -45,4 +45,5 @@
 
 (defn delete!
   [id]
+  (db/delete! ["DELETE FROM transactions WHERE id_aim = cast(? as integer)" id])
   (db/delete! ["DELETE FROM aims WHERE id = cast(? as integer)" id]))
