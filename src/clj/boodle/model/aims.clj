@@ -25,7 +25,8 @@
   []
   (db/query ["SELECT a.id, a.name as aim, a.target, t.amount
               FROM transactions t
-              INNER JOIN aims a ON t.id_aim = a.id"]))
+              INNER JOIN aims a ON t.id_aim = a.id
+              WHERE a.achieved = false"]))
 
 (defn insert!
   [aim]
