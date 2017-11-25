@@ -186,5 +186,6 @@
       (ajax/delete-request (str "/api/aim/delete/" id)
                            [:get-aims-with-transactions]
                            [:bad-response])
+      :db db
       :dispatch-n (list [:modal {:show? false :child nil}]
                         [:get-active-aims])))))
