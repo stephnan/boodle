@@ -39,11 +39,14 @@
 (rf/reg-event-fx
  :aims-change-achieved
  (fn [{db :db} [_ value]]
-   (assoc
-    (ajax/get-request (str "/api/transaction/aim/" value)
-                      [:load-achieved-aim-transactions]
-                      [:bad-response])
-    :db (assoc-in db [:aims :params :achieved] value))))
+   (if (or (nil? value) (empty? value))
+     {:db (assoc-in db [:aims :params :achieved] value)
+      :dispatch [:load-achieved-aim-transactions value]}
+     (assoc
+      (ajax/get-request (str "/api/transaction/aim/" value)
+                        [:load-achieved-aim-transactions]
+                        [:bad-response])
+      :db (assoc-in db [:aims :params :achieved] value)))))
 
 (rf/reg-event-db
  :load-active
