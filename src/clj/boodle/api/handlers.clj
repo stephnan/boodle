@@ -93,10 +93,10 @@
       :return [s.aim/Response]
       :summary "returns all the active aims"
       (r.aim/find-active))
-    (api/GET "/archived" []
+    (api/GET "/achieved" []
       :return [s.aim/Response]
-      :summary "returns all the archived aims"
-      (r.aim/find-archived))
+      :summary "returns all the achieved aims"
+      (r.aim/find-achieved))
     (api/POST "/insert" []
       :return s.aim/Response
       :body [aim s.aim/Body]

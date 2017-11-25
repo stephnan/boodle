@@ -23,10 +23,10 @@
     (with-redefs [model/select-active (fn [] {:item "test"})]
       (is (= (a/find-active) {:item "test"})))))
 
-(deftest find-archived-test
-  (testing "Testing find archived aims resource"
-    (with-redefs [model/select-archived (fn [] {:item "test"})]
-      (is (= (a/find-archived) {:item "test"})))))
+(deftest find-achieved-test
+  (testing "Testing find achieved aims resource"
+    (with-redefs [model/select-achieved (fn [] {:item "test"})]
+      (is (= (a/find-achieved) {:item "test"})))))
 
 (deftest insert-test
   (testing "Testing insert aim resource"

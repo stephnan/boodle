@@ -19,9 +19,9 @@
   []
   (model/select-active))
 
-(defn find-archived
+(defn find-achieved
   []
-  (model/select-archived))
+  (model/select-achieved))
 
 (defn insert!
   [aim]

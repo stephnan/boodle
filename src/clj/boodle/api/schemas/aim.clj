@@ -5,7 +5,7 @@
   {:id schema/Int
    :name schema/Str
    :target schema/Num
-   :archived schema/Bool})
+   :achieved schema/Bool})
 
 (def Transactions
   {:aim schema/Str
@@ -16,4 +16,4 @@
 (schema/defschema Body
   {:name schema/Str
    :target (schema/pred double?)
-   :archived schema/Bool})
+   :achieved schema/Bool})

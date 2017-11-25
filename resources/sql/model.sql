@@ -15,7 +15,7 @@ create table aims (
         id serial primary key,
         name varchar(30) not null,
         target numeric(7,2) not null,
-        archived boolean default false
+        achieved boolean default false
         );
 create table transactions (
         id serial primary key,

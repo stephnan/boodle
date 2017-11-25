@@ -15,11 +15,11 @@
 
 (defn select-active
   []
-  (db/query ["SELECT * FROM aims WHERE archived = false"]))
+  (db/query ["SELECT * FROM aims WHERE achieved = false"]))
 
-(defn select-archived
+(defn select-achieved
   []
-  (db/query ["SELECT * FROM aims WHERE archived = true"]))
+  (db/query ["SELECT * FROM aims WHERE achieved = true"]))
 
 (defn select-aims-with-transactions
   []
@@ -29,17 +29,17 @@
 
 (defn insert!
   [aim]
-  (let [{:keys [name target archived]} aim]
-    (db/update! ["INSERT INTO aims(name, target, archived)
+  (let [{:keys [name target achieved]} aim]
+    (db/update! ["INSERT INTO aims(name, target, achieved)
                   VALUES (?, cast(? as double precision), ?)"
-                 name target archived])))
+                 name target achieved])))
 
 (defn update!
   [aim]
-  (let [{:keys [id name target archived]} aim]
-    (db/update! ["UPDATE aims SET name = ?, target = ?, archived = ?
+  (let [{:keys [id name target achieved]} aim]
+    (db/update! ["UPDATE aims SET name = ?, target = ?, achieved = ?
                   WHERE id = cast(? as integer)"
-                 name target archived id])))
+                 name target achieved id])))
 
 (defn delete!
   [id]

@@ -122,10 +122,10 @@
             response (http/app request)]
         (is (= (:status response) 200))))))
 
-(deftest find-archived-test
-  (testing "Testing aim find archived API endpoint"
-    (with-redefs [a/find-archived (fn [] {:item "test"})]
-      (let [request (mock/request :get "/api/aim/archived")
+(deftest find-achieved-test
+  (testing "Testing aim find achieved API endpoint"
+    (with-redefs [a/find-achieved (fn [] {:item "test"})]
+      (let [request (mock/request :get "/api/aim/achieved")
             response (http/app request)]
         (is (= (:status response) 200))))))
 
