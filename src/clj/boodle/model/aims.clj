@@ -37,7 +37,8 @@
 (defn update!
   [aim]
   (let [{:keys [id name target achieved]} aim]
-    (db/update! ["UPDATE aims SET name = ?, target = ?, achieved = ?
+    (db/update! ["UPDATE aims SET name = ?,
+                  target = cast(? as double precision), achieved = ?
                   WHERE id = cast(? as integer)"
                  name target achieved id])))
 
