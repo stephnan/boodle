@@ -120,7 +120,8 @@
     (let [active-aims (conj @(rf/subscribe [:active-aims]) {:id "" :name ""})
           achieved-aims (conj @(rf/subscribe [:achieved-aims])
                               {:id "" :name ""})
-          params (rf/subscribe [:aims-params])]
+          params (rf/subscribe [:aims-params])
+          aim-selected (rf/subscribe [:selected-active-aim])]
       [:div
        [common/header]
 
@@ -141,19 +142,21 @@
         [:div.row
          [:div.twelve.columns
           {:style {:margin-top "1.5em"}}
-          [:div {:style {:text-align "center"}}
-           [:span {:style {:padding-right "1em"}}
-            [:button.button.button-primary
-             {:on-click #(rf/dispatch [:create-aim])}
-             "Crea meta"]]
-           [:span {:style {:padding-right "1em"}}
-            [:button.button.button-primary
-             ;; {:on-click #(rf/dispatch [:create-expense])}
-             "Aggiungi movimento"]]
-           [:span
-            [:button.button.button-primary
-             ;; {:on-click #(rf/dispatch [:reset-search])}
-             "Raggiunta"]]]]]
+          (if @aim-selected
+            [:div {:style {:text-align "center"}}
+             [:span {:style {:padding-right "1em"}}
+              [:button.button.button-primary
+               ;; {:on-click #(rf/dispatch [:create-expense])}
+               "Aggiungi movimento"]]
+             [:span
+              [:button.button.button-primary
+               ;; {:on-click #(rf/dispatch [:reset-search])}
+               "Raggiunta"]]]
+            [:div {:style {:text-align "center"}}
+             [:span {:style {:padding-right "1em"}}
+              [:button.button.button-primary
+               {:on-click #(rf/dispatch [:create-aim])}
+               "Crea meta"]]])]]
 
         [modal/modal]
 
