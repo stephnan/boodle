@@ -9,10 +9,10 @@
    (r/reaction (:active-aims @db))))
 
 (rf/reg-sub-raw
- :archived-aims
+ :achieved-aims
  (fn [db _]
-   (rf/dispatch [:get-archived-aims])
-   (r/reaction (:archived-aims @db))))
+   (rf/dispatch [:get-achieved-aims])
+   (r/reaction (:achieved-aims @db))))
 
 (rf/reg-sub
  :aims-params
@@ -23,3 +23,8 @@
  :aim-transactions
  (fn [db _]
    (get-in db [:aims :aim :transactions])))
+
+(rf/reg-sub
+ :aims-summary
+ (fn [db _]
+   (get-in db [:aims :summary])))

@@ -4,22 +4,10 @@
             [boodle.validation :as v]
             [re-frame.core :as rf]))
 
-(defn render-row
-  [row]
-  (let [amount (:amount row)
-        amount-str (if (pos? amount) (str "+" amount) amount)
-        color (if (pos? amount) "#718c00" "#c82829")]
-    [:tr {:key (random-uuid)}
-     [:td (:date row)]
-     [:td (:item row)]
-     [:td
-      {:style {:color color}}
-      [:strong (str amount-str "€")]]]))
-
-(defn transactions-table
+(defn amounts
   []
-  (let [rows (rf/subscribe [:aim-transactions])]
-    (fn []
+  (fn []
+    (let [rows (rf/subscribe [:aim-transactions])]
       (let [target (:target (first @rows))
             tot-amount (reduce + (map :amount @rows))
             amount-left (- target tot-amount)]
@@ -40,22 +28,61 @@
            {:style {:text-align "center"}}
            [:h5 "Rimanente: "
             [:strong {:style {:color "#c82829"}}
-             (str (v/or-zero amount-left) "€")]]]]
+             (str (v/or-zero amount-left) "€")]]]]]))))
 
-         [:table.u-full-width
-          [:thead
-           [:tr
-            [:th "Data"]
-            [:th "Motivo"]
-            [:th "Importo"]]]
-          [:tbody
-           (doall (map render-row @rows))]]]))))
+(defn render-transaction-row
+  [row]
+  (let [amount (:amount row)
+        amount-str (if (pos? amount) (str "+" amount) amount)
+        color (if (pos? amount) "#718c00" "#c82829")]
+    [:tr {:key (random-uuid)}
+     [:td (:date row)]
+     [:td (:item row)]
+     [:td
+      {:style {:color color}}
+      [:strong (str amount-str "€")]]]))
+
+(defn transactions-table
+  []
+  (fn []
+    (let [rows (rf/subscribe [:aim-transactions])]
+      [:table.u-full-width
+       [:thead
+        [:tr
+         [:th "Data"]
+         [:th "Motivo"]
+         [:th "Importo"]]]
+       [:tbody
+        (doall (map render-transaction-row @rows))]])))
+
+(defn render-summary-row
+  [row]
+  (let [aim (first row)
+        amounts (second row)]
+    [:tr {:key (random-uuid)}
+     [:td aim]
+     [:td (str (:target amounts) "€")]
+     [:td (str (:saved amounts) "€")]
+     [:td (str (:left amounts) "€")]]))
+
+(defn summary
+  []
+  (let [rows (rf/subscribe [:aims-summary])]
+    [:table.u-full-width
+     [:thead
+      [:tr
+       [:th "Meta"]
+       [:th "Obiettivo"]
+       [:th "Risparmiato"]
+       [:th "Rimanente"]]]
+     [:tbody
+      (doall (map render-summary-row @rows))]]))
 
 (defn home-panel
   []
   (fn []
     (let [active-aims (conj @(rf/subscribe [:active-aims]) {:id "" :name ""})
-          archived-aims (conj @(rf/subscribe [:archived-aims])
+          achieved-aims (conj @(rf/subscribe [:achieved-aims])
                               {:id "" :name ""})
           params (rf/subscribe [:aims-params])]
       [:div
@@ -76,12 +103,12 @@
             (map common/render-option active-aims)]]
 
           [:div.six.columns
-           [:label "Archiviate"]
+           [:label "Raggiunte"]
            [:select.u-full-width
-            {:value (v/or-empty-string (:archived @params))
-             :on-change #(rf/dispatch [:aims-change-archived
+            {:value (v/or-empty-string (:achieved @params))
+             :on-change #(rf/dispatch [:aims-change-achieved
                                        (-> % .-target .-value)])}
-            (map common/render-option archived-aims)]]]]
+            (map common/render-option achieved-aims)]]]]
 
         [:div.row
          [:div.twelve.columns
@@ -98,9 +125,10 @@
            [:span
             [:button.button.button-primary
              ;; {:on-click #(rf/dispatch [:reset-search])}
-             "Archivia meta"]]]]]
+             "Raggiunta"]]]]]
 
         [:hr]
 
         [:div {:style {:padding-top "1em"}}
+         [amounts]
          [transactions-table]]]])))

@@ -20,9 +20,9 @@
     :db (assoc-in db [:aims :params :active] value))))
 
 (rf/reg-event-db
- :aims-change-archived
+ :aims-change-achieved
  (fn [db [_ value]]
-   (assoc-in db [:aims :params :archived] value)))
+   (assoc-in db [:aims :params :achieved] value)))
 
 (rf/reg-event-db
  :load-active
@@ -38,14 +38,27 @@
                      [:bad-response])))
 
 (rf/reg-event-db
- :load-archived
+ :load-achieved
  (fn [db [_ result]]
    (let [sorted (sort-by :name result)]
-     (assoc db :archived-aims sorted))))
+     (assoc db :achieved-aims sorted))))
 
 (rf/reg-event-fx
- :get-archived-aims
+ :get-achieved-aims
  (fn [{db :db} _]
-   (ajax/get-request "/api/aim/archived"
-                     [:load-archived]
+   (ajax/get-request "/api/aim/achieved"
+                     [:load-achieved]
+                     [:bad-response])))
+
+(rf/reg-event-db
+ :load-summary
+ (fn [db [_ result]]
+   (let [sorted (sort-by key result)]
+     (assoc db :aims-summary sorted))))
+
+(rf/reg-event-fx
+ :get-aims-with-transactions
+ (fn [{db :db} _]
+   (ajax/get-request "/api/aim/transactions"
+                     [:load-summary]
                      [:bad-response])))
