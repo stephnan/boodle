@@ -29,16 +29,6 @@
  (fn [db _]
    (get-in db [:aims :params :active])))
 
-(rf/reg-sub
- :active-aim-transactions
- (fn [db _]
-   (get-in db [:aims :aim :active :transactions])))
-
-(rf/reg-sub
- :achieved-aim-transactions
- (fn [db _]
-   (get-in db [:aims :aim :achieved :transactions])))
-
 (rf/reg-sub-raw
  :aims-summary
  (fn [db _]

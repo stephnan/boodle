@@ -6,16 +6,6 @@
             [re-frame.core :as rf]))
 
 (rf/reg-event-db
- :load-active-aim-transactions
- (fn [db [_ result]]
-   (assoc-in db [:aims :aim :active :transactions] result)))
-
-(rf/reg-event-db
- :load-achieved-aim-transactions
- (fn [db [_ result]]
-   (assoc-in db [:aims :aim :achieved :transactions] result)))
-
-(rf/reg-event-db
  :load-summary
  (fn [db [_ result]]
    (let [sorted (sort-by (fn [e] (:name (second e))) result)]
@@ -95,7 +85,7 @@
   [aim]
   (v/validate-input
    (:name aim)
-   [{:message "Nome: nome è obbligatorio"
+   [{:message "Nome: è obbligatorio"
      :check-fn v/not-empty?}]))
 
 (defn validate-target

@@ -6,6 +6,8 @@
             [boodle.expenses.subs]
             [boodle.report.events]
             [boodle.report.subs]
+            [boodle.transactions.events]
+            [boodle.transactions.subs]
             [boodle.routes :as routes]
             [boodle.subs]
             [boodle.views :as views]

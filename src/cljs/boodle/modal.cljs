@@ -178,3 +178,40 @@
          [:button.button.button-primary
           {:type "button" :title "Ok"
            :on-click #(rf/dispatch [:delete-aim])} "Cancella meta"]]]]]]))
+
+(defn save-transaction
+  [title save-event]
+  (let [row @(rf/subscribe [:transactions-row])]
+    [:div.modal-content
+     [:div.modal-header.panel-heading
+      [:h5.modal-title title]]
+     [:div.modal-body
+      [v/validation-msg-box]
+      [:div.form
+       [:div.row
+        [:div.six.columns
+         [:label "Motivo"]
+         [:input.u-full-width
+          {:type "text"
+           :value (v/or-empty-string (:item row))
+           :on-change #(rf/dispatch [:transaction-change-item
+                                     (-> % .-target .-value)])}]]
+        [:div.six.columns
+         [:label "Importo (€)"]
+         [:input.u-full-width
+          {:type "text"
+           :value (v/or-empty-string (:amount row))
+           :on-change #(rf/dispatch [:transaction-change-amount
+                                     (-> % .-target .-value)])}]]]]]
+     [:hr]
+     [:div.modal-footer
+      [:div.modal-buttons
+       [:div.row
+        [:div.eight.columns
+         [:button.button
+          {:type "button" :title "Annulla"
+           :on-click #(rf/dispatch [:close-modal])} "Annulla"]]
+        [:div.three.columns
+         [:button.button.button-primary
+          {:type "button" :title "Ok"
+           :on-click #(rf/dispatch save-event)} "Ok"]]]]]]))

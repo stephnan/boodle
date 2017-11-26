@@ -52,7 +52,7 @@
    s
    (fn [s]
      (or (number? s)
-         (boolean (re-matches #"\d+\,?\d+" s))))))
+         (boolean (re-matches #"-?\d+\,?\d+" s))))))
 
 (defn not-empty?
   [value]
