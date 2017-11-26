@@ -1,4 +1,4 @@
-(defproject boodle "0.1.0-SNAPSHOT"
+(defproject boodle "1.0.0"
   :description "boodle: a simple accounting SPA"
   :url "http://github.com/manuel-uberti/boodle"
   :license {:name "Eclipse Public License"

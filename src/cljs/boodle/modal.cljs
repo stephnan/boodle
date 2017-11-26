@@ -215,3 +215,26 @@
          [:button.button.button-primary
           {:type "button" :title "Ok"
            :on-click #(rf/dispatch save-event)} "Ok"]]]]]]))
+
+(defn mark-aim-achieved
+  []
+  (let [row @(rf/subscribe [:aims-row])]
+    [:div.modal-content
+     [:div.modal-header.panel-heading
+      [:h5.modal-title "Meta raggiunta?"]]
+     [:div.modal-body
+      [:p {:style {:text-align "center"}}
+       "Confermi che la meta è stata felicemente raggiunta?"]]
+     [:hr]
+     [:div.modal-footer
+      [:div.modal-buttons
+       [:div.row
+        [:div.six.columns
+         [:button.button
+          {:type "button" :title "Annulla"
+           :on-click #(rf/dispatch [:close-modal])} "Annulla"]]
+        [:div.three.columns
+         [:button.button.button-primary
+          {:type "button" :title "Ok"
+           :on-click #(rf/dispatch [:do-mark-aim-achieved])}
+          "Archivia meta"]]]]]]))

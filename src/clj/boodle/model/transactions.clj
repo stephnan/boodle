@@ -17,8 +17,8 @@
   [id-aim]
   (db/query ["SELECT t.id, t.id_aim, a.name as aim, a.target, t.item,
               t.amount, t.date FROM transactions t
-              INNER JOIN aims a ON t.id_aim = a.id
-              WHERE t.id_aim = cast(? as integer)
+              RIGHT JOIN aims a ON t.id_aim = a.id
+              WHERE a.id = cast(? as integer)
               ORDER BY date DESC"
              id-aim]))
 

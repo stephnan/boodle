@@ -98,10 +98,14 @@
               [:button.button.button-primary
                {:on-click #(rf/dispatch [:create-transaction @aim-selected])}
                "Aggiungi movimento"]]
-             [:span
-              [:button.button.button-primary
-               ;; {:on-click #(rf/dispatch [:reset-search])}
-               "Raggiunta"]]]
+             (let [rows (rf/subscribe [:active-aim-transactions])
+                   target (:target (first @rows))
+                   tot-amount (reduce + (map :amount @rows))]
+               (when (= target tot-amount)
+                 [:span
+                  [:button.button.button-primary
+                   {:on-click #(rf/dispatch [:mark-aim-achieved @aim-selected])}
+                   "Raggiunta"]]))]
             [:div {:style {:text-align "center"}}
              [:span {:style {:padding-right "1em"}}
               [:button.button.button-primary

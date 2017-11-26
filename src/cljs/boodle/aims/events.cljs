@@ -179,3 +179,33 @@
       :db db
       :dispatch-n (list [:modal {:show? false :child nil}]
                         [:get-active-aims])))))
+
+(rf/reg-event-fx
+ :mark-aim-achieved
+ (fn [{db :db} [_ id]]
+   (let [aims (get-in db [:aims :summary])
+         row (-> (filter #(= (name (first %)) id) aims)
+                 first
+                 second
+                 (assoc :id id)
+                 (assoc :achieved true))]
+     {:db (assoc-in db [:aims :row] row)
+      :dispatch
+      [:modal
+       {:show? true
+        :child [modal/mark-aim-achieved]}]})))
+
+(rf/reg-event-fx
+ :do-mark-aim-achieved
+ (fn [{db :db} [_ id]]
+   (let [aim (get-in db [:aims :row])
+         id (:id aim)]
+     (assoc
+      (ajax/put-request (str "/api/aim/update/" id)
+                        aim
+                        [:get-aims-with-transactions]
+                        [:bad-response])
+      :db (assoc-in db [:aims :params :active] nil)
+      :dispatch-n (list [:modal {:show? false :child nil}]
+                        [:get-active-aims]
+                        [:get-achieved-aims])))))
