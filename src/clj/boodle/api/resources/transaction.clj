@@ -19,7 +19,10 @@
 
 (defn insert!
   [transaction]
-  (model/insert! transaction))
+  (let [amount-str (:amount transaction)
+        amount (clojure.string/replace amount-str #"," ".")
+        transaction (assoc transaction :amount (Double/parseDouble amount))]
+    (model/insert! transaction)))
 
 (defn update!
   [transaction]
