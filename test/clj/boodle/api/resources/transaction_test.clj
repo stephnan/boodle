@@ -26,8 +26,8 @@
 (deftest insert-test
   (testing "Testing insert transaction resource"
     (with-redefs [model/insert! (fn [transaction] transaction)]
-      (let [transaction {:name "test"}]
-        (is (= (t/insert! transaction) {:name "test"}))))))
+      (let [transaction {:name "test" :amount "3,5"}]
+        (is (= (t/insert! transaction) {:name "test" :amount 3.50}))))))
 
 (deftest update-test
   (testing "Testing update transaction resource"
