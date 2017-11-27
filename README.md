@@ -6,9 +6,6 @@ Status](https://travis-ci.org/manuel-uberti/boodle.svg?branch=master)](https://t
 
 Simple accounting SPA in Clojure and ClojureScript.
 
-## Screenshot
-![Screenshot](https://github.com/manuel-uberti/boodle/blob/master/screenshot.png)
-
 boodle uses these Clojure/ClojureScript libraries:
 
 - [bidi](https://github.com/juxt/bidi)
@@ -24,7 +21,12 @@ boodle uses these Clojure/ClojureScript libraries:
 boodle runs on [PostgreSQL](https://www.postgresql.org) 9.4.15 and 9.6.6, and
 uses [Skeleton](http://getskeleton.com/) to style the UI.
 
-The modal panel is a customised version of [re-frame-modal](https://github.com/benhowell/re-frame-modal).
+The modal panel is a customised version of
+[re-frame-modal](https://github.com/benhowell/re-frame-modal).
+
+A sneak preview is in the
+[screenshots](https://github.com/manuel-uberti/boodle/blob/master/screenshots)
+directory.
 
 ## Usage
 
