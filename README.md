@@ -26,6 +26,37 @@ uses [Skeleton](http://getskeleton.com/) to style the UI.
 
 The modal panel is a customised version of [re-frame-modal](https://github.com/benhowell/re-frame-modal).
 
+## Usage
+
+To run boodle, install and configure [PostgreSQL](https://www.postgresql.org) on
+your machine. Set up the database with the necessary tables and permissions you
+find in
+[model.sql](https://github.com/manuel-uberti/boodle/blob/master/resources/sql/model.sql).
+
+Install [lein](https://leiningen.org/), and in a terminal compile the
+ClojureScript files with:
+
+```console
+$ lein cljsbuild once
+```
+
+You can run `lein figwheel` if you want a REPL to play with the browser. Then
+fire up the server with:
+
+```console
+$ lein run
+```
+
+You can now browse at `http://localhost:8080` and interact with boodle.
+
+## Tests
+
+Unit tests can be easily run with:
+
+```console
+$ lein eftest
+```
+
 ## License
 
 Copyright © 2017 Manuel Uberti
