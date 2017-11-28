@@ -8,7 +8,7 @@ Simple accounting SPA in Clojure and ClojureScript.
 
 ![Screenshot](https://github.com/manuel-uberti/boodle/blob/master/screenshots/spese.png)
 
-There are a couple of other screenshots in the
+Other screenshots are available in the
 [screenshots](https://github.com/manuel-uberti/boodle/blob/master/screenshots)
 directory.
 
