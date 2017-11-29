@@ -13,10 +13,7 @@
      {:name "viewport"
       :content "width=device-width, initial-scale=1.0, maximum-scale=1.0"}]
     [:title "boodle"]
-    (hiccup/include-css "/css/skeleton.css"
-                        "/css/normalize.css"
-                        "/css/font-awesome/css/font-awesome.min.css"
-                        "/css/skeleton-fontawesome-buttons.css")]
+    (hiccup/include-css "/css/boodle.min.css")]
    [:body
     [:div#app]
     (hiccup/include-js "/js/main.js")

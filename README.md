@@ -37,6 +37,14 @@ your machine. Set up the database with the necessary tables and permissions you
 find in
 [model.sql](https://github.com/manuel-uberti/boodle/blob/master/resources/sql/model.sql).
 
+Install [yarn](https://yarnpkg.com/en/), and run:
+
+```console
+$ cd resources/src
+$ yarn
+$ gulp
+```
+
 Install [lein](https://leiningen.org/), and in a terminal compile the
 ClojureScript files with:
 
