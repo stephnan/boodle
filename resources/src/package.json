@@ -1,10 +1,12 @@
 {
-  "dependencies": {
-    "font-awesome": "^4.7.0",
-    "gulp": "^3.9.1",
-    "gulp-clean-css": "^3.9.0",
-    "gulp-concat": "^2.6.1",
-    "gulp-rename": "^1.2.2",
-    "skeleton-css": "^2.0.4"
-  }
+    "dependencies": {
+        "font-awesome": "^4.7.0",
+        "global": "^4.3.2",
+        "gulp": "^3.9.1",
+        "gulp-clean-css": "^3.9.0",
+        "gulp-cli": "^1.4.0",
+        "gulp-concat": "^2.6.1",
+        "gulp-rename": "^1.2.2",
+        "skeleton-css": "^2.0.4"
+    }
 }
