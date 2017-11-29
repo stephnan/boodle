@@ -37,7 +37,8 @@ your machine. Set up the database with the necessary tables and permissions you
 find in
 [model.sql](https://github.com/manuel-uberti/boodle/blob/master/resources/sql/model.sql).
 
-Install [yarn](https://yarnpkg.com/en/), and run:
+Install [yarn](https://yarnpkg.com/en/) and [gulp](https://gulpjs.com/), and
+then run:
 
 ```console
 $ cd resources/src
