@@ -46,8 +46,7 @@ $ yarn
 $ gulp
 ```
 
-Install [lein](https://leiningen.org/), and in a terminal compile the
-ClojureScript files with:
+Install [lein](https://leiningen.org/) and compile the ClojureScript files with:
 
 ```console
 $ lein cljsbuild once
