@@ -55,7 +55,7 @@
 
   :profiles
   {:dev
-   {:dependencies [[binaryage/devtools "0.9.7"]
+   {:dependencies [[binaryage/devtools "0.9.8"]
                    [com.cemerick/piggieback "0.2.2"]
                    [figwheel-sidecar "0.5.14"]]
     :plugins [[lein-figwheel "0.5.14"]]}}
