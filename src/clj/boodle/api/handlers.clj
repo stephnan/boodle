@@ -1,16 +1,14 @@
 (ns boodle.api.handlers
-  (:require [boodle.api.resources
-             [aim :as r.aim]
-             [category :as r.category]
-             [expense :as r.expense]
-             [report :as r.report]
-             [transaction :as r.transaction]]
-            [boodle.api.schemas
-             [aim :as s.aim]
-             [category :as s.category]
-             [expense :as s.expense]
-             [report :as s.report]
-             [transaction :as s.transaction]]
+  (:require [boodle.api.resources.aim :as r.aim]
+            [boodle.api.resources.category :as r.category]
+            [boodle.api.resources.expense :as r.expense]
+            [boodle.api.resources.report :as r.report]
+            [boodle.api.resources.transaction :as r.transaction]
+            [boodle.api.schemas.aim :as s.aim]
+            [boodle.api.schemas.category :as s.category]
+            [boodle.api.schemas.expense :as s.expense]
+            [boodle.api.schemas.report :as s.report]
+            [boodle.api.schemas.transaction :as s.transaction]
             [compojure.api.sweet :as api]
             [ring.util.http-response :as response]))
 

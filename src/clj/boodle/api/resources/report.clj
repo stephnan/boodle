@@ -1,8 +1,7 @@
 (ns boodle.api.resources.report
   (:require [boodle.model.expenses :as model]
-            [boodle.utils
-             [dates :as dates]
-             [numbers :as numbers]]))
+            [boodle.utils.dates :as dates]
+            [boodle.utils.numbers :as numbers]))
 
 (defn get-data
   [params]
