@@ -20,15 +20,14 @@
       (str (:left aim-values) "€")]
      [:td
       [:div.container
-       {:style {:padding-top ".4em"
-                :padding-bottom ".4em"
-                :padding-right "1.5em"}}
+       {:style {:padding-top ".4em" :padding-bottom ".4em"}}
        [:div.row
-        [:div.nine.columns
+        {:style {:padding-left ".2em"}}
+        [:div.seven.columns
          [:button.button.button-icon
           {:on-click #(rf/dispatch [:edit-aim aim-id])}
           [:i.fa.fa-pencil]]]
-        [:div.three.columns
+        [:div.five.columns
          {:style {}}
          [:button.button.button-icon
           {:on-click #(rf/dispatch [:remove-aim aim-id])}
@@ -45,7 +44,7 @@
          [:th "Obiettivo"]
          [:th "Risparmiato"]
          [:th "Rimanente"]
-         [:th "Azioni"]]]
+         [:th {:style {:text-align "center"}} "Azioni"]]]
        [:tbody
         (doall (map render-summary-row @rows))]])))
 

@@ -15,11 +15,12 @@
     [:div.container
      {:style {:padding-top ".4em" :padding-bottom ".4em"}}
      [:div.row
-      [:div.nine.columns
+      {:style {:padding-left "1.5em"}}
+      [:div.five.columns
        [:button.button.button-icon
         {:on-click #(rf/dispatch [:edit-expense (:id row)])}
         [:i.fa.fa-pencil]]]
-      [:div.three.columns
+      [:div.seven.columns
        [:button.button.button-icon
         {:on-click #(rf/dispatch [:remove-expense (:id row)])}
         [:i.fa.fa-remove]]]]]]])
@@ -35,7 +36,7 @@
          [:th "Categoria"]
          [:th "Oggetto"]
          [:th "Importo"]
-         [:th "Azioni"]]]
+         [:th {:style {:text-align "center"}} "Azioni"]]]
        [:tbody
         (doall (map render-row @rows))]])))
 
