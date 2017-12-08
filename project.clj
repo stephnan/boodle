@@ -17,7 +17,7 @@
    [metosin/compojure-api "1.1.11"]
    [metosin/ring-http-response "0.9.0"]
    [mount "0.1.11"]
-   [org.clojure/clojure "1.9.0-alpha17"]
+   [org.clojure/clojure "1.9.0"]
    [org.clojure/java.jdbc "0.7.3"]
    [org.clojure/test.check "0.9.0"]
    [org.clojure/tools.reader "1.1.1"]
