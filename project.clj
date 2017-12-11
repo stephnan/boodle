@@ -8,7 +8,7 @@
   [;; Clojure
    [cheshire "5.8.0"]
    [clojure.java-time "0.3.1"]
-   [com.taoensso/encore "2.92.0"]
+   [com.taoensso/encore "2.93.0"]
    [com.taoensso/timbre "4.10.0" :exclusions [com.taoennso/encore]]
    [dire "0.5.4"]
    [hiccup "1.0.5"]
