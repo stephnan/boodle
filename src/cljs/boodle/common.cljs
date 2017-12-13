@@ -1,5 +1,6 @@
 (ns boodle.common
-  (:require [re-frame.core :as rf]))
+  (:require [cljs.pprint :as pp]
+            [re-frame.core :as rf]))
 
 (defn header []
   (fn []
@@ -46,3 +47,7 @@
    {:key (random-uuid)
     :value (:id item)}
    (:name item)])
+
+(defn format-number
+  [n]
+  (pp/cl-format nil "~,2f" n))

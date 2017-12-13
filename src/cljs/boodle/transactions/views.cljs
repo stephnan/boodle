@@ -10,7 +10,7 @@
     (let [rows (rf/subscribe [:active-aim-transactions])
           target (:target (first @rows))
           tot-amount (reduce + (map :amount @rows))
-          amount-left (- target tot-amount)]
+          amount-left (common/format-number (- target tot-amount))]
       [:div
        [:div.row
         {:style {:text-align "center" :margin-top "-1.8em"}}
