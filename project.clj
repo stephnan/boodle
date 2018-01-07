@@ -18,7 +18,7 @@
    [metosin/ring-http-response "0.9.0"]
    [mount "0.1.11"]
    [org.clojure/clojure "1.9.0"]
-   [org.clojure/java.jdbc "0.7.4"]
+   [org.clojure/java.jdbc "0.7.5"]
    [org.clojure/test.check "0.9.0"]
    [org.clojure/tools.reader "1.1.1"]
    [org.postgresql/postgresql "42.1.4"]
