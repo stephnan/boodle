@@ -71,7 +71,7 @@ $ lein eftest
 
 ## License
 
-Copyright © 2017 Manuel Uberti
+Copyright © 2017-2018 Manuel Uberti
 
 Distributed under the Eclipse Public License either version 1.0 or (at
 your option) any later version.
