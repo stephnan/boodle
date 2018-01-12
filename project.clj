@@ -30,7 +30,7 @@
    [ring-middleware-format "0.7.2"]
 
    ;; ClojureScript
-   [bidi "2.1.2"]
+   [bidi "2.1.3"]
    [cljs-ajax "0.7.3"]
    [day8.re-frame/http-fx "0.1.4"]
    [kibu/pushy "0.3.8"]
