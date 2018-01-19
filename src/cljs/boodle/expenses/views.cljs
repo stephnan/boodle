@@ -1,5 +1,6 @@
 (ns boodle.expenses.views
   (:require [boodle.common :as common]
+            [boodle.i18n :refer [translate]]
             [boodle.modal :as modal]
             [boodle.validation :as v]
             [re-frame.core :as rf]))
@@ -10,7 +11,7 @@
    [:td (:date row)]
    [:td (:category row)]
    [:td (:item row)]
-   [:td (str (:amount row) "€")]
+   [:td (str (:amount row) (translate :it :currency))]
    [:td
     [:div.container
      {:style {:padding-top ".4em" :padding-bottom ".4em"}}
@@ -32,11 +33,12 @@
       [:table.u-full-width
        [:thead
         [:tr
-         [:th "Data"]
-         [:th "Categoria"]
-         [:th "Oggetto"]
-         [:th "Importo"]
-         [:th {:style {:text-align "center"}} "Azioni"]]]
+         [:th (translate :it :expenses/table.date)]
+         [:th (translate :it :expenses/table.category)]
+         [:th (translate :it :expenses/table.item)]
+         [:th (translate :it :expenses/table.amount)]
+         [:th {:style {:text-align "center"}}
+          (translate :it :expenses/table.actions)]]]
        [:tbody
         (doall (map render-row @rows))]])))
 
@@ -49,29 +51,29 @@
        [common/header]
 
        [:div.container {:style {:margin-top "1em"}}
-        [common/page-title "Spese"]
+        [common/page-title (translate :it :expenses/page.title)]
         [v/validation-msg-box]
 
         [:div.form
          [:div.row
           [:div.three.columns
-           [:label "Da"]
+           [:label (translate :it :expenses/label.from)]
            [:input.u-full-width
             {:type "text"
-             :placeholder "dd/mm/yyyy"
+             :placeholder (translate :it :date.placeholder)
              :value (v/or-empty-string (:from @params))
              :on-change #(rf/dispatch [:expenses-change-from
                                        (-> % .-target .-value)])}]]
           [:div.three.columns
-           [:label "A"]
+           [:label (translate :it :expenses/label.to)]
            [:input.u-full-width
             {:type "text"
-             :placeholder "dd/mm/yyyy"
+             :placeholder (translate :it :date.placeholder)
              :value (v/or-empty-string (:to @params))
              :on-change #(rf/dispatch [:expenses-change-to
                                        (-> % .-target .-value)])}]]
           [:div.six.columns
-           [:label "Categoria"]
+           [:label (translate :it :expenses/label.category)]
            [:select.u-full-width
             {:value (v/or-empty-string (:categories @params))
              :on-change #(rf/dispatch [:expenses-change-categories
@@ -85,15 +87,15 @@
             [:span {:style {:padding-right "1em"}}
              [:button.button.button-primary
               {:on-click #(rf/dispatch [:get-expenses-by-date])}
-              "Cerca spese"]]
+              (translate :it :expenses/button.search)]]
             [:span {:style {:padding-right "1em"}}
              [:button.button.button-primary
               {:on-click #(rf/dispatch [:create-expense])}
-              "Aggiungi"]]
+              (translate :it :expenses/button.add)]]
             [:span
              [:button.button.button-primary
               {:on-click #(rf/dispatch [:reset-search])}
-              "Reset"]]]]]
+              (translate :it :expenses/button.reset)]]]]]
 
          [modal/modal]
 

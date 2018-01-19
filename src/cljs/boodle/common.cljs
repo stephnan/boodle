@@ -1,5 +1,6 @@
 (ns boodle.common
-  (:require [cljs.pprint :as pp]
+  (:require [boodle.i18n :refer [translate]]
+            [cljs.pprint :as pp]
             [re-frame.core :as rf]))
 
 (defn header []
@@ -8,19 +9,19 @@
      [:div.row
       [:div.six.columns
        {:style {:margin-top ".1em"}}
-       [:h2 "boodle"]]
+       [:h2 (translate :it :header/boodle)]]
       [:div.one.column
        {:style {:margin-top ".8em"}}
-       [:h5 [:a {:href "/"} "Spese"]]]
+       [:h5 [:a {:href "/"} (translate :it :header/expenses)]]]
       [:div.one.column
        {:style {:margin-top ".8em"}}
-       [:h5 [:a {:href "/report"} "Report"]]]
+       [:h5 [:a {:href "/report"} (translate :it :header/report)]]]
       [:div.one.column
        {:style {:margin-top ".8em" :color "#8e908c"}}
        [:h5 "|"]]
       [:div.one.column
        {:style {:margin-top ".8em" :margin-left "-1.8em"}}
-       [:h5 [:a {:href "/aims"} "Mete"]]]]
+       [:h5 [:a {:href "/aims"} (translate :it :header/aims)]]]]
      [:hr
       {:style
        {:margin-top 0

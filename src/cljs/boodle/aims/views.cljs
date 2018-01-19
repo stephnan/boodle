@@ -1,5 +1,6 @@
 (ns boodle.aims.views
-  (:require [boodle.transactions.views :as t]
+  (:require [boodle.i18n :refer [translate]]
+            [boodle.transactions.views :as t]
             [boodle.common :as common]
             [boodle.modal :as modal]
             [boodle.validation :as v]
@@ -13,11 +14,11 @@
      [:td {:style {:padding-right "15em"}}
       (:name aim-values)]
      [:td {:style {:padding-right "2em"}}
-      (str (:target aim-values) "€")]
+      (str (:target aim-values) (translate :it :currency))]
      [:td {:style {:padding-right "3em"}}
-      (str (:saved aim-values) "€")]
+      (str (:saved aim-values) (translate :it :currency))]
      [:td {:style {:padding-right "3em"}}
-      (str (:left aim-values) "€")]
+      (str (:left aim-values) (translate :it :currency))]
      [:td
       [:div.container
        {:style {:padding-top ".4em" :padding-bottom ".4em"}}
@@ -40,11 +41,12 @@
       [:table.u-full-width
        [:thead
         [:tr
-         [:th "Meta"]
-         [:th "Obiettivo"]
-         [:th "Risparmiato"]
-         [:th "Rimanente"]
-         [:th {:style {:text-align "center"}} "Azioni"]]]
+         [:th (translate :it :aims/summary.table-aim)]
+         [:th (translate :it :aims/summary.table-target)]
+         [:th (translate :it :aims/summary.table-saved)]
+         [:th (translate :it :aims/summary.table-left)]
+         [:th {:style {:text-align "center"}}
+          (translate :it :aims/summary.table-actions)]]]
        [:tbody
         (doall (map render-summary-row @rows))]])))
 
@@ -76,12 +78,12 @@
        [common/header]
 
        [:div.container {:style {:margin-top "1em"}}
-        [common/page-title "Mete"]
+        [common/page-title (translate :it :aims/page.title)]
 
         [:div.form
          [:div.row
           [:div.twelve.columns
-           [:label "Attive"]
+           [:label (translate :it :aims/label-active)]
            [:select.u-full-width
             {:value (v/or-empty-string (:active @params))
              :on-change #(rf/dispatch [:aims-change-active
@@ -96,7 +98,7 @@
              [:span {:style {:padding-right "1em"}}
               [:button.button.button-primary
                {:on-click #(rf/dispatch [:create-transaction @aim-selected])}
-               "Aggiungi movimento"]]
+               (translate :it :aims/button-add-transaction)]]
              (let [rows (rf/subscribe [:active-aim-transactions])
                    target (:target (first @rows))
                    tot-amount (reduce + (map :amount @rows))]
@@ -104,12 +106,12 @@
                  [:span
                   [:button.button.button-primary
                    {:on-click #(rf/dispatch [:mark-aim-achieved @aim-selected])}
-                   "Raggiunta"]]))]
+                   (translate :it :aims/button-achieved)]]))]
             [:div {:style {:text-align "center"}}
              [:span {:style {:padding-right "1em"}}
               [:button.button.button-primary
                {:on-click #(rf/dispatch [:create-aim])}
-               "Crea meta"]]])]]
+               (translate :it :aims/button-create)]]])]]
 
         [modal/modal]
 
@@ -119,10 +121,10 @@
 
         [:hr]
 
-        [common/page-title "Archivio"]
+        [common/page-title (translate :it :aims/label-archive)]
         [:div.row
          [:div.twelve.columns
-          [:label "Raggiunte"]
+          [:label (translate :it :aims/label-achieved)]
           [:select.u-full-width
            {:value (v/or-empty-string (:achieved @params))
             :on-change #(rf/dispatch [:aims-change-achieved

@@ -1,5 +1,6 @@
 (ns boodle.report.views
   (:require [boodle.common :as common]
+            [boodle.i18n :refer [translate]]
             [boodle.validation :as v]
             [re-frame.core :as rf]))
 
@@ -7,7 +8,7 @@
   [row]
   [:tr {:key (random-uuid)}
    [:td (first row)]
-   [:td (str (second row) "€")]])
+   [:td (str (second row) (translate :it :currency))]])
 
 (defn render-report-row
   [row]
@@ -15,7 +16,7 @@
    [:td (:date row)]
    [:td (:category row)]
    [:td (:item row)]
-   [:td (str (:amount row) "€")]])
+   [:td (str (:amount row) (translate :it :currency))]])
 
 (defn category-selected?
   [rows]
@@ -29,17 +30,17 @@
         [:table.u-full-width
          [:thead
           [:tr
-           [:th "Data"]
-           [:th "Categoria"]
-           [:th "Oggetto"]
-           [:th "Importo"]]]
+           [:th (translate :it :report/table.date)]
+           [:th (translate :it :report/table.category)]
+           [:th (translate :it :report/table.item)]
+           [:th (translate :it :report/table.amount)]]]
          [:tbody
           (doall (map render-report-row @rows))]]
         [:table.u-full-width
          [:thead
           [:tr
-           [:th "Categoria"]
-           [:th "Importo"]]]
+           [:th (translate :it :report/table.category)]
+           [:th (translate :it :report/table.amount)]]]
          [:tbody
           (doall (map render-category-total-row @rows))]]))))
 
@@ -53,36 +54,36 @@
        [common/header]
 
        [:div.container {:style {:margin-top "1em"}}
-        [common/page-title "Report"]
+        [common/page-title (translate :it :report/page.title)]
         [v/validation-msg-box]
 
         [:div.form
          [:div.row
           [:div.three.columns
-           [:label "Da"]
+           [:label (translate :it :report/label.from)]
            [:input.u-full-width
             {:type "text"
-             :placeholder "dd/mm/yyyy"
+             :placeholder (translate :it :date.placeholder)
              :value (v/or-empty-string (:from @params))
              :on-change #(rf/dispatch [:report-change-from
                                        (-> % .-target .-value)])}]]
           [:div.three.columns
-           [:label "A"]
+           [:label (translate :it :report/label.to)]
            [:input.u-full-width
             {:type "text"
-             :placeholder "dd/mm/yyyy"
+             :placeholder (translate :it :date.placeholder)
              :value (v/or-empty-string (:to @params))
              :on-change #(rf/dispatch [:report-change-to
                                        (-> % .-target .-value)])}]]
           [:div.three.columns
-           [:label "Oggetto"]
+           [:label (translate :it :report/label.item)]
            [:input.u-full-width
             {:type "text"
              :value (v/or-empty-string (:item @params))
              :on-change #(rf/dispatch [:report-change-item
                                        (-> % .-target .-value)])}]]
           [:div.three.columns
-           [:label "Categoria"]
+           [:label (translate :it :report/label.category)]
            [:select.u-full-width
             {:value (v/or-empty-string (:categories @params))
              :on-change #(rf/dispatch [:report-change-categories
@@ -95,12 +96,13 @@
            [:div {:style {:text-align "center"}}
             [:button.button.button-primary
              {:on-click #(rf/dispatch [:get-data])}
-             "Cerca spese"]]]]
+             (translate :it :report/button.search)]]]]
 
          [:hr]
 
          [:div {:style {:text-align "center" :margin-top "-0.8em"}}
-          [:h5 "Totale: " [:strong (str (v/or-zero @total) "€")]]]
+          [:h5 (translate :it :report/label.total)
+           [:strong (str (v/or-zero @total) (translate :it :currency))]]]
 
          [:div
           [data-table]]]]])))
