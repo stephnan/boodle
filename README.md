@@ -53,8 +53,8 @@ Install [lein](https://leiningen.org/) and compile the ClojureScript files with:
 $ lein cljsbuild once
 ```
 
-You can run `lein figwheel` if you want a REPL to play with the browser. Then
-fire up the server with:
+Otherwise, you can run `lein figwheel` if you want a REPL to play with the
+browser. Then fire up the server with:
 
 ```console
 $ lein run
@@ -64,7 +64,7 @@ You can now browse at `http://localhost:8080` and interact with boodle.
 
 ## Tests
 
-Unit tests can be easily run with:
+Unit tests can be run with:
 
 ```console
 $ lein eftest
