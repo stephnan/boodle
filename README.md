@@ -23,6 +23,7 @@ boodle uses these Clojure/ClojureScript libraries:
 - [mount](https://github.com/tolitius/mount)
 - [re-frame](https://github.com/Day8/re-frame)
 - [ring](https://github.com/ring-clojure/ring)
+- [tongue](https://github.com/tonsky/tongue)
 
 boodle runs on [PostgreSQL](https://www.postgresql.org) 9.4.15 and 9.6.6, and
 uses [Skeleton](http://getskeleton.com/) to style the UI.
