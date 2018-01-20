@@ -20,7 +20,7 @@
    [org.clojure/clojure "1.9.0"]
    [org.clojure/java.jdbc "0.7.5"]
    [org.clojure/test.check "0.9.0"]
-   [org.clojure/tools.reader "1.1.2"]
+   [org.clojure/tools.reader "1.1.3.1"]
    [org.postgresql/postgresql "42.2.0"]
    [prone "1.2.0"]
    [ring "1.6.3"]
