@@ -35,7 +35,7 @@
    [day8.re-frame/http-fx "0.1.4"]
    [kibu/pushy "0.3.8"]
    [org.clojure/clojurescript "1.9.946"]
-   [re-frame "0.10.2"]
+   [re-frame "0.10.3"]
    [reagent "0.7.0"]
    [reagent-utils "0.2.1"]
    [tongue "0.2.3"]]
