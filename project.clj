@@ -58,6 +58,7 @@
   {:dev
    {:dependencies [[binaryage/devtools "0.9.9"]
                    [com.cemerick/piggieback "0.2.2"]
+                   [day8.re-frame/trace "0.1.15"]
                    [figwheel-sidecar "0.5.14"]]
     :plugins [[lein-figwheel "0.5.14"]]}}
 
@@ -70,6 +71,7 @@
                 :asset-path "js/out"
                 :output-to "resources/public/js/main.js"
                 :output-dir "resources/public/js/out"
-                :preloads [devtools.preload]
+                :closure-defines {"re_frame.trace.trace_enabled_QMARK_" true}
+                :preloads [day8.re-frame.trace.preload devtools.preload]
                 :external-config {:devtools/config
                                   {:features-to-install :all}}}}}})
