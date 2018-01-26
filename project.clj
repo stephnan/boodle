@@ -22,7 +22,7 @@
    [org.clojure/test.check "0.9.0"]
    [org.clojure/tools.reader "1.2.1"]
    [org.postgresql/postgresql "42.2.1"]
-   [prone "1.4.1"]
+   [prone "1.5.0"]
    [ring "1.6.3"]
    [ring/ring-defaults "0.3.1"]
    [ring/ring-json "0.4.0"]
