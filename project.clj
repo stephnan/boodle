@@ -36,13 +36,13 @@
    [day8.re-frame/http-fx "0.1.4"]
    [kibu/pushy "0.3.8"]
    [org.clojure/clojurescript "1.9.946"]
-   [re-frame "0.10.3"]
+   [re-frame "0.10.4"]
    [reagent "0.8.0-alpha2"]
    [reagent-utils "0.2.1"]
    [tongue "0.2.3"]]
 
   :plugins [[lein-cljsbuild "1.1.7"]
-            [lein-eftest "0.4.2"]]
+            [lein-eftest "0.4.3"]]
   :repl-options {:nrepl-middleware [cemerick.piggieback/wrap-cljs-repl]}
   :figwheel {:css-dirs ["resources/public/css"]}
 
