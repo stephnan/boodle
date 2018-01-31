@@ -12,7 +12,7 @@
    [com.taoensso/timbre "4.10.0" :exclusions [com.taoennso/encore]]
    [dire "0.5.4" :exclusions [org.clojure/core.incubator]]
    [hiccup "1.0.5"]
-   [hikari-cp "2.0.1"]
+   [hikari-cp "2.1.0"]
    [http-kit "2.2.0"]
    [metosin/compojure-api "1.1.11"]
    [metosin/ring-http-response "0.9.0"]
