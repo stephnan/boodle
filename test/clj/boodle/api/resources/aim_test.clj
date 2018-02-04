@@ -6,7 +6,7 @@
 (deftest find-all-test
   (testing "Testing find all aims resource"
     (with-redefs [model/select-all (fn [] [{:item "test" :target 10.50}])]
-      (is (= (a/find-all) [{:item "test" :target "10,5"}])))))
+      (is (= (a/find-all) [{:item "test" :target 10.5}])))))
 
 (deftest find-by-id-test
   (testing "Testing find aim by id resource"
@@ -50,4 +50,4 @@
     (with-redefs [model/select-aims-with-transactions
                   (fn [] [{:id 1, :aim "T", :target 1, :amount 1}])]
       (is (= (a/aims-with-transactions)
-             {1 {:name "T" :target "1", :saved "1", :left "0"}})))))
+             {1 {:name "T" :target 1, :saved 1, :left 0}})))))

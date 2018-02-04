@@ -148,7 +148,7 @@
     (api/GET "/find" []
       :return [s.saving/Response]
       :summary "returns all the savings"
-      (r.saving/find-all))
+      (response/ok (r.saving/find-all)))
     (api/GET "/find/:id" [id]
       :return s.saving/Response
       :summary "returns the saving identified by id"

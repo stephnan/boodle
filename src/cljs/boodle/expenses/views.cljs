@@ -11,7 +11,7 @@
    [:td (:date row)]
    [:td (:category row)]
    [:td (:item row)]
-   [:td (str (:amount row) (translate :it :currency))]
+   [:td (str (common/format-number (:amount row)) (translate :it :currency))]
    [:td
     [:div.container
      {:style {:padding-top ".4em" :padding-bottom ".4em"}}

@@ -4,8 +4,7 @@
 
 (defn find-all
   []
-  (->> (model/select-all)
-       (map #(numbers/convert-amount % :target))))
+  (model/select-all))
 
 (defn find-by-id
   [id]
@@ -52,7 +51,7 @@
                   saved (apply + (->> (map :amount v) (map numbers/or-zero)))
                   left (- target saved)]
               (assoc m k {:name aim
-                          :target (numbers/en->ita target)
-                          :saved (numbers/en->ita saved)
-                          :left (numbers/en->ita left)})))
+                          :target target
+                          :saved saved
+                          :left left})))
           {}))))

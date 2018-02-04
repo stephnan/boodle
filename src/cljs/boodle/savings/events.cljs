@@ -1,9 +1,21 @@
-(ns boodle.aims.events
+(ns boodle.savings.events
   (:require [boodle.ajax :as ajax]
             [boodle.modal :as modal]
             [boodle.validation :as v]
             [day8.re-frame.http-fx]
             [re-frame.core :as rf]))
+
+(rf/reg-event-db
+ :load-savings
+ (fn [db [_ result]]
+   (assoc db :savings result)))
+
+(rf/reg-event-fx
+ :get-savings
+ (fn [{db :db} [_ value]]
+   (ajax/get-request "/api/saving/find"
+                     [:load-savings]
+                     [:bad-response])))
 
 (rf/reg-event-db
  :load-summary

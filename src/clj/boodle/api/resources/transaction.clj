@@ -10,8 +10,8 @@
   (model/select-by-id id))
 
 (defn find-by-item
-  [name]
-  (model/select-by-item name))
+  [item]
+  (model/select-by-item item))
 
 (defn find-by-aim
   [id-aim]

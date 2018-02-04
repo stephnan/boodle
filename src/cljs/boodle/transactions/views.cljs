@@ -11,7 +11,7 @@
     (let [rows (rf/subscribe [:active-aim-transactions])
           target (:target (first @rows))
           tot-amount (reduce + (map :amount @rows))
-          amount-left (common/format-number (- target tot-amount))]
+          amount-left (- target tot-amount)]
       [:div
        [:div.row
         {:style {:text-align "center" :margin-top "-1.8em"}}
@@ -19,22 +19,23 @@
          {:style {:text-align "center"}}
          [:h5 (translate :it :transactions/label.target)
           [:strong {:style {:color "#718c00"}}
-           (str (v/or-zero target) (translate :it :currency))]]]
+           (str (common/format-number target) (translate :it :currency))]]]
         [:div.four.columns
          {:style {:text-align "center"}}
          [:h5 (translate :it :transactions/label.saved)
           [:strong {:style {:color "#f5871f"}}
-           (str (v/or-zero tot-amount) (translate :it :currency))]]]
+           (str (common/format-number tot-amount) (translate :it :currency))]]]
         [:div.four.columns
          {:style {:text-align "center"}}
          [:h5 (translate :it :transactions/label.left)
           [:strong {:style {:color "#c82829"}}
-           (str (v/or-zero amount-left) (translate :it :currency))]]]]])))
+           (str (common/format-number amount-left)
+                (translate :it :currency))]]]]])))
 
 (defn render-transaction-row
   [row]
   (when-let [amount (:amount row)]
-    (let [amount-str (if (pos? amount) (str "+" amount) amount)
+    (let [amount-str (common/format-neg-or-pos amount)
           color (if (pos? amount) "#718c00" "#c82829")]
       [:tr {:key (random-uuid)}
        [:td (:date row)]

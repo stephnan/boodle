@@ -1,18 +1,16 @@
 (ns boodle.api.resources.report
   (:require [boodle.model.expenses :as model]
-            [boodle.utils.dates :as dates]
-            [boodle.utils.numbers :as numbers]))
+            [boodle.utils.dates :as dates]))
 
 (defn get-data
   [params]
   (let [{from :from to :to item :item categories :categories} params
         to (if (nil? to) (dates/today) to)
         expenses (model/report from to item categories)
-        total (apply + (map :amount expenses))
-        data (map #(numbers/convert-amount % :amount) expenses)]
+        total (apply + (map :amount expenses))]
     (-> {}
-        (assoc :data data)
-        (assoc :total (numbers/en->ita total)))))
+        (assoc :data expenses)
+        (assoc :total total))))
 
 (defn categories-totals
   [expenses]
@@ -21,7 +19,6 @@
         (fn [m k v]
           (->> (map :amount v)
                (apply +)
-               (numbers/en->ita)
                (assoc m k)))
         {})))
 
@@ -31,8 +28,7 @@
         to (if (nil? to) (dates/today) to)
         item (if (nil? item) "" item)
         expenses (model/totals-for-categories from to item)
-        total (apply + (map :amount expenses))
-        data (categories-totals expenses)]
+        total (apply + (map :amount expenses))]
     (-> {}
-        (assoc :data data)
-        (assoc :total (numbers/en->ita total)))))
+        (assoc :data expenses)
+        (assoc :total total))))

@@ -6,7 +6,7 @@
 (deftest find-all-test
   (testing "Testing find all expenses resource"
     (with-redefs [model/select-all (fn [] [{:item "test" :amount 3.50}])]
-      (is (= (e/find-all) [{:item "test" :amount "3,5"}])))))
+      (is (= (e/find-all) [{:item "test" :amount 3.5}])))))
 
 (deftest find-by-id-test
   (testing "Testing find expense by id resource"
@@ -23,18 +23,18 @@
     (with-redefs [model/select-by-date-and-categories
                   (fn [f t c] [{:item "test" :amount 3.50}])]
       (is (= (e/find-by-date-and-categories {:from "1" :to "2" :categories []})
-             [{:item "test" :amount "3,5"}])))))
+             [{:item "test" :amount 3.5}])))))
 
 (deftest insert-test
   (testing "Testing insert expense resource"
     (with-redefs [model/insert! (fn [expense] expense)]
-      (let [expense {:name "test" :amount "3,5"}]
+      (let [expense {:name "test" :amount 3.50}]
         (is (= (e/insert! expense) {:name "test" :amount 3.50}))))))
 
 (deftest update-test
   (testing "Testing update expense resource"
     (with-redefs [model/update! (fn [expense] expense)]
-      (let [expense {:item "test" :amount "3,5"}]
+      (let [expense {:item "test" :amount 3.50}]
         (is (= (e/update! expense) {:item "test" :amount 3.50}))))))
 
 (deftest delete-test

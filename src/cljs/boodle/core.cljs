@@ -1,11 +1,11 @@
 (ns boodle.core
   (:require [boodle.events]
-            [boodle.aims.events]
-            [boodle.aims.subs]
             [boodle.expenses.events]
             [boodle.expenses.subs]
             [boodle.report.events]
             [boodle.report.subs]
+            [boodle.savings.events]
+            [boodle.savings.subs]
             [boodle.transactions.events]
             [boodle.transactions.subs]
             [boodle.routes :as routes]

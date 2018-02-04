@@ -5,7 +5,7 @@
 
 (def routes
   ["/" {"" :expenses-home
-        "aims" :aims-home
+        "savings" :savings-home
         "report" :report-home}])
 
 (defn- parse-url []

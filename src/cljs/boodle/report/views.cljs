@@ -8,7 +8,7 @@
   [row]
   [:tr {:key (random-uuid)}
    [:td (first row)]
-   [:td (str (second row) (translate :it :currency))]])
+   [:td (str (common/format-number (second row)) (translate :it :currency))]])
 
 (defn render-report-row
   [row]
@@ -16,7 +16,7 @@
    [:td (:date row)]
    [:td (:category row)]
    [:td (:item row)]
-   [:td (str (:amount row) (translate :it :currency))]])
+   [:td (str (common/format-number (:amount row)) (translate :it :currency))]])
 
 (defn category-selected?
   [rows]
@@ -102,7 +102,8 @@
 
          [:div {:style {:text-align "center" :margin-top "-0.8em"}}
           [:h5 (translate :it :report/label.total)
-           [:strong (str (v/or-zero @total) (translate :it :currency))]]]
+           [:strong (str (common/format-number @total)
+                         (translate :it :currency))]]]
 
          [:div
           [data-table]]]]])))

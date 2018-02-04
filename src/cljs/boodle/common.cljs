@@ -21,7 +21,7 @@
        [:h5 "|"]]
       [:div.one.column
        {:style {:margin-top ".8em" :margin-left "-1.8em"}}
-       [:h5 [:a {:href "/aims"} (translate :it :header/aims)]]]]
+       [:h5 [:a {:href "/savings"} (translate :it :header/savings)]]]]
      [:hr
       {:style
        {:margin-top 0
@@ -51,4 +51,13 @@
 
 (defn format-number
   [n]
-  (pp/cl-format nil "~,2f" n))
+  (if n
+    (-> (pp/cl-format nil "~,2f" n)
+        (clojure.string/replace #"\." ","))
+    "0"))
+
+(defn format-neg-or-pos
+  [n]
+  (if (pos? n)
+    (str "+" (format-number n))
+    (format-number n)))

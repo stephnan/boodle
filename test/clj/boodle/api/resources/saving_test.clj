@@ -5,8 +5,9 @@
 
 (deftest find-all-test
   (testing "Testing find all savings resource"
-    (with-redefs [model/select-all (fn [] {:item "test"})]
-      (is (= (s/find-all) {:item "test"})))))
+    (with-redefs [model/select-all (fn [] [{:item "test" :amount 3.5}])]
+      (is (= (s/find-all)
+             {:savings [{:item "test", :amount 3.5}], :total 3.5})))))
 
 (deftest find-by-id-test
   (testing "Testing find saving by id resource"

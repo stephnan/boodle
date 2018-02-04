@@ -52,7 +52,7 @@
      :table.item "Oggetto"}
 
     :header
-    {:aims "Mete"
+    {:savings "Risparmi"
      :boodle "boodle"
      :expenses "Spese"
      :report "Report"}
@@ -69,6 +69,13 @@
      :table.category "Categoria"
      :table.date "Data"
      :table.item "Oggetto"}
+
+    :savings
+    {:label.total "Totale "
+     :page.title "Risparmi"
+     :table.amount "Importo"
+     :table.date "Data"
+     :table.item "Motivo"}
 
     :transactions
     {:label.left "Rimanente: "

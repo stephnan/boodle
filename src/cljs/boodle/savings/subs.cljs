@@ -1,6 +1,12 @@
-(ns boodle.aims.subs
+(ns boodle.savings.subs
   (:require-macros [reagent.ratom :as r])
   (:require [re-frame.core :as rf]))
+
+(rf/reg-sub-raw
+ :savings
+ (fn [db _]
+   (rf/dispatch [:get-savings])
+   (r/reaction (:savings @db))))
 
 (rf/reg-sub-raw
  :active-aims
