@@ -1,10 +1,10 @@
 (ns boodle.api.handlers-test
-  (:require [boodle.api.resources
-             [aim :as a]
-             [category :as c]
-             [expense :as e]
-             [report :as r]
-             [transaction :as t]]
+  (:require [boodle.api.resources.aim :as a]
+            [boodle.api.resources.category :as c]
+            [boodle.api.resources.expense :as e]
+            [boodle.api.resources.report :as r]
+            [boodle.api.resources.saving :as s]
+            [boodle.api.resources.transaction :as t]
             [boodle.services.http :as http]
             [cheshire.core :as json]
             [clojure.test :refer :all]
@@ -132,7 +132,7 @@
 (deftest insert-test
   (testing "Testing aim insert API endpoint"
     (with-redefs [a/insert! (fn [aim] aim)]
-      (let [body (json/generate-string {:name "test" :monthly-budget 1})
+      (let [body (json/generate-string {:item "test" :monthly-budget 1})
             request (-> (mock/request :post "/api/aim/insert" body)
                         (mock/content-type "application/json"))
             response (http/app request)]
@@ -141,7 +141,7 @@
 (deftest update-test
   (testing "Testing aim update API endpoint"
     (with-redefs [a/update! (fn [aim] aim)]
-      (let [body (json/generate-string {:name "test" :monthly-budget 1})
+      (let [body (json/generate-string {:item "test" :monthly-budget 1})
             request (-> (mock/request :put "/api/aim/update/1" body)
                         (mock/content-type "application/json"))
             response (http/app request)]
@@ -186,7 +186,7 @@
 (deftest insert-test
   (testing "Testing transaction insert API endpoint"
     (with-redefs [t/insert! (fn [transaction] transaction)]
-      (let [body (json/generate-string {:name "test" :monthly-budget 1})
+      (let [body (json/generate-string {:item "test" :monthly-budget 1})
             request (-> (mock/request :post "/api/transaction/insert" body)
                         (mock/content-type "application/json"))
             response (http/app request)]
@@ -195,7 +195,7 @@
 (deftest update-test
   (testing "Testing transaction update API endpoint"
     (with-redefs [t/update! (fn [transaction] transaction)]
-      (let [body (json/generate-string {:name "test" :monthly-budget 1})
+      (let [body (json/generate-string {:item "test" :monthly-budget 1})
             request (-> (mock/request :put "/api/transaction/update/1" body)
                         (mock/content-type "application/json"))
             response (http/app request)]
@@ -205,6 +205,46 @@
   (testing "Testing transaction delete API endpoint"
     (with-redefs [t/delete! (fn [id] id)]
       (let [request (mock/request :delete "/api/transaction/delete/1")
+            response (http/app request)]
+        (is (= (:status response) 200))))))
+
+;;; Savings
+(deftest find-test
+  (testing "Testing saving find API endpoint"
+    (with-redefs [s/find-all (fn [] {:item "test"})]
+      (let [request (mock/request :get "/api/saving/find")
+            response (http/app request)]
+        (is (= (:status response) 200))))))
+
+(deftest find-by-id-test
+  (testing "Testing saving find by id API endpoint"
+    (with-redefs [s/find-by-id (fn [id] id)]
+      (let [request (mock/request :get "/api/saving/find/1")
+            response (http/app request)]
+        (is (= (:status response) 200))))))
+
+(deftest insert-test
+  (testing "Testing saving insert API endpoint"
+    (with-redefs [s/insert! (fn [saving] saving)]
+      (let [body (json/generate-string {:item "test" :amount 1})
+            request (-> (mock/request :post "/api/saving/insert" body)
+                        (mock/content-type "application/json"))
+            response (http/app request)]
+        (is (= (:status response) 200))))))
+
+(deftest update-test
+  (testing "Testing saving update API endpoint"
+    (with-redefs [s/update! (fn [saving] saving)]
+      (let [body (json/generate-string {:item "test" :amount 1})
+            request (-> (mock/request :put "/api/saving/update/1" body)
+                        (mock/content-type "application/json"))
+            response (http/app request)]
+        (is (= (:status response) 200))))))
+
+(deftest delete-test
+  (testing "Testing saving delete API endpoint"
+    (with-redefs [s/delete! (fn [id] id)]
+      (let [request (mock/request :delete "/api/saving/delete/1")
             response (http/app request)]
         (is (= (:status response) 200))))))
 

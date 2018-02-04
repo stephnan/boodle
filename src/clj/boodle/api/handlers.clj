@@ -3,11 +3,13 @@
             [boodle.api.resources.category :as r.category]
             [boodle.api.resources.expense :as r.expense]
             [boodle.api.resources.report :as r.report]
+            [boodle.api.resources.saving :as r.saving]
             [boodle.api.resources.transaction :as r.transaction]
             [boodle.api.schemas.aim :as s.aim]
             [boodle.api.schemas.category :as s.category]
             [boodle.api.schemas.expense :as s.expense]
             [boodle.api.schemas.report :as s.report]
+            [boodle.api.schemas.saving :as s.saving]
             [boodle.api.schemas.transaction :as s.transaction]
             [compojure.api.sweet :as api]
             [ring.util.http-response :as response]))
@@ -140,6 +142,30 @@
     (api/DELETE "/delete/:id" [id]
       :summary "deletes the transaction identified by id"
       (r.transaction/delete! id)))
+
+  (api/context "/api/saving" [id saving-name]
+    :tags ["operations"]
+    (api/GET "/find" []
+      :return [s.saving/Response]
+      :summary "returns all the savings"
+      (r.saving/find-all))
+    (api/GET "/find/:id" [id]
+      :return s.saving/Response
+      :summary "returns the saving identified by id"
+      (r.saving/find-by-id id))
+    (api/POST "/insert" []
+      :return s.saving/Response
+      :body [saving s.saving/Body]
+      :summary "inserts a saving"
+      (r.saving/insert! saving))
+    (api/PUT "/update/:id" [id]
+      :return s.saving/Response
+      :body [saving s.saving/Body]
+      :summary "updates the saving identified by id"
+      (r.saving/update! saving))
+    (api/DELETE "/delete/:id" [id]
+      :summary "deletes the saving identified by id"
+      (r.saving/delete! id)))
 
   (api/context "/api/report" []
     :tags ["information"]
