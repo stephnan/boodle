@@ -24,13 +24,21 @@ create table transactions (
         amount numeric(10,2),
         date date
         );
+create table savings (
+        id serial primary key,
+        item varchar(1000),
+        amount numeric(10,2),
+        date date
+        );
 grant all privileges on database "boodle" to admin;
 grant all privileges on table categories to admin;
 grant all privileges on table expenses to admin;
 grant all privileges on table aims to admin;
 grant all privileges on table transactions to admin;
+grant all privileges on table savings to admin;
 grant all privileges on table categories_id_seq to admin;
 grant all privileges on table expenses_id_seq to admin;
 grant all privileges on table aims_id_seq to admin;
 grant all privileges on table transactions_id_seq to admin;
+grant all privileges on table savings_id_seq to admin;
 grant postgres to admin;

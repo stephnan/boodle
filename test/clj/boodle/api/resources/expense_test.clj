@@ -34,8 +34,8 @@
 (deftest update-test
   (testing "Testing update expense resource"
     (with-redefs [model/update! (fn [expense] expense)]
-      (let [expense {:name "test" :amount "3,5"}]
-        (is (= (e/update! expense) {:name "test" :amount 3.50}))))))
+      (let [expense {:item "test" :amount "3,5"}]
+        (is (= (e/update! expense) {:item "test" :amount 3.50}))))))
 
 (deftest delete-test
   (testing "Testing delete expense resource"
