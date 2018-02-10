@@ -43,6 +43,18 @@
         [:tbody
          (doall (map render-saving-row savings))]]])))
 
+(defn savings-buttons
+  []
+  [:div {:style {:text-align "center"}}
+   [:span {:style {:padding-right "1em"}}
+    [:button.button.button-primary
+     {:on-click #(rf/dispatch [:add-saving])}
+     (translate :it :savings/button.add)]]
+   [:span
+    [:button.button.button-primary
+     {:on-click #(rf/dispatch [:transfer-amount])}
+     (translate :it :savings/button.transfer)]]])
+
 (defn render-summary-row
   [row]
   (let [aim-id (name (first row))
@@ -110,7 +122,7 @@
   [:div.form
    [:div.row
     [:div.twelve.columns
-     [:label (translate :it :aims/label-active)]
+     [:label (translate :it :aims/label.active)]
      [:select.u-full-width
       {:value (v/or-empty-string (:active params))
        :on-change #(rf/dispatch [:aims-change-active
@@ -127,7 +139,7 @@
        [:span {:style {:padding-right "1em"}}
         [:button.button.button-primary
          {:on-click #(rf/dispatch [:create-transaction @aim-selected])}
-         (translate :it :aims/button-add-transaction)]]
+         (translate :it :aims/button.add-transaction)]]
        (let [rows (rf/subscribe [:active-aim-transactions])
              target (:target (first @rows))
              tot-amount (reduce + (map :amount @rows))]
@@ -135,18 +147,18 @@
            [:span
             [:button.button.button-primary
              {:on-click #(rf/dispatch [:mark-aim-achieved @aim-selected])}
-             (translate :it :aims/button-achieved)]]))]
+             (translate :it :aims/button.achieved)]]))]
       [:div {:style {:text-align "center"}}
        [:span {:style {:padding-right "1em"}}
         [:button.button.button-primary
          {:on-click #(rf/dispatch [:create-aim])}
-         (translate :it :aims/button-create)]]])]])
+         (translate :it :aims/button.create)]]])]])
 
 (defn achieved-aims-filter
   [params achieved-aims]
   [:div.row
    [:div.twelve.columns
-    [:label (translate :it :aims/label-achieved)]
+    [:label (translate :it :aims/label.achieved)]
     [:select.u-full-width
      {:value (v/or-empty-string (:achieved params))
       :on-change #(rf/dispatch [:aims-change-achieved
@@ -167,6 +179,7 @@
         [common/page-title (translate :it :savings/page.title)]
         [savings-total]
         [savings-table]
+        [savings-buttons]
         [:hr]
 
         [common/page-title (translate :it :aims/page.title)]
@@ -179,7 +192,7 @@
         [active-aims-table]
         [:hr]
 
-        [common/page-title (translate :it :aims/label-archive)]
+        [common/page-title (translate :it :aims/label.archive)]
         [achieved-aims-filter @params achieved-aims]
         [:div {:style {:padding-top "1em" :padding-bottom ".1em"}}
          [achieved-aims-table]]]])))

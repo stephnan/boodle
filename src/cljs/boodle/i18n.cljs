@@ -4,12 +4,12 @@
 (def dicts
   {:it
    {:aims
-    {:button-achieved "Raggiunta"
-     :button-add-transaction "Aggiungi movimento"
-     :button-create "Crea meta"
-     :label-achieved "Raggiunte"
-     :label-active "Attive"
-     :label-archive "Archivo"
+    {:button.achieved "Raggiunta"
+     :button.add-transaction "Aggiungi movimento"
+     :button.create "Crea meta"
+     :label.achieved "Raggiunte"
+     :label.active "Attive"
+     :label.archive "Archivo"
      :modal.achieved-confirm "Confermi che la meta è stata felicemente raggiunta?"
      :modal.achieved-title "Meta raggiunta?"
      :modal.button-achieved "Archivia meta"
@@ -71,7 +71,11 @@
      :table.item "Oggetto"}
 
     :savings
-    {:label.total "Totale "
+    {:button.add "Aggiungi risparmio"
+     :button.transfer "Trasferisci importo"
+     :label.total "Totale "
+     :modal.amount "Importo"
+     :modal.item "Motivo"
      :page.title "Risparmi"
      :table.amount "Importo"
      :table.date "Data"
