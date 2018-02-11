@@ -41,10 +41,10 @@
       :body [category s.category/Body]
       :summary "inserts a category"
       (r.category/insert! category))
-    (api/PUT "/update/:id" [id]
+    (api/PUT "/update" []
       :return s.category/Response
       :body [category s.category/Body]
-      :summary "updates the category identified by id"
+      :summary "updates a category"
       (r.category/update! category))
     (api/DELETE "/delete/:id" [id]
       :summary "deletes the category identified by id"
@@ -70,10 +70,10 @@
       :body [expense s.expense/Body]
       :summary "inserts a expense"
       (r.expense/insert! expense))
-    (api/PUT "/update/:id" [id]
+    (api/PUT "/update" []
       :return s.expense/Response
       :body [expense s.expense/Body]
-      :summary "updates the expense identified by id"
+      :summary "updates an expense"
       (r.expense/update! expense))
     (api/DELETE "/delete/:id" [id]
       :summary "deletes the expense identified by id"
@@ -102,10 +102,10 @@
       :body [aim s.aim/Body]
       :summary "inserts an aim"
       (r.aim/insert! aim))
-    (api/PUT "/update/:id" [id]
+    (api/PUT "/update" []
       :return s.aim/Response
       :body [aim s.aim/Body]
-      :summary "updates the aim identified by id"
+      :summary "updates an aim"
       (r.aim/update! aim))
     (api/DELETE "/delete/:id" [id]
       :summary "deletes the aim identified by id"
@@ -134,10 +134,10 @@
       :body [transaction s.transaction/Body]
       :summary "inserts a transaction"
       (r.transaction/insert! transaction))
-    (api/PUT "/update/:id" [id]
+    (api/PUT "/update" []
       :return s.transaction/Response
       :body [transaction s.transaction/Body]
-      :summary "updates the transaction identified by id"
+      :summary "updates a transaction"
       (r.transaction/update! transaction))
     (api/DELETE "/delete/:id" [id]
       :summary "deletes the transaction identified by id"
@@ -158,14 +158,19 @@
       :body [saving s.saving/Body]
       :summary "inserts a saving"
       (r.saving/insert! saving))
-    (api/PUT "/update/:id" [id]
+    (api/PUT "/update" []
       :return s.saving/Response
       :body [saving s.saving/Body]
       :summary "updates the saving identified by id"
       (r.saving/update! saving))
     (api/DELETE "/delete/:id" [id]
       :summary "deletes the saving identified by id"
-      (r.saving/delete! id)))
+      (r.saving/delete! id))
+    (api/PUT "/transfer" []
+      :return s.saving/Response
+      :body [transfer s.saving/TransferBody]
+      :summary "transfer money from saving to aim"
+      (r.saving/transfer! transfer)))
 
   (api/context "/api/report" []
     :tags ["information"]

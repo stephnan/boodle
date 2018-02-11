@@ -1,6 +1,6 @@
 (ns boodle.api.resources.saving
   (:require [boodle.model.savings :as model]
-            [boodle.utils.numbers :as numbers]))
+            [boodle.model.transactions :as t]))
 
 (defn find-all
   []
@@ -32,3 +32,8 @@
 (defn delete!
   [id]
   (model/delete! id))
+
+(defn transfer!
+  [transfer]
+  (model/update! (dissoc transfer :id-aim))
+  (t/insert! (dissoc transfer :id)))

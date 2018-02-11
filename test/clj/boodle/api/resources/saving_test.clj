@@ -1,6 +1,7 @@
 (ns boodle.api.resources.saving-test
   (:require [boodle.api.resources.saving :as s]
             [boodle.model.savings :as model]
+            [boodle.model.transactions :as t]
             [clojure.test :refer :all]))
 
 (deftest find-all-test
@@ -35,3 +36,11 @@
   (testing "Testing delete saving resource"
     (with-redefs [model/delete! (fn [id] id)]
       (is (= (s/delete! "1") "1")))))
+
+(deftest transfer-test
+  (testing "Testing transfer saving resource"
+    (with-redefs [model/update! (fn [params] params)
+                  t/insert! (fn [params] params)]
+      (let [transfer {:id 1 :id-aim 1 :item "test transfer" :amount 20}]
+        (is (= (s/transfer! transfer)
+               {:id-aim 1 :item "test transfer" :amount 20}))))))

@@ -8,3 +8,8 @@
 (schema/defschema Body
   {:item schema/Str
    :amount (schema/pred double?)})
+
+(schema/defschema TransferBody
+  {:item schema/Str
+   :id-aim schema/Int
+   :amount (schema/pred double?)})

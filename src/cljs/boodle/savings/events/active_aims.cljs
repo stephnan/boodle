@@ -138,7 +138,7 @@
      (if-not (empty? not-valid)
        (rf/dispatch [:validation-error not-valid])
        (assoc
-        (ajax/put-request (str "/api/aim/update/" id)
+        (ajax/put-request "/api/aim/update"
                           aim
                           [:get-aims-with-transactions]
                           [:bad-response])

@@ -37,8 +37,8 @@
 (deftest update-test
   (testing "Testing category update API endpoint"
     (with-redefs [c/update! (fn [category] category)]
-      (let [body (json/generate-string {:name "test" :monthly-budget 1})
-            request (-> (mock/request :put "/api/category/update/1" body)
+      (let [body (json/generate-string {:id 1 :name "test" :monthly-budget 1})
+            request (-> (mock/request :put "/api/category/update" body)
                         (mock/content-type "application/json"))
             response (http/app request)]
         (is (= (:status response) 200))))))
@@ -87,8 +87,8 @@
 (deftest test-update
   (testing "Testing expense update API endpoint"
     (with-redefs [e/update! (fn [expense] expense)]
-      (let [body (json/generate-string {:item "test" :amount 2})
-            request (-> (mock/request :put "/api/expense/update/1" body)
+      (let [body (json/generate-string {:id 1 :item "test" :amount 2})
+            request (-> (mock/request :put "/api/expense/update" body)
                         (mock/content-type "application/json"))
             response (http/app request)]
         (is (= (:status response) 200))))))
@@ -141,8 +141,8 @@
 (deftest update-test
   (testing "Testing aim update API endpoint"
     (with-redefs [a/update! (fn [aim] aim)]
-      (let [body (json/generate-string {:item "test" :monthly-budget 1})
-            request (-> (mock/request :put "/api/aim/update/1" body)
+      (let [body (json/generate-string {:id 1 :item "test" :monthly-budget 1})
+            request (-> (mock/request :put "/api/aim/update" body)
                         (mock/content-type "application/json"))
             response (http/app request)]
         (is (= (:status response) 200))))))
@@ -195,8 +195,8 @@
 (deftest update-test
   (testing "Testing transaction update API endpoint"
     (with-redefs [t/update! (fn [transaction] transaction)]
-      (let [body (json/generate-string {:item "test" :monthly-budget 1})
-            request (-> (mock/request :put "/api/transaction/update/1" body)
+      (let [body (json/generate-string {:id 1 :item "test" :monthly-budget 1})
+            request (-> (mock/request :put "/api/transaction/update" body)
                         (mock/content-type "application/json"))
             response (http/app request)]
         (is (= (:status response) 200))))))
@@ -235,8 +235,8 @@
 (deftest update-test
   (testing "Testing saving update API endpoint"
     (with-redefs [s/update! (fn [saving] saving)]
-      (let [body (json/generate-string {:item "test" :amount 1})
-            request (-> (mock/request :put "/api/saving/update/1" body)
+      (let [body (json/generate-string {:id 1 :item "test" :amount 1})
+            request (-> (mock/request :put "/api/saving/update" body)
                         (mock/content-type "application/json"))
             response (http/app request)]
         (is (= (:status response) 200))))))
@@ -245,6 +245,15 @@
   (testing "Testing saving delete API endpoint"
     (with-redefs [s/delete! (fn [id] id)]
       (let [request (mock/request :delete "/api/saving/delete/1")
+            response (http/app request)]
+        (is (= (:status response) 200))))))
+
+(deftest transfer-test
+  (testing "Testing saving transfer API endpoint"
+    (with-redefs [s/transfer! (fn [transfer] transfer)]
+      (let [body (json/generate-string {:id 1 :id-aim 1 :item "test" :amount 1})
+            request (-> (mock/request :put "/api/saving/transfer" body)
+                        (mock/content-type "application/json"))
             response (http/app request)]
         (is (= (:status response) 200))))))
 

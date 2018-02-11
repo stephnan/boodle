@@ -39,7 +39,7 @@
    (let [aim (get-in db [:aims :row])
          id (:id aim)]
      (assoc
-      (ajax/put-request (str "/api/aim/update/" id)
+      (ajax/put-request "/api/aim/update"
                         aim
                         [:get-aims-with-transactions]
                         [:bad-response])

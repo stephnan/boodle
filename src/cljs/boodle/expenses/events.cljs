@@ -104,7 +104,7 @@
      (if-not (empty? not-valid)
        (rf/dispatch [:validation-error not-valid])
        (assoc
-        (ajax/put-request (str "/api/expense/update/" id)
+        (ajax/put-request "/api/expense/update"
                           expense
                           success-evn
                           [:bad-response])
