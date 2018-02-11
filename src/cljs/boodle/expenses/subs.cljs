@@ -1,6 +1,6 @@
 (ns boodle.expenses.subs
-  (:require-macros [reagent.ratom :as r])
-  (:require [re-frame.core :as rf]))
+  (:require [re-frame.core :as rf])
+  (:require-macros [reagent.ratom :as r]))
 
 (rf/reg-sub-raw
  :expenses-rows

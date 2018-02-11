@@ -1,7 +1,6 @@
 (ns boodle.common
   (:require [boodle.i18n :refer [translate]]
-            [cljs.pprint :as pp]
-            [re-frame.core :as rf]))
+            [cljs.pprint :as pp]))
 
 (defn header []
   (fn []

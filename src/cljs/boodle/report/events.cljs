@@ -1,7 +1,6 @@
 (ns boodle.report.events
   (:require [boodle.ajax :as ajax]
             [boodle.validation :as v]
-            [day8.re-frame.http-fx]
             [re-frame.core :as rf]))
 
 (rf/reg-event-db
