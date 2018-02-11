@@ -63,7 +63,7 @@
         [:div {:style {:padding-bottom "1em"}}
          [summary-table]]))))
 
-(defn filter
+(defn dropdown
   []
   (fn []
     (let [params (rf/subscribe [:aims-params])
@@ -93,11 +93,11 @@
          (let [rows (rf/subscribe [:active-aim-transactions])
                target (:target (first @rows))
                tot-amount (reduce + (map :amount @rows))]
-           (when (= target tot-amount)p
-                 [:span
-                  [:button.button.button-primary
-                   {:on-click #(rf/dispatch [:mark-aim-achieved @aim-selected])}
-                   (translate :it :aims/button.achieved)]]))]
+           (when (= target tot-amount)
+             [:span
+              [:button.button.button-primary
+               {:on-click #(rf/dispatch [:mark-aim-achieved @aim-selected])}
+               (translate :it :aims/button.achieved)]]))]
         [:div {:style {:text-align "center"}}
          [:span {:style {:padding-right "1em"}}
           [:button.button.button-primary

@@ -19,7 +19,7 @@
       [:hr]
 
       [common/page-title (translate :it :aims/page.title)]
-      [active/filter]
+      [active/dropdown]
       [active/buttons]
 
       [modal/modal]
@@ -29,6 +29,6 @@
       [:hr]
 
       [common/page-title (translate :it :aims/label.archive)]
-      [achieved/filter]
+      [achieved/dropdown]
       [:div {:style {:padding-top "1em" :padding-bottom ".1em"}}
        [achieved/table]]]]))

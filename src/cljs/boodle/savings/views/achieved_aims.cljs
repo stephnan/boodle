@@ -9,7 +9,7 @@
   []
   [t/transactions-table :achieved-aim-transactions])
 
-(defn filter
+(defn dropdown
   []
   (fn []
     (let [params (rf/subscribe [:aims-params])
