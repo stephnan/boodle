@@ -23,17 +23,13 @@
 
 (defn insert!
   [expense]
-  (let [amount-str (:amount expense)
-        amount (clojure.string/replace amount-str #"," ".")
-        expense (assoc expense :amount (Double/parseDouble amount))]
-    (model/insert! expense)))
+  (-> (numbers/str->number expense :amount)
+      (model/insert!)))
 
 (defn update!
   [expense]
-  (let [amount-str (:amount expense)
-        amount (clojure.string/replace amount-str #"," ".")
-        expense (assoc expense :amount (Double/parseDouble amount))]
-    (model/update! expense)))
+  (-> (numbers/str->number expense :amount)
+      (model/update!)))
 
 (defn delete!
   [id]

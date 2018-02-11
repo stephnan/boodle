@@ -24,17 +24,13 @@
 
 (defn insert!
   [aim]
-  (let [target-str (:target aim)
-        target (clojure.string/replace target-str #"," ".")
-        aim (assoc aim :target (Double/parseDouble target))]
-    (model/insert! aim)))
+  (-> (numbers/str->number aim :target)
+      (model/insert!)))
 
 (defn update!
   [aim]
-  (let [target-str (:target aim)
-        target (clojure.string/replace target-str #"," ".")
-        aim (assoc aim :target (Double/parseDouble target))]
-    (model/update! aim)))
+  (-> (numbers/str->number aim :target)
+      (model/update!)))
 
 (defn delete!
   [id]

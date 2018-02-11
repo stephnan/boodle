@@ -1,5 +1,6 @@
 (ns boodle.api.resources.transaction
-  (:require [boodle.model.transactions :as model]))
+  (:require [boodle.model.transactions :as model]
+            [boodle.utils.numbers :as numbers]))
 
 (defn find-all
   []
@@ -19,14 +20,13 @@
 
 (defn insert!
   [transaction]
-  (let [amount-str (:amount transaction)
-        amount (clojure.string/replace amount-str #"," ".")
-        transaction (assoc transaction :amount (Double/parseDouble amount))]
-    (model/insert! transaction)))
+  (-> (numbers/str->number transaction :amount)
+      (model/insert!)))
 
 (defn update!
   [transaction]
-  (model/update! transaction))
+  (-> (numbers/str->number transaction :amount)
+      (model/update!)))
 
 (defn delete!
   [id]

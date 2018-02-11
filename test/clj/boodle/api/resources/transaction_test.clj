@@ -32,8 +32,8 @@
 (deftest update-test
   (testing "Testing update transaction resource"
     (with-redefs [model/update! (fn [transaction] transaction)]
-      (let [transaction {:item "test update"}]
-        (is (= (t/update! transaction) {:item "test update"}))))))
+      (let [transaction {:item "test update" :amount "3,5"}]
+        (is (= (t/update! transaction) {:item "test update" :amount 3.50}))))))
 
 (deftest delete-test
   (testing "Testing delete transaction resource"

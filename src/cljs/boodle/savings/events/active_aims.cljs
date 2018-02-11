@@ -1,5 +1,6 @@
 (ns boodle.savings.events.active-aims
   (:require [boodle.ajax :as ajax]
+            [boodle.common :as common]
             [boodle.savings.modal :as modal]
             [boodle.validation :as v]
             [day8.re-frame.http-fx]
@@ -122,7 +123,8 @@
                  first
                  second
                  (assoc :id id)
-                 (assoc :achieved false))]
+                 (assoc :achieved false)
+                 (update :target common/format-number))]
      {:db (assoc-in db [:aims :row] row)
       :dispatch
       [:modal

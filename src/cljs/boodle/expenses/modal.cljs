@@ -43,7 +43,7 @@
          [:label (translate :it :expenses/modal.amount)]
          [:input.u-full-width
           {:type "text"
-           :value (common/format-number (:amount row))
+           :value (:amount row)
            :on-change #(rf/dispatch [:expense-change-amount
                                      (-> % .-target .-value)])}]]]]]
      [:hr]

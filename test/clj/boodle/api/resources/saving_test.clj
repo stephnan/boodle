@@ -39,8 +39,8 @@
 
 (deftest transfer-test
   (testing "Testing transfer saving resource"
-    (with-redefs [model/update! (fn [params] params)
-                  t/insert! (fn [params] params)]
-      (let [transfer {:id 1 :id-aim 1 :item "test transfer" :amount 20}]
+    (with-redefs [t/insert! (fn [params] params)
+                  model/insert! (fn [params] params)]
+      (let [transfer {:id-aim 1 :item "test transfer" :amount 20}]
         (is (= (s/transfer! transfer)
-               {:id-aim 1 :item "test transfer" :amount 20}))))))
+               {:id-aim 1 :item "test transfer" :amount -20.0}))))))

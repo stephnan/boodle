@@ -14,6 +14,11 @@
    (r/reaction (get-in @db [:savings :row]))))
 
 (rf/reg-sub-raw
+ :transfer-row
+ (fn [db _]
+   (r/reaction (get-in @db [:transfer :row]))))
+
+(rf/reg-sub-raw
  :active-aims
  (fn [db _]
    (rf/dispatch [:get-active-aims])

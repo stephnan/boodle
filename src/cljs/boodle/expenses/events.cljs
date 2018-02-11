@@ -2,7 +2,8 @@
   (:require [boodle.ajax :as ajax]
             [boodle.expenses.modal :as modal]
             [boodle.validation :as v]
-            [re-frame.core :as rf]))
+            [re-frame.core :as rf]
+            [boodle.common :as common]))
 
 (rf/reg-event-db
  :expenses-change-from
@@ -84,7 +85,8 @@
  :edit-expense
  (fn [{db :db} [_ id]]
    (let [expenses (get-in db [:expenses :rows])
-         row (first (filter #(= (:id %) id) expenses))]
+         row (-> (first (filter #(= (:id %) id) expenses))
+                 (update :amount common/format-number))]
      {:db (assoc-in db [:expenses :row] row)
       :dispatch
       [:modal

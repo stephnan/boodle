@@ -71,3 +71,52 @@
                            [:bad-response])
         :db (assoc db :show-validation false)
         :dispatch [:modal {:show? false :child nil}])))))
+
+(rf/reg-event-db
+ :transfer-change-active-aim
+ (fn [db [_ value]]
+   (assoc-in db [:transfer :row :id-aim] value)))
+
+(rf/reg-event-db
+ :transfer-change-amount
+ (fn [db [_ value]]
+   (assoc-in db [:transfer :row :amount] value)))
+
+(rf/reg-event-fx
+ :transfer-amount
+ (fn [{db :db} [_ _]]
+   {:db db
+    :dispatch
+    [:modal
+     {:show? true
+      :child [modal/transfer-amount "Trasferisci importo" [:transfer]]}]}))
+
+(defn validate-aim
+  [transfer]
+  (v/validate-input
+   (:id-aim transfer)
+   [{:message "Meta: selezionare una meta"
+     :check-fn v/not-empty?}]))
+
+(defn validate-transfer
+  [transfer]
+  (let [result []]
+    (-> result
+        (into (validate-aim transfer))
+        (into (validate-amount transfer)))))
+
+(rf/reg-event-fx
+ :transfer
+ (fn [{db :db} [_ _]]
+   (let [transfer (get-in db [:transfer :row])
+         not-valid (validate-transfer transfer)]
+     (if-not (empty? not-valid)
+       (rf/dispatch [:validation-error not-valid])
+       (assoc
+        (ajax/put-request "/api/saving/transfer"
+                          (assoc transfer :item "Trasferimento fondi")
+                          [:get-savings]
+                          [:bad-response])
+        :db (assoc db :show-validation false)
+        :dispatch-n (list [:modal {:show? false :child nil}]
+                          [:get-aims-with-transactions]))))))

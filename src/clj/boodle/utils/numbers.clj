@@ -17,3 +17,11 @@
   (if x
     x
     0))
+
+(defn str->number
+  [record k]
+  (let [s (k record)
+        n (clojure.string/replace s #"," ".")]
+    (->> n
+         Double/parseDouble
+         (assoc record k))))

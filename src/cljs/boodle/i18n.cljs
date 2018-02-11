@@ -73,6 +73,7 @@
     :savings
     {:button.add "Aggiungi risparmio"
      :button.transfer "Trasferisci importo"
+     :label.active-aims "Mete attive"
      :label.total "Totale "
      :modal.amount "Importo"
      :modal.item "Motivo"

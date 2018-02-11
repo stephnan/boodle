@@ -1,6 +1,7 @@
 (ns boodle.api.resources.saving
   (:require [boodle.model.savings :as model]
-            [boodle.model.transactions :as t]))
+            [boodle.model.transactions :as t]
+            [boodle.utils.numbers :as numbers]))
 
 (defn find-all
   []
@@ -20,10 +21,8 @@
 
 (defn insert!
   [saving]
-  (let [amount-str (:amount saving)
-        amount (clojure.string/replace amount-str #"," ".")
-        saving (assoc saving :amount (Double/parseDouble amount))]
-    (model/insert! saving)))
+  (-> (numbers/str->number saving :amount)
+      (model/insert!)))
 
 (defn update!
   [saving]
@@ -35,5 +34,8 @@
 
 (defn transfer!
   [transfer]
-  (model/update! (dissoc transfer :id-aim))
-  (t/insert! (dissoc transfer :id)))
+  (let [t (numbers/str->number transfer :amount)]
+    (t/insert! t)
+    (-> t
+        (assoc :amount (- (:amount t)))
+        (model/insert!))))
