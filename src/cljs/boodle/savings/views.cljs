@@ -1,13 +1,10 @@
 (ns boodle.savings.views
-  (:require [boodle.i18n :refer [translate]]
-            [boodle.transactions.views :as t]
-            [boodle.common :as common]
+  (:require [boodle.common :as common]
+            [boodle.i18n :refer [translate]]
             [boodle.modal :as modal]
             [boodle.savings.views.achieved-aims :as achieved]
             [boodle.savings.views.active-aims :as active]
-            [boodle.savings.views.savings :as savings]
-            [boodle.validation :as v]
-            [re-frame.core :as rf]))
+            [boodle.savings.views.savings :as savings]))
 
 (defn home-panel
   []
