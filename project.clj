@@ -16,7 +16,7 @@
    [http-kit "2.2.0"]
    [metosin/compojure-api "1.1.11"]
    [metosin/ring-http-response "0.9.0"]
-   [mount "0.1.11"]
+   [mount "0.1.12"]
    [org.clojure/clojure "1.9.0"]
    [org.clojure/core.incubator "0.1.4"]
    [org.clojure/java.jdbc "0.7.5"]
@@ -37,7 +37,7 @@
    [org.clojure/clojurescript "1.9.946"]
    [re-frame "0.10.4"]
    [reagent "0.8.0-alpha2"]
-   [reagent-utils "0.2.1"]
+   [reagent-utils "0.3.0"]
    [tongue "0.2.3"]]
 
   :plugins [[lein-cljsbuild "1.1.7"]
