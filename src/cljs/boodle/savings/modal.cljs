@@ -1,5 +1,6 @@
 (ns boodle.savings.modal
-  (:require [boodle.i18n :refer [translate]]
+  (:require [boodle.common :as common]
+            [boodle.i18n :refer [translate]]
             [boodle.validation :as v]
             [re-frame.core :as rf]))
 
@@ -24,7 +25,7 @@
          [:label (translate :it :savings/modal.amount)]
          [:input.u-full-width
           {:type "text"
-           :value (v/or-empty-string (:amount row))
+           :value (common/format-number (:amount row))
            :on-change #(rf/dispatch [:saving-change-amount
                                      (-> % .-target .-value)])}]]]]]
      [:hr]
@@ -63,7 +64,7 @@
          [:label (translate :it :aims/modal.target)]
          [:input.u-full-width
           {:type "text"
-           :value (v/or-empty-string (:target row))
+           :value (common/format-number (:target row))
            :on-change #(rf/dispatch [:aim-change-target
                                      (-> % .-target .-value)])}]]]]]
      [:hr]
