@@ -35,7 +35,7 @@
    [day8.re-frame/http-fx "0.1.5"]
    [kibu/pushy "0.3.8"]
    [org.clojure/clojurescript "1.9.946"]
-   [re-frame "0.10.4"]
+   [re-frame "0.10.5"]
    [reagent "0.8.0-alpha2"]
    [reagent-utils "0.3.0"]
    [tongue "0.2.3"]]
@@ -58,7 +58,7 @@
   {:dev
    {:dependencies [[binaryage/devtools "0.9.9"]
                    [com.cemerick/piggieback "0.2.2"]
-                   [day8.re-frame/trace "0.1.19"]
+                   [day8.re-frame/trace "0.1.20"]
                    [figwheel-sidecar "0.5.14"]]
     :plugins [[lein-figwheel "0.5.14"]]}}
 
