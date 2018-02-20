@@ -60,7 +60,7 @@ $ lein run
 ```
 
 You can now browse at `http://localhost:8080` and interact with boodle. Press
-<kbd>Ctrl+h</kbd> to inspect re-frame using
+<kbd>Ctrl+h</kbd> to instrument and inspect boodle using
 [re-frame-10x](https://github.com/Day8/re-frame-10x).
 
 ## Tests
