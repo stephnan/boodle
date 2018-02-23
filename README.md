@@ -49,7 +49,7 @@ $ gulp
 Install [lein](https://leiningen.org/) and compile the ClojureScript files with:
 
 ```console
-$ lein cljsbuild once
+$ lein cljsbuild once dev
 ```
 
 Otherwise, you can run `lein figwheel` if you want a REPL to play with the
@@ -62,6 +62,12 @@ $ lein run
 You can now browse at `http://localhost:8080` and interact with boodle. Press
 <kbd>Ctrl+h</kbd> to instrument and inspect boodle using
 [re-frame-10x](https://github.com/Day8/re-frame-10x).
+
+A production-ready build is available via:
+
+```console
+$ lein cljsbuild once min
+```
 
 ## Tests
 
