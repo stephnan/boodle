@@ -1,5 +1,6 @@
 (ns boodle.report.events
   (:require [boodle.ajax :as ajax]
+            [boodle.i18n :refer [translate]]
             [boodle.validation :as v]
             [re-frame.core :as rf]))
 
@@ -29,14 +30,14 @@
     (when (empty? item)
       (v/validate-input
        (:from params)
-       [{:message "Da: deve rispettare il pattern dd/mm/yyyy"
+       [{:message (translate :it :report/message.from)
          :check-fn v/valid-date?}]))))
 
 (defn validate-to
   [params]
   (v/validate-input
    (:to params)
-   [{:message "A: deve rispettare il pattern dd/mm/yyyy"
+   [{:message (translate :it :report/message.to)
      :check-fn v/valid-optional-date?}]))
 
 (defn validate-params

@@ -1,6 +1,7 @@
 (ns boodle.savings.events.active-aims
   (:require [boodle.ajax :as ajax]
             [boodle.common :as common]
+            [boodle.i18n :refer [translate]]
             [boodle.savings.modal :as modal]
             [boodle.validation :as v]
             [day8.re-frame.http-fx]
@@ -73,14 +74,14 @@
   [aim]
   (v/validate-input
    (:name aim)
-   [{:message "Nome: è obbligatorio"
+   [{:message (translate :it :savings/message.name)
      :check-fn v/not-empty?}]))
 
 (defn validate-target
   [aim]
   (v/validate-input
    (:target aim)
-   [{:message "Obiettivo: deve essere un numero (es.: 3,55)"
+   [{:message (translate :it :savings/message.target)
      :check-fn v/valid-amount?}]))
 
 (defn validate-aim

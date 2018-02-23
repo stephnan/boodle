@@ -1,6 +1,7 @@
 (ns boodle.expenses.events
   (:require [boodle.ajax :as ajax]
             [boodle.expenses.modal :as modal]
+            [boodle.i18n :refer [translate]]
             [boodle.validation :as v]
             [re-frame.core :as rf]
             [boodle.common :as common]))
@@ -56,21 +57,21 @@
   [expense]
   (v/validate-input
    (:date expense)
-   [{:message "Data: deve rispettare il pattern dd/mm/yyyy"
+   [{:message (translate :it :expenses/message.date)
      :check-fn v/valid-date?}]))
 
 (defn validate-amount
   [expense]
   (v/validate-input
    (:amount expense)
-   [{:message "Importo: deve essere un numero (es.: 3,55)"
+   [{:message (translate :it :expenses/message.amount)
      :check-fn v/valid-amount?}]))
 
 (defn validate-category
   [expense]
   (v/validate-input
    (:id-category expense)
-   [{:message "Categoria: selezionare una categoria"
+   [{:message (translate :it :expenses/message.category)
      :check-fn v/not-empty?}]))
 
 (defn validate-expense
@@ -164,14 +165,14 @@
   [params]
   (v/validate-input
    (:from params)
-   [{:message "Da: deve rispettare il pattern dd/mm/yyyy"
+   [{:message (translate :it :expenses/message.from)
      :check-fn v/valid-date?}]))
 
 (defn validate-to
   [params]
   (v/validate-input
    (:to params)
-   [{:message "A: deve rispettare il pattern dd/mm/yyyy"
+   [{:message (translate :it :expenses/message.to)
      :check-fn v/valid-optional-date?}]))
 
 (defn validate-params

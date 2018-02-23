@@ -1,5 +1,6 @@
 (ns boodle.transactions.events
   (:require [boodle.ajax :as ajax]
+            [boodle.i18n :refer [translate]]
             [boodle.transactions.modal :as modal]
             [boodle.validation :as v]
             [re-frame.core :as rf]))
@@ -37,14 +38,14 @@
   [transaction]
   (v/validate-input
    (:item transaction)
-   [{:message "Motivo: è obbligatorio"
+   [{:message (translate :it :transactions/message.item)
      :check-fn v/not-empty?}]))
 
 (defn validate-amount
   [transaction]
   (v/validate-input
    (:amount transaction)
-   [{:message "Importo: deve essere un numero (es.: 3,55)"
+   [{:message (translate :it :transactions/message.amount)
      :check-fn v/valid-amount?}]))
 
 (defn validate-transaction

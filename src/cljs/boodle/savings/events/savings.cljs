@@ -1,5 +1,6 @@
 (ns boodle.savings.events.savings
   (:require [boodle.ajax :as ajax]
+            [boodle.i18n :refer [translate]]
             [boodle.savings.modal :as modal]
             [boodle.validation :as v]
             [day8.re-frame.http-fx]
@@ -40,14 +41,14 @@
   [saving]
   (v/validate-input
    (:item saving)
-   [{:message "Motivo: è obbligatorio"
+   [{:message (translate :it :savings/message.item)
      :check-fn v/not-empty?}]))
 
 (defn validate-amount
   [saving]
   (v/validate-input
    (:amount saving)
-   [{:message "Importo: deve essere un numero (es.: 3,55)"
+   [{:message (translate :it :savings/message.amount)
      :check-fn v/valid-amount?}]))
 
 (defn validate-saving
@@ -95,7 +96,7 @@
   [transfer]
   (v/validate-input
    (:id-aim transfer)
-   [{:message "Meta: selezionare una meta"
+   [{:message (translate :it :savings/message.aim)
      :check-fn v/not-empty?}]))
 
 (defn validate-transfer
