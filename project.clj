@@ -74,4 +74,11 @@
                 :closure-defines {"re_frame.trace.trace_enabled_QMARK_" true}
                 :preloads [day8.re-frame-10x.preload devtools.preload]
                 :external-config {:devtools/config
-                                  {:features-to-install :all}}}}}})
+                                  {:features-to-install :all}}}}
+    :min
+    {:source-paths ["src/cljs"]
+     :compiler {:main boodle.core
+                :output-to "resources/public/js/main.js"
+                :asset-path "js/out"
+                :optimizations :simple
+                :pretty-print false}}}})
