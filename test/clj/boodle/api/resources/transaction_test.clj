@@ -20,8 +20,13 @@
 
 (deftest find-by-aim-test
   (testing "Testing find transaction by aim resource"
-    (with-redefs [model/select-by-aim (fn [a] a)]
-      (is (= (t/find-by-aim 1) 1)))))
+    (with-redefs [model/select-by-aim
+                  (fn [id] [{:id 1 :target 1 :amount 1}])]
+      (is (= (t/find-by-aim 1)
+             {:transactions [{:id 1, :target 1, :amount 1}],
+              :target 1,
+              :saved 1,
+              :left 0})))))
 
 (deftest insert-test
   (testing "Testing insert transaction resource"

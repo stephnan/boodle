@@ -128,7 +128,7 @@
     (api/GET "/aim/:id" [id]
       :return s.transaction/Response
       :summary "returns the transaction identified by aim id"
-      (r.transaction/find-by-aim id))
+      (response/ok (r.transaction/find-by-aim id)))
     (api/POST "/insert" []
       :return s.transaction/Response
       :body [transaction s.transaction/Body]

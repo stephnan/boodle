@@ -48,6 +48,6 @@
 (deftest aims-with-transactions-test
   (testing "Testing get aims with related transactions"
     (with-redefs [model/select-aims-with-transactions
-                  (fn [] [{:id 1, :aim "T", :target 1, :amount 1}])]
+                  (fn [] [{:id 1 :aim "T" :target 1 :amount 1}])]
       (is (= (a/aims-with-transactions)
-             {1 {:name "T" :target 1, :saved 1, :left 0}})))))
+             {1 {:name "T" :target 1 :saved 1 :left 0}})))))

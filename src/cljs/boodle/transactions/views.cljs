@@ -7,9 +7,9 @@
   []
   (fn []
     (let [rows (rf/subscribe [:active-aim-transactions])
-          target (:target (first @rows))
-          tot-amount (reduce + (map :amount @rows))
-          amount-left (- target tot-amount)]
+          target (:target @rows)
+          saved (:saved @rows)
+          left (:left @rows)]
       [:div
        [:div.row
         {:style {:text-align "center" :margin-top "-1.8em"}}
@@ -22,13 +22,12 @@
          {:style {:text-align "center"}}
          [:h5 (translate :it :transactions/label.saved)
           [:strong {:style {:color "#f5871f"}}
-           (str (common/format-number tot-amount) (translate :it :currency))]]]
+           (str (common/format-number saved) (translate :it :currency))]]]
         [:div.four.columns
          {:style {:text-align "center"}}
          [:h5 (translate :it :transactions/label.left)
           [:strong {:style {:color "#c82829"}}
-           (str (common/format-number amount-left)
-                (translate :it :currency))]]]]])))
+           (str (common/format-number left) (translate :it :currency))]]]]])))
 
 (defn render-transaction-row
   [row]
@@ -53,4 +52,4 @@
          [:th (translate :it :transactions/table.item)]
          [:th (translate :it :transactions/table.amount)]]]
        [:tbody
-        (doall (map render-transaction-row @rows))]])))
+        (doall (map render-transaction-row (:transactions @rows)))]])))

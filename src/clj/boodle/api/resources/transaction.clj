@@ -16,7 +16,15 @@
 
 (defn find-by-aim
   [id-aim]
-  (model/select-by-aim id-aim))
+  (let [ts (model/select-by-aim id-aim)
+        target (first (map :target ts))
+        saved (apply + (->> (map :amount ts) (map numbers/or-zero)))
+        left (- target saved)]
+    (-> {}
+        (assoc :transactions ts)
+        (assoc :target target)
+        (assoc :saved saved)
+        (assoc :left left))))
 
 (defn insert!
   [transaction]
