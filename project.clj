@@ -37,7 +37,7 @@
    [org.clojure/clojurescript "1.9.946"]
    [re-frame "0.10.5"]
    [reagent "0.8.0-alpha2"]
-   [reagent-utils "0.3.0"]
+   [reagent-utils "0.3.1"]
    [tongue "0.2.3"]]
 
   :plugins [[lein-cljsbuild "1.1.7"]
