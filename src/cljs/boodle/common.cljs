@@ -57,6 +57,6 @@
 
 (defn format-neg-or-pos
   [n]
-  (if (pos? n)
+  (if (or (zero? n) (pos? n))
     (str "+" (format-number n))
     (format-number n)))
