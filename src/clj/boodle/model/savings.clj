@@ -3,7 +3,7 @@
 
 (defn select-all
   []
-  (db/query ["SELECT * FROM savings ORDER BY date DESC LIMIT 3"]))
+  (db/query ["SELECT * FROM savings ORDER BY date DESC"]))
 
 (defn select-by-id
   [id]

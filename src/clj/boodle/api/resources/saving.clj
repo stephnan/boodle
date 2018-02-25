@@ -8,7 +8,7 @@
   (let [savings (model/select-all)
         total (apply + (map :amount savings))]
     (-> {}
-        (assoc :savings savings)
+        (assoc :savings (take 3 savings))
         (assoc :total total))))
 
 (defn find-by-id
