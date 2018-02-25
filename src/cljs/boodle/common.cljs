@@ -50,10 +50,11 @@
 
 (defn format-number
   [n]
-  (if n
-    (-> (pp/cl-format nil "~,2f" n)
-        (clojure.string/replace #"\." ","))
-    "0"))
+  (cond
+    (nil? n) "0"
+    (= n 0) "0"
+    :else (-> (pp/cl-format nil "~,2f" n)
+              (clojure.string/replace #"\." ","))))
 
 (defn format-neg-or-pos
   [n]
