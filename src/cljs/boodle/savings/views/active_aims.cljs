@@ -76,7 +76,8 @@
           {:value (v/or-empty-string (:active @params))
            :on-change #(rf/dispatch [:aims-change-active
                                      (-> % .-target .-value)])}
-          (map common/render-option active-aims)]]]])))
+          (doall
+           (map common/render-option active-aims))]]]])))
 
 (defn buttons
   []
