@@ -30,5 +30,5 @@
         expenses (model/totals-for-categories from to item)
         total (apply + (map :amount expenses))]
     (-> {}
-        (assoc :data expenses)
+        (assoc :data (categories-totals expenses))
         (assoc :total total))))
