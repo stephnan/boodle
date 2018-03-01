@@ -14,4 +14,4 @@
                   (fn [from to item]
                     [{:category "Test" :amount 3.50}])]
       (is (= (r/find-totals-for-categories {:from "" :to "" :item ""})
-             {:data [{:category "Test", :amount 3.5}], :total 3.5})))))
+             {:data {"Test" 3.5} :total 3.5})))))
