@@ -25,8 +25,8 @@
 
 (defn modal
   []
-  (let [modal (rf/subscribe [:modal])]
-    (fn []
+  (fn []
+    (let [modal (rf/subscribe [:modal])]
       [:div
        (if (:show? @modal)
          [modal-panel @modal])])))
