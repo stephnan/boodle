@@ -41,7 +41,7 @@
    [tongue "0.2.3"]]
 
   :plugins [[lein-cljsbuild "1.1.7"]
-            [lein-eftest "0.4.3"]]
+            [lein-eftest "0.5.0"]]
   :repl-options {:nrepl-middleware [cemerick.piggieback/wrap-cljs-repl]}
   :figwheel {:css-dirs ["resources/public/css"]}
 
