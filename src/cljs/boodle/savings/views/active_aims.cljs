@@ -92,8 +92,8 @@
            {:on-click #(rf/dispatch [:create-transaction @aim-selected])}
            (translate :it :aims/button.add-transaction)]]
          (let [rows (rf/subscribe [:active-aim-transactions])
-               target (:target (first @rows))
-               tot-amount (reduce + (map :amount @rows))]
+               target (:target @rows)
+               tot-amount (:saved @rows)]
            (when (= target tot-amount)
              [:span
               [:button.button.button-primary
