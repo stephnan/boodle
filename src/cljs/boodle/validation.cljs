@@ -51,7 +51,7 @@
   (check-nil-then-predicate
    s
    (fn [s]
-     (or (number? s)
+     (or (= (count s) 1)
          (boolean (re-matches #"-?\d+\,?\d+" s))))))
 
 (defn not-empty?
