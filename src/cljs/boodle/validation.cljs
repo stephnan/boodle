@@ -46,13 +46,19 @@
    (fn [s]
      (boolean (re-matches #"\d\d/\d\d/\d\d\d\d" s)))))
 
+(defn valid-number? [s]
+  (-> (js/parseFloat s)
+      js/isNaN
+      not))
+
 (defn valid-amount?
   [s]
   (check-nil-then-predicate
    s
    (fn [s]
-     (or (= (count s) 1)
-         (boolean (re-matches #"-?\d+\,?\d+" s))))))
+     (and (valid-number? s)
+          (or (= (count s) 1)
+              (boolean (re-matches #"-?\d+\,?\d+" s)))))))
 
 (defn not-empty?
   [value]
