@@ -21,7 +21,7 @@
    [org.clojure/core.incubator "0.1.4"]
    [org.clojure/java.jdbc "0.7.5"]
    [org.clojure/tools.reader "1.2.2"]
-   [org.postgresql/postgresql "42.2.1"]
+   [org.postgresql/postgresql "42.2.2"]
    [prone "1.5.0"]
    [ring "1.6.3"]
    [ring/ring-defaults "0.3.1"]
@@ -38,7 +38,7 @@
    [re-frame "0.10.5"]
    [reagent "0.8.0-alpha2"]
    [reagent-utils "0.3.1"]
-   [tongue "0.2.3"]]
+   [tongue "0.2.4"]]
 
   :plugins [[lein-cljsbuild "1.1.7"]
             [lein-eftest "0.5.0"]]
