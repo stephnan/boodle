@@ -197,11 +197,17 @@
                            [:bad-response])
         :db (assoc db :show-validation false))))))
 
+(defn reset-pickers
+  []
+  (let [ps (array-seq (.getElementsByClassName js/document "u-full-width"))]
+    (doall (map #(set! (.-value %) nil) ps))))
+
 (rf/reg-event-fx
  :reset-search
  (fn [{db :db} _]
+   (reset-pickers)
    (assoc
     (ajax/get-request "/api/expense/find"
-                     [:load-expenses]
-                     [:bad-response])
+                      [:load-expenses]
+                      [:bad-response])
     :db (assoc-in db [:expenses :params] {}))))
