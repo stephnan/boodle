@@ -32,7 +32,7 @@
    ;; ClojureScript
    [bidi "2.1.3"]
    [cljs-ajax "0.7.3"]
-   [day8.re-frame/http-fx "0.1.5"]
+   [day8.re-frame/http-fx "0.1.6"]
    [kibu/pushy "0.3.8"]
    [org.clojure/clojurescript "1.9.946"]
    [re-frame "0.10.5"]
