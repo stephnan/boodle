@@ -2,6 +2,7 @@
   (:require [boodle.common :as common]
             [boodle.i18n :refer [translate]]
             [boodle.modal :as modal]
+            [boodle.pikaday :as pikaday]
             [boodle.validation :as v]
             [re-frame.core :as rf]))
 
@@ -58,20 +59,16 @@
          [:div.row
           [:div.three.columns
            [:label (translate :it :expenses/label.from)]
-           [:input.u-full-width
-            {:type "text"
-             :placeholder (translate :it :date.placeholder)
-             :value (v/or-empty-string (:from @params))
-             :on-change #(rf/dispatch [:expenses-change-from
-                                       (-> % .-target .-value)])}]]
+           [pikaday/date-selector
+            {:date-atom (rf/subscribe [:expenses-from])
+             :pikaday-attrs {:onSelect #(rf/dispatch [:expenses-change-from %])
+                             :format "DD/MM/YYYY"}}]]
           [:div.three.columns
            [:label (translate :it :expenses/label.to)]
-           [:input.u-full-width
-            {:type "text"
-             :placeholder (translate :it :date.placeholder)
-             :value (v/or-empty-string (:to @params))
-             :on-change #(rf/dispatch [:expenses-change-to
-                                       (-> % .-target .-value)])}]]
+           [pikaday/date-selector
+            {:date-atom (rf/subscribe [:expenses-to])
+             :pikaday-attrs {:onSelect #(rf/dispatch [:expenses-change-to %])
+                             :format "DD/MM/YYYY"}}]]
           [:div.six.columns
            [:label (translate :it :expenses/label.category)]
            [:select.u-full-width

@@ -16,3 +16,13 @@
  :report-total
  (fn [db _]
    (r/reaction (get-in @db [:report :total]))))
+
+(rf/reg-sub
+ :report-from
+ (fn [db _]
+   (get-in db [:report :params :from])))
+
+(rf/reg-sub
+ :report-to
+ (fn [db _]
+   (get-in db [:report :params :to])))

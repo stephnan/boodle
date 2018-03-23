@@ -1,6 +1,7 @@
 (ns boodle.report.views
   (:require [boodle.common :as common]
             [boodle.i18n :refer [translate]]
+            [boodle.pikaday :as pikaday]
             [boodle.validation :as v]
             [re-frame.core :as rf]))
 
@@ -61,20 +62,16 @@
          [:div.row
           [:div.three.columns
            [:label (translate :it :report/label.from)]
-           [:input.u-full-width
-            {:type "text"
-             :placeholder (translate :it :date.placeholder)
-             :value (v/or-empty-string (:from @params))
-             :on-change #(rf/dispatch [:report-change-from
-                                       (-> % .-target .-value)])}]]
+           [pikaday/date-selector
+            {:date-atom (rf/subscribe [:report-from])
+             :pikaday-attrs {:onSelect #(rf/dispatch [:report-change-from %])
+                             :format "DD/MM/YYYY"}}]]
           [:div.three.columns
            [:label (translate :it :report/label.to)]
-           [:input.u-full-width
-            {:type "text"
-             :placeholder (translate :it :date.placeholder)
-             :value (v/or-empty-string (:to @params))
-             :on-change #(rf/dispatch [:report-change-to
-                                       (-> % .-target .-value)])}]]
+           [pikaday/date-selector
+            {:date-atom (rf/subscribe [:report-to])
+             :pikaday-attrs {:onSelect #(rf/dispatch [:report-change-to %])
+                             :format "DD/MM/YYYY"}}]]
           [:div.three.columns
            [:label (translate :it :report/label.item)]
            [:input.u-full-width

@@ -14,6 +14,21 @@
    (r/reaction (get-in @db [:expenses :row]))))
 
 (rf/reg-sub
+ :expenses-from
+ (fn [db _]
+   (get-in db [:expenses :params :from])))
+
+(rf/reg-sub
+ :expenses-to
+ (fn [db _]
+   (get-in db [:expenses :params :to])))
+
+(rf/reg-sub
+ :expense-modal-date
+ (fn [db _]
+   (get-in db [:expenses :row :date])))
+
+(rf/reg-sub
  :show-update-expense-modal
  (fn [db _]
    (:show-update-expense-modal db)))

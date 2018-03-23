@@ -1,6 +1,7 @@
 (ns boodle.expenses.modal
   (:require [boodle.common :as common]
             [boodle.i18n :refer [translate]]
+            [boodle.pikaday :as pikaday]
             [boodle.validation :as v]
             [re-frame.core :as rf]))
 
@@ -17,12 +18,10 @@
        [:div.row
         [:div.six.columns
          [:label (translate :it :expenses/modal.date)]
-         [:input.u-full-width
-          {:type "text"
-           :placeholder (translate :it :date.placeholder)
-           :value (v/or-empty-string (:date row))
-           :on-change #(rf/dispatch [:expense-change-date
-                                     (-> % .-target .-value)])}]]
+         [pikaday/date-selector
+          {:date-atom (rf/subscribe [:expense-modal-date])
+           :pikaday-attrs {:onSelect #(rf/dispatch [:expense-change-date %])
+                           :format "DD/MM/YYYY"}}]]
         [:div.six.columns
          [:label (translate :it :expenses/modal.category)]
          [:select.u-full-width

@@ -1,0 +1,40 @@
+/*
+* Created for:
+* Skeleton Framework V1.0.6
+* Pikaday V1.4.0
+* Free to use under the MIT license.
+* http://skeletonframework.mit-license.org/
+*/
+
+
+/* Override Skeleton Styles */
+
+.pika-table {
+  margin-bottom: 0;
+  line-height: inherit;
+}
+
+.pika-table th,
+.pika-table td {
+  border-bottom: 0;
+}
+
+.pika-button {
+  border-radius: 0;
+  height: auto;
+  font-weight: normal;
+}
+
+.pika-prev,
+.pika-next {
+  margin-bottom: 0;
+}
+
+.pika-title select {
+  height: auto;
+  padding: 0;
+}
+
+.pika-title select option {
+  font-weight: normal;
+}

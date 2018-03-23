@@ -2,6 +2,7 @@
   (:require [boodle.ajax :as ajax]
             [boodle.expenses.modal :as modal]
             [boodle.i18n :refer [translate]]
+            [boodle.pikaday :refer [date->string]]
             [boodle.validation :as v]
             [re-frame.core :as rf]
             [boodle.common :as common]))
@@ -9,12 +10,12 @@
 (rf/reg-event-db
  :expenses-change-from
  (fn [db [_ value]]
-   (assoc-in db [:expenses :params :from] value)))
+   (assoc-in db [:expenses :params :from] (date->string value))))
 
 (rf/reg-event-db
  :expenses-change-to
  (fn [db [_ value]]
-   (assoc-in db [:expenses :params :to] value)))
+   (assoc-in db [:expenses :params :to] (date->string value))))
 
 (rf/reg-event-db
  :expenses-change-categories
@@ -24,7 +25,7 @@
 (rf/reg-event-db
  :expense-change-date
  (fn [db [_ value]]
-   (assoc-in db [:expenses :row :date] value)))
+   (assoc-in db [:expenses :row :date] (date->string value))))
 
 (rf/reg-event-db
  :expense-change-category

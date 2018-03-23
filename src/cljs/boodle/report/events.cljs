@@ -1,18 +1,19 @@
 (ns boodle.report.events
   (:require [boodle.ajax :as ajax]
             [boodle.i18n :refer [translate]]
+            [boodle.pikaday :refer [date->string]]
             [boodle.validation :as v]
             [re-frame.core :as rf]))
 
 (rf/reg-event-db
  :report-change-from
  (fn [db [_ value]]
-   (assoc-in db [:report :params :from] value)))
+   (assoc-in db [:report :params :from] (date->string value))))
 
 (rf/reg-event-db
  :report-change-to
  (fn [db [_ value]]
-   (assoc-in db [:report :params :to] value)))
+   (assoc-in db [:report :params :to] (date->string value))))
 
 (rf/reg-event-db
  :report-change-item
