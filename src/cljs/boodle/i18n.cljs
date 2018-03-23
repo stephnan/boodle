@@ -61,6 +61,36 @@
      :boodle "boodle"
      :expenses "Spese"
      :report "Report"}
+    
+    :pikaday
+    {:previous-month "Mese precedente"
+     :next-month "Mese successivo"
+     :january "Gennaio"
+     :february "Febbraio"
+     :march "Marzo"
+     :april "Aprile"
+     :may "Maggio"
+     :june "Giugno"
+     :july "Luglio"
+     :august "Agosto"
+     :september "Settembre"
+     :october "Ottobre"
+     :november "Novembre"
+     :december "Dicembre"
+     :monday "Lunedì"
+     :tuesday "Martedì"
+     :wednesday "Mercoledì"
+     :thursday "Giovedì"
+     :friday "Venerdì"
+     :saturday "Sabato"
+     :sunday "Domenica"
+     :mon "Lun"
+     :tue "Mar"
+     :wed "Mer"
+     :thu "Gio"
+     :fri "Ven"
+     :sat "Sab"
+     :sun "Dom"}
 
     :report
     {:button.search "Cerca spese"

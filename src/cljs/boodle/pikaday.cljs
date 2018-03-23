@@ -10,6 +10,49 @@
             [cljs-time.format :as tf]
             [reagent.core :as reagent :refer [atom]]))
 
+(def i18n
+  "See: https://github.com/dbushell/Pikaday#internationalization"
+  {:previousMonth (translate :it :pikaday/previous-month)
+   :nextMonth (translate :it :pikaday/next-month)
+   :months [(translate :it :pikaday/january)
+            (translate :it :pikaday/february)
+            (translate :it :pikaday/march)
+            (translate :it :pikaday/april)
+            (translate :it :pikaday/may)
+            (translate :it :pikaday/june)
+            (translate :it :pikaday/july)
+            (translate :it :pikaday/august)
+            (translate :it :pikaday/september)
+            (translate :it :pikaday/october)
+            (translate :it :pikaday/november)
+            (translate :it :pikaday/december)]
+   :weekdays [(translate :it :pikaday/sunday)
+              (translate :it :pikaday/monday)
+              (translate :it :pikaday/tuesday)
+              (translate :it :pikaday/wednesday)
+              (translate :it :pikaday/thursday)
+              (translate :it :pikaday/friday)
+              (translate :it :pikaday/saturday)]
+   :weekdaysShort [(translate :it :pikaday/sun)
+                   (translate :it :pikaday/mon)
+                   (translate :it :pikaday/tue)
+                   (translate :it :pikaday/wed)
+                   (translate :it :pikaday/thu)
+                   (translate :it :pikaday/fri)
+                   (translate :it :pikaday/sat)]})
+
+(defn first-day-of-week
+  "Return number for Pikaday default options."
+  [s]
+  (case s
+    :sun 0
+    :mon 1
+    :tue 2
+    :wed 3
+    :thu 4
+    :fri 5
+    :sat 6))
+
 (defn- opts-transform
   "Given a clojure map, return a js object for a pikaday constructor argument."
   [opts]
@@ -34,6 +77,8 @@
               {:field (js/ReactDOM.findDOMNode this)
                :default-date @date-atom
                :set-default-date true
+               :i18n i18n
+               :first-day (first-day-of-week :mon)
                :on-select #(when date-atom (reset! date-atom %))}
               opts (opts-transform (merge default-opts pikaday-attrs))
               instance (js/Pikaday. opts)]
