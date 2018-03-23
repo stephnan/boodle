@@ -30,6 +30,9 @@ uses [Skeleton](http://getskeleton.com/) to style the UI.
 The modal panel is a customised version of
 [re-frame-modal](https://github.com/benhowell/re-frame-modal).
 
+The date picker is a customised version of
+[cljs-pikaday](https://github.com/timgilbert/cljs-pikaday).
+
 ## Usage
 
 To run boodle, install and configure [PostgreSQL](https://www.postgresql.org) on
