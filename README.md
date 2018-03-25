@@ -5,11 +5,7 @@ Status](https://travis-ci.org/manuel-uberti/boodle.svg?branch=master)](https://t
 
 Simple accounting SPA in Clojure and ClojureScript.
 
-![Screenshot](https://github.com/manuel-uberti/boodle/blob/master/screenshots/spese.png)
-
-Other screenshots are available in the
-[screenshots](https://github.com/manuel-uberti/boodle/blob/master/screenshots)
-directory.
+![Screenshot](https://github.com/manuel-uberti/boodle/blob/master/screenshot/01.png)
 
 boodle uses these Clojure/ClojureScript libraries:
 
