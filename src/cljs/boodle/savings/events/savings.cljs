@@ -87,10 +87,11 @@
  :transfer-amount
  (fn [{db :db} [_ _]]
    {:db db
-    :dispatch
-    [:modal
-     {:show? true
-      :child [modal/transfer-amount "Trasferisci importo" [:transfer]]}]}))
+    :dispatch-n
+    [[:get-active-aims]
+     [:modal
+      {:show? true
+       :child [modal/transfer-amount "Trasferisci importo" [:transfer]]}]]}))
 
 (defn validate-aim
   [transfer]
