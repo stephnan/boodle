@@ -64,22 +64,27 @@
    {:dependencies [[binaryage/devtools "0.9.9"]
                    [com.cemerick/piggieback "0.2.2"]
                    [day8.re-frame/re-frame-10x "0.3.0"]
+                   [day8.re-frame/tracing "0.5.0"]
                    [figwheel-sidecar "0.5.15"]]
-    :plugins [[lein-figwheel "0.5.15"]]}}
+    :plugins [[lein-figwheel "0.5.15"]]}
+   :min
+   {:dependencies [[day8.re-frame/tracing-stubs "0.5.0"]]}}
 
   :cljsbuild
   {:builds
    {:dev
     {:source-paths ["src/cljs"]
      :figwheel true
-     :compiler {:main boodle.core
-                :asset-path "js/out"
-                :output-to "resources/public/js/main.js"
-                :output-dir "resources/public/js/out"
-                :closure-defines {"re_frame.trace.trace_enabled_QMARK_" true}
-                :preloads [day8.re-frame-10x.preload devtools.preload]
-                :external-config {:devtools/config
-                                  {:features-to-install :all}}}}
+     :compiler
+     {:main boodle.core
+      :asset-path "js/out"
+      :output-to "resources/public/js/main.js"
+      :output-dir "resources/public/js/out"
+      :closure-defines {"re_frame.trace.trace_enabled_QMARK_" true
+                        "day8.re_frame.tracing.trace_enabled_QMARK_" true}
+      :preloads [day8.re-frame-10x.preload devtools.preload]
+      :external-config {:devtools/config
+                        {:features-to-install :all}}}}
     :min
     {:source-paths ["src/cljs"]
      :compiler {:main boodle.core
