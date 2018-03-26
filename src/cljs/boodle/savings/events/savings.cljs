@@ -64,13 +64,13 @@
    (let [saving (get-in db [:savings :row])
          not-valid (validate-saving saving)]
      (if-not (empty? not-valid)
-       (rf/dispatch [:validation-error not-valid])
+       (rf/dispatch [:modal-validation-error not-valid])
        (assoc
         (ajax/post-request "/api/saving/insert"
                            saving
                            [:get-savings]
                            [:bad-response])
-        :db (assoc db :show-validation false)
+        :db (assoc db :show-modal-validation false)
         :dispatch [:modal {:show? false :child nil}])))))
 
 (rf/reg-event-db
@@ -113,12 +113,12 @@
    (let [transfer (get-in db [:transfer :row])
          not-valid (validate-transfer transfer)]
      (if-not (empty? not-valid)
-       (rf/dispatch [:validation-error not-valid])
+       (rf/dispatch [:modal-validation-error not-valid])
        (assoc
         (ajax/put-request "/api/saving/transfer"
                           (assoc transfer :item "Trasferimento fondi")
                           [:get-savings]
                           [:bad-response])
-        :db (assoc db :show-validation false)
+        :db (assoc db :show-modal-validation false)
         :dispatch-n (list [:modal {:show? false :child nil}]
                           [:get-aims-with-transactions]))))))

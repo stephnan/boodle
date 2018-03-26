@@ -106,13 +106,13 @@
    (let [aim (get-in db [:aims :row])
          not-valid (validate-aim aim)]
      (if-not (empty? not-valid)
-       (rf/dispatch [:validation-error not-valid])
+       (rf/dispatch [:modal-validation-error not-valid])
        (assoc
         (ajax/post-request "/api/aim/insert"
                            aim
                            [:get-aims-with-transactions]
                            [:bad-response])
-        :db (assoc db :show-validation false)
+        :db (assoc db :show-modal-validation false)
         :dispatch-n (list [:modal {:show? false :child nil}]
                           [:get-active-aims]))))))
 
@@ -139,13 +139,13 @@
          id (:id aim)
          not-valid (validate-aim aim)]
      (if-not (empty? not-valid)
-       (rf/dispatch [:validation-error not-valid])
+       (rf/dispatch [:modal-validation-error not-valid])
        (assoc
         (ajax/put-request "/api/aim/update"
                           aim
                           [:get-aims-with-transactions]
                           [:bad-response])
-        :db (assoc db :show-validation false)
+        :db (assoc db :show-modal-validation false)
         :dispatch-n (list [:modal {:show? false :child nil}]
                           [:get-active-aims]))))))
 

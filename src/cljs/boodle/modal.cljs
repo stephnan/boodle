@@ -34,5 +34,5 @@
 (rf/reg-event-fx
  :close-modal
  (fn [{db :db} [_ _]]
-   {:db (assoc db :show-validation false)
+   {:db (assoc db :show-modal-validation false)
     :dispatch [:modal {:show? false :child nil}]}))

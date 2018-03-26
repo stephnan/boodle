@@ -72,11 +72,11 @@
    (let [transaction (get-in db [:aims :transactions :row])
          not-valid (validate-transaction transaction)]
      (if-not (empty? not-valid)
-       (rf/dispatch [:validation-error not-valid])
+       (rf/dispatch [:modal-validation-error not-valid])
        (assoc
         (ajax/post-request "/api/transaction/insert"
                            (assoc transaction :id-aim id-aim)
                            [:get-aim-transactions id-aim]
                            [:bad-response])
-        :db (assoc db :show-validation false)
+        :db (assoc db :show-modal-validation false)
         :dispatch [:modal {:show? false :child nil}])))))

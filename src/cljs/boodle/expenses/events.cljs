@@ -106,13 +106,13 @@
          id (:id expense)
          not-valid (validate-expense expense)]
      (if-not (empty? not-valid)
-       (rf/dispatch [:validation-error not-valid])
+       (rf/dispatch [:modal-validation-error not-valid])
        (assoc
         (ajax/put-request "/api/expense/update"
                           expense
                           success-evn
                           [:bad-response])
-        :db (assoc db :show-validation false)
+        :db (assoc db :show-modal-validation false)
         :dispatch [:modal {:show? false :child nil}])))))
 
 (rf/reg-event-fx
@@ -131,13 +131,13 @@
          id (:id expense)
          not-valid (validate-expense expense)]
      (if-not (empty? not-valid)
-       (rf/dispatch [:validation-error not-valid])
+       (rf/dispatch [:modal-validation-error not-valid])
        (assoc
         (ajax/post-request "/api/expense/insert"
                            expense
                            [:get-expenses-rows]
                            [:bad-response])
-        :db (assoc db :show-validation false)
+        :db (assoc db :show-modal-validation false)
         :dispatch [:modal {:show? false :child nil}])))))
 
 (rf/reg-event-fx

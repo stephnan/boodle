@@ -57,6 +57,11 @@
  (fn [{db :db} [_ response]]
    {:dispatch [:show-validation response]}))
 
+(rf/reg-event-fx
+ :modal-validation-error
+ (fn [{db :db} [_ response]]
+   {:dispatch [:show-modal-validation response]}))
+
 (rf/reg-event-db
  :show-validation
  (fn [db [_ message]]
@@ -65,8 +70,22 @@
        (assoc :validation-msg message))))
 
 (rf/reg-event-db
+ :show-modal-validation
+ (fn [db [_ message]]
+   (-> db
+       (assoc :show-modal-validation true)
+       (assoc :modal-validation-msg message))))
+
+(rf/reg-event-db
  :close-validation
  (fn [db message]
    (-> db
        (assoc :show-validation false)
        (dissoc :validation-msg message))))
+
+(rf/reg-event-db
+ :close-modal-validation
+ (fn [db message]
+   (-> db
+       (assoc :show-modal-validation false)
+       (dissoc :modal-validation-msg message))))

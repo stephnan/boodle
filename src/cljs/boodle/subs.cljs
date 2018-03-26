@@ -31,9 +31,9 @@
 (rf/reg-sub
  :show-modal-validation
  (fn [db _]
-   (:show-validation db)))
+   (:show-modal-validation db)))
 
 (rf/reg-sub
  :modal-validation-msg
  (fn [db _]
-   (:validation-msg db)))
+   (:modal-validation-msg db)))
