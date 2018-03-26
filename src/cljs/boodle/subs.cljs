@@ -27,3 +27,13 @@
  :validation-msg
  (fn [db _]
    (:validation-msg db)))
+
+(rf/reg-sub
+ :show-modal-validation
+ (fn [db _]
+   (:show-validation db)))
+
+(rf/reg-sub
+ :modal-validation-msg
+ (fn [db _]
+   (:validation-msg db)))

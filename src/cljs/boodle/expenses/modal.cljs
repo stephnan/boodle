@@ -13,7 +13,7 @@
      [:div.modal-header.panel-heading
       [:h5.modal-title title]]
      [:div.modal-body
-      [v/validation-msg-box]
+      [v/modal-validation-msg-box]
       [:div.form
        [:div.row
         [:div.six.columns

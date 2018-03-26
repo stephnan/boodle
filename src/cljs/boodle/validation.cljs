@@ -89,3 +89,15 @@
          [:ul
           (for [m @validation-message]
             [:li {:key (random-uuid)} m])]]))))
+
+(defn modal-validation-msg-box []
+  (fn []
+    (when-let [show @(rf/subscribe [:show-modal-validation])]
+      (let [validation-message (rf/subscribe [:modal-validation-msg])]
+        [:div
+         {:style {:padding-top ".5em"
+                  :padding-left ".5em"
+                  :color "#FF5555"}}
+         [:ul
+          (for [m @validation-message]
+            [:li {:key (random-uuid)} m])]]))))
