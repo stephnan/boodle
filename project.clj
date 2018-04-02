@@ -7,7 +7,7 @@
   :dependencies
   [;; Clojure
    [cheshire "5.8.0"]
-   [clojure.java-time "0.3.1"]
+   [clojure.java-time "0.3.2"]
    [com.taoensso/encore "2.94.0"]
    [com.taoensso/timbre "4.10.0" :exclusions [com.taoennso/encore]]
    [dire "0.5.4" :exclusions [org.clojure/core.incubator]]
