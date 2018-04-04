@@ -22,7 +22,7 @@
    [org.clojure/java.jdbc "0.7.5"]
    [org.clojure/tools.reader "1.2.2"]
    [org.postgresql/postgresql "42.2.2"]
-   [prone "1.5.0"]
+   [prone "1.5.1"]
    [ring "1.6.3"]
    [ring/ring-defaults "0.3.1"]
    [ring/ring-json "0.4.0"]
@@ -64,11 +64,11 @@
    {:dependencies [[binaryage/devtools "0.9.9"]
                    [com.cemerick/piggieback "0.2.2"]
                    [day8.re-frame/re-frame-10x "0.3.0"]
-                   [day8.re-frame/tracing "0.5.0"]
+                   [day8.re-frame/tracing "0.5.1"]
                    [figwheel-sidecar "0.5.15"]]
     :plugins [[lein-figwheel "0.5.15"]]}
    :min
-   {:dependencies [[day8.re-frame/tracing-stubs "0.5.0"]]}}
+   {:dependencies [[day8.re-frame/tracing-stubs "0.5.1"]]}}
 
   :cljsbuild
   {:builds
