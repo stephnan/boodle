@@ -61,7 +61,7 @@
 
   :profiles
   {:dev
-   {:dependencies [[binaryage/devtools "0.9.9"]
+   {:dependencies [[binaryage/devtools "0.9.10"]
                    [com.cemerick/piggieback "0.2.2"]
                    [day8.re-frame/re-frame-10x "0.3.1"]
                    [day8.re-frame/tracing "0.5.1"]
