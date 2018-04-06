@@ -13,7 +13,7 @@
    [com.walmartlabs/test-reporting "0.1.0"]
    [dire "0.5.4" :exclusions [org.clojure/core.incubator]]
    [hiccup "1.0.5"]
-   [hikari-cp "2.2.0"]
+   [hikari-cp "2.3.0"]
    [http-kit "2.2.0"]
    [metosin/compojure-api "1.1.12"]
    [metosin/ring-http-response "0.9.0"]
