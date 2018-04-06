@@ -297,7 +297,7 @@
       (let [body (json/generate-string {:from (java.util.Date.)
                                         :to (java.util.Date.)
                                         :categories []})
-            request (-> (mock/request :post "/api/report/daa" body)
+            request (-> (mock/request :post "/api/report/data" body)
                         (mock/content-type "application/json"))
             response (http/app request)]
         (reporting response
