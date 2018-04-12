@@ -3,7 +3,6 @@
             [boodle.i18n :refer [translate]]
             [boodle.savings.modal :as modal]
             [boodle.validation :as v]
-            [day8.re-frame.http-fx]
             [re-frame.core :as rf]))
 
 (rf/reg-event-db

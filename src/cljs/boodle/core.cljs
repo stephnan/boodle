@@ -13,6 +13,7 @@
             [boodle.routes :as routes]
             [boodle.subs]
             [boodle.views :as views]
+            [day8.re-frame.http-fx]
             [re-frame.core :as rf]
             [reagent.core :as reagent]))
 
