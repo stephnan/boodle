@@ -23,7 +23,7 @@
    [org.clojure/java.jdbc "0.7.5"]
    [org.clojure/tools.reader "1.2.2"]
    [org.postgresql/postgresql "42.2.2"]
-   [prone "1.5.1"]
+   [prone "1.5.2"]
    [ring "1.6.3"]
    [ring/ring-defaults "0.3.1"]
    [ring/ring-json "0.4.0"]
@@ -41,7 +41,7 @@
    [kibu/pushy "0.3.8"]
    [org.clojure/clojurescript "1.9.946"]
    [re-frame "0.10.5"]
-   [reagent "0.8.0-alpha2"]
+   [reagent "0.8.0"]
    [reagent-utils "0.3.1"]
    [tongue "0.2.4"]]
 
