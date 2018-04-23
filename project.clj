@@ -14,7 +14,7 @@
    [dire "0.5.4" :exclusions [org.clojure/core.incubator]]
    [hiccup "1.0.5"]
    [hikari-cp "2.3.0"]
-   [http-kit "2.2.0"]
+   [http-kit "2.3.0"]
    [metosin/compojure-api "1.1.12"]
    [metosin/ring-http-response "0.9.0"]
    [mount "0.1.12"]
@@ -46,7 +46,7 @@
    [tongue "0.2.4"]]
 
   :plugins [[lein-cljsbuild "1.1.7"]
-            [lein-eftest "0.5.0"]]
+            [lein-eftest "0.5.1"]]
   :eftest {:multithread? false}
   :repl-options {:nrepl-middleware [cemerick.piggieback/wrap-cljs-repl]}
   :figwheel {:css-dirs ["resources/public/css"]}
@@ -64,7 +64,7 @@
   {:dev
    {:dependencies [[binaryage/devtools "0.9.10"]
                    [com.cemerick/piggieback "0.2.2"]
-                   [day8.re-frame/re-frame-10x "0.3.2"]
+                   [day8.re-frame/re-frame-10x "0.3.3"]
                    [day8.re-frame/tracing "0.5.1"]
                    [figwheel-sidecar "0.5.15"]]
     :plugins [[lein-figwheel "0.5.15"]]}
