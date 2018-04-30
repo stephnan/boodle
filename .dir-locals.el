@@ -4,6 +4,6 @@
 ((nil
   (cider-refresh-before-fn . "mount.core/stop")
   (cider-refresh-after-fn . "mount.core/start")
-  (cider-default-cljs-repl . "Figwheel"))
+  (cider-default-cljs-repl . 'figwheel))
  (emacs-lisp-mode
   (flycheck-disabled-checkers . "emacs-lisp-checkdoc")))
