@@ -20,7 +20,7 @@ boodle uses these Clojure/ClojureScript libraries:
 - [ring](https://github.com/ring-clojure/ring)
 - [tongue](https://github.com/tonsky/tongue)
 
-boodle runs on [PostgreSQL](https://www.postgresql.org) 9.4.15 and 9.6.8, and
+boodle runs on [PostgreSQL](https://www.postgresql.org) 9.4.15 and 10.3, and
 uses [Skeleton](http://getskeleton.com/) to style the UI.
 
 The modal panel is a customised version of
