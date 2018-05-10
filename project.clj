@@ -46,7 +46,7 @@
    [tongue "0.2.4"]]
 
   :plugins [[lein-cljsbuild "1.1.7"]
-            [lein-eftest "0.5.1"]]
+            [lein-eftest "0.5.2"]]
   :eftest {:multithread? false}
   :figwheel {:css-dirs ["resources/public/css"]}
 
