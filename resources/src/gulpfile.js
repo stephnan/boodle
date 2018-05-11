@@ -9,6 +9,7 @@ var pkg = require('./package.json');
 gulp.task('minify-css', function() {
     return gulp.src(['node_modules/font-awesome/css/font-awesome.css',
                      'node_modules/skeleton-css/css/*.css',
+                     'node_modules/skeleton-checkboxes/*.css',
                      'css/*.css'
                     ])
         .pipe(concat('boodle.css'))

@@ -7,6 +7,7 @@
         "gulp-cli": "^1.4.0",
         "gulp-concat": "^2.6.1",
         "gulp-rename": "^1.2.2",
+        "skeleton-checkboxes": "^1.0.2",
         "skeleton-css": "^2.0.4"
     }
 }

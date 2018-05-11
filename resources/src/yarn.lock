@@ -1178,6 +1178,10 @@ sigmund@~1.0.0:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/sigmund/-/sigmund-1.0.1.tgz#3ff21f198cad2175f9f3b781853fd94d0d19b590"
 
+skeleton-checkboxes@^1.0.2:
+  version "1.0.2"
+  resolved "https://registry.yarnpkg.com/skeleton-checkboxes/-/skeleton-checkboxes-1.0.2.tgz#b2a989bb7a7953a3e279b93d60818d1d7344e95d"
+
 skeleton-css@^2.0.4:
   version "2.0.4"
   resolved "https://registry.yarnpkg.com/skeleton-css/-/skeleton-css-2.0.4.tgz#d70db2f01fe8209ac79f2f4eee83fae8a40591b8"
