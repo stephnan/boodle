@@ -3,12 +3,12 @@
 
 (defn select-all
   []
-  (db/query ["SELECT id, date, id_category, category, item, amount FROM (
+  (db/query ["SELECT id, date, id_category, category, item, amount, from_savings
+              FROM (
                 SELECT e.id, TO_CHAR(e.date, 'dd/mm/yyyy') AS date,
-                e.date as temp_date,
-                c.id as id_category,
-                c.name as category,
-                e.item, e.amount FROM expenses e
+                e.date as temp_date, c.id as id_category, c.name as category,
+                e.item, e.amount, e.from_savings
+                FROM expenses e
                 INNER JOIN categories c on e.id_category = c.id
                 ORDER BY temp_date DESC
                 LIMIT 20) t"]))
@@ -37,10 +37,10 @@
   [from to categories]
   (db/query
    [(str
-     "SELECT id, date, id_category, category, item, amount FROM (
+     "SELECT id, date, id_category, category, item, amount, from_savings FROM (
        SELECT e.id, TO_CHAR(e.date, 'dd/mm/yyyy') AS date,
        e.date as temp_date, c.id as id_category, c.name as category,
-       e.item, e.amount
+       e.item, e.amount, e.from_savings
        FROM expenses e
        INNER JOIN categories c ON e.id_category = c.id
        WHERE e.date >= TO_DATE(?, 'DD/MM/YYYY')
@@ -63,10 +63,10 @@
   [from to item categories]
   (db/query
    [(str
-     "SELECT id, date, id_category, category, item, amount FROM (
+     "SELECT id, date, id_category, category, item, amount, from_savings FROM (
        SELECT e.id, TO_CHAR(e.date, 'dd/mm/yyyy') AS date,
        e.date as temp_date, c.id as id_category, c.name as category,
-       e.item, e.amount
+       e.item, e.amount, e.from_savings
        FROM expenses e
        INNER JOIN categories c ON e.id_category = c.id
        WHERE e.date <= TO_DATE(?, 'DD/MM/YYYY')"
@@ -80,10 +80,10 @@
   [from to item]
   (db/query
    [(str
-     "SELECT id, date, id_category, category, item, amount FROM (
+     "SELECT id, date, id_category, category, item, amount, from_savings FROM (
        SELECT e.id, TO_CHAR(e.date, 'dd/mm/yyyy') AS date,
        e.date as temp_date, c.id as id_category, c.name as category,
-       e.item, e.amount
+       e.item, e.amount, e.from_savings
        FROM expenses e
        INNER JOIN categories c ON e.id_category = c.id
        WHERE e.date <= TO_DATE(?, 'DD/MM/YYYY')"
@@ -94,25 +94,28 @@
 
 (defn insert!
   [expense]
-  (let [{:keys [date id-category item amount]} expense]
-    (db/update! ["INSERT INTO expenses(date, id_category, item, amount)
+  (let [{:keys [date id-category item amount from-savings]} expense]
+    (db/update! ["INSERT INTO
+                  expenses(date, id_category, item, amount, from_savings)
                   VALUES(
                     TO_DATE(?, 'DD/MM/YYYY'),
                     cast(? as integer),
                     ?,
-                    cast(? as double precision)
+                    cast(? as double precision),
+                    ?
                   )"
-                 date id-category item amount])))
+                 date id-category item amount from-savings])))
 
 (defn update!
   [expense]
-  (let [{:keys [id date id-category item amount]} expense]
+  (let [{:keys [id date id-category item amount from-savings]} expense]
     (db/update! ["UPDATE expenses SET date = TO_DATE(?, 'DD/MM/YYYY'),
                  id_category = cast(? as integer),
                  item = ?,
-                 amount = cast(? as double precision)
+                 amount = cast(? as double precision),
+                 from_savings = ?
                  WHERE id = ?"
-                 date id-category item amount id])))
+                 date id-category item amount from-savings id])))
 
 (defn delete!
   [id]
