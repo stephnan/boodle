@@ -9,7 +9,8 @@ create table expenses (
         date date,
         id_category integer references categories(id),
         item varchar(1000),
-        amount numeric(10,2)
+        amount numeric(10,2),
+        from_savings boolean
         );
 create table aims (
         id serial primary key,
