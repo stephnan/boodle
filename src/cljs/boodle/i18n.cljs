@@ -48,12 +48,14 @@
      :modal.date "Data"
      :modal.delete-confirm " Confermi la cancellazione della spesa? "
      :modal.delete-title "Cancella spesa"
+     :modal.from-savings "Da risparmi"
      :modal.item "Oggetto"
      :page.title "Spese"
      :table.actions "Azioni"
      :table.amount "Importo"
      :table.category "Categoria"
      :table.date "Data"
+     :table.from-savings "Da risparmi"
      :table.item "Oggetto"}
 
     :header

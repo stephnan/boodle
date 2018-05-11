@@ -6,7 +6,7 @@
   (fn []
     [:div.container
      [:div.row
-      [:div.six.columns
+      [:div.eight.columns
        {:style {:margin-top ".1em"}}
        [:h2 (translate :it :header/boodle)]]
       [:div.one.column

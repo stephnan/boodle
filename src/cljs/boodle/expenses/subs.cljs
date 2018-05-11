@@ -29,6 +29,11 @@
    (get-in db [:expenses :row :date])))
 
 (rf/reg-sub
+ :expense-modal-from-savings
+ (fn [db _]
+   (get-in db [:expenses :row :from-savings])))
+
+(rf/reg-sub
  :show-update-expense-modal
  (fn [db _]
    (:show-update-expense-modal db)))

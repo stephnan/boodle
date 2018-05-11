@@ -13,6 +13,7 @@
    [:td (:category row)]
    [:td (:item row)]
    [:td (str (common/format-number (:amount row)) (translate :it :currency))]
+   [:td (when (:from-savings row) [:i.fa.fa-check])]
    [:td
     [:div.container
      {:style {:padding-top ".4em" :padding-bottom ".4em"}}
@@ -38,6 +39,7 @@
          [:th (translate :it :expenses/table.category)]
          [:th (translate :it :expenses/table.item)]
          [:th (translate :it :expenses/table.amount)]
+         [:th (translate :it :expenses/table.from-savings)]
          [:th {:style {:text-align "center"}}
           (translate :it :expenses/table.actions)]]]
        [:tbody

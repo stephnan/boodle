@@ -44,7 +44,18 @@
           {:type "text"
            :value (:amount row)
            :on-change #(rf/dispatch [:expense-change-amount
-                                     (-> % .-target .-value)])}]]]]]
+                                     (-> % .-target .-value)])}]]]
+       [:div.row
+        {:style {:padding-top "1em"}}
+        (let [checked @(rf/subscribe [:expense-modal-from-savings])]
+          [:div.three.columns
+           [:label (translate :it :expenses/modal.from-savings)]
+           [:input
+            {:id "from-savings"
+             :type "checkbox"
+             :checked (boolean checked)
+             :on-change #(rf/dispatch [:expense-change-from-savings])}]
+           [:label {:for "from-savings"}]])]]]
      [:hr]
      [:div.modal-footer
       [:div.modal-buttons

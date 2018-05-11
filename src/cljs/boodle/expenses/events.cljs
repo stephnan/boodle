@@ -43,6 +43,11 @@
    (assoc-in db [:expenses :row :amount] value)))
 
 (rf/reg-event-db
+ :expense-change-from-savings
+ (fn [db [_ _]]
+   (update-in db [:expenses :row :from-savings] not)))
+
+(rf/reg-event-db
  :load-expenses
  (fn [db [_ result]]
    (assoc-in db [:expenses :rows] result)))
