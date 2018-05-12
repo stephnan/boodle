@@ -4,9 +4,9 @@
 
 (defn get-data
   [params]
-  (let [{from :from to :to item :item categories :categories} params
+  (let [{:keys [from to item categories from-savings]} params
         to (if (nil? to) (dates/today) to)
-        expenses (model/report from to item categories)
+        expenses (model/report from to item categories from-savings)
         total (apply + (map :amount expenses))]
     (-> {}
         (assoc :data expenses)
@@ -24,10 +24,10 @@
 
 (defn find-totals-for-categories
   [params]
-  (let [{from :from to :to item :item} params
+  (let [{from :from to :to item :item from-savings :from-savings} params
         to (if (nil? to) (dates/today) to)
         item (if (nil? item) "" item)
-        expenses (model/totals-for-categories from to item)
+        expenses (model/totals-for-categories from to item from-savings)
         total (apply + (map :amount expenses))]
     (-> {}
         (assoc :data (categories-totals expenses))

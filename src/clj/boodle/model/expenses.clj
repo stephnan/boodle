@@ -31,7 +31,7 @@
             (interpose ", ")
             (apply str))
        ") ")
-      (str "AND e.id_category = cast(" l " as integer) "))))
+      (str " AND e.id_category = cast(" l " as integer) "))))
 
 (defn select-by-date-and-categories
   [from to categories]
@@ -46,7 +46,7 @@
        WHERE e.date >= TO_DATE(?, 'DD/MM/YYYY')
        AND e.date <= TO_DATE(?, 'DD/MM/YYYY') "
      (categories-filter categories)
-     " ORDER BY temp_date DESC) t")
+     " ORDER BY temp_date DESC) AS t")
     from to]))
 
 (defn from-filter
@@ -59,8 +59,14 @@
   (when-not (or (nil? item) (empty? item))
     (str " AND e.item ilike '%" item "%'")))
 
+(defn from-savings-filter
+  [from-savings]
+  (if from-savings
+    (str " AND (e.from_savings IS NOT TRUE OR e.from_savings IS TRUE) ")
+    (str " AND e.from_savings IS NOT TRUE ")))
+
 (defn report
-  [from to item categories]
+  [from to item categories from-savings]
   (db/query
    [(str
      "SELECT id, date, id_category, category, item, amount, from_savings FROM (
@@ -73,11 +79,12 @@
      (from-filter from)
      (item-filter item)
      (categories-filter categories)
-     " ORDER BY temp_date DESC) t")
+     (from-savings-filter from-savings)
+     " ORDER BY temp_date DESC) AS t")
     to]))
 
 (defn totals-for-categories
-  [from to item]
+  [from to item from-savings]
   (db/query
    [(str
      "SELECT id, date, id_category, category, item, amount, from_savings FROM (
@@ -86,10 +93,11 @@
        e.item, e.amount, e.from_savings
        FROM expenses e
        INNER JOIN categories c ON e.id_category = c.id
-       WHERE e.date <= TO_DATE(?, 'DD/MM/YYYY')"
+       WHERE e.date <= TO_DATE(?, 'DD/MM/YYYY') "
      (from-filter from)
      (item-filter item)
-     " ORDER BY temp_date DESC) t")
+     (from-savings-filter from-savings)
+     " ORDER BY temp_date DESC) AS t")
     to]))
 
 (defn insert!
