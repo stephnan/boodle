@@ -26,3 +26,8 @@
  :report-to
  (fn [db _]
    (get-in db [:report :params :to])))
+
+(rf/reg-sub
+ :report-from-savings
+ (fn [db _]
+   (get-in db [:report :params :from-savings])))

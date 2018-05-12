@@ -25,6 +25,11 @@
  (fn [db [_ value]]
    (assoc-in db [:report :params :categories] value)))
 
+(rf/reg-event-db
+ :report-change-from-savings
+ (fn [db [_ _]]
+   (update-in db [:report :params :from-savings] not)))
+
 (defn validate-from
   [params]
   (let [item (:item params)]

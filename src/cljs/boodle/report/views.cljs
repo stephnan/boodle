@@ -50,7 +50,8 @@
   (fn []
     (let [categories (conj @(rf/subscribe [:categories]) {:id "" :name ""})
           params (rf/subscribe [:report-params])
-          total (rf/subscribe [:report-total])]
+          total (rf/subscribe [:report-total])
+          checked @(rf/subscribe [:report-from-savings])]
       [:div
        [common/header]
 
@@ -71,7 +72,8 @@
            [pikaday/date-selector
             {:date-atom (rf/subscribe [:report-to])
              :pikaday-attrs {:onSelect #(rf/dispatch [:report-change-to %])
-                             :format "DD/MM/YYYY"}}]]
+                             :format "DD/MM/YYYY"}}]]]
+         [:div.row
           [:div.three.columns
            [:label (translate :it :report/label.item)]
            [:input.u-full-width
@@ -85,7 +87,15 @@
             {:value (v/or-empty-string (:categories @params))
              :on-change #(rf/dispatch [:report-change-categories
                                        (-> % .-target .-value)])}
-            (map common/render-option categories)]]]
+            (map common/render-option categories)]]
+          [:div.three.columns
+           [:label (translate :it :report/label.from-savings)]
+           [:input
+            {:id "from-savings"
+             :type "checkbox"
+             :checked (boolean checked)
+             :on-change #(rf/dispatch [:report-change-from-savings])}]
+           [:label {:for "from-savings"}]]]
 
          [:div.row
           [:div.twelve.columns

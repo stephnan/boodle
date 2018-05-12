@@ -98,6 +98,7 @@
     {:button.search "Cerca spese"
      :label.category "Categoria"
      :label.from "Da"
+     :label.from-savings "Da risparmi"
      :label.item "Oggetto"
      :label.to "A"
      :label.total "Totale "
