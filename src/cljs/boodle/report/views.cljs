@@ -61,33 +61,18 @@
 
         [:div.form
          [:div.row
-          [:div.three.columns
+          [:div.four.columns
            [:label (translate :it :report/label.from)]
            [pikaday/date-selector
             {:date-atom (rf/subscribe [:report-from])
              :pikaday-attrs {:onSelect #(rf/dispatch [:report-change-from %])
                              :format "DD/MM/YYYY"}}]]
-          [:div.three.columns
+          [:div.four.columns
            [:label (translate :it :report/label.to)]
            [pikaday/date-selector
             {:date-atom (rf/subscribe [:report-to])
              :pikaday-attrs {:onSelect #(rf/dispatch [:report-change-to %])
-                             :format "DD/MM/YYYY"}}]]]
-         [:div.row
-          [:div.three.columns
-           [:label (translate :it :report/label.item)]
-           [:input.u-full-width
-            {:type "text"
-             :value (v/or-empty-string (:item @params))
-             :on-change #(rf/dispatch [:report-change-item
-                                       (-> % .-target .-value)])}]]
-          [:div.three.columns
-           [:label (translate :it :report/label.category)]
-           [:select.u-full-width
-            {:value (v/or-empty-string (:categories @params))
-             :on-change #(rf/dispatch [:report-change-categories
-                                       (-> % .-target .-value)])}
-            (map common/render-option categories)]]
+                             :format "DD/MM/YYYY"}}]]
           [:div.three.columns
            [:label (translate :it :report/label.from-savings)]
            [:input
@@ -96,6 +81,21 @@
              :checked (boolean checked)
              :on-change #(rf/dispatch [:report-change-from-savings])}]
            [:label {:for "from-savings"}]]]
+         [:div.row
+          [:div.six.columns
+           [:label (translate :it :report/label.item)]
+           [:input.u-full-width
+            {:type "text"
+             :value (v/or-empty-string (:item @params))
+             :on-change #(rf/dispatch [:report-change-item
+                                       (-> % .-target .-value)])}]]
+          [:div.six.columns
+           [:label (translate :it :report/label.category)]
+           [:select.u-full-width
+            {:value (v/or-empty-string (:categories @params))
+             :on-change #(rf/dispatch [:report-change-categories
+                                       (-> % .-target .-value)])}
+            (map common/render-option categories)]]]
 
          [:div.row
           [:div.twelve.columns
