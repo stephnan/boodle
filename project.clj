@@ -41,7 +41,7 @@
    [kibu/pushy "0.3.8"]
    [org.clojure/clojurescript "1.9.946"]
    [re-frame "0.10.5"]
-   [reagent "0.8.0"]
+   [reagent "0.8.1"]
    [reagent-utils "0.3.1"]
    [tongue "0.2.4"]]
 
