@@ -20,11 +20,8 @@ boodle uses these Clojure/ClojureScript libraries:
 - [ring](https://github.com/ring-clojure/ring)
 - [tongue](https://github.com/tonsky/tongue)
 
-boodle runs on [PostgreSQL](https://www.postgresql.org) 9.4.15 (production
-environment) and 10.3 (development environment), and uses
-[Skeleton](http://getskeleton.com/) to style the UI.
-
-The modal panel is a customised version of
+I used [Skeleton](http://getskeleton.com/) to style the UI. The modal panel is a
+customised version of
 [re-frame-modal](https://github.com/benhowell/re-frame-modal). The date picker
 is a customised version of
 [cljs-pikaday](https://github.com/timgilbert/cljs-pikaday).
