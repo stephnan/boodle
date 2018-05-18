@@ -23,7 +23,7 @@
    [org.clojure/java.jdbc "0.7.6"]
    [org.clojure/tools.reader "1.2.2"]
    [org.postgresql/postgresql "42.2.2"]
-   [prone "1.5.2"]
+   [prone "1.6.0"]
    [ring "1.6.3"]
    [ring/ring-defaults "0.3.1"]
    [ring/ring-json "0.4.0"]
