@@ -8,17 +8,21 @@
         "savings" :savings-home
         "report" :report-home}])
 
-(defn- parse-url []
+(defn- parse-url
+  []
   (fn [url]
     (bidi/match-route routes url)))
 
-(defn- keywordize-route [route]
+(defn- keywordize-route
+  [route]
   (keyword (str route "-panel")))
 
-(defn- dispatch-route [matched-route]
+(defn- dispatch-route
+  [matched-route]
   (let [route (name (:handler matched-route))
         panel-name (keywordize-route route)]
     (rf/dispatch [:set-active-panel panel-name])))
 
-(defn app-routes []
+(defn app-routes
+  []
   (pushy/start! (pushy/pushy dispatch-route (parse-url))))

@@ -2,7 +2,8 @@
   (:require [boodle.i18n :refer [translate]]
             [cljs.pprint :as pp]))
 
-(defn header []
+(defn header
+  []
   (fn []
     [:div.container
      [:div.row
@@ -28,7 +29,8 @@
         :border-width 0
         :border-top "1px solid #E1E1E1"}}]]))
 
-(defn page-title [title]
+(defn page-title
+  [title]
   (fn []
     [:h3
      {:style {:text-align "center"}}

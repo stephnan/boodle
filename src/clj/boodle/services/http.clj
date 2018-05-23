@@ -20,12 +20,14 @@
 
 (defonce server (atom nil))
 
-(defn stop-server! []
+(defn stop-server!
+  []
   (when-not (nil? @server)
     (@server :timeout 100)
     (reset! server nil)))
 
-(defn start-server! []
+(defn start-server!
+  []
   (let [port (get-in config/config [:http :port])]
     (reset! server (server/run-server app {:port port}))))
 

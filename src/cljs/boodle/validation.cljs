@@ -46,7 +46,8 @@
    (fn [s]
      (boolean (re-matches #"\d\d/\d\d/\d\d\d\d" s)))))
 
-(defn valid-number? [s]
+(defn valid-number?
+  [s]
   (-> (js/parseFloat s)
       js/isNaN
       not))
@@ -78,7 +79,8 @@
        (doall)
        (map (fn [req] ^{:key req} (:message req)))))
 
-(defn validation-msg-box []
+(defn validation-msg-box
+  []
   (fn []
     (when-let [show @(rf/subscribe [:show-validation])]
       (let [validation-message (rf/subscribe [:validation-msg])]
@@ -90,7 +92,8 @@
           (for [m @validation-message]
             [:li {:key (random-uuid)} m])]]))))
 
-(defn modal-validation-msg-box []
+(defn modal-validation-msg-box
+  []
   (fn []
     (when-let [show @(rf/subscribe [:show-modal-validation])]
       (let [validation-message (rf/subscribe [:modal-validation-msg])]

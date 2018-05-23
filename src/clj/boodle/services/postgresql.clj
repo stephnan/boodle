@@ -11,7 +11,8 @@
            [java.sql Date Timestamp]
            org.postgresql.util.PGobject))
 
-(defn format-date [v]
+(defn format-date
+  [v]
   (.format (java.text.SimpleDateFormat. "dd/MM/yyyy") v))
 
 (extend-protocol jdbc/IResultSetReadColumn
@@ -33,7 +34,8 @@
         "citext" (str value)
         value))))
 
-(defn to-pg-json [value]
+(defn to-pg-json
+  [value]
   (doto (PGobject.)
     (.setType "jsonb")
     (.setValue (cheshire/generate-string value))))
@@ -44,7 +46,8 @@
   IPersistentVector
   (sql-value [value] (to-pg-json value)))
 
-(defn- make-datasource-options []
+(defn- make-datasource-options
+  []
   (let [host (get-in config/config [:postgresql :host])
         db-name (get-in config/config [:postgresql :db-name])
         user (get-in config/config [:postgresql :user])
@@ -66,7 +69,8 @@
      :port-number        5432
      :register-mbeans    false}))
 
-(defn connect! []
+(defn connect!
+  []
   (hikari/make-datasource (make-datasource-options)))
 
 (defn disconnect!

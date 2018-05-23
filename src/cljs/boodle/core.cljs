@@ -17,17 +17,20 @@
             [re-frame.core :as rf]
             [reagent.core :as reagent]))
 
-(defn main-panel []
+(defn main-panel
+  []
   (let [active-panel (rf/subscribe [:active-panel])]
     (fn []
       [views/show-panel @active-panel])))
 
-(defn mount-root []
+(defn mount-root
+  []
   (rf/clear-subscription-cache!)
   (reagent/render [main-panel]
                   (.getElementById js/document "app")))
 
-(defn ^export init []
+(defn ^:export init
+  []
   (routes/app-routes)
   (rf/dispatch-sync [:initialize-db])
   (mount-root))

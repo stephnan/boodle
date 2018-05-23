@@ -58,7 +58,8 @@
   [opts]
   (clj->js (transform-keys ->camelCaseString opts)))
 
-(defn- watch [ratom predicate func])
+(defn- watch
+  [ratom predicate func])
 
 (defn date-selector
   "Return a date-selector reagent component. Takes a single map as its
