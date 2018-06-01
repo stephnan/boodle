@@ -25,7 +25,7 @@
    [org.postgresql/postgresql "42.2.2"]
    [prone "1.6.0"]
    [ring "1.6.3"]
-   [ring/ring-defaults "0.3.1"]
+   [ring/ring-defaults "0.3.2"]
    [ring/ring-json "0.4.0"]
    [ring/ring-mock "0.3.2"]
    [ring-middleware-format "0.7.2"]
