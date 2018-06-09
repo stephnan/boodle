@@ -34,7 +34,7 @@
    [bidi "2.1.3"]
    [camel-snake-kebab "0.4.0" :exclusions [org.clojure/clojure]]
    [cljs-ajax "0.7.3"]
-   [cljsjs/moment "2.22.0-0"]
+   [cljsjs/moment "2.22.2-0"]
    [cljsjs/pikaday "1.5.1-2"]
    [com.andrewmcveigh/cljs-time "0.5.2"]
    [day8.re-frame/http-fx "0.1.6"]
@@ -62,7 +62,7 @@
   :profiles
   {:dev
    {:dependencies [[binaryage/devtools "0.9.10"]
-                   [cider/piggieback "0.3.5"]
+                   [cider/piggieback "0.3.6"]
                    [day8.re-frame/re-frame-10x "0.3.3"]
                    [day8.re-frame/tracing "0.5.1"]
                    [figwheel-sidecar "0.5.16"]]
