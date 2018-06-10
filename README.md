@@ -65,6 +65,9 @@ A production-ready build is available via:
 $ lein cljsbuild once min
 ```
 
+I use the included `deploy.sh` script to deploy a new version of boodle on my
+server when needed.
+
 ## Tests
 
 Unit tests can be run with:
