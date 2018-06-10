@@ -5,5 +5,5 @@ cd resources/src
 yarn
 gulp
 cd ../..
-lein cljsbuild once min
-lein run
+/home/manuel/bin/lein cljsbuild once min
+/home/manuel/bin/lein run
