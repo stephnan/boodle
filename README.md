@@ -65,8 +65,10 @@ A production-ready build is available via:
 $ lein cljsbuild once min
 ```
 
-I use the included `deploy.sh` script to deploy a new version of boodle on my
-server when needed.
+The included `boodle.service` is a basic [systemd
+unit](https://www.freedesktop.org/software/systemd/man/systemd.unit.html) that
+executes `deploy.sh` to update, build and run boodle automatically when
+I start/restart my home server.
 
 ## Tests
 
