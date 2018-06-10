@@ -4,3 +4,6 @@ Description=Service to run an instance of boodle
 [Service]
 WorkingDirectory=/home/manuel/boodle
 ExecStart=deploy.sh
+
+[Install]
+WantedBy=multi-user.target
