@@ -1,24 +1,24 @@
-create user admin with password 'admin';
+CREATE USER ADMIN WITH password 'admin';
 
-create table categories (id serial primary key, name varchar(30) not null, monthly_budget numeric(10,2));
+CREATE TABLE categories (id serial PRIMARY KEY, NAME VARCHAR(30) NOT NULL, monthly_budget NUMERIC(10,2));
 
-create table expenses (id serial primary key, date date, id_category integer references categories(id), item varchar(1000), amount numeric(10,2), from_savings BOOLEAN);
+CREATE TABLE expenses (id serial PRIMARY KEY, DATE DATE, id_category INTEGER REFERENCES categories(id), item VARCHAR(1000), amount NUMERIC(10,2), from_savings BOOLEAN);
 
-create table aims (id serial primary key, name varchar(30) not null, target numeric(10,2) not null, achieved boolean default FALSE);
+CREATE TABLE aims (id serial PRIMARY KEY, NAME VARCHAR(30) NOT NULL, target NUMERIC(10,2) NOT NULL, achieved BOOLEAN DEFAULT FALSE);
 
-create table transactions (id serial primary key, id_aim integer references aims(id), item varchar(1000), amount numeric(10,2), date DATE);
+CREATE TABLE transactions (id serial PRIMARY KEY, id_aim INTEGER REFERENCES aims(id), item VARCHAR(1000), amount NUMERIC(10,2), DATE DATE);
 
-create table savings (id serial primary key, item varchar(1000), amount numeric(10,2), date DATE);
+CREATE TABLE savings (id serial PRIMARY KEY, item VARCHAR(1000), amount NUMERIC(10,2), DATE DATE);
 
-grant all privileges on database "boodle" to admin;
-grant all privileges on table categories to admin;
-grant all privileges on table expenses to admin;
-grant all privileges on table aims to admin;
-grant all privileges on table transactions to admin;
-grant all privileges on table savings to admin;
-grant all privileges on table categories_id_seq to admin;
-grant all privileges on table expenses_id_seq to admin;
-grant all privileges on table aims_id_seq to admin;
-grant all privileges on table transactions_id_seq to admin;
-grant all privileges on table savings_id_seq to admin;
-grant postgres to admin;
+GRANT ALL PRIVILEGES ON database "boodle" TO ADMIN;
+GRANT ALL PRIVILEGES ON TABLE categories TO ADMIN;
+GRANT ALL PRIVILEGES ON TABLE expenses TO ADMIN;
+GRANT ALL PRIVILEGES ON TABLE aims TO ADMIN;
+GRANT ALL PRIVILEGES ON TABLE transactions TO ADMIN;
+GRANT ALL PRIVILEGES ON TABLE savings TO ADMIN;
+GRANT ALL PRIVILEGES ON TABLE categories_id_seq TO ADMIN;
+GRANT ALL PRIVILEGES ON TABLE expenses_id_seq TO ADMIN;
+GRANT ALL PRIVILEGES ON TABLE aims_id_seq TO ADMIN;
+GRANT ALL PRIVILEGES ON TABLE transactions_id_seq TO ADMIN;
+GRANT ALL PRIVILEGES ON TABLE savings_id_seq TO ADMIN;
+GRANT postgres TO ADMIN;
