@@ -21,7 +21,7 @@
    [org.clojure/clojure "1.9.0"]
    [org.clojure/core.incubator "0.1.4"]
    [org.clojure/java.jdbc "0.7.7"]
-   [org.clojure/tools.reader "1.2.2"]
+   [org.clojure/tools.reader "1.3.0"]
    [org.postgresql/postgresql "42.2.2"]
    [prone "1.6.0"]
    [ring "1.6.3"]
