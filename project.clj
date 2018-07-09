@@ -33,7 +33,7 @@
    ;; ClojureScript
    [bidi "2.1.3"]
    [camel-snake-kebab "0.4.0" :exclusions [org.clojure/clojure]]
-   [cljs-ajax "0.7.3"]
+   [cljs-ajax "0.7.4"]
    [cljsjs/moment "2.22.2-0"]
    [cljsjs/pikaday "1.5.1-2"]
    [com.andrewmcveigh/cljs-time "0.5.2"]
