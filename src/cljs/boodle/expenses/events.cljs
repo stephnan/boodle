@@ -133,7 +133,6 @@
  :save-expense
  (fn [{db :db} [_ _]]
    (let [expense (get-in db [:expenses :row])
-         id (:id expense)
          not-valid (validate-expense expense)]
      (if-not (empty? not-valid)
        (rf/dispatch [:modal-validation-error not-valid])
