@@ -1,8 +1,8 @@
 (ns boodle.core
   (:gen-class)
-  (:require [boodle.services.configuration]
-            [boodle.services.postgresql]
-            [boodle.services.http]
+  (:require boodle.services.configuration
+            boodle.services.http
+            boodle.services.postgresql
             [mount.core :as mount]))
 
 (defn -main
