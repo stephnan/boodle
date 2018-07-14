@@ -1,130 +1,124 @@
 (ns boodle.model.expenses
-  (:require [boodle.services.postgresql :as db]))
+  (:require [boodle.services.postgresql :as db]
+            [honeysql.core :as hc]
+            [honeysql.helpers :as hh]))
 
 (defn select-all
   []
-  (db/query ["SELECT id, date, id_category, category, item, amount, from_savings
-              FROM (
-                SELECT e.id, TO_CHAR(e.date, 'dd/mm/yyyy') AS date,
-                e.date as temp_date, c.id as id_category, c.name as category,
-                e.item, e.amount, e.from_savings
-                FROM expenses e
-                INNER JOIN categories c on e.id_category = c.id
-                ORDER BY temp_date DESC
-                LIMIT 20) t"]))
+  (-> (-> (hh/select :id :date :id_category :category
+                     :item :amount :from_savings)
+          (hh/from [(-> (hh/select :e.id :e.date [:c.id :id_category]
+                                   [:c.name :category] :e.item :e.amount
+                                   :e.from_savings)
+                        (hh/from [:expenses :e])
+                        (hh/join [:categories :c]
+                                 [:= :e.id_category :c.id])
+                        (hh/order-by [:e.date :desc])
+                        (hh/limit 20)) :t]))
+      hc/build
+      db/query))
 
 (defn select-by-id
   [id]
-  (db/query ["SELECT * FROM expenses WHERE id = cast(? as integer)" id]))
+  (db/query {:select [:*] :from [:expenses] :where [:= :id id]}))
 
 (defn select-by-item
   [item]
-  (db/query ["SELECT * FROM expenses WHERE item = ?" item]))
+  (db/query {:select [:*] :from [:expenses] :where [:= :item item]}))
 
 (defn categories-filter
-  [l]
-  (when-not (empty? l)
-    (if (sequential? l)
-      (str
-       " AND e.id_category IN ("
-       (->> (map #(str "cast(" % " as integer)") l)
-            (interpose ", ")
-            (apply str))
-       ") ")
-      (str " AND e.id_category = cast(" l " as integer) "))))
+  [xs]
+  (when-not (empty? xs)
+    (if (sequential? xs)
+      [:in :e.id_category xs]
+      [:= :e.id_category xs])))
 
 (defn select-by-date-and-categories
   [from to categories]
-  (db/query
-   [(str
-     "SELECT id, date, id_category, category, item, amount, from_savings FROM (
-       SELECT e.id, TO_CHAR(e.date, 'dd/mm/yyyy') AS date,
-       e.date as temp_date, c.id as id_category, c.name as category,
-       e.item, e.amount, e.from_savings
-       FROM expenses e
-       INNER JOIN categories c ON e.id_category = c.id
-       WHERE e.date >= TO_DATE(?, 'DD/MM/YYYY')
-       AND e.date <= TO_DATE(?, 'DD/MM/YYYY') "
-     (categories-filter categories)
-     " ORDER BY temp_date DESC) AS t")
-    from to]))
+  (-> (-> (hh/select :id :date :id_category :category
+                     :item :amount :from_savings)
+          (hh/from [(-> (hh/select :e.id :e.date [:c.id :id_category]
+                                   [:c.name :category] :e.item :e.amount
+                                   :e.from_savings)
+                        (hh/from [:expenses :e])
+                        (hh/join [:categories :c]
+                                 [:= :e.id_category :c.id])
+                        (hh/where [:>= :e.date from]
+                                  [:<= :e.date to]
+                                  (categories-filter categories))
+                        (hh/order-by [:e.date :desc])) :t]))
+      hc/build
+      db/query))
 
 (defn from-filter
   [from]
   (when-not (or (nil? from) (empty? from))
-    (str " AND e.date >= TO_DATE('" from "', 'DD/MM/YYYY')")))
+    [:>= :e.date from]))
 
 (defn item-filter
   [item]
   (when-not (or (nil? item) (empty? item))
-    (str " AND e.item ilike '%" item "%'")))
+    [:ilike :e.item item]))
 
 (defn from-savings-filter
   [from-savings]
   (if from-savings
-    (str " AND (e.from_savings IS NOT TRUE OR e.from_savings IS TRUE) ")
-    (str " AND e.from_savings IS NOT TRUE ")))
+    [:or [:not-true :e.from_savings] [:is-true :e.from_savings]]
+    [:not-true :e.from_savings]))
 
 (defn report
   [from to item categories from-savings]
-  (db/query
-   [(str
-     "SELECT id, date, id_category, category, item, amount, from_savings FROM (
-       SELECT e.id, TO_CHAR(e.date, 'dd/mm/yyyy') AS date,
-       e.date as temp_date, c.id as id_category, c.name as category,
-       e.item, e.amount, e.from_savings
-       FROM expenses e
-       INNER JOIN categories c ON e.id_category = c.id
-       WHERE e.date <= TO_DATE(?, 'DD/MM/YYYY')"
-     (from-filter from)
-     (item-filter item)
-     (categories-filter categories)
-     (from-savings-filter from-savings)
-     " ORDER BY temp_date DESC) AS t")
-    to]))
+  (-> (-> (hh/select :id :date :id_category :category
+                     :item :amount :from_savings)
+          (hh/from [(-> (hh/select :e.id :e.date [:c.id :id_category]
+                                   [:c.name :category] :e.item :e.amount
+                                   :e.from_savings)
+                        (hh/from [:expenses :e])
+                        (hh/join [:categories :c]
+                                 [:= :e.id_category :c.id])
+                        (hh/where [:<= :e.date to]
+                                  (from-filter from)
+                                  (item-filter item)
+                                  (categories-filter categories)
+                                  (from-savings-filter from-savings))
+                        (hh/order-by [:e.date :desc])) :t]))
+      hc/build
+      db/query))
 
 (defn totals-for-categories
   [from to item from-savings]
-  (db/query
-   [(str
-     "SELECT id, date, id_category, category, item, amount, from_savings FROM (
-       SELECT e.id, TO_CHAR(e.date, 'dd/mm/yyyy') AS date,
-       e.date as temp_date, c.id as id_category, c.name as category,
-       e.item, e.amount, e.from_savings
-       FROM expenses e
-       INNER JOIN categories c ON e.id_category = c.id
-       WHERE e.date <= TO_DATE(?, 'DD/MM/YYYY') "
-     (from-filter from)
-     (item-filter item)
-     (from-savings-filter from-savings)
-     " ORDER BY temp_date DESC) AS t")
-    to]))
+  (-> (-> (hh/select :id :date :id_category :category
+                     :item :amount :from_savings)
+          (hh/from [(-> (hh/select :e.id :e.date [:c.id :id_category]
+                                   [:c.name :category] :e.item :e.amount
+                                   :e.from_savings)
+                        (hh/from [:expenses :e])
+                        (hh/join [:categories :c]
+                                 [:= :e.id_category :c.id])
+                        (hh/where [:<= :e.date to]
+                                  (from-filter from)
+                                  (item-filter item)
+                                  (from-savings-filter from-savings))
+                        (hh/order-by [:e.date :desc])) :t]))
+      hc/build
+      db/query))
 
 (defn insert!
-  [expense]
-  (let [{:keys [date id-category item amount from-savings]} expense]
-    (db/update! ["INSERT INTO
-                  expenses(date, id_category, item, amount, from_savings)
-                  VALUES(
-                    TO_DATE(?, 'DD/MM/YYYY'),
-                    cast(? as integer),
-                    ?,
-                    cast(? as double precision),
-                    ?
-                  )"
-                 date id-category item amount from-savings])))
+  [{d :date ic :id-category i :item a :amount fs :from-savings}]
+  (db/execute!
+   (-> (hh/insert-into :expenses)
+       (hh/columns :date :id_category :item :amount :from_savings)
+       (hh/values [d ic i a fs]))))
 
 (defn update!
-  [expense]
-  (let [{:keys [id date id-category item amount from-savings]} expense]
-    (db/update! ["UPDATE expenses SET date = TO_DATE(?, 'DD/MM/YYYY'),
-                 id_category = cast(? as integer),
-                 item = ?,
-                 amount = cast(? as double precision),
-                 from_savings = ?
-                 WHERE id = ?"
-                 date id-category item amount from-savings id])))
+  [{id :id d :date ic :id-category i :item a :amount fs :from-savings}]
+  (db/execute!
+   (-> (hh/update :expenses)
+       (hh/sset {:date d :id_category ic :item i :amount a :from_savings fs})
+       (hh/where [:= :id id]))))
 
 (defn delete!
   [id]
-  (db/delete! ["DELETE FROM expenses WHERE id = cast(? as integer)" id]))
+  (db/execute!
+   (-> (hh/delete-from :expenses)
+       (hh/where [:= :id id]))))

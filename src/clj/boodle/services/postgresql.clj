@@ -7,6 +7,7 @@
             [dire.core :as dire]
             [hikari-cp.core :as hikari]
             [honeysql.core :as sql]
+            [honeysql.format :as fmt]
             [java-time :as jt]
             [mount.core :as mount]
             [taoensso.timbre :as log])
@@ -118,6 +119,18 @@
      (assoc m (snake-case->kebab-case k) v))
    {}
    output))
+
+(defmethod fmt/fn-handler "ilike" [_ col qstr]
+  (str (fmt/to-sql col) " ilike " (fmt/to-sql qstr)))
+
+(defmethod fmt/fn-handler "not-ilike" [_ col qstr]
+  (str (fmt/to-sql col) " not ilike " (fmt/to-sql qstr)))
+
+(defmethod fmt/fn-handler "is-true" [_ col qstr]
+  (str (fmt/to-sql col) " is " (fmt/to-sql qstr) " true"))
+
+(defmethod fmt/fn-handler "not-true" [_ col qstr]
+  (str (fmt/to-sql col) " is not " (fmt/to-sql qstr) " true"))
 
 (defn query
   "Run a query using the map in `sqlmap`."

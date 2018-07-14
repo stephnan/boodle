@@ -1,49 +1,56 @@
 (ns boodle.model.aims
-  (:require [boodle.services.postgresql :as db]))
+  (:require [boodle.services.postgresql :as db]
+            [honeysql.core :as hc]
+            [honeysql.helpers :as hh]))
 
 (defn select-all
   []
-  (db/query ["SELECT * FROM aims"]))
+  (db/query {:select [:*] :from [:aims]}))
 
 (defn select-by-id
   [id]
-  (db/query ["SELECT * FROM aims WHERE id = cast(? as integer)" id]))
+  (db/query {:select [:*] :from [:aims] :where [:= :id id]}))
 
 (defn select-by-name
   [aim-name]
-  (db/query ["SELECT * FROM aims WHERE name = ?" aim-name]))
+  (db/query {:select [:*] :from [:aims] :where [:= :name aim-name]}))
 
 (defn select-active
   []
-  (db/query ["SELECT * FROM aims WHERE achieved = false"]))
+  (db/query {:select [:*] :from [:aims] :where [:= :achieved false]}))
 
 (defn select-achieved
   []
-  (db/query ["SELECT * FROM aims WHERE achieved = true"]))
+  (db/query {:select [:*] :from [:aims] :where [:= :achieved true]}))
 
 (defn select-aims-with-transactions
   []
-  (db/query ["SELECT a.id, a.name as aim, a.target, t.amount
-              FROM transactions t
-              RIGHT JOIN aims a ON a.id = t.id_aim
-              WHERE a.achieved = false"]))
+  (-> (-> (hh/select :a.id [:a.name :aim] :a.target :t.amount)
+          (hh/from [:transactions :t])
+          (hh/right-join [:aims :a] [:= :a.id :t.id_aim])
+          (hh/where [:= :a.achieved false]))
+      hc/build
+      db/query))
 
 (defn insert!
-  [aim]
-  (let [{:keys [name target]} aim]
-    (db/update! ["INSERT INTO aims(name, target, achieved)
-                  VALUES (?, cast(? as double precision), false)"
-                 name target])))
+  [{n :name t :target}]
+  (db/execute!
+   (-> (hh/insert-into :aims)
+       (hh/columns :name :target :achieved)
+       (hh/values [n t]))))
 
 (defn update!
-  [aim]
-  (let [{:keys [id name target achieved]} aim]
-    (db/update! ["UPDATE aims SET name = ?,
-                  target = cast(? as double precision), achieved = ?
-                  WHERE id = cast(? as integer)"
-                 name target achieved id])))
+  [{id :id n :name t :target a :achieved}]
+  (db/execute!
+   (-> (hh/update :aims)
+       (hh/sset {:name n :target t :achieved a})
+       (hh/where [:= :id id]))))
 
 (defn delete!
   [id]
-  (db/delete! ["DELETE FROM transactions WHERE id_aim = cast(? as integer)" id])
-  (db/delete! ["DELETE FROM aims WHERE id = cast(? as integer)" id]))
+  (db/execute!
+   (-> (hh/delete-from :transactions)
+       (hh/where [:= :id_aim id])))
+  (db/execute!
+   (-> (hh/delete-from :aims)
+       (hh/where [:= :id id]))))

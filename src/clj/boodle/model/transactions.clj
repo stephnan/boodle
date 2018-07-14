@@ -1,45 +1,50 @@
 (ns boodle.model.transactions
   (:require [boodle.services.postgresql :as db]
-            [boodle.utils.dates :as ud]))
+            [honeysql.core :as hc]
+            [honeysql.helpers :as hh]))
 
 (defn select-all
   []
-  (db/query ["SELECT * FROM transactions"]))
+  (db/query {:select [:*] :from [:transactions]}))
 
 (defn select-by-id
   [id]
-  (db/query ["SELECT * FROM transactions WHERE id = cast(? as integer)" id]))
+  (db/query {:select [:*] :from [:transactions] :where [:= :id id]}))
 
 (defn select-by-item
   [transaction-item]
-  (db/query ["SELECT * FROM transactions WHERE item = ?" transaction-item]))
+  (db/query {:select [:*]
+             :from [:transactions]
+             :where [:= :item transaction-item]}))
 
 (defn select-by-aim
   [id-aim]
-  (db/query ["SELECT t.id, t.id_aim, a.name as aim, a.target, t.item,
-              t.amount, t.date FROM transactions t
-              RIGHT JOIN aims a ON t.id_aim = a.id
-              WHERE a.id = cast(? as integer)
-              ORDER BY date DESC"
-             id-aim]))
+  (-> (-> (hh/select :t.id :t.id_aim [:a.name :aim] :a.target
+                     :t.item :t.amount :t.date)
+          (hh/from [:transactions :t])
+          (hh/right-join [:aims :a]
+                         [:= :t.id_aim :a.id])
+          (hh/where [:= :a.id id-aim])
+          (hh/order-by [:date :desc]))
+      hc/build
+      db/query))
 
 (defn insert!
-  [transaction]
-  (let [{:keys [id-aim item amount]} transaction
-        today (ud/format-date (java.util.Date.))]
-    (db/update! ["INSERT INTO transactions(id_aim, item, amount, date)
-                  VALUES(cast(? as integer), ?, cast(? as double precision),
-                         TO_DATE(?, 'DD/MM/YYYY'))"
-                 id-aim item amount today])))
+  [{ia :id-aim i :item a :amount d :date}]
+  (db/execute!
+   (-> (hh/insert-into :transactions)
+       (hh/columns :id_aim :item :amount :date)
+       (hh/values [ia i a d]))))
 
 (defn update!
-  [transaction]
-  (let [{:keys [id id-aim item amount]} transaction]
-    (db/update! ["UPDATE transactions SET id_aim = ?, item = ?,
-                         amount = cast(? as double precision)
-                  WHERE id = cast(? as integer)"
-                 id-aim item amount id])))
+  [{id :id ia :id-aim i :item a :amount}]
+  (db/execute!
+   (-> (hh/update :transactions)
+       (hh/sset {:id_aim ia :item i :amount a})
+       (hh/where [:= :id id]))))
 
 (defn delete!
   [id]
-  (db/delete! ["DELETE FROM transactions WHERE id = cast(? as integer)" id]))
+  (db/execute!
+   (-> (hh/delete-from :transactions)
+       (hh/where [:= :id id]))))

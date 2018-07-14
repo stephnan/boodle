@@ -1,36 +1,35 @@
 (ns boodle.model.savings
   (:require [boodle.services.postgresql :as db]
-            [boodle.utils.dates :as ud]))
+            [honeysql.helpers :as hh]))
 
 (defn select-all
   []
-  (db/query ["SELECT * FROM savings ORDER BY date DESC"]))
+  (db/query {:select [:*] :from [:savings] :order-by [[:date :desc]]}))
 
 (defn select-by-id
   [id]
-  (db/query ["SELECT * FROM savings WHERE id = cast(? as integer)" id]))
+  (db/query {:select [:*] :from [:savings] :where [:= :id id]}))
 
 (defn select-by-item
   [savings-item]
-  (db/query ["SELECT * FROM savings WHERE item = ?" savings-item]))
+  (db/query {:select [:*] :from [:savings] :where [:= :item savings-item]}))
 
 (defn insert!
-  [saving]
-  (let [{:keys [item amount]} saving
-        today (ud/format-date (java.util.Date.))]
-    (db/update! ["INSERT INTO savings(item, amount, date)
-                  VALUES(?, cast(? as double precision),
-                         TO_DATE(?, 'DD/MM/YYYY'))"
-                 item amount today])))
+  [{i :item a :amount d :date}]
+  (db/execute!
+   (-> (hh/insert-into :savings)
+       (hh/columns :item :amount :date)
+       (hh/values [i a d]))))
 
 (defn update!
-  [saving]
-  (let [{:keys [id item amount]} saving]
-    (db/update! ["UPDATE savings SET item = ?,
-                         amount = cast(? as double precision)
-                  WHERE id = cast(? as integer)"
-                 item amount id])))
+  [{id :id i :item a :amount}]
+  (db/execute!
+   (-> (hh/update :savings)
+       (hh/sset {:item i :amount a})
+       (hh/where [:= :id id]))))
 
 (defn delete!
   [id]
-  (db/delete! ["DELETE FROM savings WHERE id = cast(? as integer)" id]))
+  (db/execute!
+   (-> (hh/delete-from :savings)
+       (hh/where [:= :id id]))))

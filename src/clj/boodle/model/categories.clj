@@ -1,32 +1,38 @@
 (ns boodle.model.categories
-  (:require [boodle.services.postgresql :as db]))
+  (:require [boodle.services.postgresql :as db]
+            [honeysql.core :as hc]
+            [honeysql.helpers :as hh]))
 
 (defn select-all
   []
-  (db/query ["SELECT * FROM categories"]))
+  (db/query {:select [:*] :from [:categories]}))
 
 (defn select-by-id
   [id]
-  (db/query ["SELECT * FROM categories WHERE id = cast(? as integer)" id]))
+  (db/query {:select [:*] :from [:categories] :where [:= :id id]}))
 
 (defn select-by-name
   [category-name]
-  (db/query ["SELECT * FROM categories WHERE name = ?" category-name]))
+  (db/query {:select [:*]
+             :from [:categories]
+             :where [:= :name category-name]}))
 
 (defn insert!
-  [category]
-  (let [{:keys [name monthly-budget]} category]
-    (db/update! ["INSERT INTO categories(name, monthly_budget)
-                  VALUES( ?, cast(? as double precision))"
-                 name monthly-budget])))
+  [{n :name mb :monthly-budget}]
+  (db/execute!
+   (-> (hh/insert-into :categories)
+       (hh/columns :name :monthly_budget)
+       (hh/values [n mb]))))
 
 (defn update!
-  [category]
-  (let [{:keys [id name monthly-budget]} category]
-    (db/update! ["UPDATE categories SET name = ?, monthly_budget = ?
-                  WHERE id = cast(? as integer)"
-                 name monthly-budget id])))
+  [{id :id n :name mb :monthly-budget}]
+  (db/execute!
+   (-> (hh/update :categories)
+       (hh/sset {:name n :monthly_budget mb})
+       (hh/where [:= :id id]))))
 
 (defn delete!
   [id]
-  (db/delete! ["DELETE FROM categories WHERE id = cast(? as integer)" id]))
+  (db/execute!
+   (-> (hh/delete-from :categories)
+       (hh/where [:= :id id]))))
