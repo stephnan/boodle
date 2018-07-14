@@ -1,11 +1,12 @@
 (ns boodle.api.resources.report
   (:require [boodle.model.expenses :as model]
-            [boodle.utils.dates :as dates]))
+            [boodle.utils.dates :as ud]
+            [java-time :as jt]))
 
 (defn get-data
   [params]
   (let [{:keys [from to item categories from-savings]} params
-        to (if (nil? to) (dates/today) to)
+        to (if (nil? to) (jt/local-date) (ud/to-local-date to))
         expenses (model/report from to item categories from-savings)
         total (apply + (map :amount expenses))]
     (-> {}
@@ -23,9 +24,9 @@
         {})))
 
 (defn find-totals-for-categories
-  [params]
-  (let [{from :from to :to item :item from-savings :from-savings} params
-        to (if (nil? to) (dates/today) to)
+  [{from :from to :to item :item from-savings :from-savings}]
+  (let [from (ud/to-local-date from)
+        to (if (nil? to) (jt/local-date) (ud/to-local-date to))
         item (if (nil? item) "" item)
         expenses (model/totals-for-categories from to item from-savings)
         total (apply + (map :amount expenses))]
