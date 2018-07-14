@@ -6,6 +6,7 @@
             [clojure.java.jdbc :as jdbc]
             [dire.core :as dire]
             [hikari-cp.core :as hikari]
+            [honeysql.core :as sql]
             [java-time :as jt]
             [mount.core :as mount]
             [taoensso.timbre :as log])
@@ -16,11 +17,15 @@
 (extend-protocol jdbc/IResultSetReadColumn
   Date
   (result-set-read-column [v _ _]
-    (ud/format-date v))
+    (-> v
+        jt/local-date
+        ud/format-date))
 
   Timestamp
   (result-set-read-column [v _ _]
-    (ud/format-date v))
+    (-> v
+        jt/local-date
+        ud/format-date))
 
   PGobject
   (result-set-read-column [pgobj _metadata _index]
@@ -115,10 +120,13 @@
    output))
 
 (defn query
-  "Execute a SELECT statement using the SQL in `query-sql`."
-  [query-sql]
+  "Run a query using the map in `sqlmap`."
+  [sqlmap]
   (jdbc/with-db-connection [conn {:datasource datasource}]
-    (map format-output-keywords (jdbc/query conn query-sql))))
+    (->> sqlmap
+         sql/format
+         (jdbc/query conn)
+         (map format-output-keywords))))
 
 (dire/with-handler! #'query
   java.lang.Throwable
@@ -126,41 +134,17 @@
     (log/debugf "Exception: %s" (ex/get-stacktrace e))
     (throw (Exception. "Errore in query"))))
 
-(defn insert!
-  "Insert `values` into `table`.
-   `table` is a keyword (i.e.: :categories).
-   `values` is a map of columns and values (i.e.: {:name \"Test\"})."
-  [table values]
+(defn execute!
+  "Execute an insert/update/delete query using the map in `sqlmap`."
+  [sqlmap]
   (jdbc/with-db-connection [conn {:datasource datasource}]
-    (let [input-values (format-input-keywords values)]
-      (jdbc/insert! conn table input-values))))
+    (->> sqlmap
+         format-input-keywords
+         sql/format
+         (jdbc/execute! conn))))
 
-(dire/with-handler! #'insert!
+(dire/with-handler! #'execute!
   java.lang.Throwable
   (fn [e & args]
     (log/debugf "Exception: %s" (ex/get-stacktrace e))
-    (throw (Exception. "Errore in insert!"))))
-
-(defn update!
-  "Execute an update using the SQL in `query-sql`.
-   `query-sql` is a vector with the SQL statement and the necessary parameters."
-  [query-sql]
-  (jdbc/with-db-connection [conn {:datasource datasource}]
-    (jdbc/execute! conn query-sql)))
-
-(dire/with-handler! #'update!
-  java.lang.Throwable
-  (fn [e & args]
-    (log/debugf "Exception: %s" (ex/get-stacktrace e))
-    (throw (Exception. "Errore in update!"))))
-
-(defn delete!
-  "Tiny wrapper around `update!`, just syntactic sugar."
-  [query-sql]
-  (update! query-sql))
-
-(dire/with-handler! #'delete!
-  java.lang.Throwable
-  (fn [e & args]
-    (log/debugf "Exception: %s" (ex/get-stacktrace e))
-    (throw (Exception. "Errore in delete!"))))
+    (throw (Exception. "Errore in execute!"))))
