@@ -1,5 +1,6 @@
 (ns boodle.model.transactions
-  (:require [boodle.services.postgresql :as db]))
+  (:require [boodle.services.postgresql :as db]
+            [boodle.utils.dates :as ud]))
 
 (defn select-all
   []
@@ -25,7 +26,7 @@
 (defn insert!
   [transaction]
   (let [{:keys [id-aim item amount]} transaction
-        today (db/format-date (java.util.Date.))]
+        today (ud/format-date (java.util.Date.))]
     (db/update! ["INSERT INTO transactions(id_aim, item, amount, date)
                   VALUES(cast(? as integer), ?, cast(? as double precision),
                          TO_DATE(?, 'DD/MM/YYYY'))"

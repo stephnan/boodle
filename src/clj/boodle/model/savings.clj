@@ -1,5 +1,6 @@
 (ns boodle.model.savings
-  (:require [boodle.services.postgresql :as db]))
+  (:require [boodle.services.postgresql :as db]
+            [boodle.utils.dates :as ud]))
 
 (defn select-all
   []
@@ -16,7 +17,7 @@
 (defn insert!
   [saving]
   (let [{:keys [item amount]} saving
-        today (db/format-date (java.util.Date.))]
+        today (ud/format-date (java.util.Date.))]
     (db/update! ["INSERT INTO savings(item, amount, date)
                   VALUES(?, cast(? as double precision),
                          TO_DATE(?, 'DD/MM/YYYY'))"
