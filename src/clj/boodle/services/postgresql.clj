@@ -1,28 +1,26 @@
 (ns boodle.services.postgresql
   (:require [boodle.services.configuration :as config]
+            [boodle.utils.dates :as ud]
             [boodle.utils.exceptions :as ex]
             [cheshire.core :as cheshire]
             [clojure.java.jdbc :as jdbc]
             [dire.core :as dire]
             [hikari-cp.core :as hikari]
+            [java-time :as jt]
             [mount.core :as mount]
             [taoensso.timbre :as log])
   (:import [clojure.lang IPersistentMap IPersistentVector]
            [java.sql Date Timestamp]
            org.postgresql.util.PGobject))
 
-(defn format-date
-  [v]
-  (.format (java.text.SimpleDateFormat. "dd/MM/yyyy") v))
-
 (extend-protocol jdbc/IResultSetReadColumn
   Date
   (result-set-read-column [v _ _]
-    (format-date v))
+    (ud/format-date v))
 
   Timestamp
   (result-set-read-column [v _ _]
-    (format-date v))
+    (ud/format-date v))
 
   PGobject
   (result-set-read-column [pgobj _metadata _index]
@@ -45,6 +43,12 @@
   (sql-value [value] (to-pg-json value))
   IPersistentVector
   (sql-value [value] (to-pg-json value)))
+
+(extend-protocol jdbc/ISQLValue
+  java.time.LocalDateTime
+  (sql-value [v] (jt/sql-timestamp v))
+  java.time.LocalDate
+  (sql-value [v] (jt/sql-timestamp v)))
 
 (defn- make-datasource-options
   []
