@@ -19,14 +19,14 @@
 
 (defn select-by-aim
   [id-aim]
-  (-> (-> (hh/select :t.id :t.id_aim [:a.name :aim] :a.target
-                     :t.item :t.amount :t.date)
-          (hh/from [:transactions :t])
-          (hh/right-join [:aims :a]
-                         [:= :t.id_aim :a.id])
-          (hh/where [:= :a.id id-aim])
-          (hh/order-by [:date :desc]))
-      hc/build
+  (-> (hh/select :t.id :t.id_aim [:a.name :aim] :a.target
+                 :t.item :t.amount :t.date)
+      (hh/from [:transactions :t])
+      (hh/right-join [:aims :a]
+                     [:= :t.id_aim :a.id])
+      (hh/where [:= :a.id id-aim])
+      (hh/order-by [:date :desc])
+      hc/build      
       db/query))
 
 (defn insert!

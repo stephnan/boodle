@@ -25,10 +25,10 @@
 
 (defn select-aims-with-transactions
   []
-  (-> (-> (hh/select :a.id [:a.name :aim] :a.target :t.amount)
-          (hh/from [:transactions :t])
-          (hh/right-join [:aims :a] [:= :a.id :t.id_aim])
-          (hh/where [:= :a.achieved false]))
+  (-> (hh/select :a.id [:a.name :aim] :a.target :t.amount)
+      (hh/from [:transactions :t])
+      (hh/right-join [:aims :a] [:= :a.id :t.id_aim])
+      (hh/where [:= :a.achieved false])
       hc/build
       db/query))
 
