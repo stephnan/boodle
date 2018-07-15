@@ -37,7 +37,7 @@
   (db/execute!
    (-> (hh/insert-into :aims)
        (hh/columns :name :target :achieved)
-       (hh/values [n t]))))
+       (hh/values [[n t false]]))))
 
 (defn update!
   [{id :id n :name t :target a :achieved}]

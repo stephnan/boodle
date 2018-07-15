@@ -30,11 +30,12 @@
 (defn update!
   [aim]
   (-> (numbers/str->number aim :target)
+      (assoc :id (Integer/parseInt (:id aim)))
       (model/update!)))
 
 (defn delete!
   [id]
-  (model/delete! id))
+  (model/delete! (Integer/parseInt id)))
 
 (defn aims-with-transactions
   []

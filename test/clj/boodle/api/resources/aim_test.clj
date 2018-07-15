@@ -37,13 +37,13 @@
 (deftest update-test
   (testing "Testing update aim resource"
     (with-redefs [model/update! (fn [aim] aim)]
-      (let [aim {:name "test update" :target "3,5"}]
-        (is (= (a/update! aim) {:name "test update" :target 3.50}))))))
+      (let [aim {:id "1" :name "test update" :target "3,5"}]
+        (is (= (a/update! aim) {:id 1 :name "test update" :target 3.50}))))))
 
 (deftest delete-test
   (testing "Testing delete aim resource"
     (with-redefs [model/delete! (fn [id] id)]
-      (is (= (a/delete! "1") "1")))))
+      (is (= (a/delete! "1") 1)))))
 
 (deftest aims-with-transactions-test
   (testing "Testing get aims with related transactions"

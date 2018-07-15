@@ -22,7 +22,7 @@
   (db/execute!
    (-> (hh/insert-into :categories)
        (hh/columns :name :monthly_budget)
-       (hh/values [n mb]))))
+       (hh/values [[n mb]]))))
 
 (defn update!
   [{id :id n :name mb :monthly-budget}]

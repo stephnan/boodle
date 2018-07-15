@@ -19,7 +19,7 @@
   (db/execute!
    (-> (hh/insert-into :savings)
        (hh/columns :item :amount :date)
-       (hh/values [i a d]))))
+       (hh/values [[i a d]]))))
 
 (defn update!
   [{id :id i :item a :amount}]

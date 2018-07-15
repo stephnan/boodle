@@ -152,7 +152,6 @@
   [sqlmap]
   (jdbc/with-db-connection [conn {:datasource datasource}]
     (->> sqlmap
-         format-input-keywords
          sql/format
          (jdbc/execute! conn))))
 

@@ -1,7 +1,9 @@
 (ns boodle.api.resources.transaction-test
   (:require [boodle.api.resources.transaction :as t]
             [boodle.model.transactions :as model]
-            [clojure.test :refer :all]))
+            [clojure.test :refer :all]
+            [java-time :as jt]
+            [boodle.utils.dates :as ud]))
 
 (deftest find-all-test
   (testing "Testing find all transactions resource"
@@ -31,16 +33,22 @@
 (deftest insert-test
   (testing "Testing insert transaction resource"
     (with-redefs [model/insert! (fn [transaction] transaction)]
-      (let [transaction {:item "test" :amount "3,5"}]
-        (is (= (t/insert! transaction) {:item "test" :amount 3.50}))))))
+      (let [transaction {:item "test" :amount "3,5"
+                         :id-aim "1" :date "15/07/2018"}]
+        (is (= (t/insert! transaction)
+               {:item "test" :amount 3.50
+                :id-aim 1 :date (ud/to-local-date "15/07/2018")}))))))
 
 (deftest update-test
   (testing "Testing update transaction resource"
     (with-redefs [model/update! (fn [transaction] transaction)]
-      (let [transaction {:item "test update" :amount "3,5"}]
-        (is (= (t/update! transaction) {:item "test update" :amount 3.50}))))))
+      (let [transaction {:id "1" :item "test" :amount "3,5"
+                         :id-aim "1" :date "15/07/2018"}]
+        (is (= (t/update! transaction)
+               {:id 1 :item "test" :amount 3.5
+                :id-aim 1 :date "15/07/2018"}))))))
 
 (deftest delete-test
   (testing "Testing delete transaction resource"
     (with-redefs [model/delete! (fn [id] id)]
-      (is (= (t/delete! "1") "1")))))
+      (is (= (t/delete! "1") 1)))))

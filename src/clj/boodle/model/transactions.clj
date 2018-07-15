@@ -34,7 +34,7 @@
   (db/execute!
    (-> (hh/insert-into :transactions)
        (hh/columns :id_aim :item :amount :date)
-       (hh/values [ia i a d]))))
+       (hh/values [[ia i a d]]))))
 
 (defn update!
   [{id :id ia :id-aim i :item a :amount}]

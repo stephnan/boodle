@@ -24,5 +24,5 @@
 (defn record-str->record-date
   [record k]
   (let [s (k record)
-        d (to-local-date s)]
+        d (if s (to-local-date s) (today))]
     (assoc record k d)))
