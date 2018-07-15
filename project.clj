@@ -23,7 +23,7 @@
    [org.clojure/core.incubator "0.1.4"]
    [org.clojure/java.jdbc "0.7.7"]
    [org.clojure/tools.reader "1.3.0"]
-   [org.postgresql/postgresql "42.2.3"]
+   [org.postgresql/postgresql "42.2.4"]
    [prone "1.6.0"]
    [ring "1.6.3"]
    [ring/ring-defaults "0.3.2"]
