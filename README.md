@@ -14,6 +14,7 @@ boodle uses these Clojure/ClojureScript libraries:
 - [compojure-api](https://github.com/metosin/compojure-api)
 - [dire](https://github.com/MichaelDrogalis/dire)
 - [hikari-cp](https://github.com/tomekw/hikari-cp)
+- [honeysql](https://github.com/jkk/honeysql)
 - [http-kit](http://www.http-kit.org/)
 - [mount](https://github.com/tolitius/mount)
 - [re-frame](https://github.com/Day8/re-frame)
