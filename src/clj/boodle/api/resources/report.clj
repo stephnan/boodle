@@ -5,7 +5,6 @@
 
 (defn get-data
   [params]
-  (println params)
   (let [{:keys [from to item categories from-savings]} params
         from (ud/to-local-date from)
         to (if (nil? to) (jt/local-date) (ud/to-local-date to))
