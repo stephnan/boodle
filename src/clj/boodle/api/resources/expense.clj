@@ -26,15 +26,15 @@
 
 (defn insert!
   [expense]
-  (-> (numbers/record-str->number expense :amount)
-      (numbers/record-str->number :id-category)
+  (-> (numbers/record-str->double expense :amount)
+      (numbers/record-str->double :id-category)
       (ud/record-str->record-date :date)
       (model/insert!)))
 
 (defn update!
   [expense]
-  (-> (numbers/record-str->number expense :amount)
-      (numbers/record-str->number :id-category)
+  (-> (numbers/record-str->double expense :amount)
+      (numbers/record-str->double :id-category)
       (ud/record-str->record-date :date)
       (model/update!)))
 

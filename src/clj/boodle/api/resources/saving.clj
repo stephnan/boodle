@@ -24,7 +24,7 @@
 
 (defn insert!
   [saving]
-  (-> (numbers/record-str->number saving :amount)
+  (-> (numbers/record-str->double saving :amount)
       (ud/record-str->record-date :date)
       (model/insert!)))
 
@@ -40,7 +40,7 @@
 
 (defn transfer!
   [transfer]
-  (let [t (-> (numbers/record-str->number transfer :amount)
+  (let [t (-> (numbers/record-str->double transfer :amount)
               (assoc :id-aim (numbers/str->integer (:id-aim transfer)))
               (assoc :date (ud/today)))]
     (t/insert! t)

@@ -24,16 +24,16 @@
     (Integer/parseInt s)
     s))
 
-(defn record-str->number
+(defn strs->integers
+  [xs]
+  (if (sequential? xs)
+    (map #(Integer/parseInt %) xs)
+    (Integer/parseInt xs)))
+
+(defn record-str->double
   [record k]
   (let [s (k record)
         n (clojure.string/replace s #"," ".")]
     (->> n
          Double/parseDouble
          (assoc record k))))
-
-(defn strs->integers
-  [xs]
-  (if (sequential? xs)
-    (map #(Integer/parseInt %) xs)
-    (Integer/parseInt xs)))

@@ -26,12 +26,12 @@
 
 (defn insert!
   [aim]
-  (-> (numbers/record-str->number aim :target)
+  (-> (numbers/record-str->double aim :target)
       (model/insert!)))
 
 (defn update!
   [aim]
-  (-> (numbers/record-str->number aim :target)
+  (-> (numbers/record-str->double aim :target)
       (assoc :id (numbers/str->integer (:id aim)))
       (model/update!)))
 
