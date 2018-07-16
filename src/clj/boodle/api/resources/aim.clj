@@ -8,7 +8,9 @@
 
 (defn find-by-id
   [id]
-  (model/select-by-id id))
+  (-> id
+      numbers/str->integer
+      model/select-by-id))
 
 (defn find-by-name
   [name]
@@ -24,18 +26,20 @@
 
 (defn insert!
   [aim]
-  (-> (numbers/str->number aim :target)
+  (-> (numbers/record-str->number aim :target)
       (model/insert!)))
 
 (defn update!
   [aim]
-  (-> (numbers/str->number aim :target)
-      (assoc :id (Integer/parseInt (:id aim)))
+  (-> (numbers/record-str->number aim :target)
+      (assoc :id (numbers/str->integer (:id aim)))
       (model/update!)))
 
 (defn delete!
   [id]
-  (model/delete! (Integer/parseInt id)))
+  (-> id
+      numbers/str->integer
+      model/delete!))
 
 (defn aims-with-transactions
   []

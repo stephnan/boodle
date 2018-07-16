@@ -1,5 +1,6 @@
 (ns boodle.api.resources.category
-  (:require [boodle.model.categories :as model]))
+  (:require [boodle.model.categories :as model]
+            [boodle.utils.numbers :as numbers]))
 
 (defn find-all
   []
@@ -7,7 +8,9 @@
 
 (defn find-by-id
   [id]
-  (model/select-by-id id))
+  (-> id
+      numbers/str->integer
+      model/select-by-id))
 
 (defn find-by-name
   [name]
@@ -23,4 +26,6 @@
 
 (defn delete!
   [id]
-  (model/delete! id))
+  (-> id
+      numbers/str->integer
+      model/delete!))

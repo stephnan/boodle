@@ -29,14 +29,14 @@
 
 (defn insert!
   [transaction]
-  (-> (numbers/str->number transaction :amount)
+  (-> (numbers/record-str->number transaction :amount)
       (ud/record-str->record-date :date)
       (assoc :id-aim (Integer/parseInt (:id-aim transaction)))
       (model/insert!)))
 
 (defn update!
   [transaction]
-  (-> (numbers/str->number transaction :amount)
+  (-> (numbers/record-str->number transaction :amount)
       (assoc :id (Integer/parseInt (:id transaction)))
       (assoc :id-aim (Integer/parseInt (:id-aim transaction)))
       (model/update!)))

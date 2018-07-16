@@ -9,7 +9,9 @@
 
 (defn find-by-id
   [id]
-  (model/select-by-id id))
+  (-> id
+      numbers/str->integer
+      model/select-by-id))
 
 (defn find-by-item
   [item]
@@ -24,16 +26,20 @@
 
 (defn insert!
   [expense]
-  (-> (numbers/str->number expense :amount)
+  (-> (numbers/record-str->number expense :amount)
+      (numbers/record-str->number :id-category)
       (ud/record-str->record-date :date)
       (model/insert!)))
 
 (defn update!
   [expense]
-  (-> (numbers/str->number expense :amount)
+  (-> (numbers/record-str->number expense :amount)
+      (numbers/record-str->number :id-category)
       (ud/record-str->record-date :date)
       (model/update!)))
 
 (defn delete!
   [id]
-  (model/delete! id))
+  (-> id
+      numbers/str->integer
+      model/delete!))

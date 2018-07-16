@@ -18,7 +18,13 @@
     x
     0))
 
-(defn str->number
+(defn str->integer
+  [s]
+  (if (string? s)
+    (Integer/parseInt s)
+    s))
+
+(defn record-str->number
   [record k]
   (let [s (k record)
         n (clojure.string/replace s #"," ".")]
