@@ -31,16 +31,18 @@
   [transaction]
   (-> (numbers/record-str->number transaction :amount)
       (ud/record-str->record-date :date)
-      (assoc :id-aim (Integer/parseInt (:id-aim transaction)))
+      (assoc :id-aim (numbers/str->integer (:id-aim transaction)))
       (model/insert!)))
 
 (defn update!
   [transaction]
   (-> (numbers/record-str->number transaction :amount)
-      (assoc :id (Integer/parseInt (:id transaction)))
-      (assoc :id-aim (Integer/parseInt (:id-aim transaction)))
+      (assoc :id (numbers/str->integer (:id transaction)))
+      (assoc :id-aim (numbers/str->integer (:id-aim transaction)))
       (model/update!)))
 
 (defn delete!
   [id]
-  (model/delete! (Integer/parseInt id)))
+  (-> id
+      numbers/str->integer
+      model/delete!))
