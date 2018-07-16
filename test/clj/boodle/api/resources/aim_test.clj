@@ -11,7 +11,7 @@
 (deftest find-by-id-test
   (testing "Testing find aim by id resource"
     (with-redefs [model/select-by-id (fn [id] id)]
-      (is (= (a/find-by-id "1") "1")))))
+      (is (= (a/find-by-id "1") 1)))))
 
 (deftest find-by-name-test
   (testing "Testing find aim by name resource"

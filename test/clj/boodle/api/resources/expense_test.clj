@@ -13,7 +13,7 @@
 (deftest find-by-id-test
   (testing "Testing find expense by id resource"
     (with-redefs [model/select-by-id (fn [id] id)]
-      (is (= (e/find-by-id "1") "1")))))
+      (is (= (e/find-by-id "1") 1)))))
 
 (deftest find-by-item-test
   (testing "Testing find expense by item resource"
@@ -35,7 +35,7 @@
                      :id-category 1 :date "14/07/2018"}]
         (is (= (e/insert! expense)
                {:name "test" :amount 3.50
-                :id-category 1 :date (ud/to-local-date "14/07/2018")}))))))
+                :id-category 1.0 :date (ud/to-local-date "14/07/2018")}))))))
 
 (deftest update-test
   (testing "Testing update expense resource"
@@ -44,9 +44,9 @@
                      :id-category 1 :date "14/07/2018"}]
         (is (= (e/update! expense)
                {:name "test" :amount 3.50
-                :id-category 1 :date (ud/to-local-date "14/07/2018")}))))))
+                :id-category 1.0 :date (ud/to-local-date "14/07/2018")}))))))
 
 (deftest delete-test
   (testing "Testing delete expense resource"
     (with-redefs [model/delete! (fn [id] id)]
-      (is (= (e/delete! "1") "1")))))
+      (is (= (e/delete! "1") 1)))))

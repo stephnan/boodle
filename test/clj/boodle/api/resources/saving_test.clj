@@ -14,7 +14,7 @@
 (deftest find-by-id-test
   (testing "Testing find saving by id resource"
     (with-redefs [model/select-by-id (fn [id] id)]
-      (is (= (s/find-by-id "1") "1")))))
+      (is (= (s/find-by-id "1") 1)))))
 
 (deftest find-by-item-test
   (testing "Testing find saving by item resource"
@@ -37,7 +37,7 @@
 (deftest delete-test
   (testing "Testing delete saving resource"
     (with-redefs [model/delete! (fn [id] id)]
-      (is (= (s/delete! "1") "1")))))
+      (is (= (s/delete! "1") 1)))))
 
 (deftest transfer-test
   (testing "Testing transfer saving resource"

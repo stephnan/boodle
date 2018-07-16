@@ -11,7 +11,7 @@
 (deftest find-by-id-test
   (testing "Testing find category by id resource"
     (with-redefs [model/select-by-id (fn [id] id)]
-      (is (= (c/find-by-id "1") "1")))))
+      (is (= (c/find-by-id "1") 1)))))
 
 (deftest find-by-name-test
   (testing "Testing find category by name resource"
@@ -33,4 +33,4 @@
 (deftest delete-test
   (testing "Testing delete category resource"
     (with-redefs [model/delete! (fn [id] id)]
-      (is (= (c/delete! "1") "1")))))
+      (is (= (c/delete! "1") 1)))))
