@@ -21,7 +21,7 @@
   [{from :from to :to categories :categories}]
   (let [from (ud/to-local-date from)
         to (if (nil? to) (ud/today) (ud/to-local-date to))
-        cs (numbers/strs->numbers categories)]
+        cs (numbers/strs->integers categories)]
     (model/select-by-date-and-categories from to cs)))
 
 (defn insert!

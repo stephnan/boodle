@@ -32,7 +32,7 @@
          Double/parseDouble
          (assoc record k))))
 
-(defn strs->numbers
+(defn strs->integers
   [xs]
   (if (sequential? xs)
     (map #(Integer/parseInt %) xs)
