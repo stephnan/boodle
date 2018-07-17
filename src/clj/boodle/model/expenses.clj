@@ -15,7 +15,7 @@
                              [:= :e.id_category :c.id])
                     (hh/order-by [:e.date :desc])
                     (hh/limit 20)) :t])
-      hc/build      
+      hc/build
       db/query))
 
 (defn select-by-id
@@ -55,7 +55,7 @@
                     (select-by-date-and-categories-where
                      from to categories)
                     (hh/order-by [:e.date :desc])) :t])
-      hc/build      
+      hc/build
       db/query))
 
 (defn from-filter
@@ -122,7 +122,7 @@
                              [:= :e.id_category :c.id])
                     (report-where to from item categories from-savings)
                     (hh/order-by [:e.date :desc])) :t])
-      hc/build      
+      hc/build
       db/query))
 
 (defn totals-for-categories-where
@@ -157,7 +157,7 @@
                              [:= :e.id_category :c.id])
                     (totals-for-categories-where to from item from-savings)
                     (hh/order-by [:e.date :desc])) :t])
-      hc/build      
+      hc/build
       db/query))
 
 (defn insert!
