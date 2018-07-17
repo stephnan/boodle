@@ -21,14 +21,16 @@
 (defn str->integer
   [s]
   (if (string? s)
-    (Integer/parseInt s)
+    (if (empty? s)
+      0
+      (Integer/parseInt s))
     s))
 
 (defn strs->integers
   [xs]
   (if (sequential? xs)
-    (map #(Integer/parseInt %) xs)
-    (Integer/parseInt xs)))
+    (map str->integer xs)
+    (str->integer xs)))
 
 (defn record-str->double
   [record k]
