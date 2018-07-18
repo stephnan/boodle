@@ -13,7 +13,7 @@ gulp.task('minify-css', function() {
                      'css/*.css'
                     ])
         .pipe(concat('boodle.css'))
-        .pipe(cleanCSS({ compatibility: 'ie8' }))
+        .pipe(cleanCSS())
         .pipe(rename({ suffix: '.min' }))
         .pipe(gulp.dest('../public/css'));
 });
