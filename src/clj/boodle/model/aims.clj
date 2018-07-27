@@ -34,23 +34,23 @@
 
 (defn insert!
   [{n :name t :target}]
-  (db/execute!
-   (-> (hh/insert-into :aims)
-       (hh/columns :name :target :achieved)
-       (hh/values [[n t false]]))))
+  (-> (hh/insert-into :aims)
+      (hh/columns :name :target :achieved)
+      (hh/values [[n t false]])
+      db/execute!))
 
 (defn update!
   [{id :id n :name t :target a :achieved}]
-  (db/execute!
-   (-> (hh/update :aims)
-       (hh/sset {:name n :target t :achieved a})
-       (hh/where [:= :id id]))))
+  (-> (hh/update :aims)
+      (hh/sset {:name n :target t :achieved a})
+      (hh/where [:= :id id])
+      db/execute!))
 
 (defn delete!
   [id]
-  (db/execute!
-   (-> (hh/delete-from :transactions)
-       (hh/where [:= :id_aim id])))
-  (db/execute!
-   (-> (hh/delete-from :aims)
-       (hh/where [:= :id id]))))
+  (-> (hh/delete-from :transactions)
+      (hh/where [:= :id_aim id])
+      db/execute!)
+  (-> (hh/delete-from :aims)
+      (hh/where [:= :id id])
+      db/execute!))

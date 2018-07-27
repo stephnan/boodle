@@ -162,20 +162,20 @@
 
 (defn insert!
   [{d :date ic :id-category i :item a :amount fs :from-savings}]
-  (db/execute!
-   (-> (hh/insert-into :expenses)
-       (hh/columns :date :id_category :item :amount :from_savings)
-       (hh/values [[d ic i a fs]]))))
+  (-> (hh/insert-into :expenses)
+      (hh/columns :date :id_category :item :amount :from_savings)
+      (hh/values [[d ic i a fs]])
+      db/execute!))
 
 (defn update!
   [{id :id d :date ic :id-category i :item a :amount fs :from-savings}]
-  (db/execute!
-   (-> (hh/update :expenses)
-       (hh/sset {:date d :id_category ic :item i :amount a :from_savings fs})
-       (hh/where [:= :id id]))))
+  (-> (hh/update :expenses)
+      (hh/sset {:date d :id_category ic :item i :amount a :from_savings fs})
+      (hh/where [:= :id id])
+      db/execute!))
 
 (defn delete!
   [id]
-  (db/execute!
-   (-> (hh/delete-from :expenses)
-       (hh/where [:= :id id]))))
+  (-> (hh/delete-from :expenses)
+      (hh/where [:= :id id])
+      db/execute!))

@@ -19,20 +19,20 @@
 
 (defn insert!
   [{n :name mb :monthly-budget}]
-  (db/execute!
-   (-> (hh/insert-into :categories)
-       (hh/columns :name :monthly_budget)
-       (hh/values [[n mb]]))))
+  (-> (hh/insert-into :categories)
+      (hh/columns :name :monthly_budget)
+      (hh/values [[n mb]])
+      db/execute!))
 
 (defn update!
   [{id :id n :name mb :monthly-budget}]
-  (db/execute!
-   (-> (hh/update :categories)
-       (hh/sset {:name n :monthly_budget mb})
-       (hh/where [:= :id id]))))
+  (-> (hh/update :categories)
+      (hh/sset {:name n :monthly_budget mb})
+      (hh/where [:= :id id])
+      db/execute!))
 
 (defn delete!
   [id]
-  (db/execute!
-   (-> (hh/delete-from :categories)
-       (hh/where [:= :id id]))))
+  (-> (hh/delete-from :categories)
+      (hh/where [:= :id id])
+      db/execute!))

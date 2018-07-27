@@ -31,20 +31,20 @@
 
 (defn insert!
   [{ia :id-aim i :item a :amount d :date}]
-  (db/execute!
-   (-> (hh/insert-into :transactions)
-       (hh/columns :id_aim :item :amount :date)
-       (hh/values [[ia i a d]]))))
+  (-> (hh/insert-into :transactions)
+      (hh/columns :id_aim :item :amount :date)
+      (hh/values [[ia i a d]])
+      db/execute!))
 
 (defn update!
   [{id :id ia :id-aim i :item a :amount}]
-  (db/execute!
-   (-> (hh/update :transactions)
-       (hh/sset {:id_aim ia :item i :amount a})
-       (hh/where [:= :id id]))))
+  (-> (hh/update :transactions)
+      (hh/sset {:id_aim ia :item i :amount a})
+      (hh/where [:= :id id])
+      db/execute!))
 
 (defn delete!
   [id]
-  (db/execute!
-   (-> (hh/delete-from :transactions)
-       (hh/where [:= :id id]))))
+  (-> (hh/delete-from :transactions)
+      (hh/where [:= :id id])
+      db/execute!))

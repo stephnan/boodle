@@ -16,20 +16,20 @@
 
 (defn insert!
   [{i :item a :amount d :date}]
-  (db/execute!
-   (-> (hh/insert-into :savings)
-       (hh/columns :item :amount :date)
-       (hh/values [[i a d]]))))
+  (-> (hh/insert-into :savings)
+      (hh/columns :item :amount :date)
+      (hh/values [[i a d]])
+      db/execute!))
 
 (defn update!
   [{id :id i :item a :amount}]
-  (db/execute!
-   (-> (hh/update :savings)
-       (hh/sset {:item i :amount a})
-       (hh/where [:= :id id]))))
+  (-> (hh/update :savings)
+      (hh/sset {:item i :amount a})
+      (hh/where [:= :id id])
+      db/execute!))
 
 (defn delete!
   [id]
-  (db/execute!
-   (-> (hh/delete-from :savings)
-       (hh/where [:= :id id]))))
+  (-> (hh/delete-from :savings)
+      (hh/where [:= :id id])
+      db/execute!))
