@@ -63,7 +63,7 @@
   :profiles
   {:dev
    {:dependencies [[binaryage/devtools "0.9.10"]
-                   [cider/piggieback "0.3.6"]
+                   [cider/piggieback "0.3.7"]
                    [day8.re-frame/re-frame-10x "0.3.3"]
                    [day8.re-frame/tracing "0.5.1"]
                    [figwheel-sidecar "0.5.16"]]
