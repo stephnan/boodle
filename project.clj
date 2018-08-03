@@ -38,6 +38,8 @@
    [cljsjs/moment "2.22.2-0"]
    [cljsjs/pikaday "1.5.1-2"]
    [com.andrewmcveigh/cljs-time "0.5.2"]
+   [com.bhauman/figwheel-main "0.1.4"]
+   [com.bhauman/rebel-readline-cljs "0.1.4"]
    [day8.re-frame/http-fx "0.1.6"]
    [kibu/pushy "0.3.8"]
    [org.clojure/clojurescript "1.9.946"]
@@ -53,8 +55,12 @@
 
   :source-paths ["src/clj"]
   :test-paths ["test/clj" "test/cljs"]
-  :resource-paths ["resources"]
+  :resource-paths ["target" "resources"]
   :target-path "target/%s"
+
+  :aliases
+  {"fig" ["trampoline" "run" "-m" "figwheel.main"]
+   "build-dev" ["trampoline" "run" "-m" "figwheel.main" "-b" "dev" "-r"]}
 
   :clean-targets ^{:protect false} [:target-path "resources/public/js"]
 
@@ -67,8 +73,7 @@
                    [day8.re-frame/re-frame-10x "0.3.3"]
                    [day8.re-frame/tracing "0.5.1"]
                    [figwheel-sidecar "0.5.16"]]
-    :repl-options {:nrepl-middleware [cider.piggieback/wrap-cljs-repl]}
-    :plugins [[lein-figwheel "0.5.16"]]}
+    :repl-options {:nrepl-middleware [cider.piggieback/wrap-cljs-repl]}}
    :min
    {:dependencies [[day8.re-frame/tracing-stubs "0.5.1"]]}}
 
@@ -76,7 +81,6 @@
   {:builds
    {:dev
     {:source-paths ["src/cljs"]
-     :figwheel true
      :compiler
      {:main boodle.core
       :asset-path "js/out"
