@@ -49,7 +49,6 @@
   :plugins [[lein-cljsbuild "1.1.7"]
             [lein-eftest "0.5.2"]]
   :eftest {:multithread? false}
-  :figwheel {:css-dirs ["resources/public/css"]}
 
   :source-paths ["src/clj" "src/cljs"]
   :test-paths ["test/clj" "test/cljs"]
