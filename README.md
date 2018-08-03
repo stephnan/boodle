@@ -58,7 +58,7 @@ $ lein run
 
 You can now browse at `http://localhost:8080` and interact with boodle.
 
-A production-ready build is available via:
+A production-ready ClojureScript build is available via:
 
 ```console
 $ lein cljsbuild once min
