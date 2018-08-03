@@ -46,7 +46,8 @@
    [reagent-utils "0.3.1"]
    [tongue "0.2.4"]]
 
-  :plugins [[lein-eftest "0.5.2"]]
+  :plugins [[lein-cljsbuild "1.1.7"]
+            [lein-eftest "0.5.2"]]
   :eftest {:multithread? false}
   :figwheel {:css-dirs ["resources/public/css"]}
 
@@ -70,4 +71,14 @@
                    [com.bhauman/figwheel-main "0.1.4"]
                    [com.bhauman/rebel-readline-cljs "0.1.4"]
                    [figwheel-sidecar "0.5.16"]]
-    :repl-options {:nrepl-middleware [cider.piggieback/wrap-cljs-repl]}}})
+    :repl-options {:nrepl-middleware [cider.piggieback/wrap-cljs-repl]}}}
+
+  :cljsbuild
+  {:builds
+   {:min
+    {:source-paths ["src/cljs"]
+     :compiler {:main boodle.core
+                :output-to "target/public/cljs-out/boodle-main.js"
+                :asset-path "target/public/cljs-out/boodle"
+                :optimizations :simple
+                :pretty-print false}}}})
