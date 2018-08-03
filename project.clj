@@ -46,8 +46,7 @@
    [reagent-utils "0.3.1"]
    [tongue "0.2.4"]]
 
-  :plugins [[lein-cljsbuild "1.1.7"]
-            [lein-eftest "0.5.2"]]
+  :plugins [[lein-eftest "0.5.2"]]
   :eftest {:multithread? false}
   :figwheel {:css-dirs ["resources/public/css"]}
 
@@ -58,7 +57,7 @@
 
   :aliases
   {"fig" ["trampoline" "run" "-m" "figwheel.main"]
-   "build-dev" ["trampoline" "run" "-m" "figwheel.main" "-b" "boodle" "-r"]}
+   "build" ["trampoline" "run" "-m" "figwheel.main" "-b" "boodle"]}
 
   :clean-targets ^{:protect false} [:target-path "resources/public/js"]
 
@@ -70,30 +69,5 @@
                    [cider/piggieback "0.3.8"]
                    [com.bhauman/figwheel-main "0.1.4"]
                    [com.bhauman/rebel-readline-cljs "0.1.4"]
-                   [day8.re-frame/re-frame-10x "0.3.3"]
-                   [day8.re-frame/tracing "0.5.1"]
                    [figwheel-sidecar "0.5.16"]]
-    :repl-options {:nrepl-middleware [cider.piggieback/wrap-cljs-repl]}}
-   :min
-   {:dependencies [[day8.re-frame/tracing-stubs "0.5.1"]]}}
-
-  :cljsbuild
-  {:builds
-   {:dev
-    {:source-paths ["src/cljs"]
-     :compiler
-     {:main boodle.core
-      :asset-path "js/out"
-      :output-to "resources/public/js/main.js"
-      :output-dir "resources/public/js/out"
-      :closure-defines {"re_frame.trace.trace_enabled_QMARK_" true
-                        "day8.re_frame.tracing.trace_enabled_QMARK_" true}
-      :preloads [day8.re-frame-10x.preload devtools.preload]
-      :external-config {:devtools/config {:features-to-install :all}}}}
-    :min
-    {:source-paths ["src/cljs"]
-     :compiler {:main boodle.core
-                :output-to "resources/public/js/main.js"
-                :asset-path "js/out"
-                :optimizations :simple
-                :pretty-print false}}}})
+    :repl-options {:nrepl-middleware [cider.piggieback/wrap-cljs-repl]}}})
