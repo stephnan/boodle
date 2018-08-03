@@ -43,22 +43,20 @@ $ yarn
 $ gulp
 ```
 
-Install [lein](https://leiningen.org/) and compile the ClojureScript files with:
+Install [lein](https://leiningen.org/). Compile the ClojureScript files and fire
+up [figwheel-main](https://github.com/bhauman/figwheel-main) with:
 
 ```console
-$ lein cljsbuild once dev
+$ lein build
 ```
 
-Otherwise, you can run `lein figwheel` if you want a REPL to play with the
-browser. Then fire up the server with:
+Then fire up the server with:
 
 ```console
 $ lein run
 ```
 
-You can now browse at `http://localhost:8080` and interact with boodle. Press
-<kbd>Ctrl+h</kbd> to instrument and inspect boodle using
-[re-frame-10x](https://github.com/Day8/re-frame-10x).
+You can now browse at `http://localhost:8080` and interact with boodle.
 
 A production-ready build is available via:
 
