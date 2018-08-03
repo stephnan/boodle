@@ -38,11 +38,9 @@
    [cljsjs/moment "2.22.2-0"]
    [cljsjs/pikaday "1.5.1-2"]
    [com.andrewmcveigh/cljs-time "0.5.2"]
-   [com.bhauman/figwheel-main "0.1.4"]
-   [com.bhauman/rebel-readline-cljs "0.1.4"]
    [day8.re-frame/http-fx "0.1.6"]
    [kibu/pushy "0.3.8"]
-   [org.clojure/clojurescript "1.9.946"]
+   [org.clojure/clojurescript "1.10.312"]
    [re-frame "0.10.5"]
    [reagent "0.8.1"]
    [reagent-utils "0.3.1"]
@@ -53,14 +51,14 @@
   :eftest {:multithread? false}
   :figwheel {:css-dirs ["resources/public/css"]}
 
-  :source-paths ["src/clj"]
+  :source-paths ["src/clj" "src/cljs"]
   :test-paths ["test/clj" "test/cljs"]
   :resource-paths ["target" "resources"]
   :target-path "target/%s"
 
   :aliases
   {"fig" ["trampoline" "run" "-m" "figwheel.main"]
-   "build-dev" ["trampoline" "run" "-m" "figwheel.main" "-b" "dev" "-r"]}
+   "build-dev" ["trampoline" "run" "-m" "figwheel.main" "-b" "boodle" "-r"]}
 
   :clean-targets ^{:protect false} [:target-path "resources/public/js"]
 
@@ -70,6 +68,8 @@
   {:dev
    {:dependencies [[binaryage/devtools "0.9.10"]
                    [cider/piggieback "0.3.8"]
+                   [com.bhauman/figwheel-main "0.1.4"]
+                   [com.bhauman/rebel-readline-cljs "0.1.4"]
                    [day8.re-frame/re-frame-10x "0.3.3"]
                    [day8.re-frame/tracing "0.5.1"]
                    [figwheel-sidecar "0.5.16"]]
