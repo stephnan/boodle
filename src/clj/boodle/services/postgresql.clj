@@ -4,7 +4,6 @@
             [boodle.utils.exceptions :as ex]
             [cheshire.core :as cheshire]
             [clojure.java.jdbc :as jdbc]
-            [dire.core :as dire]
             [hikari-cp.core :as hikari]
             [honeysql.core :as sql]
             [honeysql.format :as fmt]
@@ -135,28 +134,23 @@
 (defn query
   "Run a query using the map in `sqlmap`."
   [sqlmap]
-  (jdbc/with-db-connection [conn {:datasource datasource}]
-    (->> sqlmap
-         sql/format
-         (jdbc/query conn)
-         (map format-output-keywords))))
-
-(dire/with-handler! #'query
-  java.lang.Throwable
-  (fn [e & args]
-    (log/debugf "Exception: %s" (ex/get-stacktrace e))
-    (throw (Exception. "Errore in query"))))
+  (let [q (->> sqlmap sql/format)]
+    (try
+      (jdbc/with-db-connection [conn {:datasource datasource}]
+        (->> q
+             (jdbc/query conn)
+             (map format-output-keywords)))
+      (catch Exception e
+        (log/error (ex/get-stacktrace e))
+        (throw (ex-info "Exception in query" {:sqlmap sqlmap :query q}))))))
 
 (defn execute!
   "Execute an insert/update/delete query using the map in `sqlmap`."
   [sqlmap]
-  (jdbc/with-db-connection [conn {:datasource datasource}]
-    (->> sqlmap
-         sql/format
-         (jdbc/execute! conn))))
-
-(dire/with-handler! #'execute!
-  java.lang.Throwable
-  (fn [e & args]
-    (log/debugf "Exception: %s" (ex/get-stacktrace e))
-    (throw (Exception. "Errore in execute!"))))
+  (let [q (->> sqlmap sql/format)]
+    (try
+      (jdbc/with-db-connection [conn {:datasource datasource}]
+        (jdbc/execute! conn q))
+      (catch Exception e
+        (log/error (ex/get-stacktrace e))
+        (throw (ex-info "Exception in execute!" {:sqlmap sqlmap :query q}))))))
