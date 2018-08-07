@@ -65,7 +65,7 @@
   {:dev
    {:dependencies [[binaryage/devtools "0.9.10"]
                    [cider/piggieback "0.3.8"]
-                   [com.bhauman/figwheel-main "0.1.4"]
+                   [com.bhauman/figwheel-main "0.1.5"]
                    [com.bhauman/rebel-readline-cljs "0.1.4"]
                    [figwheel-sidecar "0.5.16"]]
     :repl-options {:nrepl-middleware [cider.piggieback/wrap-cljs-repl]}}}
