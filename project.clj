@@ -17,7 +17,7 @@
    [http-kit "2.3.0"]
    [metosin/compojure-api "1.1.12"]
    [metosin/ring-http-response "0.9.0"]
-   [mount "0.1.12"]
+   [mount "0.1.13"]
    [org.clojure/clojure "1.9.0"]
    [org.clojure/core.incubator "0.1.4"]
    [org.clojure/java.jdbc "0.7.7"]
