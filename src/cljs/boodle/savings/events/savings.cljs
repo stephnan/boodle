@@ -116,8 +116,14 @@
        (assoc
         (ajax/put-request "/api/saving/transfer"
                           (assoc transfer :item "Trasferimento fondi")
-                          [:get-savings]
+                          [:refresh-savings-aims]
                           [:bad-response])
-        :db (assoc db :show-modal-validation false)
-        :dispatch-n (list [:modal {:show? false :child nil}]
-                          [:get-aims-with-transactions]))))))
+        :db (-> db
+                (assoc :show-modal-validation false)
+                (assoc :modal {:show? false :child nil})))))))
+
+(rf/reg-event-fx
+ :refresh-savings-aims
+ (fn [{db :db} [_ _]]
+   {:db db
+    :dispatch-n [[:get-savings] [:get-aims-with-transactions]]}))
