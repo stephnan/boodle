@@ -9,7 +9,7 @@
     (let [rows @(rf/subscribe [:savings])
           total (:total rows)]
       [:div {:style {:text-align "center" :margin-top "-0.8em"}}
-       [:h5 (translate :it :savings/label.total)
+       [:h5 (translate :it :savings/label.total-unassigned)
         [:strong (str (common/format-number total)
                       (translate :it :currency))]]])))
 

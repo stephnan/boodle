@@ -43,16 +43,20 @@
 
 (defn aims-with-transactions
   []
-  (let [aims (model/select-aims-with-transactions)]
-    (->> (group-by :id aims)
-         (reduce-kv
-          (fn [m k v]
-            (let [aim (first (map :aim v))
-                  target (first (map :target v))
-                  saved (apply + (->> (map :amount v) (map numbers/or-zero)))
-                  left (- target saved)]
-              (assoc m k {:name aim
-                          :target target
-                          :saved saved
-                          :left left})))
-          {}))))
+  (let [aims (->> (model/select-aims-with-transactions)
+                  (group-by :id)
+                  (reduce-kv
+                   (fn [m k v]
+                     (let [aim (first (map :aim v))
+                           target (first (map :target v))
+                           saved (apply + (->> (map :amount v)
+                                               (map numbers/or-zero)))
+                           left (- target saved)]
+                       (assoc m k {:name aim
+                                   :target target
+                                   :saved saved
+                                   :left left})))
+                   {}))]
+    (-> {}
+        (assoc :aims aims)
+        (assoc :total (reduce + 0 (map :saved (vals aims)))))))

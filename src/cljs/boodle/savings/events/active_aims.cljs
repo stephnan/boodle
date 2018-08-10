@@ -9,7 +9,8 @@
 (rf/reg-event-db
  :load-summary
  (fn [db [_ result]]
-   (let [sorted (sort-by (fn [e] (:name (second e))) result)]
+   (let [sorted (->> (sort-by (fn [e] (:name (second (:aims e)))) result)
+                     (into {}))]
      (assoc-in db [:aims :summary] sorted))))
 
 (rf/reg-event-fx

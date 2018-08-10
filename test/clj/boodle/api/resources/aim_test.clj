@@ -50,4 +50,4 @@
     (with-redefs [model/select-aims-with-transactions
                   (fn [] [{:id 1 :aim "T" :target 1 :amount 1}])]
       (is (= (a/aims-with-transactions)
-             {1 {:name "T" :target 1 :saved 1 :left 0}})))))
+             {:aims {1 {:left 0 :name "T" :saved 1 :target 1}} :total 1})))))

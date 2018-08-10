@@ -17,7 +17,7 @@
 
 (defn find-by-aim
   [id-aim]
-  (let [ts (model/select-by-aim id-aim)
+  (let [ts (model/select-by-aim (numbers/str->integer id-aim))
         target (first (map :target ts))
         saved (apply + (->> (map :amount ts) (map numbers/or-zero)))
         left (- target saved)]

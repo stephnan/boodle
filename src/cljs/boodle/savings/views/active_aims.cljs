@@ -5,6 +5,16 @@
             [boodle.validation :as v]
             [re-frame.core :as rf]))
 
+(defn total
+  []
+  (fn []
+    (let [rows @(rf/subscribe [:aims-summary])
+          total (:total rows)]
+      [:div {:style {:text-align "center" :margin-top "-0.8em"}}
+       [:h5 (translate :it :aims/label.total)
+        [:strong (str (common/format-number total)
+                      (translate :it :currency))]]])))
+
 (defn render-summary-row
   [row]
   (let [aim-id (name (first row))
@@ -50,7 +60,7 @@
          [:th {:style {:text-align "center"}}
           (translate :it :aims/summary.table-actions)]]]
        [:tbody
-        (doall (map render-summary-row @rows))]])))
+        (doall (map render-summary-row (:aims @rows)))]])))
 
 (defn table
   []
