@@ -8,7 +8,7 @@
   [;; Clojure
    [cheshire "5.8.0"]
    [clojure.java-time "0.3.2"]
-   [com.taoensso/encore "2.96.0"]
+   [com.taoensso/encore "2.97.0"]
    [com.taoensso/timbre "4.10.0" :exclusions [com.taoennso/encore]]
    [com.walmartlabs/test-reporting "0.1.0"]
    [hiccup "1.0.5"]
@@ -65,7 +65,7 @@
   {:dev
    {:dependencies [[binaryage/devtools "0.9.10"]
                    [cider/piggieback "0.3.8"]
-                   [com.bhauman/figwheel-main "0.1.5"]
+                   [com.bhauman/figwheel-main "0.1.7"]
                    [com.bhauman/rebel-readline-cljs "0.1.4"]
                    [figwheel-sidecar "0.5.16"]]
     :repl-options {:nrepl-middleware [cider.piggieback/wrap-cljs-repl]}}}
