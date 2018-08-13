@@ -20,7 +20,7 @@
    [mount "0.1.13"]
    [org.clojure/clojure "1.9.0"]
    [org.clojure/core.incubator "0.1.4"]
-   [org.clojure/java.jdbc "0.7.7"]
+   [org.clojure/java.jdbc "0.7.8"]
    [org.clojure/tools.reader "1.3.0"]
    [org.postgresql/postgresql "42.2.4"]
    [ring "1.6.3"]
