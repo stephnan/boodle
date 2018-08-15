@@ -97,6 +97,11 @@
       :return [s.aim/Response]
       :summary "returns all the achieved aims"
       (r.aim/find-achieved))
+    (api/PUT "/achieved" []
+      :return [s.aim/Response]
+      :body [aim s.aim/Body]
+      :summary "Mark an aim as achieved"
+      (r.aim/achieved! aim))
     (api/POST "/insert" []
       :return s.aim/Response
       :body [aim s.aim/Body]

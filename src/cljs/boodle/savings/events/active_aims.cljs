@@ -110,11 +110,17 @@
        (assoc
         (ajax/post-request "/api/aim/insert"
                            aim
-                           [:get-aims-with-transactions]
+                           [:refresh-active-aims]
                            [:bad-response])
-        :db (assoc db :show-modal-validation false)
-        :dispatch-n (list [:modal {:show? false :child nil}]
-                          [:get-active-aims]))))))
+        :db (-> db
+                (assoc :show-modal-validation false)
+                (assoc :modal {:show? false :child nil})))))))
+
+(rf/reg-event-fx
+ :refresh-active-aims
+ (fn [{db :db} [_ _]]
+   {:db db
+    :dispatch-n [[:get-active-aims] [:get-aims-with-transactions]]}))
 
 (rf/reg-event-fx
  :edit-aim
@@ -143,11 +149,11 @@
        (assoc
         (ajax/put-request "/api/aim/update"
                           aim
-                          [:get-aims-with-transactions]
+                          [:refresh-active-aims]
                           [:bad-response])
-        :db (assoc db :show-modal-validation false)
-        :dispatch-n (list [:modal {:show? false :child nil}]
-                          [:get-active-aims]))))))
+        :db (-> db
+                (assoc :show-modal-validation false)
+                (assoc :modal {:show? false :child nil})))))))
 
 (rf/reg-event-fx
  :remove-aim
@@ -164,7 +170,7 @@
    (let [id (get-in db [:aims :row :id])]
      (assoc
       (ajax/delete-request (str "/api/aim/delete/" id)
-                           [:get-aims-with-transactions]
+                           [:refresh-active-aims]
                            [:bad-response])
       :db db
       :dispatch-n (list [:modal {:show? false :child nil}]

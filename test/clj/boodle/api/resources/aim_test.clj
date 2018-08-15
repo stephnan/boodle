@@ -1,5 +1,6 @@
 (ns boodle.api.resources.aim-test
   (:require [boodle.api.resources.aim :as a]
+            [boodle.api.resources.expense :as es]
             [boodle.model.aims :as model]
             [clojure.test :refer :all]))
 
@@ -51,3 +52,17 @@
                   (fn [] [{:id 1 :aim "T" :target 1 :amount 1}])]
       (is (= (a/aims-with-transactions)
              {:aims {1 {:left 0 :name "T" :saved 1 :target 1}} :total 1})))))
+
+(deftest achieved-test
+  (testing "Testing mark aim as achieved resource"
+    (with-redefs [a/find-by-id (fn [id] [{:id "1"
+                                         :name "test achieved"
+                                         :target "3,5"
+                                         :category 1}])
+                  model/update! (fn [aim] aim)
+                  es/insert! (fn [e] e)]
+      (let [aim {:id "1" :name "test achieved"
+                 :target "3,5" :category 1 :achieved true}]
+        (is (= (a/achieved! aim) {:amount "3,5"
+                                  :item "test achieved"
+                                  :id-category 1}))))))

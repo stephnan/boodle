@@ -16,4 +16,5 @@
 (schema/defschema Body
   {:name schema/Str
    :target (schema/pred double?)
-   :achieved schema/Bool})
+   :achieved schema/Bool
+   :category schema/Int})

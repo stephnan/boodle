@@ -1,5 +1,6 @@
 (ns boodle.api.resources.aim
   (:require [boodle.model.aims :as model]
+            [boodle.api.resources.expense :as es]
             [boodle.utils.numbers :as numbers]))
 
 (defn find-all
@@ -60,3 +61,11 @@
     (-> {}
         (assoc :aims aims)
         (assoc :total (reduce + 0 (map :saved (vals aims)))))))
+
+(defn achieved!
+  [params]
+  (let [aim (-> (:id params) find-by-id first)]
+    (update! params)
+    (es/insert! {:amount (:target aim)
+                 :item (:name aim)
+                 :id-category (:category params)})))

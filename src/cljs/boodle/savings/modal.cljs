@@ -151,13 +151,22 @@
 
 (defn mark-aim-achieved
   []
-  (let [row @(rf/subscribe [:aims-row])]
+  (let [categories (conj @(rf/subscribe [:categories]) {:id "" :name ""})
+        row @(rf/subscribe [:aims-row])]
     [:div.modal-content
      [:div.modal-header.panel-heading
       [:h5.modal-title (translate :it :aims/modal.achieved-title)]]
      [:div.modal-body
-      [:p {:style {:text-align "center"}}
-       (translate :it :aims/modal.achieved-confirm)]]
+      [v/modal-validation-msg-box]
+      [:div.form
+       [:div.row
+        [:div.twelve.columns
+         [:label (translate :it :aims/modal.category)]
+         [:select.u-full-width
+          {:value (v/or-empty-string (:category row))
+           :on-change #(rf/dispatch [:aim-change-category
+                                     (-> % .-target .-value)])}
+          (map common/render-option categories)]]]]]
      [:hr]
      [:div.modal-footer
       [:div.modal-buttons
