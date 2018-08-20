@@ -1,6 +1,7 @@
 (ns boodle.api.resources.expense-test
   (:require [boodle.api.resources.expense :as e]
             [boodle.model.expenses :as model]
+            [boodle.utils.resource :as ur]
             [clojure.test :refer :all]
             [java-time :as jt]
             [boodle.utils.dates :as ud]))
@@ -22,7 +23,8 @@
 
 (deftest find-by-date-and-categories-test
   (testing "Testing find expenses by date and categories resource"
-    (with-redefs [model/select-by-date-and-categories
+    (with-redefs [ur/request-body->map (fn [req] req)
+                  model/select-by-date-and-categories
                   (fn [f t c] [{:item "test" :amount 3.50}])]
       (is (= (e/find-by-date-and-categories
               {:from "14/07/2018" :to "14/07/2018" :categories []})
@@ -30,7 +32,8 @@
 
 (deftest insert-test
   (testing "Testing insert expense resource"
-    (with-redefs [model/insert! (fn [expense] expense)]
+    (with-redefs [ur/request-body->map (fn [req] req)
+                  model/insert! (fn [expense] expense)]
       (let [expense {:name "test" :amount 3.50
                      :id-category 1 :date "14/07/2018"}]
         (is (= (e/insert! expense)
@@ -39,7 +42,8 @@
 
 (deftest update-test
   (testing "Testing update expense resource"
-    (with-redefs [model/update! (fn [expense] expense)]
+    (with-redefs [ur/request-body->map (fn [req] req)
+                  model/update! (fn [expense] expense)]
       (let [expense {:name "test" :amount 3.50
                      :id-category 1 :date "14/07/2018"}]
         (is (= (e/update! expense)

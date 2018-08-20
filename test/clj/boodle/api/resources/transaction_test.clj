@@ -1,6 +1,7 @@
 (ns boodle.api.resources.transaction-test
   (:require [boodle.api.resources.transaction :as t]
             [boodle.model.transactions :as model]
+            [boodle.utils.resource :as ur]
             [clojure.test :refer :all]
             [java-time :as jt]
             [boodle.utils.dates :as ud]))
@@ -32,7 +33,8 @@
 
 (deftest insert-test
   (testing "Testing insert transaction resource"
-    (with-redefs [model/insert! (fn [transaction] transaction)]
+    (with-redefs [ur/request-body->map (fn [req] req)
+                  model/insert! (fn [transaction] transaction)]
       (let [transaction {:item "test" :amount "3,5"
                          :id-aim "1" :date "15/07/2018"}]
         (is (= (t/insert! transaction)
@@ -41,7 +43,8 @@
 
 (deftest update-test
   (testing "Testing update transaction resource"
-    (with-redefs [model/update! (fn [transaction] transaction)]
+    (with-redefs [ur/request-body->map (fn [req] req)
+                  model/update! (fn [transaction] transaction)]
       (let [transaction {:id "1" :item "test" :amount "3,5"
                          :id-aim "1" :date "15/07/2018"}]
         (is (= (t/update! transaction)

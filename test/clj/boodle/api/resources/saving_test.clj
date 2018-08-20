@@ -2,6 +2,7 @@
   (:require [boodle.api.resources.saving :as s]
             [boodle.model.savings :as model]
             [boodle.model.transactions :as t]
+            [boodle.utils.resource :as ur]
             [clojure.test :refer :all]
             [java-time :as jt]))
 
@@ -23,14 +24,16 @@
 
 (deftest insert-test
   (testing "Testing insert saving resource"
-    (with-redefs [model/insert! (fn [saving] saving)]
+    (with-redefs [ur/request-body->map (fn [req] req)
+                  model/insert! (fn [saving] saving)]
       (let [saving {:item "test" :amount "3,5"}]
         (is (= (s/insert! saving)
                {:item "test" :amount 3.50 :date (jt/local-date)}))))))
 
 (deftest update-test
   (testing "Testing update saving resource"
-    (with-redefs [model/update! (fn [saving] saving)]
+    (with-redefs [ur/request-body->map (fn [req] req)
+                  model/update! (fn [saving] saving)]
       (let [saving {:item "test update"}]
         (is (= (s/update! saving) {:item "test update"}))))))
 
@@ -41,7 +44,8 @@
 
 (deftest transfer-test
   (testing "Testing transfer saving resource"
-    (with-redefs [t/insert! (fn [params] params)
+    (with-redefs [ur/request-body->map (fn [req] req)
+                  t/insert! (fn [params] params)
                   model/insert! (fn [params] params)]
       (let [transfer {:id-aim "1" :item "test transfer" :amount 20}]
         (is (= (s/transfer! transfer)

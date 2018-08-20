@@ -2,6 +2,7 @@
   (:require [boodle.api.resources.aim :as a]
             [boodle.api.resources.expense :as es]
             [boodle.model.aims :as model]
+            [boodle.utils.resource :as ur]
             [clojure.test :refer :all]))
 
 (deftest find-all-test
@@ -31,13 +32,15 @@
 
 (deftest insert-test
   (testing "Testing insert aim resource"
-    (with-redefs [model/insert! (fn [aim] aim)]
+    (with-redefs [ur/request-body->map (fn [req] req)
+                  model/insert! (fn [aim] aim)]
       (let [aim {:name "test" :target "3,5"}]
         (is (= (a/insert! aim) {:name "test" :target 3.50}))))))
 
 (deftest update-test
   (testing "Testing update aim resource"
-    (with-redefs [model/update! (fn [aim] aim)]
+    (with-redefs [ur/request-body->map (fn [req] req)
+                  model/update! (fn [aim] aim)]
       (let [aim {:id "1" :name "test update" :target "3,5"}]
         (is (= (a/update! aim) {:id 1 :name "test update" :target 3.50}))))))
 
@@ -55,7 +58,8 @@
 
 (deftest achieved-test
   (testing "Testing mark aim as achieved resource"
-    (with-redefs [a/find-by-id (fn [id] [{:id "1"
+    (with-redefs [ur/request-body->map (fn [req] req)
+                  a/find-by-id (fn [id] [{:id "1"
                                          :name "test achieved"
                                          :target "3,5"
                                          :category 1}])

@@ -1,6 +1,7 @@
 (ns boodle.api.resources.category-test
   (:require [boodle.api.resources.category :as c]
             [boodle.model.categories :as model]
+            [boodle.utils.resource :as ur]
             [clojure.test :refer :all]))
 
 (deftest find-all-test
@@ -20,13 +21,15 @@
 
 (deftest insert-test
   (testing "Testing insert category resource"
-    (with-redefs [model/insert! (fn [category] category)]
+    (with-redefs [ur/request-body->map (fn [req] req)
+                  model/insert! (fn [category] category)]
       (let [category {:name "test"}]
         (is (= (c/insert! category) {:name "test"}))))))
 
 (deftest update-test
   (testing "Testing update category resource"
-    (with-redefs [model/update! (fn [category] category)]
+    (with-redefs [ur/request-body->map (fn [req] req)
+                  model/update! (fn [category] category)]
       (let [category {:name "test update"}]
         (is (= (c/update! category) {:name "test update"}))))))
 

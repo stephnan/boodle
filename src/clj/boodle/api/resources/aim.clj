@@ -1,7 +1,10 @@
 (ns boodle.api.resources.aim
-  (:require [boodle.model.aims :as model]
-            [boodle.api.resources.expense :as es]
-            [boodle.utils.numbers :as numbers]))
+  (:require [boodle.api.resources.expense :as es]
+            [boodle.model.aims :as model]
+            [boodle.utils.numbers :as numbers]
+            [boodle.utils.resource :as ur]
+            [compojure.core :refer [context defroutes DELETE GET POST PUT]]
+            [ring.util.http-response :as response]))
 
 (defn find-all
   []
@@ -26,15 +29,18 @@
   (model/select-achieved))
 
 (defn insert!
-  [aim]
-  (-> (numbers/record-str->double aim :target)
+  [request]
+  (-> request
+      ur/request-body->map
+      (numbers/record-str->double :target)
       (model/insert!)))
 
 (defn update!
-  [aim]
-  (-> (numbers/record-str->double aim :target)
-      (assoc :id (numbers/str->integer (:id aim)))
-      (model/update!)))
+  [request]
+  (let [aim (ur/request-body->map request)]
+    (-> (numbers/record-str->double aim :target)
+        (assoc :id (numbers/str->integer (:id aim)))
+        (model/update!))))
 
 (defn delete!
   [id]
@@ -63,9 +69,31 @@
         (assoc :total (reduce + 0 (map :saved (vals aims)))))))
 
 (defn achieved!
-  [params]
-  (let [aim (-> (:id params) find-by-id first)]
+  [request]
+  (let [params (ur/request-body->map request)
+        aim (-> (:id params) find-by-id first)]
     (update! params)
     (es/insert! {:amount (:target aim)
                  :item (:name aim)
                  :id-category (:category params)})))
+
+(defroutes routes
+  (context "/api/aim" [id]
+    (GET "/find" []
+      (response/ok (find-all)))
+    (GET "/find/:id" [id]
+      (response/ok (find-by-id id)))
+    (GET "/active" []
+      (response/ok (find-active)))
+    (GET "/achieved" []
+      (response/ok (find-achieved)))
+    (PUT "/achieved" request
+      (response/ok (achieved! request)))
+    (POST "/insert" request
+      (response/ok (insert! request)))
+    (PUT "/update" request
+      (response/ok (update! request)))
+    (DELETE "/delete/:id" [id]
+      (response/ok (delete! id)))
+    (GET "/transactions" []
+      (response/ok (aims-with-transactions)))))

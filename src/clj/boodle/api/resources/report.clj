@@ -1,7 +1,10 @@
 (ns boodle.api.resources.report
   (:require [boodle.model.expenses :as model]
             [boodle.utils.dates :as ud]
-            [java-time :as jt]))
+            [boodle.utils.resource :as ur]
+            [compojure.core :refer [context defroutes POST]]
+            [java-time :as jt]
+            [ring.util.http-response :as response]))
 
 (defn get-data
   [params]
@@ -34,3 +37,12 @@
     (-> {}
         (assoc :data (categories-totals expenses))
         (assoc :total total))))
+
+(defroutes routes
+  (context "/api/report" []
+    (POST "/data" request
+      (let [params (ur/request-body->map request)
+            categories (get params :categories nil)]
+        (if (or (nil? categories) (empty? categories))
+          (response/ok (find-totals-for-categories params))
+          (response/ok (get-data params)))))))
