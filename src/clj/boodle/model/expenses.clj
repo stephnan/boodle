@@ -66,7 +66,7 @@
 (defn item-filter
   [item]
   (when-not (or (nil? item) (empty? item))
-    [:ilike :e.item item]))
+    [:ilike :e.item (str "%" item "%")]))
 
 (defn from-savings-filter
   [from-savings]
@@ -102,6 +102,10 @@
     (hh/where m [:<= :e.date to]
               (from-filter from)
               (item-filter item))
+    (and from categories)
+    (hh/where m [:<= :e.date to]
+              (from-filter from)
+              (categories-filter categories))
     (and from from-savings)
     (hh/where m [:<= :e.date to]
               (from-filter from)
