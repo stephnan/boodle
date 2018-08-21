@@ -8,6 +8,9 @@
             [ring.util.http-response :as response]))
 
 (defn safe-category
+  "Safely convert `category` to a number.
+  Return nil when it's nil, empty or zero to accommodate
+  boodle.model.expenses/report query."
   [category]
   (if (or (nil? category) (empty? category) (= "0" category))
     nil
@@ -36,6 +39,7 @@
         {})))
 
 (defn find-totals-for-categories
+  "Return the amount spent for each category and the total amount spent."
   [{from :from to :to item :item from-savings :from-savings}]
   (let [from (ud/to-local-date from)
         to (if (nil? to) (jt/local-date) (ud/to-local-date to))

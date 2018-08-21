@@ -49,6 +49,7 @@
       model/delete!))
 
 (defn aims-with-transactions
+  "Get aims with their transactions and the saved totals."
   []
   (let [aims (->> (model/select-aims-with-transactions)
                   (group-by :id)
@@ -69,6 +70,7 @@
         (assoc :total (reduce + 0 (map :saved (vals aims)))))))
 
 (defn achieved!
+  "Mark an aimed as achieved and track it on expenses."
   [request]
   (let [params (ur/request-body->map request)
         aim (-> (:id params) find-by-id first)]

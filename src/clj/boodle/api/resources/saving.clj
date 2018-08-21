@@ -46,6 +46,7 @@
       model/delete!))
 
 (defn transfer!
+  "Transfer the amount from savings to an aim and track the transaction."
   [request]
   (let [transfer (ur/request-body->map request)
         t (-> (numbers/record-str->double transfer :amount)
