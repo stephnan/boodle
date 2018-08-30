@@ -74,7 +74,7 @@
   [request]
   (let [params (ur/request-body->map request)
         aim (-> (:id params) find-by-id first)]
-    (update! params)
+    (update! request)
     (es/insert! {:amount (:target aim)
                  :item (:name aim)
                  :id-category (:category params)})))
