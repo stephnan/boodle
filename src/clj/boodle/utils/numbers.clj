@@ -39,3 +39,8 @@
     (->> n
          Double/parseDouble
          (assoc record k))))
+
+(defn str->double
+  [s]
+  (let [n (clojure.string/replace s #"," ".")]
+    (Double/parseDouble n)))

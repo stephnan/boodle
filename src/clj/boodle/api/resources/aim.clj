@@ -1,6 +1,7 @@
 (ns boodle.api.resources.aim
-  (:require [boodle.api.resources.expense :as es]
+  (:require [boodle.model.expenses :as es]
             [boodle.model.aims :as model]
+            [boodle.utils.dates :as ud]
             [boodle.utils.numbers :as numbers]
             [boodle.utils.resource :as ur]
             [compojure.core :refer [context defroutes DELETE GET POST PUT]]
@@ -73,11 +74,16 @@
   "Mark an aimed as achieved and track it on expenses."
   [request]
   (let [params (ur/request-body->map request)
+        id-category (numbers/str->integer (:category params))
         aim (-> (:id params) find-by-id first)]
-    (update! request)
-    (es/insert! {:amount (:target aim)
+    (-> (numbers/record-str->double aim :target)
+        (assoc :id (numbers/str->integer (:id aim)))
+        (assoc :achieved (:achieved params))
+        (model/update!))
+    (es/insert! {:amount (numbers/str->double (:target aim))
                  :item (:name aim)
-                 :id-category (:category params)})))
+                 :id-category id-category
+                 :date (:date (ud/record-str->record-date aim :date))})))
 
 (defroutes routes
   (context "/api/aim" [id]

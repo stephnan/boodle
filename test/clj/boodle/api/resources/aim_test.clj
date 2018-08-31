@@ -1,6 +1,6 @@
 (ns boodle.api.resources.aim-test
   (:require [boodle.api.resources.aim :as a]
-            [boodle.api.resources.expense :as es]
+            [boodle.model.expenses :as es]
             [boodle.model.aims :as model]
             [boodle.utils.resource :as ur]
             [clojure.test :refer :all]))
@@ -67,6 +67,7 @@
                   es/insert! (fn [e] e)]
       (let [aim {:id "1" :name "test achieved"
                  :target "3,5" :category 1 :achieved true}]
-        (is (= (a/achieved! aim) {:amount "3,5"
-                                  :item "test achieved"
-                                  :id-category 1}))))))
+        (is (= (dissoc (a/achieved! aim) :date)
+               {:amount 3.5
+                :item "test achieved"
+                :id-category 1}))))))
