@@ -70,4 +70,5 @@
         (is (= (dissoc (a/achieved! aim) :date)
                {:amount 3.5
                 :item "test achieved"
-                :id-category 1}))))))
+                :id-category 1
+                :from-savings true}))))))

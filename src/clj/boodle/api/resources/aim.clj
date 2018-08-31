@@ -83,7 +83,8 @@
     (es/insert! {:amount (numbers/str->double (:target aim))
                  :item (:name aim)
                  :id-category id-category
-                 :date (:date (ud/record-str->record-date aim :date))})))
+                 :date (:date (ud/record-str->record-date aim :date))
+                 :from-savings true})))
 
 (defroutes routes
   (context "/api/aim" [id]
