@@ -56,6 +56,25 @@
       (is (= (a/aims-with-transactions)
              {:aims {1 {:left 0 :name "T" :saved 1 :target 1}} :total 1})))))
 
+(deftest mark-aim-achieved-test
+  (testing "Testing mark aim achieved"
+    (with-redefs [model/update! (fn [aim] aim)]
+      (let [aim {:id "1" :name "test achieved" :target "3,5"}]
+        (is (= (a/mark-aim-achieved aim true)
+               {:id 1
+                :target 3.5
+                :name "test achieved"
+                :achieved true}))))))
+
+(deftest aim->expense-test
+  (testing "Testing aim->expense function"
+    (let [aim {:name "test achieved" :target "3,5"}]
+      (is (= (dissoc (a/aim->expense aim 1) :date)
+             {:amount 3.5
+              :item "test achieved"
+              :id-category 1
+              :from-savings true})))))
+
 (deftest achieved-test
   (testing "Testing mark aim as achieved resource"
     (with-redefs [ur/request-body->map (fn [req] req)

@@ -70,21 +70,31 @@
         (assoc :aims aims)
         (assoc :total (reduce + 0 (map :saved (vals aims)))))))
 
+(defn mark-aim-achieved
+  "Mark `aim` as achieved using the value of `achieved`."
+  [aim achieved]
+  (-> (numbers/record-str->double aim :target)
+      (assoc :id (numbers/str->integer (:id aim)))
+      (assoc :achieved achieved)
+      (model/update!)))
+
+(defn aim->expense
+  "Convert `aim` into an expense for the given `category`."
+  [aim category]
+  (let [id-category (numbers/str->integer category)]
+    {:amount (numbers/str->double (:target aim))
+     :item (:name aim)
+     :id-category id-category
+     :date (:date (ud/record-str->record-date aim :date))
+     :from-savings true}))
+
 (defn achieved!
-  "Mark an aimed as achieved and track it on expenses."
+  "Mark an aim as achieved and track it on expenses."
   [request]
   (let [params (ur/request-body->map request)
-        id-category (numbers/str->integer (:category params))
         aim (-> (:id params) find-by-id first)]
-    (-> (numbers/record-str->double aim :target)
-        (assoc :id (numbers/str->integer (:id aim)))
-        (assoc :achieved (:achieved params))
-        (model/update!))
-    (es/insert! {:amount (numbers/str->double (:target aim))
-                 :item (:name aim)
-                 :id-category id-category
-                 :date (:date (ud/record-str->record-date aim :date))
-                 :from-savings true})))
+    (mark-aim-achieved aim (:achieved params))
+    (es/insert! (aim->expense aim (:category params)))))
 
 (defroutes routes
   (context "/api/aim" [id]
