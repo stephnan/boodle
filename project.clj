@@ -76,5 +76,5 @@
      :compiler {:main boodle.core
                 :output-to "target/public/cljs-out/boodle-main.js"
                 :asset-path "target/public/cljs-out/boodle"
-                :optimizations :simple
+                :optimizations :advanced
                 :pretty-print false}}}})
