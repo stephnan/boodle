@@ -29,7 +29,7 @@
    [ring-middleware-format "0.7.2"]
 
    ;; ClojureScript
-   [bidi "2.1.3"]
+   [bidi "2.1.4"]
    [camel-snake-kebab "0.4.0" :exclusions [org.clojure/clojure]]
    [cljs-ajax "0.7.4"]
    [cljsjs/moment "2.22.2-0"]
@@ -44,7 +44,7 @@
    [tongue "0.2.4"]]
 
   :plugins [[lein-cljsbuild "1.1.7"]
-            [lein-eftest "0.5.2"]]
+            [lein-eftest "0.5.3"]]
   :eftest {:multithread? false}
 
   :source-paths ["src/clj" "src/cljs"]
