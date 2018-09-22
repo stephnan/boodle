@@ -6,7 +6,7 @@
 
   :dependencies
   [;; Clojure
-   [cheshire "5.8.0"]
+   [cheshire "5.8.1"]
    [clojure.java-time "0.3.2"]
    [com.taoensso/timbre "4.10.0"]
    [com.walmartlabs/test-reporting "0.1.0"]
