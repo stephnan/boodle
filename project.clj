@@ -63,7 +63,7 @@
   :profiles
   {:dev
    {:dependencies [[binaryage/devtools "0.9.10"]
-                   [cider/piggieback "0.3.9"]
+                   [cider/piggieback "0.3.10"]
                    [com.bhauman/figwheel-main "0.1.9"]
                    [com.bhauman/rebel-readline-cljs "0.1.4"]
                    [figwheel-sidecar "0.5.16"]]
