@@ -33,7 +33,7 @@
    [camel-snake-kebab "0.4.0" :exclusions [org.clojure/clojure]]
    [cljs-ajax "0.7.5"]
    [cljsjs/moment "2.22.2-1"]
-   [cljsjs/pikaday "1.5.1-2"]
+   [cljsjs/pikaday "1.8.0-0"]
    [com.andrewmcveigh/cljs-time "0.5.2"]
    [day8.re-frame/http-fx "0.1.6"]
    [kibu/pushy "0.3.8"]
@@ -66,7 +66,7 @@
                    [cider/piggieback "0.3.10"]
                    [com.bhauman/figwheel-main "0.1.9"]
                    [com.bhauman/rebel-readline-cljs "0.1.4"]
-                   [figwheel-sidecar "0.5.16"]]
+                   [figwheel-sidecar "0.5.17"]]
     :repl-options {:nrepl-middleware [cider.piggieback/wrap-cljs-repl]}}}
 
   :cljsbuild
