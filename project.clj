@@ -20,7 +20,7 @@
    [org.clojure/clojure "1.9.0"]
    [org.clojure/core.incubator "0.1.4"]
    [org.clojure/java.jdbc "0.7.8"]
-   [org.clojure/tools.reader "1.3.1"]
+   [org.clojure/tools.reader "1.3.2"]
    [org.postgresql/postgresql "42.2.5"]
    [ring "1.7.0"]
    [ring/ring-defaults "0.3.2"]
