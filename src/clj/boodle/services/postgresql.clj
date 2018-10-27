@@ -134,7 +134,7 @@
 (defn query
   "Run a query using the map in `sqlmap`."
   [sqlmap]
-  (let [q (->> sqlmap sql/format)]
+  (let [q (sql/format sqlmap)]
     (try
       (jdbc/with-db-connection [conn {:datasource datasource}]
         (->> q
@@ -147,7 +147,7 @@
 (defn execute!
   "Execute an insert/update/delete query using the map in `sqlmap`."
   [sqlmap]
-  (let [q (->> sqlmap sql/format)]
+  (let [q (sql/format sqlmap)]
     (try
       (jdbc/with-db-connection [conn {:datasource datasource}]
         (jdbc/execute! conn q))
