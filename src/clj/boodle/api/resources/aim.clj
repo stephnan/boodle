@@ -49,23 +49,24 @@
       numbers/str->integer
       model/delete!))
 
+(defn format-aims-and-totals
+  "Return a map of aims with the their total amounts."
+  []
+  (let [aims (model/select-aims-with-transactions)]
+    (reduce-kv
+     (fn [m k v]
+       (let [aim (first (map :aim v))
+             target (first (map :target v))
+             saved (apply + (->> (map :amount v) (map numbers/or-zero)))
+             left (- target saved)]
+         (assoc m k {:name aim :target target :saved saved :left left})))
+     {}
+     (group-by :id aims))))
+
 (defn aims-with-transactions
   "Get aims with their transactions and the saved totals."
   []
-  (let [aims (->> (model/select-aims-with-transactions)
-                  (group-by :id)
-                  (reduce-kv
-                   (fn [m k v]
-                     (let [aim (first (map :aim v))
-                           target (first (map :target v))
-                           saved (apply + (->> (map :amount v)
-                                               (map numbers/or-zero)))
-                           left (- target saved)]
-                       (assoc m k {:name aim
-                                   :target target
-                                   :saved saved
-                                   :left left})))
-                   {}))]
+  (let [aims (format-aims-and-totals)]
     (-> {}
         (assoc :aims aims)
         (assoc :total (reduce + 0 (map :saved (vals aims)))))))

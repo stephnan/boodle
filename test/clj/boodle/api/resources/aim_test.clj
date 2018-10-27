@@ -49,10 +49,17 @@
     (with-redefs [model/delete! (fn [id] id)]
       (is (= (a/delete! "1") 1)))))
 
-(deftest aims-with-transactions-test
-  (testing "Testing get aims with related transactions"
+(deftest format-aims-and-totals-test
+  (testing "Testing formatting aims with their total amounts."
     (with-redefs [model/select-aims-with-transactions
                   (fn [] [{:id 1 :aim "T" :target 1 :amount 1}])]
+      (is (= (a/format-aims-and-totals)
+             {1 {:left 0 :name "T" :saved 1 :target 1}})))))
+
+(deftest aims-with-transactions-test
+  (testing "Testing get aims with related transactions"
+    (with-redefs [a/format-aims-and-totals
+                  (fn [] {1 {:left 0 :name "T" :saved 1 :target 1}})]
       (is (= (a/aims-with-transactions)
              {:aims {1 {:left 0 :name "T" :saved 1 :target 1}} :total 1})))))
 
