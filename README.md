@@ -19,11 +19,9 @@ boodle uses these Clojure/ClojureScript libraries:
 - [ring](https://github.com/ring-clojure/ring)
 - [tongue](https://github.com/tonsky/tongue)
 
-I used [Skeleton](http://getskeleton.com/) to style the UI. The modal panel is a
-customised version of
-[re-frame-modal](https://github.com/benhowell/re-frame-modal). The date picker
-is a customised version of
-[cljs-pikaday](https://github.com/timgilbert/cljs-pikaday).
+I used [Skeleton](http://getskeleton.com/) for the UI, and I customised
+[re-frame-modal](https://github.com/benhowell/re-frame-modal) and
+[cljs-pikaday](https://github.com/timgilbert/cljs-pikaday) to play well with it.
 
 ## Usage
 
