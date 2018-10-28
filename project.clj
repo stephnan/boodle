@@ -22,7 +22,7 @@
    [org.clojure/java.jdbc "0.7.8"]
    [org.clojure/tools.reader "1.3.2"]
    [org.postgresql/postgresql "42.2.5"]
-   [ring "1.7.0"]
+   [ring "1.7.1"]
    [ring/ring-defaults "0.3.2"]
    [ring/ring-json "0.4.0"]
    [ring/ring-mock "0.3.2"]
