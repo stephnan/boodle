@@ -14,7 +14,6 @@ boodle uses these Clojure/ClojureScript libraries:
 - [hikari-cp](https://github.com/tomekw/hikari-cp)
 - [honeysql](https://github.com/jkk/honeysql)
 - [http-kit](http://www.http-kit.org/)
-- [kaocha](https://github.com/lambdaisland/kaocha)
 - [mount](https://github.com/tolitius/mount)
 - [re-frame](https://github.com/Day8/re-frame)
 - [ring](https://github.com/ring-clojure/ring)
@@ -68,7 +67,8 @@ I start/restart my home server.
 
 ## Tests
 
-Unit tests can be run with:
+Unit tests are configured with [kaocha](https://github.com/lambdaisland/kaocha)
+and can be run with:
 
 ```console
 $ ./bin/kaocha
