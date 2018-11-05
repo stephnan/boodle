@@ -43,9 +43,7 @@
    [reagent-utils "0.3.1"]
    [tongue "0.2.4"]]
 
-  :plugins [[lein-cljsbuild "1.1.7"]
-            [lein-eftest "0.5.3"]]
-  :eftest {:multithread? false}
+  :plugins [[lein-cljsbuild "1.1.7"]]
 
   :source-paths ["src/clj" "src/cljs"]
   :test-paths ["test/clj" "test/cljs"]
@@ -54,7 +52,8 @@
 
   :aliases
   {"fig" ["trampoline" "run" "-m" "figwheel.main"]
-   "build" ["trampoline" "run" "-m" "figwheel.main" "-b" "boodle"]}
+   "build" ["trampoline" "run" "-m" "figwheel.main" "-b" "boodle"]
+   "kaocha" ["with-profile" "+kaocha" "run" "-m" "kaocha.runner"]}
 
   :clean-targets ^{:protect false} [:target-path "resources/public/js"]
 
@@ -67,7 +66,9 @@
                    [com.bhauman/figwheel-main "0.1.9"]
                    [com.bhauman/rebel-readline-cljs "0.1.4"]
                    [figwheel-sidecar "0.5.17"]]
-    :repl-options {:nrepl-middleware [cider.piggieback/wrap-cljs-repl]}}}
+    :repl-options {:nrepl-middleware [cider.piggieback/wrap-cljs-repl]}}
+
+   :kaocha {:dependencies [[lambdaisland/kaocha "0.0-248"]]}}
 
   :cljsbuild
   {:builds
