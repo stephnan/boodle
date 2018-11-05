@@ -1,10 +1,10 @@
 (ns boodle.api.resources.transaction-test
   (:require [boodle.api.resources.transaction :as t]
             [boodle.model.transactions :as model]
+            [boodle.utils.dates :as ud]
             [boodle.utils.resource :as ur]
             [clojure.test :refer :all]
-            [java-time :as jt]
-            [boodle.utils.dates :as ud]))
+            [java-time :as jt]))
 
 (deftest find-all-test
   (testing "Testing find all transactions resource"

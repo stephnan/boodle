@@ -9,7 +9,6 @@
    [cheshire "5.8.1"]
    [clojure.java-time "0.3.2"]
    [com.taoensso/timbre "4.10.0"]
-   [com.walmartlabs/test-reporting "0.1.0"]
    [compojure "1.6.1"]
    [hiccup "1.0.5"]
    [hikari-cp "2.6.0"]
@@ -18,7 +17,6 @@
    [metosin/ring-http-response "0.9.0"]
    [mount "0.1.14"]
    [org.clojure/clojure "1.9.0"]
-   [org.clojure/core.incubator "0.1.4"]
    [org.clojure/java.jdbc "0.7.8"]
    [org.clojure/tools.reader "1.3.2"]
    [org.postgresql/postgresql "42.2.5"]
@@ -50,11 +48,6 @@
   :resource-paths ["target" "resources"]
   :target-path "target/%s"
 
-  :aliases
-  {"fig" ["trampoline" "run" "-m" "figwheel.main"]
-   "build" ["trampoline" "run" "-m" "figwheel.main" "-b" "boodle"]
-   "kaocha" ["with-profile" "+kaocha" "run" "-m" "kaocha.runner"]}
-
   :clean-targets ^{:protect false} [:target-path "resources/public/js"]
 
   :main ^:skip-aot boodle.core
@@ -78,4 +71,9 @@
                 :output-to "target/public/cljs-out/boodle-main.js"
                 :asset-path "target/public/cljs-out/boodle"
                 :optimizations :advanced
-                :pretty-print false}}}})
+                :pretty-print false}}}}
+
+  :aliases
+  {"fig" ["trampoline" "run" "-m" "figwheel.main"]
+   "build" ["trampoline" "run" "-m" "figwheel.main" "-b" "boodle"]
+   "kaocha" ["with-profile" "+kaocha" "run" "-m" "kaocha.runner"]})

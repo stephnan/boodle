@@ -1,10 +1,10 @@
 (ns boodle.api.resources.expense-test
   (:require [boodle.api.resources.expense :as e]
             [boodle.model.expenses :as model]
+            [boodle.utils.dates :as ud]
             [boodle.utils.resource :as ur]
             [clojure.test :refer :all]
-            [java-time :as jt]
-            [boodle.utils.dates :as ud]))
+            [java-time :as jt]))
 
 (deftest find-all-test
   (testing "Testing find all expenses resource"
