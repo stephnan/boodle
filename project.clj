@@ -61,7 +61,7 @@
                    [figwheel-sidecar "0.5.17"]]
     :repl-options {:nrepl-middleware [cider.piggieback/wrap-cljs-repl]}}
 
-   :kaocha {:dependencies [[lambdaisland/kaocha "0.0-248"]]}}
+   :kaocha {:dependencies [[lambdaisland/kaocha "0.0-266"]]}}
 
   :cljsbuild
   {:builds
