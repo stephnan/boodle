@@ -126,7 +126,7 @@
  :edit-aim
  (fn [{db :db} [_ id]]
    (let [aims (get-in db [:aims :summary])
-         row (-> (filter #(= (name (first %)) id) aims)
+         row (-> (filter #(= (name (first %)) id) (:aims aims))
                  first
                  second
                  (assoc :id id)

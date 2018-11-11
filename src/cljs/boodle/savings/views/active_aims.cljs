@@ -16,9 +16,9 @@
                       (translate :it :currency))]]])))
 
 (defn render-summary-row
-  [row]
-  (let [aim-id (name (first row))
-        aim-values (second row)]
+  [[k v]]
+  (let [aim-id (name k)
+        aim-values v]
     [:tr {:key (random-uuid)}
      [:td {:style {:padding-right "15em"}}
       (:name aim-values)]
