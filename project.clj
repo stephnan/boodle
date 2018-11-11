@@ -14,7 +14,7 @@
    [hikari-cp "2.6.0"]
    [honeysql "0.9.4"]
    [http-kit "2.3.0"]
-   [metosin/ring-http-response "0.9.0"]
+   [metosin/ring-http-response "0.9.1"]
    [mount "0.1.14"]
    [org.clojure/clojure "1.9.0"]
    [org.clojure/java.jdbc "0.7.8"]
