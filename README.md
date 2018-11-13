@@ -36,26 +36,19 @@ $ yarn
 $ gulp
 ```
 
-Install [lein](https://leiningen.org/). Compile the ClojureScript files and fire
-up [figwheel-main](https://github.com/bhauman/figwheel-main) with:
+Install [http://shadow-cljs.org/]. Compile the ClojureScript with:
 
 ```console
-$ lein build
+$ shadow-cljs compile boodle
 ```
 
 Then fire up the server with:
 
 ```console
-$ lein run
+$ clj -A:run
 ```
 
 You can now browse at `http://localhost:8080` and interact with boodle.
-
-A production-ready ClojureScript build is available via:
-
-```console
-$ lein cljsbuild once min
-```
 
 The included `boodle.service` is a basic [systemd
 unit](https://www.freedesktop.org/software/systemd/man/systemd.unit.html) that
