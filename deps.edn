@@ -21,6 +21,6 @@
 
  :paths ["src/clj"]
 
- :aliases {:run {:extra-paths ["resources"]}
+ :aliases {:run {:extra-paths ["resources"] :main-opts ["-m" "boodle.core"]}
            :test {:extra-paths ["test/clj"]
                   :extra-deps {lambdaisland/kaocha {:mvn/version "0.0-266"}}}}}
