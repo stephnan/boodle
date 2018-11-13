@@ -1,8 +1,5 @@
 # boodle
 
-[![Build
-Status](https://travis-ci.org/manuel-uberti/boodle.svg?branch=master)](https://travis-ci.org/manuel-uberti/boodle)
-
 Simple accounting SPA in Clojure and ClojureScript.
 
 ![Screenshot](https://github.com/manuel-uberti/boodle/blob/master/screenshot/01.png)
