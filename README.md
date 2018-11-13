@@ -36,7 +36,8 @@ $ yarn
 $ gulp
 ```
 
-Install [shadow-cljs](http://shadow-cljs.org/). Compile the ClojureScript with:
+Install [shadow-cljs](http://shadow-cljs.org/) and compile the ClojureScript
+files with:
 
 ```console
 $ shadow-cljs compile boodle
