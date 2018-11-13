@@ -19,6 +19,8 @@
   ring/ring-json {:mvn/version "0.4.0"},
   ring/ring-mock {:mvn/version "0.3.2"}}
 
- :paths ["src/clj" "test/clj" "resources"]
+ :paths ["src/clj"]
 
- :aliases {:test {:extra-deps {lambdaisland/kaocha {:mvn/version "0.0-266"}}}}}
+ :aliases {:run {:extra-paths ["resources"]}
+           :test {:extra-paths ["test/clj"]
+                  :extra-deps {lambdaisland/kaocha {:mvn/version "0.0-266"}}}}}
