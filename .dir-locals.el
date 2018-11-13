@@ -3,8 +3,6 @@
 
 ((nil
   (cider-ns-refresh-before-fn . "mount.core/stop")
-  (cider-ns-refresh-after-fn . "mount.core/start")
-  (cider-default-cljs-repl . shadow)
-  (cider-jack-in-cljs-dependencies . nil))
+  (cider-ns-refresh-after-fn . "mount.core/start"))
  (emacs-lisp-mode
   (flycheck-disabled-checkers . "emacs-lisp-checkdoc")))
