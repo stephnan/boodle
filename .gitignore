@@ -10,7 +10,9 @@ pom.xml.asc
 *cider-repl boodle*
 .hgignore
 .hg/
-/figwheel_server.log
 /resources/public/js
 /resources/src/node_modules
 /resources/public/fonts
+.shadow-cljs
+node_modules
+.cpcache

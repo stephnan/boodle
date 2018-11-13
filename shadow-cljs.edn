@@ -1,0 +1,18 @@
+{:source-paths ["src/cljs"]
+ :nrepl {:port 8777}
+ :dependencies [[bidi "2.1.4"]
+                [binaryage/devtools "0.9.10"]
+                [camel-snake-kebab "0.4.0" :exclusions [org.clojure/clojure]]
+                [cljs-ajax "0.7.5"]
+                [com.andrewmcveigh/cljs-time "0.5.2"]
+                [day8.re-frame/http-fx "0.1.6"]
+                [kibu/pushy "0.3.8"]
+                [org.clojure/clojurescript "1.10.312"]
+                [re-frame "0.10.6"]
+                [reagent "0.8.1"]
+                [reagent-utils "0.3.1"]
+                [tongue "0.2.4"]]
+ :builds {:boodle {:target :browser
+                   :output-dir "resources/public/js"
+                   :asset-path "/js"
+                   :modules {:main {:entries [boodle.core]}}}}}

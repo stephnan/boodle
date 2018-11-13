@@ -16,5 +16,5 @@
     (hiccup/include-css "/css/boodle.min.css")]
    [:body
     [:div#app]
-    (hiccup/include-js "cljs-out/boodle-main.js")
+    (hiccup/include-js "/js/main.js")
     [:script "boodle.core.init();"]]))

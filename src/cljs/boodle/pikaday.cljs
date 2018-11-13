@@ -3,8 +3,8 @@
   (:require [boodle.i18n :refer [translate]]
             [camel-snake-kebab.core :refer [->camelCaseString]]
             [camel-snake-kebab.extras :refer [transform-keys]]
-            [cljsjs.pikaday]
-            [cljsjs.moment]
+            ["react-dom" :refer [findDOMNode]]
+            ["pikaday" :as pikaday]
             [cljs-time.core :as tt]
             [cljs-time.coerce :as tc]
             [cljs-time.format :as tf]
@@ -75,14 +75,14 @@
      {:component-did-mount
       (fn [this]
         (let [default-opts
-              {:field (js/ReactDOM.findDOMNode this)
+              {:field (findDOMNode this)
                :default-date @date-atom
                :set-default-date true
                :i18n i18n
                :first-day (first-day-of-week :mon)
                :on-select #(when date-atom (reset! date-atom %))}
               opts (opts-transform (merge default-opts pikaday-attrs))
-              instance (js/Pikaday. opts)]
+              instance (pikaday. opts)]
           (reset! instance-atom instance)
           ;; This code could probably be neater
           (when date-atom
