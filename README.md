@@ -26,6 +26,7 @@ To run boodle, install and configure [PostgreSQL](https://www.postgresql.org) on
 your machine. Set up the database with the necessary tables and permissions you
 find in
 [model.sql](https://github.com/manuel-uberti/boodle/blob/master/resources/sql/model.sql).
+Check also `conf/config.edn` to adjust the database connection parameters.
 
 Install [yarn](https://yarnpkg.com/en/) and [gulp](https://gulpjs.com/), and
 then run:
