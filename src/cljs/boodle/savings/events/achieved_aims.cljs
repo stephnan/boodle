@@ -27,8 +27,6 @@
                  second
                  (assoc :id id)
                  (assoc :achieved true))]
-     (.log js/console aims)
-     (.log js/console row)
      {:db (assoc-in db [:aims :row] row)
       :dispatch
       [:modal
