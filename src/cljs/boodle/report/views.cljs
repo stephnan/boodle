@@ -45,13 +45,70 @@
          [:tbody
           (doall (map render-category-total-row @rows))]]))))
 
-(defn home-panel
+(defn search-fields
   []
   (fn []
     (let [categories (conj @(rf/subscribe [:categories]) {:id "" :name ""})
           params (rf/subscribe [:report-params])
-          total (rf/subscribe [:report-total])
           checked @(rf/subscribe [:report-from-savings])]
+      [:nav.level
+       [:div.level-item.has-text-centered
+        [:div.field.is-horizontal
+         [:div.field-label.is-normal
+          [:label.label (translate :it :report/label.from)]]
+         [:div.field-body
+          [:div.field
+           [pikaday/date-selector
+            {:date-atom (rf/subscribe [:report-from])
+             :pikaday-attrs {:onSelect #(rf/dispatch [:report-change-from %])
+                             :format "DD/MM/YYYY"}}]]]]]
+       [:div.level-item.has-text-centered
+        [:div.field.is-horizontal
+         [:div.field-label.is-normal
+          [:label.label (translate :it :report/label.to)]]
+         [:div.field-body
+          [:div.field
+           [pikaday/date-selector
+            {:date-atom (rf/subscribe [:report-to])
+             :pikaday-attrs {:onSelect #(rf/dispatch [:report-change-to %])
+                             :format "DD/MM/YYYY"}}]]]]]
+       [:div.level-item.has-text-centered
+        [:div.field.is-horizontal
+         [:div.field-label.is-normal
+          [:label (translate :it :report/label.item)]]
+         [:div.field-body
+          [:div.field
+           [:input.input
+            {:type "text"
+             :value (v/or-empty-string (:item @params))
+             :on-change #(rf/dispatch [:report-change-item
+                                       (-> % .-target .-value)])}]]]]]
+       [:div.level-item.has-text-centered
+        [:div.field.is-horizontal
+         [:div.field-label.is-normal
+          [:label (translate :it :report/label.category)]]
+         [:div.field-body
+          [:div.field
+           [:div.select
+            [:select
+             {:value (v/or-empty-string (:categories @params))
+              :on-change #(rf/dispatch [:report-change-categories
+                                        (-> % .-target .-value)])}
+             (map common/render-option categories)]]]]]]
+       [:div.level-item.has-text-centered
+        [:div.field.is-horizontal
+         [:div.control
+          [:label.checkbox
+           [:input
+            {:type "checkbox"
+             :checked (boolean checked)
+             :on-change #(rf/dispatch [:report-change-from-savings])}]
+           (translate :it :report/label.from-savings)]]]]])))
+
+(defn home-panel
+  []
+  (fn []
+    (let [total(rf/subscribe [:report-total])]
       [:div
        [common/header]
 
@@ -59,59 +116,7 @@
         [common/page-title (translate :it :report/page.title)]
         [v/validation-msg-box]
 
-        [:nav.level
-         [:div.level-item.has-text-centered
-          [:div.field.is-horizontal
-           [:div.field-label.is-normal
-            [:label.label (translate :it :report/label.from)]]
-           [:div.field-body
-            [:div.field
-             [pikaday/date-selector
-              {:date-atom (rf/subscribe [:report-from])
-               :pikaday-attrs {:onSelect #(rf/dispatch [:report-change-from %])
-                               :format "DD/MM/YYYY"}}]]]]]
-         [:div.level-item.has-text-centered
-          [:div.field.is-horizontal
-           [:div.field-label.is-normal
-            [:label.label (translate :it :report/label.to)]]
-           [:div.field-body
-            [:div.field
-             [pikaday/date-selector
-              {:date-atom (rf/subscribe [:report-to])
-               :pikaday-attrs {:onSelect #(rf/dispatch [:report-change-to %])
-                               :format "DD/MM/YYYY"}}]]]]]
-         [:div.level-item.has-text-centered
-          [:div.field.is-horizontal
-           [:div.field-label.is-normal
-            [:label (translate :it :report/label.item)]]
-           [:div.field-body
-            [:div.field
-             [:input.input
-              {:type "text"
-               :value (v/or-empty-string (:item @params))
-               :on-change #(rf/dispatch [:report-change-item
-                                         (-> % .-target .-value)])}]]]]]
-         [:div.level-item.has-text-centered
-          [:div.field.is-horizontal
-           [:div.field-label.is-normal
-            [:label (translate :it :report/label.category)]]
-           [:div.field-body
-            [:div.field
-             [:div.select
-              [:select
-               {:value (v/or-empty-string (:categories @params))
-                :on-change #(rf/dispatch [:report-change-categories
-                                          (-> % .-target .-value)])}
-               (map common/render-option categories)]]]]]]
-         [:div.level-item.has-text-centered
-          [:div.field.is-horizontal
-           [:div.control
-            [:label.checkbox
-             [:input
-              {:type "checkbox"
-               :checked (boolean checked)
-               :on-change #(rf/dispatch [:report-change-from-savings])}]
-             (translate :it :report/label.from-savings)]]]]]
+        [search-fields]
 
         [:div.field.is-grouped.is-grouped-centered
          [:p.control
