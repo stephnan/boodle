@@ -6,22 +6,14 @@
   []
   (fn []
     [:div.container
-     [:div.row
-      [:div.eight.columns
-       {:style {:margin-top ".1em"}}
-       [:h2 (translate :it :header/boodle)]]
-      [:div.one.column
-       {:style {:margin-top ".8em"}}
-       [:h5 [:a {:href "/"} (translate :it :header/expenses)]]]
-      [:div.one.column
-       {:style {:margin-top ".8em"}}
-       [:h5 [:a {:href "/report"} (translate :it :header/report)]]]
-      [:div.one.column
-       {:style {:margin-top ".8em" :color "#8e908c"}}
-       [:h5 "|"]]
-      [:div.one.column
-       {:style {:margin-top ".8em" :margin-left "-1.8em"}}
-       [:h5 [:a {:href "/savings"} (translate :it :header/savings)]]]]
+     [:nav.navbar
+      [:div.navbar-brand
+       [:h1.title.is-1.navbar-item (translate :it :header/boodle)]]
+      [:div.navbar-menu
+       [:div.navbar-start
+        [:a.navbar-item {:href "/"} (translate :it :header/expenses)]
+        [:a.navbar-item {:href "/report"} (translate :it :header/report)]
+        [:a.navbar-item {:href "/savings"} (translate :it :header/savings)]]]]
      [:hr
       {:style
        {:margin-top 0
@@ -32,7 +24,7 @@
 (defn page-title
   [title]
   (fn []
-    [:h3
+    [:h3.title.is-3
      {:style {:text-align "center"}}
      title]))
 

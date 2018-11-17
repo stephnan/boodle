@@ -73,6 +73,11 @@ braces@^1.8.2:
     preserve "^0.2.0"
     repeat-element "^1.1.2"
 
+bulma@^0.7.2:
+  version "0.7.2"
+  resolved "https://registry.yarnpkg.com/bulma/-/bulma-0.7.2.tgz#8e944377b74c7926558830d38d8e19eaf49f5fb6"
+  integrity sha512-6JHEu8U/1xsyOst/El5ImLcZIiE2JFXgvrz8GGWbnDLwTNRPJzdAM0aoUM1Ns0avALcVb6KZz9NhzmU53dGDcQ==
+
 camelcase@^2.0.1:
   version "2.1.1"
   resolved "https://registry.yarnpkg.com/camelcase/-/camelcase-2.1.1.tgz#7c1d16d679a1bbe59ca02cacecfb011e201f5a1f"
@@ -1177,14 +1182,6 @@ sequencify@~0.0.7:
 sigmund@~1.0.0:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/sigmund/-/sigmund-1.0.1.tgz#3ff21f198cad2175f9f3b781853fd94d0d19b590"
-
-skeleton-checkboxes@^1.0.2:
-  version "1.0.2"
-  resolved "https://registry.yarnpkg.com/skeleton-checkboxes/-/skeleton-checkboxes-1.0.2.tgz#b2a989bb7a7953a3e279b93d60818d1d7344e95d"
-
-skeleton-css@^2.0.4:
-  version "2.0.4"
-  resolved "https://registry.yarnpkg.com/skeleton-css/-/skeleton-css-2.0.4.tgz#d70db2f01fe8209ac79f2f4eee83fae8a40591b8"
 
 source-map@0.5.x, source-map@^0.5.1:
   version "0.5.7"

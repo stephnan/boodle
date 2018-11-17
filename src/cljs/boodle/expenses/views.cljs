@@ -53,7 +53,7 @@
       [:div
        [common/header]
 
-       [:div.container {:style {:margin-top "1em"}}
+       [:div.container
         [common/page-title (translate :it :expenses/page.title)]
         [v/validation-msg-box]
 
