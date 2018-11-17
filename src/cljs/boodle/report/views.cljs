@@ -28,7 +28,7 @@
   (fn []
     (let [rows (rf/subscribe [:report-data])]
       (if (category-selected? @rows)
-        [:table.u-full-width
+        [:table.table.is-striped.is-fullwidth
          [:thead
           [:tr
            [:th (translate :it :report/table.date)]
@@ -37,7 +37,7 @@
            [:th (translate :it :report/table.amount)]]]
          [:tbody
           (doall (map render-report-row @rows))]]
-        [:table.u-full-width
+        [:table.table.is-striped.is-fullwidth
          [:thead
           [:tr
            [:th (translate :it :report/table.category)]
@@ -55,62 +55,75 @@
       [:div
        [common/header]
 
-       [:div.container {:style {:margin-top "1em"}}
+       [:div.container
         [common/page-title (translate :it :report/page.title)]
         [v/validation-msg-box]
 
-        [:div.form
-         [:div.row
-          [:div.four.columns
-           [:label (translate :it :report/label.from)]
-           [pikaday/date-selector
-            {:date-atom (rf/subscribe [:report-from])
-             :pikaday-attrs {:onSelect #(rf/dispatch [:report-change-from %])
-                             :format "DD/MM/YYYY"}}]]
-          [:div.four.columns
-           [:label (translate :it :report/label.to)]
-           [pikaday/date-selector
-            {:date-atom (rf/subscribe [:report-to])
-             :pikaday-attrs {:onSelect #(rf/dispatch [:report-change-to %])
-                             :format "DD/MM/YYYY"}}]]
-          [:div.three.columns
-           [:label (translate :it :report/label.from-savings)]
-           [:input
-            {:id "from-savings"
-             :type "checkbox"
-             :checked (boolean checked)
-             :on-change #(rf/dispatch [:report-change-from-savings])}]
-           [:label {:for "from-savings"}]]]
-         [:div.row
-          [:div.six.columns
-           [:label (translate :it :report/label.item)]
-           [:input.u-full-width
-            {:type "text"
-             :value (v/or-empty-string (:item @params))
-             :on-change #(rf/dispatch [:report-change-item
-                                       (-> % .-target .-value)])}]]
-          [:div.six.columns
-           [:label (translate :it :report/label.category)]
-           [:select.u-full-width
-            {:value (v/or-empty-string (:categories @params))
-             :on-change #(rf/dispatch [:report-change-categories
-                                       (-> % .-target .-value)])}
-            (map common/render-option categories)]]]
+        [:nav.level
+         [:div.level-item.has-text-centered
+          [:div.field.is-horizontal
+           [:div.field-label.is-normal
+            [:label.label (translate :it :report/label.from)]]
+           [:div.field-body
+            [:div.field
+             [pikaday/date-selector
+              {:date-atom (rf/subscribe [:report-from])
+               :pikaday-attrs {:onSelect #(rf/dispatch [:report-change-from %])
+                               :format "DD/MM/YYYY"}}]]]]]
+         [:div.level-item.has-text-centered
+          [:div.field.is-horizontal
+           [:div.field-label.is-normal
+            [:label.label (translate :it :report/label.to)]]
+           [:div.field-body
+            [:div.field
+             [pikaday/date-selector
+              {:date-atom (rf/subscribe [:report-to])
+               :pikaday-attrs {:onSelect #(rf/dispatch [:report-change-to %])
+                               :format "DD/MM/YYYY"}}]]]]]
+         [:div.level-item.has-text-centered
+          [:div.field.is-horizontal
+           [:div.field-label.is-normal
+            [:label (translate :it :report/label.item)]]
+           [:div.field-body
+            [:div.field
+             [:input.input
+              {:type "text"
+               :value (v/or-empty-string (:item @params))
+               :on-change #(rf/dispatch [:report-change-item
+                                         (-> % .-target .-value)])}]]]]]
+         [:div.level-item.has-text-centered
+          [:div.field.is-horizontal
+           [:div.field-label.is-normal
+            [:label (translate :it :report/label.category)]]
+           [:div.field-body
+            [:div.field
+             [:div.select
+              [:select
+               {:value (v/or-empty-string (:categories @params))
+                :on-change #(rf/dispatch [:report-change-categories
+                                          (-> % .-target .-value)])}
+               (map common/render-option categories)]]]]]]
+         [:div.level-item.has-text-centered
+          [:div.field.is-horizontal
+           [:div.control
+            [:label.checkbox
+             [:input
+              {:type "checkbox"
+               :checked (boolean checked)
+               :on-change #(rf/dispatch [:report-change-from-savings])}]
+             (translate :it :report/label.from-savings)]]]]]
 
-         [:div.row
-          [:div.twelve.columns
-           {:style {:margin-top "1.5em"}}
-           [:div {:style {:text-align "center"}}
-            [:button.button.button-primary
-             {:on-click #(rf/dispatch [:get-data])}
-             (translate :it :report/button.search)]]]]
+        [:div.field.is-grouped.is-grouped-centered
+         [:p.control
+          [:button.button.is-primary
+           {:on-click #(rf/dispatch [:get-data])}
+           (translate :it :report/button.search)]]]
 
-         [:hr]
+        [:hr]
 
-         [:div {:style {:text-align "center" :margin-top "-0.8em"}}
-          [:h5 (translate :it :report/label.total)
-           [:strong (str (common/format-number @total)
-                         (translate :it :currency))]]]
+        [:div {:style {:text-align "center" :margin-top "-0.8em"}}
+         [:h5.title.is-size-5 (translate :it :report/label.total)
+          (str (common/format-number @total) (translate :it :currency))]]
 
-         [:div
-          [data-table]]]]])))
+        [:div
+         [data-table]]]])))
