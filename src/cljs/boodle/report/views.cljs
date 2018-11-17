@@ -126,9 +126,10 @@
 
         [:hr]
 
-        [:div {:style {:text-align "center" :margin-top "-0.8em"}}
-         [:h5.title.is-size-5 (translate :it :report/label.total)
-          (str (common/format-number @total) (translate :it :currency))]]
+        [:nav.level
+         [:div.level-item.has-text-centered
+          [:h5.title.is-size-5 (translate :it :report/label.total)
+           (str (common/format-number @total) (translate :it :currency))]]]
 
         [:div
          [data-table]]]])))

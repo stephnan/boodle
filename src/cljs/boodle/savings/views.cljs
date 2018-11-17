@@ -14,10 +14,11 @@
           total-savings (:total savings)
           aims @(rf/subscribe [:aims-summary])
           total-aims (:total aims)]
-      [:div {:style {:text-align "center" :margin-top "-0.8em"}}
-       [:h5 (translate :it :savings/label.total)
-        [:strong (str (common/format-number (+ total-savings total-aims))
-                      (translate :it :currency))]]])))
+      [:nav.level
+       [:div.level-item.has-text-centered
+        [:h5.title.is-size-5 (translate :it :savings/label.total)
+         (str (common/format-number (+ total-savings total-aims))
+              (translate :it :currency))]]])))
 
 (defn home-panel
   []

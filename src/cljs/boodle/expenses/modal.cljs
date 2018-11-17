@@ -69,8 +69,8 @@
   []
   (let [row @(rf/subscribe [:expenses-row])]
     [:div.modal-card
-     [:div.modal-card-header
-      [:h5.modal-title (translate :it :expenses/modal.delete-title)]]
+     [:div.modal-card-head
+      [:h5.modal-card-title (translate :it :expenses/modal.delete-title)]]
      [:div.modal-card-body
       [:p
        {:style {:text-align "center" :color "#c82829"}}

@@ -8,10 +8,10 @@
   (fn []
     (let [rows @(rf/subscribe [:savings])
           total (:total rows)]
-      [:div {:style {:text-align "center" :margin-top "-0.8em"}}
-       [:h5 (translate :it :savings/label.total-unassigned)
-        [:strong (str (common/format-number total)
-                      (translate :it :currency))]]])))
+      [:nav.level
+       [:div.level-item.has-text-centered
+        [:h5.title.is-size-5 (translate :it :savings/label.total-unassigned)
+         (str (common/format-number total) (translate :it :currency))]]])))
 
 (defn render-row
   [row]
@@ -23,7 +23,7 @@
        [:td (:item row)]
        [:td
         {:style {:color color}}
-        [:strong (str amount-str (translate :it :currency))]]])))
+        (str amount-str (translate :it :currency))]])))
 
 (defn table
   []
@@ -31,7 +31,7 @@
     (let [rows @(rf/subscribe [:savings])
           savings (:savings rows)]
       [:div {:style {:padding-bottom "1em"}}
-       [:table.u-full-width
+       [:table.table.is-striped.is-fullwidth
         [:thead
          [:tr
           [:th (translate :it :savings/table.date)]
@@ -42,12 +42,12 @@
 
 (defn buttons
   []
-  [:div {:style {:text-align "center"}}
-   [:span {:style {:padding-right "1em"}}
-    [:button.button.button-primary
+  [:div.field.is-grouped.is-grouped-centered
+   [:p.control
+    [:button.button.is-primary
      {:on-click #(rf/dispatch [:add-saving])}
      (translate :it :savings/button.add)]]
-   [:span
-    [:button.button.button-primary
+   [:p.control
+    [:button.button.is-primary
      {:on-click #(rf/dispatch [:transfer-amount])}
      (translate :it :savings/button.transfer)]]])
