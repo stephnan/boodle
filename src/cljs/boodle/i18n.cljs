@@ -31,7 +31,7 @@
     :button/ok "Ok"
     :currency "€"
     :date.placeholder "dd/mm/yyyy"
-    
+
     :expenses
     {:button.add "Aggiungi"
      :button.reset "Reset"
@@ -50,7 +50,7 @@
      :modal.date "Data"
      :modal.delete-confirm " Confermi la cancellazione della spesa? "
      :modal.delete-title "Cancella spesa"
-     :modal.from-savings "Da risparmi"
+     :modal.from-savings " Da risparmi"
      :modal.item "Oggetto"
      :page.title "Spese"
      :table.actions "Azioni"
@@ -65,7 +65,7 @@
      :boodle "boodle"
      :expenses "Spese"
      :report "Report"}
-    
+
     :pikaday
     {:previous-month "Mese precedente"
      :next-month "Mese successivo"

@@ -15,24 +15,23 @@
    [:td (str (common/format-number (:amount row)) (translate :it :currency))]
    [:td (when (:from-savings row) [:i.fa.fa-check])]
    [:td
-    [:div.container
-     {:style {:padding-top ".4em" :padding-bottom ".4em"}}
-     [:div.row
-      {:style {:padding-left "1.5em"}}
-      [:div.five.columns
-       [:button.button.button-icon
-        {:on-click #(rf/dispatch [:edit-expense (:id row)])}
-        [:i.fa.fa-pencil]]]
-      [:div.seven.columns
-       [:button.button.button-icon
-        {:on-click #(rf/dispatch [:remove-expense (:id row)])}
-        [:i.fa.fa-remove]]]]]]])
+    [:nav.level
+     [:div.level-item.has-text-centered
+      [:div.field.is-grouped.is-grouped-centered
+       [:p.control
+        [:button.button
+         {:on-click #(rf/dispatch [:edit-expense (:id row)])}
+         [:i.fa.fa-pencil]]]
+       [:p.control
+        [:button.button
+         {:on-click #(rf/dispatch [:remove-expense (:id row)])}
+         [:i.fa.fa-remove]]]]]]]])
 
 (defn expenses-table
   []
   (fn []
     (let [rows (rf/subscribe [:expenses-rows])]
-      [:table.u-full-width
+      [:table.table.is-striped.is-fullwidth
        [:thead
         [:tr
          [:th (translate :it :expenses/table.date)]
@@ -45,60 +44,78 @@
        [:tbody
         (doall (map render-row @rows))]])))
 
-(defn home-panel
+(defn search-fields
   []
   (fn []
     (let [categories (conj @(rf/subscribe [:categories]) {:id "" :name ""})
           params (rf/subscribe [:expenses-params])]
-      [:div
-       [common/header]
-
-       [:div.container
-        [common/page-title (translate :it :expenses/page.title)]
-        [v/validation-msg-box]
-
-        [:div.form
-         [:div.row
-          [:div.three.columns
-           [:label (translate :it :expenses/label.from)]
+      [:nav.level
+       [:div.level-item.has-text-centered
+        [:div.field.is-horizontal
+         [:div.field-label.is-normal
+          [:label.label (translate :it :expenses/label.from)]]
+         [:div.field-body
+          [:div.field
            [pikaday/date-selector
             {:date-atom (rf/subscribe [:expenses-from])
-             :pikaday-attrs {:onSelect #(rf/dispatch [:expenses-change-from %])
-                             :format "DD/MM/YYYY"}}]]
-          [:div.three.columns
-           [:label (translate :it :expenses/label.to)]
+             :pikaday-attrs
+             {:onSelect #(rf/dispatch [:expenses-change-from %])
+              :format "DD/MM/YYYY"}}]]]]]
+       [:div.level-item.has-text-centered
+        [:div.field.is-horizontal
+         [:div.field-label.is-normal
+          [:label.label (translate :it :expenses/label.to)]]
+         [:div.field-body
+          [:div.field
            [pikaday/date-selector
             {:date-atom (rf/subscribe [:expenses-to])
              :pikaday-attrs {:onSelect #(rf/dispatch [:expenses-change-to %])
-                             :format "DD/MM/YYYY"}}]]
-          [:div.six.columns
-           [:label (translate :it :expenses/label.category)]
-           [:select.u-full-width
-            {:value (v/or-empty-string (:categories @params))
-             :on-change #(rf/dispatch [:expenses-change-categories
-                                       (-> % .-target .-value)])}
-            (map common/render-option categories)]]]
+                             :format "DD/MM/YYYY"}}]]]]]
+       [:div.level-item.has-text-centered
+        [:div.field.is-horizontal
+         [:div.field-label.is-normal
+          [:label.label (translate :it :expenses/label.category)]]
+         [:div.field-body
+          [:div.field
+           [:div.select
+            [:select
+             {:value (v/or-empty-string (:categories @params))
+              :on-change #(rf/dispatch [:expenses-change-categories
+                                        (-> % .-target .-value)])}
+             (map common/render-option categories)]]]]]]])))
 
-         [:div.row
-          [:div.twelve.columns
-           {:style {:margin-top "1.5em"}}
-           [:div {:style {:text-align "center"}}
-            [:span {:style {:padding-right "1em"}}
-             [:button.button.button-primary
-              {:on-click #(rf/dispatch [:get-expenses-by-date])}
-              (translate :it :expenses/button.search)]]
-            [:span {:style {:padding-right "1em"}}
-             [:button.button.button-primary
-              {:on-click #(rf/dispatch [:create-expense])}
-              (translate :it :expenses/button.add)]]
-            [:span
-             [:button.button.button-primary
-              {:on-click #(rf/dispatch [:reset-search])}
-              (translate :it :expenses/button.reset)]]]]]
+(defn expenses-buttons
+  []
+  (fn []
+    [:div.field.is-grouped.is-grouped-centered
+     [:p.control
+      [:button.button.is-primary
+       {:on-click #(rf/dispatch [:get-expenses-by-date])}
+       (translate :it :expenses/button.search)]]
+     [:p.control
+      [:button.button.is-primary
+       {:on-click #(rf/dispatch [:create-expense])}
+       (translate :it :expenses/button.add)]]
+     [:p.control
+      [:button.button.is-danger
+       {:on-click #(rf/dispatch [:reset-search])}
+       (translate :it :expenses/button.reset)]]]))
 
-         [modal/modal]
+(defn home-panel
+  []
+  (fn []
+    [:div
+     [common/header]
 
-         [:hr]
+     [:div.container
+      [common/page-title (translate :it :expenses/page.title)]
+      [v/validation-msg-box]
 
-         [:div {:style {:padding-top ".1em"}}
-          [expenses-table]]]]])))
+      [search-fields]
+      [expenses-buttons]
+      [modal/modal]
+
+      [:hr]
+
+      [:div {:style {:padding-top ".1em"}}
+       [expenses-table]]]]))

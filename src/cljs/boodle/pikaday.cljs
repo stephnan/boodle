@@ -116,7 +116,7 @@
       :display-name "pikaday-component"
       :reagent-render
       (fn [props]
-        [:input.u-full-width
+        [:input.input
          {:type "text"
           :placeholder (translate :it :date.placeholder)}
          (:input-attrs props)])})))
