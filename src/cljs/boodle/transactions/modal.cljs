@@ -29,10 +29,10 @@
                                     (-> % .-target .-value)])}]]]]
      [:footer.modal-card-foot
       [:button.button.is-success
-       {:type "button" :title (translate :it :button/ok)
+       {:title (translate :it :button/ok)
         :on-click #(rf/dispatch save-event)}
        (translate :it :button/ok)]
       [:button.button
-       {:type "button" :title (translate :it :button/cancel)
+       {:title (translate :it :button/cancel)
         :on-click #(rf/dispatch [:close-modal])}
        (translate :it :button/cancel)]]]))

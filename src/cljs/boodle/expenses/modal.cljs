@@ -57,11 +57,11 @@
            (translate :it :expenses/modal.from-savings)]]])]
      [:footer.modal-card-foot
       [:button.button.is-success
-       {:type "button" :title (translate :it :button/ok)
+       {:title (translate :it :button/ok)
         :on-click #(rf/dispatch save-event)}
        (translate :it :button/ok)]
       [:button.button
-       {:type "button" :title (translate :it :button/cancel)
+       {:title (translate :it :button/cancel)
         :on-click #(rf/dispatch [:close-modal])}
        (translate :it :button/cancel)]]]))
 
@@ -79,10 +79,10 @@
        [:i.fa.fa-exclamation-triangle]]]
      [:footer.modal-card-foot
       [:button.button.is-danger
-       {:type "button" :title (translate :it :expenses/modal.button-delete)
+       {:title (translate :it :expenses/modal.button-delete)
         :on-click #(rf/dispatch [:delete-expense])}
        (translate :it :expenses/modal.button-delete)]
       [:button.button
-       {:type "button" :title (translate :it :button/cancel)
+       {:title (translate :it :button/cancel)
         :on-click #(rf/dispatch [:close-modal])}
        (translate :it :button/cancel)]]]))
