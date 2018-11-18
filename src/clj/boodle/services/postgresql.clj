@@ -83,7 +83,6 @@
   (hikari/make-datasource (make-datasource-options)))
 
 (defn disconnect!
-  "Close the datasource."
   [datasource]
   (hikari/close-datasource datasource))
 
