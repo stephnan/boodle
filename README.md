@@ -54,8 +54,8 @@ You can now browse at `http://localhost:8080` and interact with boodle.
 
 The included `etc/boodle.service` is a basic [systemd
 unit](https://www.freedesktop.org/software/systemd/man/systemd.unit.html) that
-executes `etc/deploy.sh` to update, build and run boodle automatically when
-I start/restart my home server.
+executes `etc/deploy.sh` to update, build and run boodle automatically on my
+home server.
 
 ## Tests
 
