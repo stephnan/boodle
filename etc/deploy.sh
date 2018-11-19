@@ -1,5 +1,6 @@
 #!/bin/bash
 
+cd /home/manuel/boodle
 git pull
 cd resources/src
 yarn

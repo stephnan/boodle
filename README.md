@@ -52,9 +52,9 @@ $ clj -A:run
 
 You can now browse at `http://localhost:8080` and interact with boodle.
 
-The included `boodle.service` is a basic [systemd
+The included `etc/boodle.service` is a basic [systemd
 unit](https://www.freedesktop.org/software/systemd/man/systemd.unit.html) that
-executes `deploy.sh` to update, build and run boodle automatically when
+executes `etc/deploy.sh` to update, build and run boodle automatically when
 I start/restart my home server.
 
 ## Tests

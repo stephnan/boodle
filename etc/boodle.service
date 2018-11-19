@@ -3,7 +3,7 @@ Description=Service to run an instance of boodle
 
 [Service]
 WorkingDirectory=/home/manuel/boodle
-ExecStart=/home/manuel/boodle/deploy.sh
+ExecStart=/home/manuel/boodle/etc/deploy.sh
 
 [Install]
 WantedBy=multi-user.target
