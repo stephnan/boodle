@@ -32,6 +32,7 @@ Install [yarn](https://yarnpkg.com/en/) and [gulp](https://gulpjs.com/), and
 then run:
 
 ```console
+$ yarn
 $ cd resources/src
 $ yarn
 $ gulp
