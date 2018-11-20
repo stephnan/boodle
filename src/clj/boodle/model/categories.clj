@@ -27,7 +27,7 @@
 (defn update!
   [{id :id n :name mb :monthly-budget}]
   (-> (hh/update :categories)
-      (hh/sset {:name n :monthly_budget mb})
+      (hh/sset {:name n :monthly_budget (or mb 0)})
       (hh/where [:= :id id])
       db/execute!))
 

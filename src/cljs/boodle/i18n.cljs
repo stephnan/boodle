@@ -32,6 +32,14 @@
     :currency "€"
     :date.placeholder "dd/mm/yyyy"
 
+    :categories
+    {:button.add "Crea categoria"
+     :label.categories "Categorie"
+     :message.name "Nome: è obbligatorio"
+     :modal.name "Nome"
+     :table.actions "Azioni"
+     :table.name "Nome"}
+
     :expenses
     {:button.add "Aggiungi"
      :button.reset "Reset"

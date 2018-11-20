@@ -1,5 +1,6 @@
 (ns boodle.expenses.views
-  (:require [boodle.common :as common]
+  (:require [boodle.categories.views :as cv]
+            [boodle.common :as common]
             [boodle.i18n :refer [translate]]
             [boodle.modal :as modal]
             [boodle.pikaday :as pikaday]
@@ -118,4 +119,12 @@
       [:hr]
 
       [:div {:style {:padding-top ".1em"}}
-       [expenses-table]]]]))
+       [expenses-table]]
+
+      [:hr]
+
+      [common/page-title (translate :it :categories/label.categories)]
+      [cv/categories-buttons]
+
+      [:div {:style {:padding-top ".1em"}}
+       [cv/categories-table]]]]))

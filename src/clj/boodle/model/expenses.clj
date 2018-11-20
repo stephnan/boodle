@@ -14,7 +14,7 @@
                     (hh/join [:categories :c]
                              [:= :e.id_category :c.id])
                     (hh/order-by [:e.date :desc])
-                    (hh/limit 20)) :t])
+                    (hh/limit 10)) :t])
       hc/build
       db/query))
 

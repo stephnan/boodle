@@ -6,4 +6,9 @@
  :categories
  (fn [db _]
    (rf/dispatch [:get-categories])
-   (r/reaction (:categories @db))))
+   (r/reaction (get-in @db [:categories :rows]))))
+
+(rf/reg-sub
+ :category-row
+ (fn [db _]
+   (get-in db [:categories :row])))
