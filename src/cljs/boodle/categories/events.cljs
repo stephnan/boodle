@@ -47,6 +47,30 @@
     (into result (validate-name category))))
 
 (rf/reg-event-fx
+ :create-category
+ (fn [{db :db} [_ _]]
+   {:db (assoc-in db [:categories :row] nil)
+    :dispatch
+    [:modal {:show? true :child [modal/save-category
+                                 "Crea categoria"
+                                 [:save-category]]}]}))
+
+(rf/reg-event-fx
+ :save-category
+ (fn [{db :db} [_ _]]
+   (let [category (get-in db [:categories :row])
+         not-valid (validate-category category)]
+     (if-not (empty? not-valid)
+       (rf/dispatch [:modal-validation-error not-valid])
+       (assoc
+        (ajax/post-request "/api/category/insert"
+                           category
+                           [:get-categories]
+                           [:bad-response])
+        :db (assoc db :show-modal-validation false)
+        :dispatch [:modal {:show? false :child nil}])))))
+
+(rf/reg-event-fx
  :update-category
  (fn [{db :db} [_ id]]
    (let [category (get-in db [:categories :row])

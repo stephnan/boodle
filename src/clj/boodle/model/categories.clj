@@ -21,7 +21,7 @@
   [{n :name mb :monthly-budget}]
   (-> (hh/insert-into :categories)
       (hh/columns :name :monthly_budget)
-      (hh/values [[n mb]])
+      (hh/values [[n (or mb 0)]])
       db/execute!))
 
 (defn update!
