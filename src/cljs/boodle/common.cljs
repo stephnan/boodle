@@ -13,7 +13,13 @@
        [:div.navbar-start
         [:a.navbar-item {:href "/"} (translate :it :header/expenses)]
         [:a.navbar-item {:href "/report"} (translate :it :header/report)]
-        [:a.navbar-item {:href "/savings"} (translate :it :header/savings)]]]]
+        [:a.navbar-item {:href "/savings"} (translate :it :header/savings)]]]
+      [:div.navbar-end
+       [:div.navbar-item
+        [:p "Developed with "
+         [:i.fa.fa-heart]
+         " by "
+         [:a {:href "https://manuel-uberti.github.io"} "Manuel Uberti"]]]]]
      [:hr
       {:style
        {:margin-top 0
