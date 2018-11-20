@@ -8,10 +8,10 @@
    (rf/dispatch [:get-expenses-rows])
    (r/reaction (get-in @db [:expenses :rows]))))
 
-(rf/reg-sub-raw
+(rf/reg-sub
  :expenses-row
  (fn [db _]
-   (r/reaction (get-in @db [:expenses :row]))))
+   (get-in db [:expenses :row])))
 
 (rf/reg-sub
  :expenses-from

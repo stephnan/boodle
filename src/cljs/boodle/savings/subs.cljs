@@ -8,15 +8,15 @@
    (rf/dispatch [:get-savings])
    (r/reaction (:savings @db))))
 
-(rf/reg-sub-raw
+(rf/reg-sub
  :savings-row
  (fn [db _]
-   (r/reaction (get-in @db [:savings :row]))))
+   (get-in db [:savings :row])))
 
-(rf/reg-sub-raw
+(rf/reg-sub
  :transfer-row
  (fn [db _]
-   (r/reaction (get-in @db [:transfer :row]))))
+   (get-in db [:transfer :row])))
 
 (rf/reg-sub-raw
  :active-aims
@@ -24,10 +24,10 @@
    (rf/dispatch [:get-active-aims])
    (r/reaction (:active-aims @db))))
 
-(rf/reg-sub-raw
+(rf/reg-sub
  :aims-row
  (fn [db _]
-   (r/reaction (get-in @db [:aims :row]))))
+   (get-in db [:aims :row])))
 
 (rf/reg-sub-raw
  :achieved-aims

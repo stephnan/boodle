@@ -7,10 +7,10 @@
  (fn [db _]
    (:active-panel db)))
 
-(rf/reg-sub-raw
+(rf/reg-sub
  :modal
  (fn [db _]
-   (r/reaction (:modal @db))))
+   (:modal db)))
 
 (rf/reg-sub
  :show-validation
