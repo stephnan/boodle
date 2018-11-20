@@ -46,5 +46,5 @@
 
       [common/page-title (translate :it :aims/label.archive)]
       [achieved/dropdown]
-      [:div {:style {:padding-top "1em" :padding-bottom ".1em"}}
+      [:div
        [achieved/table]]]]))

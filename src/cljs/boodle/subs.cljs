@@ -12,12 +12,6 @@
  (fn [db _]
    (r/reaction (:modal @db))))
 
-(rf/reg-sub-raw
- :categories
- (fn [db _]
-   (rf/dispatch [:get-categories])
-   (r/reaction (:categories @db))))
-
 (rf/reg-sub
  :show-validation
  (fn [db _]

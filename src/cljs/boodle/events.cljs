@@ -25,19 +25,6 @@
    (assoc db :modal data)))
 
 (rf/reg-event-db
- :load-categories
- (fn [db [_ result]]
-   (let [sorted (sort-by :name result)]
-     (assoc db :categories sorted))))
-
-(rf/reg-event-fx
- :get-categories
- (fn [{db :db} _]
-   (ajax/get-request "/api/category/find"
-                     [:load-categories]
-                     [:bad-response])))
-
-(rf/reg-event-db
  :show-error
  (fn [db [_ message]]
    (.log js/console message)
