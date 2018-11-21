@@ -1,8 +1,10 @@
 (ns boodle.api.resources.category
-  (:require [boodle.model.categories :as model]
+  (:require [boodle.api.resources.expense :as e]
+            [boodle.model.categories :as model]
+            [boodle.model.expenses :as es]
             [boodle.utils.numbers :as numbers]
             [boodle.utils.resource :as ur]
-            [compojure.core :refer [context defroutes DELETE GET POST PUT]]
+            [compojure.core :refer [context defroutes GET POST PUT]]
             [ring.util.http-response :as response]))
 
 (defn find-all
@@ -31,11 +33,26 @@
       ur/request-body->map
       model/update!))
 
+(defn- update-expense-category
+  [expense id-category]
+  (assoc expense :id-category id-category))
+
+(defn- update-expenses-category
+  [expenses id-category]
+  (map #(update-expense-category % id-category) expenses))
+
+(defn- save-expenses
+  [expenses]
+  (doseq [e expenses]
+    (es/update! e)))
+
 (defn delete!
-  [id]
-  (-> id
-      numbers/str->integer
-      model/delete!))
+  [request]
+  (let [{:keys [old-category new-category]} (ur/request-body->map request)
+        expenses (e/find-by-category old-category)]
+    (-> (update-expenses-category expenses new-category)
+        save-expenses)
+    (model/delete! old-category)))
 
 (defroutes routes
   (context "/api/category" [id]
@@ -47,5 +64,5 @@
       (response/ok (insert! request)))
     (PUT "/update" request
       (response/ok (update! request)))
-    (DELETE "/delete/:id" [id]
-      (response/ok (delete! id)))))
+    (POST "/delete" request
+      (response/ok (delete! request)))))

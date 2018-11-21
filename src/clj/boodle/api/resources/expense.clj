@@ -20,6 +20,12 @@
   [item]
   (model/select-by-item item))
 
+(defn find-by-category
+  [id-category]
+  (-> id-category
+      numbers/str->integer
+      model/select-by-category))
+
 (defn find-by-date-and-categories
   [request]
   (let [{from :from to :to categories :categories}

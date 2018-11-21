@@ -3,8 +3,7 @@
             [boodle.model.expenses :as model]
             [boodle.utils.dates :as ud]
             [boodle.utils.resource :as ur]
-            [clojure.test :refer :all]
-            [java-time :as jt]))
+            [clojure.test :refer :all]))
 
 (deftest find-all-test
   (testing "Testing find all expenses resource"
@@ -20,6 +19,11 @@
   (testing "Testing find expense by item resource"
     (with-redefs [model/select-by-item (fn [n] n)]
       (is (= (e/find-by-item "test") "test")))))
+
+(deftest find-by-category-test
+  (testing "Testing find expense by category resource"
+    (with-redefs [model/select-by-category (fn [n] n)]
+      (is (= (e/find-by-category "1") 1)))))
 
 (deftest find-by-date-and-categories-test
   (testing "Testing find expenses by date and categories resource"

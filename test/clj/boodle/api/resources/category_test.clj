@@ -1,6 +1,8 @@
 (ns boodle.api.resources.category-test
   (:require [boodle.api.resources.category :as c]
+            [boodle.api.resources.expense :as e]
             [boodle.model.categories :as model]
+            [boodle.model.expenses :as es]
             [boodle.utils.resource :as ur]
             [clojure.test :refer :all]))
 
@@ -35,5 +37,9 @@
 
 (deftest delete-test
   (testing "Testing delete category resource"
-    (with-redefs [model/delete! (fn [id] id)]
-      (is (= (c/delete! "1") 1)))))
+    (with-redefs [ur/request-body->map (fn [req] req)
+                  e/find-by-category (fn [category] [{:id-category "1"}])
+                  es/update! (fn [expense] expense)
+                  model/delete! (fn [id] id)]
+      (let [body {:old-category "1" :new-category "2"}]
+        (is (= (c/delete! body) "1"))))))

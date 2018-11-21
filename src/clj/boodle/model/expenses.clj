@@ -26,6 +26,11 @@
   [item]
   (db/query {:select [:*] :from [:expenses] :where [:= :item item]}))
 
+(defn select-by-category
+  [id-category]
+  (db/query {:select [:*] :from [:expenses]
+             :where [:= :id_category id-category]}))
+
 (defn categories-filter
   [xs]
   (when xs
