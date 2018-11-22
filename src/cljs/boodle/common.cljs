@@ -11,9 +11,14 @@
        [:h1.title.is-1.navbar-item (translate :it :header/boodle)]]
       [:div.navbar-menu
        [:div.navbar-start
-        [:a.navbar-item {:href "/"} (translate :it :header/expenses)]
-        [:a.navbar-item {:href "/report"} (translate :it :header/report)]
-        [:a.navbar-item {:href "/savings"} (translate :it :header/savings)]]]
+        [:a.navbar-item {:href "/"}
+         (translate :it :header/expenses)]
+        [:a.navbar-item {:href "/report"}
+         (translate :it :header/report)]
+        [:a.navbar-item {:href "/savings"}
+         (translate :it :header/savings)]
+        [:a.navbar-item {:href "/categories"}
+         (translate :it :header/categories)]]]
       [:div.navbar-end
        [:div.navbar-item
         [:p "Developed with "

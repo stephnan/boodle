@@ -119,12 +119,4 @@
       [:hr]
 
       [:div {:style {:padding-top ".1em"}}
-       [expenses-table]]
-
-      [:hr]
-
-      [common/page-title (translate :it :categories/label.categories)]
-      [cv/categories-buttons]
-
-      [:div {:style {:padding-top ".1em"}}
-       [cv/categories-table]]]]))
+       [expenses-table]]]]))

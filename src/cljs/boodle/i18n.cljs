@@ -34,9 +34,9 @@
 
     :categories
     {:button.add "Crea categoria"
-     :label.categories "Categorie"
      :message.name "Nome: è obbligatorio"
      :modal.name "Nome"
+     :page.title "Categorie"
      :table.actions "Azioni"
      :table.name "Nome"}
 
@@ -69,10 +69,11 @@
      :table.item "Oggetto"}
 
     :header
-    {:savings "Risparmi"
-     :boodle "boodle"
-     :expenses "Spese"
-     :report "Report"}
+    {:boodle "boodle"
+     :categories "Categorie"
+     :report"Report"
+     :savings "Risparmi"
+     :expenses "Spese"}
 
     :pikaday
     {:previous-month "Mese precedente"

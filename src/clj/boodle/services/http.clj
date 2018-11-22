@@ -15,6 +15,7 @@
        (compojure/GET "/" [] (response/ok (templates/index-html)))
        (compojure/GET "/savings" [] (response/ok (templates/index-html)))
        (compojure/GET "/report" [] (response/ok (templates/index-html)))
+       (compojure/GET "/categories" [] (response/ok (templates/index-html)))
        api/routes)
       reload/wrap-reload))
 

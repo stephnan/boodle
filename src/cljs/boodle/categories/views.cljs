@@ -1,5 +1,8 @@
 (ns boodle.categories.views
-  (:require [boodle.i18n :refer [translate]]
+  (:require [boodle.common :as common]
+            [boodle.i18n :refer [translate]]
+            [boodle.modal :as modal]
+            [boodle.validation :as v]
             [re-frame.core :as rf]))
 
 (defn render-row
@@ -42,3 +45,21 @@
       [:button.button.is-primary
        {:on-click #(rf/dispatch [:create-category])}
        (translate :it :categories/button.add)]]]))
+
+(defn home-panel
+  []
+  (fn []
+    [:div
+     [common/header]
+
+     [:div.container
+      [common/page-title (translate :it :categories/page.title)]
+      [v/validation-msg-box]
+      [modal/modal]
+
+      [categories-buttons]
+
+      [:hr]
+
+      [:div {:style {:padding-top ".1em"}}
+       [categories-table]]]]))
