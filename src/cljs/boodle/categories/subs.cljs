@@ -12,3 +12,8 @@
  :category-row
  (fn [db _]
    (get-in db [:categories :row])))
+
+(rf/reg-sub
+ :category-new
+ (fn [db _]
+   (get-in db [:categories :new])))

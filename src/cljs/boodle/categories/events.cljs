@@ -23,6 +23,13 @@
  (fn [db [_ value]]
    (assoc-in db [:categories :row :name] value)))
 
+(rf/reg-event-db
+ :categories-change-category
+ (fn [db [_ value]]
+   (-> db
+       (assoc-in [:categories :new] value)
+       (assoc :show-modal-validation false))))
+
 (rf/reg-event-fx
  :edit-category
  (fn [{db :db} [_ id]]
@@ -83,4 +90,44 @@
                           [:get-categories]
                           [:bad-response])
         :db (assoc db :show-modal-validation false)
+        :dispatch [:modal {:show? false :child nil}])))))
+
+(rf/reg-event-fx
+ :remove-category
+ (fn [{db :db} [_ id]]
+   (let [categories (get-in db [:categories :rows])
+         row (first (filter #(= (:id %) id) categories))]
+     {:db (-> db
+              (assoc-in [:categories :row] row)
+              (assoc-in [:categories :new] nil))
+      :dispatch
+      [:modal
+       {:show? true
+        :child [modal/delete-category]}]})))
+
+(defn validate-new-category
+  [new-id]
+  (v/validate-input
+   new-id
+   [{:message (translate :it :categories/message.new)
+     :check-fn v/not-empty?}]))
+
+(defn validate-deletion
+  [new-id]
+  (let [result []]
+    (into result (validate-new-category new-id))))
+
+(rf/reg-event-fx
+ :delete-category
+ (fn [{db :db} [_ _]]
+   (let [old-id (get-in db [:categories :row :id])
+         new-id (get-in db [:categories :new])
+         not-valid (validate-deletion new-id)]
+     (if-not (empty? not-valid)
+       (rf/dispatch [:modal-validation-error not-valid])
+       (assoc
+        (ajax/post-request "/api/category/delete"
+                           {:old-category old-id :new-category new-id}
+                           [:get-categories]
+                           [:bad-response])
         :dispatch [:modal {:show? false :child nil}])))))

@@ -45,7 +45,7 @@
     [:div.modal-card
      [:div.modal-card-head
       [:h5.modal-card-title title]]
-     [:div.modal-card-body
+     [:section.modal-card-body
       [v/validation-msg-box]
       [:div.field
        [:label.label (translate :it :savings/label.active-aims)]
@@ -80,7 +80,7 @@
     [:div.modal-card
      [:div.modal-card-head
       [:h5.modal-card-title title]]
-     [:div.modal-card-body
+     [:section.modal-card-body
       [v/validation-msg-box]
       [:div.field
        [:label.label (translate :it :aims/modal.name)]
@@ -114,7 +114,7 @@
     [:div.modal-card
      [:div.modal-card-head
       [:h5.modal-card-title (translate :it :aims/modal.delete-title)]]
-     [:div.modal-card-body
+     [:section.modal-card-body
       [:p
        {:style {:text-align "center" :color "#c82829"}}
        [:i.fa.fa-exclamation-triangle]
@@ -137,7 +137,7 @@
     [:div.modal-card-content
      [:div.modal-card-head
       [:h5.modal-card-title (translate :it :aims/modal.achieved-title)]]
-     [:div.modal-card-body
+     [:section.modal-card-body
       [v/modal-validation-msg-box]
       [:div.field
        [:label.label (translate :it :aims/modal.category)]

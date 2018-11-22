@@ -67,22 +67,21 @@
 
 (defn delete-expense
   []
-  (let [row @(rf/subscribe [:expenses-row])]
-    [:div.modal-card
-     [:div.modal-card-head
-      [:h5.modal-card-title (translate :it :expenses/modal.delete-title)]]
-     [:div.modal-card-body
-      [:p
-       {:style {:text-align "center" :color "#c82829"}}
-       [:i.fa.fa-exclamation-triangle]
-       (translate :it :expenses/modal.delete-confirm)
-       [:i.fa.fa-exclamation-triangle]]]
-     [:footer.modal-card-foot
-      [:button.button.is-danger
-       {:title (translate :it :expenses/modal.button-delete)
-        :on-click #(rf/dispatch [:delete-expense])}
-       (translate :it :expenses/modal.button-delete)]
-      [:button.button
-       {:title (translate :it :button/cancel)
-        :on-click #(rf/dispatch [:close-modal])}
-       (translate :it :button/cancel)]]]))
+  [:div.modal-card
+   [:div.modal-card-head
+    [:h5.modal-card-title (translate :it :expenses/modal.delete-title)]]
+   [:section.modal-card-body
+    [:p
+     {:style {:text-align "center" :color "#c82829"}}
+     [:i.fa.fa-exclamation-triangle]
+     (translate :it :expenses/modal.delete-confirm)
+     [:i.fa.fa-exclamation-triangle]]]
+   [:footer.modal-card-foot
+    [:button.button.is-danger
+     {:title (translate :it :expenses/modal.button-delete)
+      :on-click #(rf/dispatch [:delete-expense])}
+     (translate :it :expenses/modal.button-delete)]
+    [:button.button
+     {:title (translate :it :button/cancel)
+      :on-click #(rf/dispatch [:close-modal])}
+     (translate :it :button/cancel)]]])

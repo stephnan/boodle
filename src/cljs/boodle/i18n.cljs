@@ -35,7 +35,12 @@
     :categories
     {:button.add "Crea categoria"
      :message.name "Nome: è obbligatorio"
+     :message.new "Una nuova categoria è obbligatoria"
+     :modal.button-delete "Cancella categoria"
+     :modal.delete-confirm " Confermi la cancellazione della categoria? "
+     :modal.delete-title "Cancella categoria"
      :modal.name "Nome"
+     :modal.select-category "Seleziona una nuova categoria per le spese esistenti"
      :page.title "Categorie"
      :table.actions "Azioni"
      :table.name "Nome"}

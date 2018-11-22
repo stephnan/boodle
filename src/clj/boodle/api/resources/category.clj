@@ -2,6 +2,7 @@
   (:require [boodle.api.resources.expense :as e]
             [boodle.model.categories :as model]
             [boodle.model.expenses :as es]
+            [boodle.utils.dates :as ud]
             [boodle.utils.numbers :as numbers]
             [boodle.utils.resource :as ur]
             [compojure.core :refer [context defroutes GET POST PUT]]
@@ -35,7 +36,11 @@
 
 (defn- update-expense-category
   [expense id-category]
-  (assoc expense :id-category id-category))
+  (-> expense
+      (numbers/record-str->double :amount)
+      (assoc :id-category id-category)
+      (numbers/record-str->double :id-category)
+      (ud/record-str->record-date :date)))
 
 (defn- update-expenses-category
   [expenses id-category]

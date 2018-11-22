@@ -9,7 +9,7 @@
     [:div.modal-card-content
      [:div.modal-card-head
       [:h5.modal-card-title title]]
-     [:div.modal-card-body
+     [:section.modal-card-body
       [v/modal-validation-msg-box]
       [:div.field
        [:label.label (translate :it :transactions/modal.item)]

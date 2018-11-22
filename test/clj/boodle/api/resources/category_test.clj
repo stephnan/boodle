@@ -38,7 +38,10 @@
 (deftest delete-test
   (testing "Testing delete category resource"
     (with-redefs [ur/request-body->map (fn [req] req)
-                  e/find-by-category (fn [category] [{:id-category "1"}])
+                  e/find-by-category (fn [category] [{:name "test"
+                                                     :amount 3.50
+                                                     :id-category 1
+                                                     :date "14/07/2018"}])
                   es/update! (fn [expense] expense)
                   model/delete! (fn [id] id)]
       (let [body {:old-category "1" :new-category "2"}]

@@ -29,3 +29,37 @@
        {:title (translate :it :button/cancel)
         :on-click #(rf/dispatch [:close-modal])}
        (translate :it :button/cancel)]]]))
+
+(defn delete-category
+  []
+  (let [categories (conj @(rf/subscribe [:categories]) {:id "" :name ""})
+        new-category @(rf/subscribe [:category-new])]
+    [:div.modal-card
+     [:div.modal-card-head
+      [:h5.modal-card-title (translate :it :categories/modal.delete-title)]]
+     [:section.modal-card-body
+      [v/modal-validation-msg-box]
+      [:p
+       {:style {:text-align "center" :color "#c82829"}}
+       [:i.fa.fa-exclamation-triangle]
+       (translate :it :categories/modal.delete-confirm)
+       [:i.fa.fa-exclamation-triangle]]
+      [:hr]
+      [:div.field
+       [:label.label (translate :it :categories/modal.select-category)]
+       [:div.control
+        [:div.select
+         [:select
+          {:value (v/or-empty-string new-category)
+           :on-change #(rf/dispatch [:categories-change-category
+                                     (-> % .-target .-value)])}
+          (map common/render-option categories)]]]]]
+     [:footer.modal-card-foot
+      [:button.button.is-danger
+       {:title (translate :it :categories/modal.button-delete)
+        :on-click #(rf/dispatch [:delete-category])}
+       (translate :it :categories/modal.button-delete)]
+      [:button.button
+       {:title (translate :it :button/cancel)
+        :on-click #(rf/dispatch [:close-modal])}
+       (translate :it :button/cancel)]]]))
