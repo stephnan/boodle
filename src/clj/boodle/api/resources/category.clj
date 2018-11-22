@@ -51,12 +51,17 @@
   (doseq [e expenses]
     (es/update! e)))
 
+(defn- update-existing-expenses
+  [old-category new-category]
+  (let [expenses (e/find-by-category old-category)]
+    (when-not (empty? expenses)
+      (-> (update-expenses-category expenses new-category)
+          save-expenses))))
+
 (defn delete!
   [request]
-  (let [{:keys [old-category new-category]} (ur/request-body->map request)
-        expenses (e/find-by-category old-category)]
-    (-> (update-expenses-category expenses new-category)
-        save-expenses)
+  (let [{:keys [old-category new-category]} (ur/request-body->map request)]
+    (update-existing-expenses old-category new-category)
     (model/delete! old-category)))
 
 (defroutes routes
