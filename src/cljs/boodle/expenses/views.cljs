@@ -14,7 +14,8 @@
    [:td (:category row)]
    [:td (:item row)]
    [:td (str (common/format-number (:amount row)) (translate :it :currency))]
-   [:td (when (:from-savings row) [:i.fa.fa-check])]
+   [:td {:style {:text-align "center"}}
+    (when (:from-savings row) [:i.fa.fa-check])]
    [:td
     [:nav.level
      [:div.level-item.has-text-centered
@@ -39,7 +40,8 @@
          [:th (translate :it :expenses/table.category)]
          [:th (translate :it :expenses/table.item)]
          [:th (translate :it :expenses/table.amount)]
-         [:th (translate :it :expenses/table.from-savings)]
+         [:th {:style {:text-align "center"}}
+          (translate :it :expenses/table.from-savings)]
          [:th {:style {:text-align "center"}}
           (translate :it :expenses/table.actions)]]]
        [:tbody
@@ -94,13 +96,13 @@
        {:on-click #(rf/dispatch [:get-expenses-by-date])}
        (translate :it :expenses/button.search)]]
      [:p.control
-      [:button.button.is-primary
-       {:on-click #(rf/dispatch [:create-expense])}
-       (translate :it :expenses/button.add)]]
-     [:p.control
       [:button.button.is-danger
        {:on-click #(rf/dispatch [:reset-search])}
-       (translate :it :expenses/button.reset)]]]))
+       (translate :it :expenses/button.reset)]]
+     [:p.control
+      [:button.button.is-primary
+       {:on-click #(rf/dispatch [:create-expense])}
+       (translate :it :expenses/button.add)]]]))
 
 (defn home-panel
   []

@@ -46,8 +46,8 @@
      :table.name "Nome"}
 
     :expenses
-    {:button.add "Aggiungi"
-     :button.reset "Reset"
+    {:button.add "Aggiungi spesa"
+     :button.reset "Reset ricerca"
      :button.search "Cerca spese"
      :label.category "Categoria"
      :label.from "Da"
