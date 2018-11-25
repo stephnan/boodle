@@ -4,6 +4,16 @@ var cleanCSS = require('gulp-clean-css');
 var rename = require("gulp-rename");
 var concat = require('gulp-concat');
 var pkg = require('./package.json');
+var sass = require('gulp-sass');
+
+sass.compiler = require('node-sass');
+
+// Compile SASS
+gulp.task('sass', function () {
+  return gulp.src('./sass/**/*.scss')
+    .pipe(sass().on('error', sass.logError))
+    .pipe(gulp.dest('./css'));
+});
 
 // Minify compiled CSS
 gulp.task('minify-css', function() {
@@ -24,8 +34,8 @@ gulp.task('copy', function() {
 });
 
 // Run everything
-gulp.task('default', ['minify-css', 'copy']);
+gulp.task('default', ['sass', 'minify-css', 'copy']);
 
-gulp.task('dev', ['minify-css'], function() {
+gulp.task('dev', ['sass', 'minify-css'], function() {
     gulp.watch('css/*.css', ['minify-css']);
 });
