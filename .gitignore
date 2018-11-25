@@ -12,6 +12,7 @@ pom.xml.asc
 .hg/
 /resources/public
 /resources/src/node_modules
+/resources/src/boodle.css
 .shadow-cljs
 node_modules
 .cpcache
