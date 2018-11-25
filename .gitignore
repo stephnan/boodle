@@ -10,9 +10,8 @@ pom.xml.asc
 *cider-repl boodle*
 .hgignore
 .hg/
-/resources/public/js
+/resources/public
 /resources/src/node_modules
-/resources/public/fonts
 .shadow-cljs
 node_modules
 .cpcache
