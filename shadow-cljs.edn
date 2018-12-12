@@ -14,7 +14,7 @@
                 [reagent "0.8.1"]
                 [reagent-utils "0.3.1"]
                 [refactor-nrepl "2.4.0"]
-                [tongue "0.2.4"]]
+                [tongue "0.2.5"]]
  :builds {:boodle {:target :browser
                    :output-dir "resources/public/js"
                    :asset-path "/js"
