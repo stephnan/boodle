@@ -30,13 +30,13 @@
                                     (-> % .-target .-value)])}]]]]
      [:footer.modal-card-foot
       [:button.button.is-success
-       {:title (translate :it :button/ok)
+       {:title (translate :it :button.ok)
         :on-click #(rf/dispatch save-event)}
-       (translate :it :button/ok)]
+       (translate :it :button.ok)]
       [:button.button
-       {:title (translate :it :button/cancel)
+       {:title (translate :it :button.cancel)
         :on-click #(rf/dispatch [:close-modal])}
-       (translate :it :button/cancel)]]]))
+       (translate :it :button.cancel)]]]))
 
 (defn transfer-amount
   [title save-event]
@@ -66,13 +66,13 @@
                                     (-> % .-target .-value)])}]]]]
      [:footer.modal-card-foot
       [:button.button.is-success
-       {:title (translate :it :button/ok)
+       {:title (translate :it :button.ok)
         :on-click #(rf/dispatch save-event)}
-       (translate :it :button/ok)]
+       (translate :it :button.ok)]
       [:button.button
-       {:title (translate :it :button/cancel)
+       {:title (translate :it :button.cancel)
         :on-click #(rf/dispatch [:close-modal])}
-       (translate :it :button/cancel)]]]))
+       (translate :it :button.cancel)]]]))
 
 (defn save-aim
   [title save-event]
@@ -100,13 +100,13 @@
                                     (-> % .-target .-value)])}]]]]
      [:footer.modal-card-foot
       [:button.button.is-success
-       {:title (translate :it :button/ok)
+       {:title (translate :it :button.ok)
         :on-click #(rf/dispatch save-event)}
-       (translate :it :button/ok)]
+       (translate :it :button.ok)]
       [:button.button
-       {:title (translate :it :button/cancel)
+       {:title (translate :it :button.cancel)
         :on-click #(rf/dispatch [:close-modal])}
-       (translate :it :button/cancel)]]]))
+       (translate :it :button.cancel)]]]))
 
 (defn delete-aim
   []
@@ -126,9 +126,9 @@
         :on-click #(rf/dispatch [:delete-aim])}
        (translate :it :aims/modal.button-delete)]
       [:button.button
-       {:title (translate :it :button/cancel)
+       {:title (translate :it :button.cancel)
         :on-click #(rf/dispatch [:close-modal])}
-       (translate :it :button/cancel)]]]))
+       (translate :it :button.cancel)]]]))
 
 (defn mark-aim-achieved
   []
@@ -154,6 +154,6 @@
         :on-click #(rf/dispatch [:do-mark-aim-achieved])}
        (translate :it :aims/modal.button-achieved)]
       [:button.button
-       {:title (translate :it :button/cancel)
+       {:title (translate :it :button.cancel)
         :on-click #(rf/dispatch [:close-modal])}
-       (translate :it :button/cancel)]]]))
+       (translate :it :button.cancel)]]]))

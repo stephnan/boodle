@@ -57,13 +57,13 @@
            (translate :it :expenses/modal.from-savings)]]])]
      [:footer.modal-card-foot
       [:button.button.is-success
-       {:title (translate :it :button/ok)
+       {:title (translate :it :button.ok)
         :on-click #(rf/dispatch save-event)}
-       (translate :it :button/ok)]
+       (translate :it :button.ok)]
       [:button.button
-       {:title (translate :it :button/cancel)
+       {:title (translate :it :button.cancel)
         :on-click #(rf/dispatch [:close-modal])}
-       (translate :it :button/cancel)]]]))
+       (translate :it :button.cancel)]]]))
 
 (defn delete-expense
   []
@@ -82,6 +82,6 @@
       :on-click #(rf/dispatch [:delete-expense])}
      (translate :it :expenses/modal.button-delete)]
     [:button.button
-     {:title (translate :it :button/cancel)
+     {:title (translate :it :button.cancel)
       :on-click #(rf/dispatch [:close-modal])}
-     (translate :it :button/cancel)]]])
+     (translate :it :button.cancel)]]])
