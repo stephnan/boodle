@@ -22,9 +22,13 @@ I used [Bulma](https://bulma.io/) for the UI, and I customised
 
 ## Usage
 
-To run boodle, install and configure [PostgreSQL](https://www.postgresql.org) on
-your machine. Set up the database with the necessary tables and permissions you
-find in
+To run boodle, install a Java JDK/JRE suitable for your system. I usually use
+[OpenJDK](https://openjdk.java.net/), but your mileage may vary. Install Clojure
+following the official [Getting
+Started](https://clojure.org/guides/getting_started), and then install and
+configure [PostgreSQL](https://www.postgresql.org) on your machine.
+
+Set up the database with the necessary tables and permissions you find in
 [model.sql](https://github.com/manuel-uberti/boodle/blob/master/resources/sql/model.sql).
 Check also `conf/config.edn` to adjust the database connection parameters.
 
