@@ -3,7 +3,7 @@
             [cljs.pprint :as pp]
             [re-frame.core :as rf]))
 
-(defn navbar-hamburger
+(defn navbar-burger
   [active]
   (if active
     :a.navbar-burger.is-active
@@ -19,12 +19,12 @@
   []
   (fn []
     (let [show-menu @(rf/subscribe [:show-menu])
-          show-hamburger-menu @(rf/subscribe [:show-hamburger-menu])]
+          show-burger-menu @(rf/subscribe [:show-burger-menu])]
       [:div.container
        [:nav.navbar
         [:div.navbar-brand
          [:h1.title.is-1.navbar-item (translate :it :header/boodle)]
-         [(navbar-hamburger show-hamburger-menu)
+         [(navbar-burger show-burger-menu)
           {:role "button"
            :on-click #(rf/dispatch [:show-menu])}
           [:span {:aria-hidden :true}]

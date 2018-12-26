@@ -82,4 +82,4 @@
  (fn [db [_ _]]
    (-> db
        (update :show-menu not)
-       (assoc :show-hamburger-menu (not (:show-menu db))))))
+       (assoc :show-burger-menu (not (:show-menu db))))))

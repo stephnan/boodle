@@ -38,6 +38,6 @@
    (:show-menu db)))
 
 (rf/reg-sub
- :show-hamburger-menu
+ :show-burger-menu
  (fn [db _]
-   (:show-hamburger-menu db)))
+   (:show-burger-menu db)))
