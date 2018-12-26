@@ -1,36 +1,57 @@
 (ns boodle.common
   (:require [boodle.i18n :refer [translate]]
-            [cljs.pprint :as pp]))
+            [cljs.pprint :as pp]
+            [re-frame.core :as rf]))
+
+(defn navbar-hamburger
+  [active]
+  (if active
+    :a.navbar-burger.is-active
+    :a.navbar-burger))
+
+(defn navbar-menu
+  [active]
+  (if active
+    :div.navbar-menu.is-active
+    :div.navbar-menu))
 
 (defn header
   []
   (fn []
-    [:div.container
-     [:nav.navbar
-      [:div.navbar-brand
-       [:h1.title.is-1.navbar-item (translate :it :header/boodle)]]
-      [:div.navbar-menu
-       [:div.navbar-start
-        [:a.navbar-item {:href "/"}
-         (translate :it :header/expenses)]
-        [:a.navbar-item {:href "/report"}
-         (translate :it :header/report)]
-        [:a.navbar-item {:href "/savings"}
-         (translate :it :header/savings)]
-        [:a.navbar-item {:href "/categories"}
-         (translate :it :header/categories)]]]
-      [:div.navbar-end
-       [:div.navbar-item
-        [:p "Developed with "
-         [:i.fa.fa-heart]
-         " by "
-         [:a {:href "https://manuel-uberti.github.io"} "Manuel Uberti"]]]]]
-     [:hr
-      {:style
-       {:margin-top 0
-        :margin-bottom "1rem"
-        :border-width 0
-        :border-top "1px solid #E1E1E1"}}]]))
+    (let [show-menu @(rf/subscribe [:show-menu])
+          show-hamburger-menu @(rf/subscribe [:show-hamburger-menu])]
+      [:div.container
+       [:nav.navbar
+        [:div.navbar-brand
+         [:h1.title.is-1.navbar-item (translate :it :header/boodle)]
+         [(navbar-hamburger show-hamburger-menu)
+          {:role "button"
+           :on-click #(rf/dispatch [:show-menu])}
+          [:span {:aria-hidden :true}]
+          [:span {:aria-hidden :true}]
+          [:span {:aria-hidden :true}]]]
+        [(navbar-menu show-menu)
+         [:div.navbar-start
+          [:a.navbar-item {:href "/"}
+           (translate :it :header/expenses)]
+          [:a.navbar-item {:href "/report"}
+           (translate :it :header/report)]
+          [:a.navbar-item {:href "/savings"}
+           (translate :it :header/savings)]
+          [:a.navbar-item {:href "/categories"}
+           (translate :it :header/categories)]]]
+        [:div.navbar-end
+         [:div.navbar-item
+          [:p "Developed with "
+           [:i.fa.fa-heart]
+           " by "
+           [:a {:href "https://manuel-uberti.github.io"} "Manuel Uberti"]]]]]
+       [:hr
+        {:style
+         {:margin-top 0
+          :margin-bottom "1rem"
+          :border-width 0
+          :border-top "1px solid #E1E1E1"}}]])))
 
 (defn page-title
   [title]

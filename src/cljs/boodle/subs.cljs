@@ -31,3 +31,13 @@
  :modal-validation-msg
  (fn [db _]
    (:modal-validation-msg db)))
+
+(rf/reg-sub
+ :show-menu
+ (fn [db _]
+   (:show-menu db)))
+
+(rf/reg-sub
+ :show-hamburger-menu
+ (fn [db _]
+   (:show-hamburger-menu db)))

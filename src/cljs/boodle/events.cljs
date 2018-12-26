@@ -76,3 +76,10 @@
    (-> db
        (assoc :show-modal-validation false)
        (dissoc :modal-validation-msg message))))
+
+(rf/reg-event-db
+ :show-menu
+ (fn [db [_ _]]
+   (-> db
+       (update :show-menu not)
+       (assoc :show-hamburger-menu (not (:show-menu db))))))
