@@ -40,9 +40,9 @@
       db/execute!))
 
 (defn update!
-  [{id :id n :name t :target a :achieved}]
+  [{id :id n :name t :target a :achieved aw :achieved_on}]
   (-> (hh/update :aims)
-      (hh/sset {:name n :target t :achieved a})
+      (hh/sset {:name n :target t :achieved a :achieved_on aw})
       (hh/where [:= :id id])
       db/execute!))
 

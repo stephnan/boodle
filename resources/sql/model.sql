@@ -19,7 +19,8 @@ CREATE TABLE aims (
   id serial PRIMARY KEY,
   name VARCHAR(30) NOT NULL,
   target NUMERIC(10,2) NOT NULL,
-  achieved BOOLEAN DEFAULT FALSE
+  achieved BOOLEAN DEFAULT FALSE,
+  achieved_on DATE
 );
 
 CREATE TABLE transactions (

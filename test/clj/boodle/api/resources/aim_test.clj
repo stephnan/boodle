@@ -1,7 +1,8 @@
 (ns boodle.api.resources.aim-test
   (:require [boodle.api.resources.aim :as a]
-            [boodle.model.expenses :as es]
             [boodle.model.aims :as model]
+            [boodle.model.expenses :as es]
+            [boodle.utils.dates :as ud]
             [boodle.utils.resource :as ur]
             [clojure.test :refer :all]))
 
@@ -71,7 +72,8 @@
                {:id 1
                 :target 3.5
                 :name "test achieved"
-                :achieved true}))))))
+                :achieved true
+                :achieved_on (ud/today)}))))))
 
 (deftest aim->expense-test
   (testing "Testing aim->expense function"

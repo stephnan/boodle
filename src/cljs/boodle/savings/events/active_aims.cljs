@@ -34,11 +34,13 @@
    (if (or (nil? value) (empty? value))
      {:db (assoc-in db [:aims :params :achieved] value)
       :dispatch [:load-achieved-aim-transactions value]}
-     (assoc
-      (ajax/get-request (str "/api/transaction/aim/" value)
-                        [:load-achieved-aim-transactions]
-                        [:bad-response])
-      :db (assoc-in db [:aims :params :achieved] value)))))
+     (let [aims (:achieved-aims db)
+           row (first (filter #(= (str (:id %)) value) aims))]
+       (assoc
+        (ajax/get-request (str "/api/transaction/aim/" value)
+                          [:load-achieved-aim-transactions]
+                          [:bad-response])
+        :db (assoc-in db [:aims :params :achieved] row))))))
 
 (rf/reg-event-db
  :load-active

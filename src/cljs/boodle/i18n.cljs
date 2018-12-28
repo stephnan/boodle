@@ -8,6 +8,7 @@
      :button.add-transaction "Aggiungi movimento"
      :button.create "Crea meta"
      :label.achieved "Raggiunte"
+     :label.achieved-on "Raggiunta il: "
      :label.active "Attive"
      :label.archive "Archivo"
      :label.total "Totale mete: "

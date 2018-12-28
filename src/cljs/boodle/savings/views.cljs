@@ -46,5 +46,7 @@
 
       [common/page-title (translate :it :aims/label.archive)]
       [achieved/dropdown]
+      [:hr]
+      [achieved/achieved-on]
       [:div
        [achieved/table]]]]))

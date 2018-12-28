@@ -45,6 +45,11 @@
  (fn [db _]
    (get-in db [:aims :params :active])))
 
+(rf/reg-sub
+ :selected-achieved-aim
+ (fn [db _]
+   (get-in db [:aims :params :achieved])))
+
 (rf/reg-sub-raw
  :aims-summary
  (fn [db _]

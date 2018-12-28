@@ -77,6 +77,7 @@
   (-> (numbers/record-str->double aim :target)
       (assoc :id (numbers/str->integer (:id aim)))
       (assoc :achieved achieved)
+      (assoc :achieved_on (ud/today))
       (model/update!)))
 
 (defn aim->expense

@@ -24,7 +24,16 @@
           [:div.field
            [:div.select
             [:select
-             {:value (v/or-empty-string (:achieved @params))
+             {:value (v/or-empty-string (get-in @params [:achieved :id]))
               :on-change #(rf/dispatch [:aims-change-achieved
                                         (-> % .-target .-value)])}
              (map common/render-option achieved-aims)]]]]]]])))
+
+(defn achieved-on
+  []
+  (fn []
+    (when-let [selected-aim @(rf/subscribe [:selected-achieved-aim])]
+      [:nav.level
+       [:div.level-item.has-text-centered
+        [:h5.title.is-size-5 (translate :it :aims/label.achieved-on)
+         (:achieved-on selected-aim)]]])))
