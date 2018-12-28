@@ -1,7 +1,7 @@
 {:source-paths ["src/cljs"]
  :nrepl {:port 8777
          :middleware [refactor-nrepl.middleware/wrap-refactor]}
- :dependencies [[bidi "2.1.4"]
+ :dependencies [[bidi "2.1.5"]
                 [binaryage/devtools "0.9.10"]
                 [camel-snake-kebab "0.4.0" :exclusions [org.clojure/clojure]]
                 [cider/cider-nrepl "0.18.0"]
