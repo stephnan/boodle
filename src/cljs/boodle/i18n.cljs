@@ -76,7 +76,6 @@
     :header
     {:boodle "boodle"
      :categories "Categorie"
-     :report"Report"
      :savings "Risparmi"
      :expenses "Spese"}
 
@@ -109,22 +108,6 @@
      :fri "Ven"
      :sat "Sab"
      :sun "Dom"}
-
-    :report
-    {:button.search "Cerca spese"
-     :label.category "Categoria"
-     :label.from "Da"
-     :label.from-savings " Da risparmi"
-     :label.item "Oggetto"
-     :label.to "A"
-     :label.total "Totale: "
-     :message.from "Da: deve rispettare il pattern dd/mm/yyyy"
-     :message.to "A: deve rispettare il pattern dd/mm/yyyy"
-     :page.title "Report"
-     :table.amount "Amount"
-     :table.category "Categoria"
-     :table.date "Data"
-     :table.item "Oggetto"}
 
     :savings
     {:button.add "Aggiungi risparmio"

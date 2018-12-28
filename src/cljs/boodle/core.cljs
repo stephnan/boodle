@@ -4,8 +4,6 @@
             [boodle.events]
             [boodle.expenses.events]
             [boodle.expenses.subs]
-            [boodle.report.events]
-            [boodle.report.subs]
             [boodle.savings.events.achieved-aims]
             [boodle.savings.events.active-aims]
             [boodle.savings.events.savings]

@@ -6,7 +6,6 @@
 (def routes
   ["/" {"" :expenses-home
         "categories" :categories-home
-        "report" :report-home
         "savings" :savings-home}])
 
 (defn- parse-url
