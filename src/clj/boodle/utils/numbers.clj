@@ -1,10 +1,11 @@
-(ns boodle.utils.numbers)
+(ns boodle.utils.numbers
+  (:require [clojure.string :as s]))
 
 (defn en->ita
   [x]
   (-> x
       .toString
-      (clojure.string/replace #"\." ",")))
+      (s/replace #"\." ",")))
 
 (defn convert-amount
   [m k]
@@ -35,12 +36,12 @@
 (defn record-str->double
   [record k]
   (let [s (k record)
-        n (clojure.string/replace s #"," ".")]
+        n (s/replace s #"," ".")]
     (->> n
          Double/parseDouble
          (assoc record k))))
 
 (defn str->double
   [s]
-  (let [n (clojure.string/replace s #"," ".")]
+  (let [n (s/replace s #"," ".")]
     (Double/parseDouble n)))
