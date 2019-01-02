@@ -42,7 +42,7 @@
       (numbers/record-str->double :amount)
       (numbers/record-str->double :id-category)
       (ud/record-str->record-date :date)
-      (model/insert!)))
+      model/insert!))
 
 (defn update!
   [request]
@@ -51,7 +51,7 @@
       (numbers/record-str->double :amount)
       (numbers/record-str->double :id-category)
       (ud/record-str->record-date :date)
-      (model/update!)))
+      model/update!))
 
 (defn delete!
   [id]

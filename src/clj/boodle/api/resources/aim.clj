@@ -34,14 +34,14 @@
   (-> request
       ur/request-body->map
       (numbers/record-str->double :target)
-      (model/insert!)))
+      model/insert!))
 
 (defn update!
   [request]
   (let [aim (ur/request-body->map request)]
     (-> (numbers/record-str->double aim :target)
         (assoc :id (numbers/str->integer (:id aim)))
-        (model/update!))))
+        model/update!)))
 
 (defn delete!
   [id]

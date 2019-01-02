@@ -36,7 +36,7 @@
     (-> (numbers/record-str->double transaction :amount)
         (ud/record-str->record-date :date)
         (assoc :id-aim (numbers/str->integer (:id-aim transaction)))
-        (model/insert!))))
+        model/insert!)))
 
 (defn update!
   [request]
@@ -44,7 +44,7 @@
     (-> (numbers/record-str->double transaction :amount)
         (assoc :id (numbers/str->integer (:id transaction)))
         (assoc :id-aim (numbers/str->integer (:id-aim transaction)))
-        (model/update!))))
+        model/update!)))
 
 (defn delete!
   [id]
