@@ -21,7 +21,7 @@
     (let [show-menu @(rf/subscribe [:show-menu])
           show-burger-menu @(rf/subscribe [:show-burger-menu])]
       [:div.container
-       [:nav.navbar
+       [:nav.navbar.is-transparent
         [:div.navbar-brand
          [:h1.title.is-1.navbar-item (translate :it :header/boodle)]
          [(navbar-burger show-burger-menu)
@@ -43,13 +43,8 @@
           [:p "Developed with "
            [:i.fa.fa-heart]
            " by "
-           [:a {:href "https://manuel-uberti.github.io"} "Manuel Uberti"]]]]]
-       [:hr
-        {:style
-         {:margin-top 0
-          :margin-bottom "1rem"
-          :border-width 0
-          :border-top "1px solid #E1E1E1"}}]])))
+           [:a {:href "https://manuel-uberti.github.io"}
+            "Manuel Uberti"]]]]]])))
 
 (defn page-title
   [title]
