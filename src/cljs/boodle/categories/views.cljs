@@ -9,6 +9,8 @@
   [row]
   [:tr {:key (:id row)}
    [:td (:name row)]
+   [:td (str (common/format-number (:monthly-budget row))
+             (translate :it :currency))]
    [:td
     [:nav.level
      [:div.level-item.has-text-centered
@@ -32,6 +34,7 @@
          [:thead
           [:tr
            [:th (translate :it :categories/table.name)]
+           [:th (translate :it :categories/table.monthly-budget)]
            [:th {:style {:text-align "center"}}
             (translate :it :categories/table.actions)]]]
          [:tbody

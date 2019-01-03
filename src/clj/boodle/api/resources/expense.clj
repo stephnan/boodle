@@ -40,7 +40,6 @@
   (-> request
       ur/request-body->map
       (numbers/record-str->double :amount)
-      (numbers/record-str->double :id-category)
       (ud/record-str->record-date :date)
       model/insert!))
 
@@ -49,7 +48,6 @@
   (-> request
       ur/request-body->map
       (numbers/record-str->double :amount)
-      (numbers/record-str->double :id-category)
       (ud/record-str->record-date :date)
       model/update!))
 

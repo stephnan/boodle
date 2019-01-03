@@ -26,18 +26,19 @@
   [request]
   (-> request
       ur/request-body->map
+      (numbers/record-str->double :monthly-budget)
       model/insert!))
 
 (defn update!
   [request]
   (-> request
       ur/request-body->map
+      (numbers/record-str->double :monthly-budget)
       model/update!))
 
 (defn- update-expense-category
   [expense id-category]
   (-> expense
-      (numbers/record-str->double :amount)
       (assoc :id-category id-category)
       (numbers/record-str->double :id-category)
       (ud/record-str->record-date :date)))

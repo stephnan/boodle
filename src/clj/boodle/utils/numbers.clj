@@ -33,15 +33,27 @@
     (map str->integer xs)
     (str->integer xs)))
 
+(defn record-str->integer
+  [record k]
+  (let [s (k record)]
+    (if (empty? s)
+      (assoc record k 0)
+      (->> (s/replace s #"," ".")
+           Integer/parseInt
+           (assoc record k)))))
+
 (defn record-str->double
   [record k]
-  (let [s (k record)
-        n (s/replace s #"," ".")]
-    (->> n
-         Double/parseDouble
-         (assoc record k))))
+  (let [s (k record)]
+    (if (empty? s)
+      (assoc record k 0)
+      (->> (s/replace s #"," ".")
+           Double/parseDouble
+           (assoc record k)))))
 
 (defn str->double
   [s]
-  (let [n (s/replace s #"," ".")]
-    (Double/parseDouble n)))
+  (if (empty? s)
+    0
+    (let [n (s/replace s #"," ".")]
+      (Double/parseDouble n))))

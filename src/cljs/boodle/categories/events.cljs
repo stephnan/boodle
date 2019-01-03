@@ -24,6 +24,11 @@
    (assoc-in db [:categories :row :name] value)))
 
 (rf/reg-event-db
+ :categories-change-monthly-budget
+ (fn [db [_ value]]
+   (assoc-in db [:categories :row :monthly-budget] value)))
+
+(rf/reg-event-db
  :categories-change-category
  (fn [db [_ value]]
    (-> db

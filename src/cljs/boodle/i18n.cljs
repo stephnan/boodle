@@ -40,10 +40,12 @@
      :modal.button-delete "Cancella categoria"
      :modal.delete-confirm " Confermi la cancellazione della categoria? "
      :modal.delete-title "Cancella categoria"
+     :modal.monthly-budget "Budget mensile"
      :modal.name "Nome"
      :modal.select-category "Seleziona una nuova categoria per le spese esistenti"
      :page.title "Categorie"
      :table.actions "Azioni"
+     :table.monthly-budget "Budget mensile"
      :table.name "Nome"}
 
     :expenses

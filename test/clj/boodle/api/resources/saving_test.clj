@@ -40,7 +40,7 @@
   (with-redefs [ur/request-body->map (fn [req] req)
                 t/insert! (fn [params] params)
                 model/insert! (fn [params] params)]
-    (let [transfer {:id-aim "1" :item "test transfer" :amount 20}]
+    (let [transfer {:id-aim "1" :item "test transfer" :amount "20"}]
       (is (= (s/transfer! transfer)
              {:id-aim 1 :item "test transfer"
               :amount -20.0 :date (jt/local-date)})))))

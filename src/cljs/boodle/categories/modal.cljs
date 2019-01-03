@@ -19,6 +19,14 @@
          {:type "text"
           :value (v/or-empty-string (:name row))
           :on-change #(rf/dispatch [:categories-change-name
+                                    (-> % .-target .-value)])}]]]
+      [:div.field
+       [:label.label (translate :it :categories/modal.monthly-budget)]
+       [:div.control
+        [:input.input
+         {:type "text"
+          :value (v/or-empty-string (:monthly-budget row))
+          :on-change #(rf/dispatch [:categories-change-monthly-budget
                                     (-> % .-target .-value)])}]]]]
      [:footer.modal-card-foot
       [:button.button.is-success
