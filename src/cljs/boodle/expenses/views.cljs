@@ -104,6 +104,35 @@
        {:on-click #(rf/dispatch [:create-expense])}
        (translate :it :expenses/button.add)]]]))
 
+(defn current-month
+  []
+  (fn []
+    (let [current-date (js/Date.)
+          months (:months pikaday/i18n)
+          month (nth months (.getMonth current-date))
+          year (.getFullYear current-date)]
+      [:h5.title.is-5.has-text-centered.is-uppercase
+       (str month " " year)])))
+
+(defn categories-cards
+  []
+  (fn []
+    (let [categories @(rf/subscribe [:categories])]
+      [:div.columns.is-multiline
+       (doall
+        (for [c categories]
+          [:div.column.is-2
+           {:key (:id c)}
+           [:div.card
+            [:header.card-header
+             [:p.card-header-title.is-centered
+              (:name c)]]
+            [:div.card-content
+             [:div.content.has-text-centered
+              [:p (str "25€ / "
+                       (common/format-number (:monthly-budget c))
+                       (translate :it :currency))]]]]]))])))
+
 (defn home-panel
   []
   (fn []
@@ -114,11 +143,14 @@
       [common/page-title (translate :it :expenses/page.title)]
       [v/validation-msg-box]
 
+      [current-month]
+      [categories-cards]
+
+      [:hr]
+
       [search-fields]
       [expenses-buttons]
       [modal/modal]
-
-      [:hr]
 
       [:div {:style {:padding-top ".1em"}}
        [expenses-table]]]]))
