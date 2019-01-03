@@ -14,7 +14,7 @@
    [:td (:category row)]
    [:td (:item row)]
    [:td (str (common/format-number (:amount row)) (translate :it :currency))]
-   [:td {:style {:text-align "center"}}
+   [:td.has-text-centered
     (when (:from-savings row) [:i.fa.fa-check])]
    [:td
     [:nav.level
@@ -40,9 +40,9 @@
          [:th (translate :it :expenses/table.category)]
          [:th (translate :it :expenses/table.item)]
          [:th (translate :it :expenses/table.amount)]
-         [:th {:style {:text-align "center"}}
+         [:th.has-text-centered
           (translate :it :expenses/table.from-savings)]
-         [:th {:style {:text-align "center"}}
+         [:th.has-text-centered
           (translate :it :expenses/table.actions)]]]
        [:tbody
         (doall (map render-row @rows))]])))

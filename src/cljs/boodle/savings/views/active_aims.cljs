@@ -55,7 +55,7 @@
          [:th (translate :it :aims/summary.table-target)]
          [:th (translate :it :aims/summary.table-saved)]
          [:th (translate :it :aims/summary.table-left)]
-         [:th {:style {:text-align "center"}}
+         [:th.has-text-centered
           (translate :it :aims/summary.table-actions)]]]
        [:tbody
         (doall (map render-summary-row (:aims @rows)))]])))

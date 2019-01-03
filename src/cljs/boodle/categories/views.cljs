@@ -35,7 +35,7 @@
           [:tr
            [:th (translate :it :categories/table.name)]
            [:th (translate :it :categories/table.monthly-budget)]
-           [:th {:style {:text-align "center"}}
+           [:th.has-text-centered
             (translate :it :categories/table.actions)]]]
          [:tbody
           (doall (map render-row @rows))]]]])))

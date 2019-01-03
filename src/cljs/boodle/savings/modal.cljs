@@ -115,8 +115,8 @@
      [:div.modal-card-head
       [:h5.modal-card-title (translate :it :aims/modal.delete-title)]]
      [:section.modal-card-body
-      [:p
-       {:style {:text-align "center" :color "#c82829"}}
+      [:p.has-text-centered
+       {:style {:color "#c82829"}}
        [:i.fa.fa-exclamation-triangle]
        (translate :it :aims/modal.delete-confirm)
        [:i.fa.fa-exclamation-triangle]]]

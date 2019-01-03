@@ -49,8 +49,7 @@
 (defn page-title
   [title]
   (fn []
-    [:h3.title.is-3
-     {:style {:text-align "center"}}
+    [:h3.title.is-3.has-text-centered
      title]))
 
 (defn get-category-name
