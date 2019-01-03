@@ -33,7 +33,7 @@
   (with-redefs [ur/request-body->map (fn [req] req)
                 model/insert! (fn [expense] expense)]
     (let [expense {:name "test" :amount "3.50"
-                   :id-category 1 :date "14/07/2018"}]
+                   :id-category "1" :date "14/07/2018"}]
       (is (= (e/insert! expense)
              {:name "test" :amount 3.50
               :id-category 1 :date (ud/to-local-date "14/07/2018")})))))
