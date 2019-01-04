@@ -22,7 +22,7 @@
   [name]
   (model/select-by-name name))
 
-(defn find-category-monthly-expenses
+(defn find-category-monthly-totals
   "Return the monthly expenses for the category `id`."
   [id]
   (let [from (ud/first-day-of-month)
@@ -37,7 +37,7 @@
     (reduce
      (fn [acc el]
        (let [id (:id el)
-             category-expenses (find-category-monthly-expenses id)]
+             category-expenses (find-category-monthly-totals id)]
          (if (empty? category-expenses)
            (conj acc {:id id :name (:name el)
                       :monthly-budget (:monthly-budget el) :amount 0})
@@ -45,7 +45,7 @@
      []
      categories)))
 
-(defn format-categories-and-monthly-expenses
+(defn format-categories-and-totals
   "Return the total amount of monthly expenses grouped by categories."
   []
   (let [categories-expenses (build-categories-expenses-vec)]
@@ -111,7 +111,7 @@
     (GET "/find/:id" [id]
       (response/ok (find-by-id id)))
     (GET "/find-category-monthly-expenses" []
-      (response/ok (format-categories-and-monthly-expenses)))
+      (response/ok (format-categories-and-totals)))
     (POST "/insert" request
       (response/ok (insert! request)))
     (PUT "/update" request
