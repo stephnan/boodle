@@ -8,8 +8,8 @@
             [clojure.test :refer :all]))
 
 (deftest find-all-test
-  (with-redefs [model/select-all (fn [] {:item "test"})]
-    (is (= (c/find-all) {:item "test"}))))
+  (with-redefs [model/select-all (fn [] {:name "test"})]
+    (is (= (c/find-all) {:name "test"}))))
 
 (deftest find-by-id-test
   (with-redefs [model/select-by-id (fn [id] id)]
@@ -20,22 +20,37 @@
     (is (= (c/find-by-name "test") "test"))))
 
 (deftest find-category-monthly-expenses-test
-  (with-redefs [model/select-categories-with-monthly-expenses (fn [f t] f)]
-    (let [f (ud/first-day-of-month)
-          t (ud/last-day-of-month)]
-      (is (= (c/find-category-monthly-expenses) f)))))
+  (with-redefs [model/select-category-monthly-expenses (fn [f t id] id)]
+    (is (= (c/find-category-monthly-expenses 1) 1))))
+
+(deftest build-categories-expenses-vec-test
+  (with-redefs [c/find-all (fn [] [{:id 1
+                                   :name "test-a"
+                                   :monthly-budget 50}])
+                c/find-category-monthly-expenses (fn [id]
+                                                   [{:id 1
+                                                     :name "test-a"
+                                                     :amount 5
+                                                     :monthly-budget 50}
+                                                    {:id 1
+                                                     :name "test-a"
+                                                     :amount 5
+                                                     :monthly-budget 50}])]
+    (is (= (c/build-categories-expenses-vec)
+           [{:id 1 :name "test-a" :monthly-budget 50 :amount 5}
+            {:id 1 :name "test-a" :monthly-budget 50 :amount 5}]))))
 
 (deftest format-categories-and-monthly-expenses-test
-  (with-redefs [c/find-category-monthly-expenses (fn [] [{:id-category 1,
-                                                         :category "test",
-                                                         :amount 5,
-                                                         :monthly-budget 50}
-                                                        {:id-category 1,
-                                                         :category "test",
-                                                         :amount 5,
-                                                         :monthly-budget 50}])]
+  (with-redefs [c/build-categories-expenses-vec (fn [] [{:id 1
+                                                        :name "test"
+                                                        :amount 5
+                                                        :monthly-budget 50}
+                                                       {:id 1,
+                                                        :name "test"
+                                                        :amount 5
+                                                        :monthly-budget 50}])]
     (is (= (c/format-categories-and-monthly-expenses)
-           {1 {:name "test", :monthly-budget 50, :total 10}}))))
+           {1 {:id 1 :name "test" :monthly-budget 50 :total 10}}))))
 
 (deftest insert-test
   (with-redefs [ur/request-body->map (fn [req] req)

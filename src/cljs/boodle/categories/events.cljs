@@ -136,3 +136,16 @@
                            [:get-categories]
                            [:bad-response])
         :dispatch [:modal {:show? false :child nil}])))))
+
+(rf/reg-event-db
+ :load-categories-monthly-expenses
+ (fn [db [_ result]]
+   (let [sorted (sort-by :name (vals result))]
+     (assoc-in db [:categories :monthly-expenses] sorted))))
+
+(rf/reg-event-fx
+ :get-categories-monthly-expenses
+ (fn [{db :db} _]
+   (ajax/get-request "/api/category/find-category-monthly-expenses"
+                     [:load-categories-monthly-expenses]
+                     [:bad-response])))

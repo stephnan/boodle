@@ -17,3 +17,9 @@
  :category-new
  (fn [db _]
    (get-in db [:categories :new])))
+
+(rf/reg-sub-raw
+ :categories-monthly-expenses
+ (fn [db _]
+   (rf/dispatch [:get-categories-monthly-expenses])
+   (r/reaction (get-in @db [:categories :monthly-expenses]))))

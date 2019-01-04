@@ -17,15 +17,17 @@
              :from [:categories]
              :where [:= :name category-name]}))
 
-(defn select-categories-with-monthly-expenses
-  [from to]
-  (-> (hh/select :id_category :category :amount :monthly_budget)
-      (hh/from [(-> (hh/select [:c.id :id_category] [:c.name :category]
-                               :e.amount :c.monthly_budget)
+(defn select-category-monthly-expenses
+  "Find expenses for category `id`, in the month delimited by `from` and `to`."
+  [from to id]
+  (-> (hh/select :id :name :monthly_budget :amount)
+      (hh/from [(-> (hh/select :c.id :c.name :c.monthly_budget :e.amount)
                     (hh/from [:expenses :e])
                     (hh/join [:categories :c]
                              [:= :e.id_category :c.id])
-                    (hh/where [:>= :e.date from] [:<= :e.date to])) :t])
+                    (hh/where [:>= :e.date from]
+                              [:<= :e.date to]
+                              [:= :c.id id])) :t])
       hc/build
       db/query))
 

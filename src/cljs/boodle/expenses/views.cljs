@@ -117,7 +117,7 @@
 (defn categories-cards
   []
   (fn []
-    (let [categories @(rf/subscribe [:categories])]
+    (let [categories @(rf/subscribe [:categories-monthly-expenses])]
       [:div.columns.is-multiline
        (doall
         (for [c categories]
@@ -129,7 +129,9 @@
               (:name c)]]
             [:div.card-content
              [:div.content.has-text-centered
-              [:p (str "25€ / "
+              [:p (str (common/format-number (:total c))
+                       (translate :it :currency)
+                       " / "
                        (common/format-number (:monthly-budget c))
                        (translate :it :currency))]]]]]))])))
 

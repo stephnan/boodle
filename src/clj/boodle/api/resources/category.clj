@@ -23,24 +23,39 @@
   (model/select-by-name name))
 
 (defn find-category-monthly-expenses
-  []
+  [id]
   (let [from (ud/first-day-of-month)
         to (ud/last-day-of-month)]
-    (model/select-categories-with-monthly-expenses from to)))
+    (model/select-category-monthly-expenses from to id)))
+
+(defn build-categories-expenses-vec
+  []
+  (let [categories (find-all)]
+    (reduce
+     (fn [acc el]
+       (let [id (:id el)
+             category-expenses (find-category-monthly-expenses id)]
+         (if (empty? category-expenses)
+           (conj acc {:id id :name (:name el)
+                      :monthly-budget (:monthly-budget el) :amount 0})
+           (into acc category-expenses))))
+     []
+     categories)))
 
 (defn format-categories-and-monthly-expenses
   []
-  (let [categories-expenses (find-category-monthly-expenses)]
+  (let [categories-expenses (build-categories-expenses-vec)]
     (reduce-kv
      (fn [m k v]
-       (let [category (first (map :category v))
+       (let [category (first (map :name v))
              monthly-budget (first (map :monthly-budget v))
              total (apply + (->> (map :amount v) (map numbers/or-zero)))]
-         (assoc m k {:name category
+         (assoc m k {:id k
+                     :name category
                      :monthly-budget monthly-budget
                      :total total})))
      {}
-     (group-by :id-category categories-expenses))))
+     (group-by :id categories-expenses))))
 
 (defn insert!
   [request]
