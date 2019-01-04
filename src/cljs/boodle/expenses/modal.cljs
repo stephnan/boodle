@@ -121,4 +121,4 @@
     [:button.button
      {:title (translate :it :button.cancel)
       :on-click #(rf/dispatch [:close-modal])}
-     (translate :it :button.cancel)]]])
+     (translate :it :button.close)]]])

@@ -29,6 +29,7 @@
      :summary.table-target "Obiettivo"}
 
     :button.cancel "Annulla"
+    :button.close "Chiudi"
     :button.ok "Ok"
     :currency "€"
     :date.placeholder "dd/mm/yyyy"
