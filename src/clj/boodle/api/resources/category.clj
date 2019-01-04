@@ -39,8 +39,7 @@
        (let [id (:id el)
              category-expenses (find-category-monthly-totals id)]
          (if (empty? category-expenses)
-           (conj acc {:id id :name (:name el)
-                      :monthly-budget (:monthly-budget el) :amount 0})
+           acc
            (into acc category-expenses))))
      []
      categories)))
