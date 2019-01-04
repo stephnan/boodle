@@ -48,7 +48,7 @@
      [:section.modal-card-body
       [v/modal-validation-msg-box]
       [:p.has-text-centered
-       {:style {:color "#c82829"}}
+       {:style {:color common/red}}
        [:i.fa.fa-exclamation-triangle]
        (translate :it :categories/modal.delete-confirm)
        [:i.fa.fa-exclamation-triangle]]

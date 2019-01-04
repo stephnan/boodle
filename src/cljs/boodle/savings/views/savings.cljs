@@ -17,7 +17,7 @@
   [row]
   (when-let [amount (:amount row)]
     (let [amount-str (common/format-neg-or-pos amount)
-          color (if (pos? amount) "#718c00" "#c82829")]
+          color (if (pos? amount) common/green common/red)]
       [:tr {:key (random-uuid)}
        [:td (:date row)]
        [:td (:item row)]

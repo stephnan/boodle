@@ -53,10 +53,19 @@
    (assoc-in db [:expenses :rows] result)))
 
 (rf/reg-event-fx
+ :refresh-categories-monthly-expenses
+ (fn [{db :db} [_ result]]
+   (assoc
+    (ajax/get-request "/api/category/find-category-monthly-expenses"
+                      [:load-categories-monthly-expenses]
+                      [:bad-response])
+    :dispatch [:load-expenses result])))
+
+(rf/reg-event-fx
  :get-expenses-rows
  (fn [{db :db} _]
    (ajax/get-request "/api/expense/find"
-                     [:load-expenses]
+                     [:refresh-categories-monthly-expenses]
                      [:bad-response])))
 
 (defn validate-date

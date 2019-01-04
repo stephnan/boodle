@@ -72,7 +72,7 @@
     [:h5.modal-card-title (translate :it :expenses/modal.delete-title)]]
    [:section.modal-card-body
     [:p.has-text-centered
-     {:style {:color "#c82829"}}
+     {:style {:color common/red}}
      [:i.fa.fa-exclamation-triangle]
      (translate :it :expenses/modal.delete-confirm)
      [:i.fa.fa-exclamation-triangle]]]

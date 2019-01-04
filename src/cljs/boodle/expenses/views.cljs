@@ -114,26 +114,41 @@
       [:h5.title.is-5.has-text-centered.is-uppercase
        (str month " " year)])))
 
+(defn total-budget
+  [category]
+  (let [total (:total category)
+        budget (:monthly-budget category)
+        color (cond
+                (or (nil? budget) (= budget 0)) common/green
+                (>= total budget) common/red
+                (>= total (* budget 0.8)) common/orange
+                :else common/green)]
+    [:p
+     {:style {:color color}}
+     (str (common/format-number total)
+          (translate :it :currency)
+          " / "
+          (common/format-number budget)
+          (translate :it :currency))]))
+
+(defn render-card
+  [category]
+  [:div.column.is-2
+   {:key (:id category)}
+   [:div.card
+    [:header.card-header
+     [:p.card-header-title.is-centered
+      (:name category)]]
+    [:div.card-content
+     [:div.content.has-text-centered
+      (total-budget category)]]]])
+
 (defn categories-cards
   []
   (fn []
-    (let [categories @(rf/subscribe [:categories-monthly-expenses])]
+    (let [categories (rf/subscribe [:categories-monthly-expenses])]
       [:div.columns.is-multiline
-       (doall
-        (for [c categories]
-          [:div.column.is-2
-           {:key (:id c)}
-           [:div.card
-            [:header.card-header
-             [:p.card-header-title.is-centered
-              (:name c)]]
-            [:div.card-content
-             [:div.content.has-text-centered
-              [:p (str (common/format-number (:total c))
-                       (translate :it :currency)
-                       " / "
-                       (common/format-number (:monthly-budget c))
-                       (translate :it :currency))]]]]]))])))
+       (doall (map render-card @categories))])))
 
 (defn home-panel
   []

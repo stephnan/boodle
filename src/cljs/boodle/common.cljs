@@ -3,6 +3,10 @@
             [cljs.pprint :as pp]
             [re-frame.core :as rf]))
 
+(def green "#718c00")
+(def orange "#f5871f")
+(def red "#c82829")
+
 (defn navbar-burger
   [active]
   (if active

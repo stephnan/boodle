@@ -13,22 +13,22 @@
       [:nav.level
        [:div.level-item.has-text-centered
         [:h5.title.is-size-5 (translate :it :transactions/label.target)
-         [:strong {:style {:color "#718c00"}}
+         [:strong {:style {:color common/green}}
           (str (common/format-number target) (translate :it :currency))]]]
        [:div.level-item.has-text-centered
         [:h5.title.is-size-5 (translate :it :transactions/label.saved)
-         [:strong {:style {:color "#f5871f"}}
+         [:strong {:style {:color common/orange}}
           (str (common/format-number saved) (translate :it :currency))]]]
        [:div.level-item.has-text-centered
         [:h5.title.is-size-5 (translate :it :transactions/label.left)
-         [:strong {:style {:color "#c82829"}}
+         [:strong {:style {:color common/red}}
           (str (common/format-number left) (translate :it :currency))]]]])))
 
 (defn render-transaction-row
   [row]
   (when-let [amount (:amount row)]
     (let [amount-str (common/format-neg-or-pos amount)
-          color (if (pos? amount) "#718c00" "#c82829")]
+          color (if (pos? amount) common/green common/red)]
       [:tr {:key (random-uuid)}
        [:td (:date row)]
        [:td (:item row)]
