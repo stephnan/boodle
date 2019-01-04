@@ -85,3 +85,40 @@
      {:title (translate :it :button.cancel)
       :on-click #(rf/dispatch [:close-modal])}
      (translate :it :button.cancel)]]])
+
+(defn render-row
+  [row]
+  [:tr {:key (random-uuid)}
+   [:td (:date row)]
+   [:td (:item row)]
+   [:td (str (common/format-number (:amount row)) (translate :it :currency))]
+   [:td.has-text-centered
+    (when (:from-savings row) [:i.fa.fa-check])]])
+
+(defn expenses-table
+  []
+  (fn []
+    (let [rows (rf/subscribe [:category-expenses])]
+      [:table.table.is-striped.is-fullwidth
+       [:thead
+        [:tr
+         [:th (translate :it :expenses/table.date)]
+         [:th (translate :it :expenses/table.item)]
+         [:th (translate :it :expenses/table.amount)]
+         [:th.has-text-centered
+          (translate :it :expenses/table.from-savings)]]]
+       [:tbody
+        (doall (map render-row @rows))]])))
+
+(defn category-expenses
+  [category]
+  [:div.modal-card
+   [:div.modal-card-head
+    [:h5.modal-card-title (:name category)]]
+   [:section.modal-card-body
+    [expenses-table]]
+   [:footer.modal-card-foot
+    [:button.button
+     {:title (translate :it :button.cancel)
+      :on-click #(rf/dispatch [:close-modal])}
+     (translate :it :button.cancel)]]])

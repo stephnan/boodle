@@ -29,6 +29,10 @@
             {:from "14/07/2018" :to "14/07/2018" :categories []})
            [{:item "test" :amount 3.5}]))))
 
+(deftest find-by-current-month-and-category-test
+  (with-redefs [model/select-by-date-and-categories (fn [f t c] c)]
+    (is (= (e/find-by-current-month-and-category "1") 1))))
+
 (deftest insert-test
   (with-redefs [ur/request-body->map (fn [req] req)
                 model/insert! (fn [expense] expense)]

@@ -52,3 +52,8 @@
  :expenses-params
  (fn [db _]
    (get-in db [:expenses :params])))
+
+(rf/reg-sub
+ :category-expenses
+ (fn [db _]
+   (get-in db [:categories :expenses :rows])))

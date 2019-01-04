@@ -35,6 +35,13 @@
         cs (numbers/strs->integers categories)]
     (model/select-by-date-and-categories from to cs)))
 
+(defn find-by-current-month-and-category
+  [id-category]
+  (let [from (ud/first-day-of-month)
+        to (ud/last-day-of-month)
+        id (numbers/str->integer id-category)]
+    (model/select-by-date-and-categories from to id)))
+
 (defn insert!
   [request]
   (-> request
@@ -66,6 +73,8 @@
       (response/ok (find-by-id id)))
     (POST "/find-by-date-and-categories" request
       (response/ok (find-by-date-and-categories request)))
+    (GET "/find-by-current-month-and-category/:id" [id]
+      (response/ok (find-by-current-month-and-category id)))
     (POST "/insert" request
       (response/ok (insert! request)))
     (PUT "/update" request

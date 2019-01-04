@@ -135,7 +135,9 @@
   [category]
   [:div.column.is-2
    {:key (:id category)}
-   [:div.card
+   [:div.card.category-card
+    {:style {:cursor "pointer"}
+     :on-click #(rf/dispatch [:show-category-expenses category])}
     [:header.card-header
      [:p.card-header-title.is-centered
       (:name category)]]

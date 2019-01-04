@@ -224,3 +224,39 @@
                       [:load-expenses]
                       [:bad-response])
     :db (assoc-in db [:expenses :params] {}))))
+
+(rf/reg-event-fx
+ :edit-expense
+ (fn [{db :db} [_ id]]
+   (let [expenses (get-in db [:expenses :rows])
+         row (-> (first (filter #(= (:id %) id) expenses))
+                 (update :amount common/format-number))]
+     {:db (assoc-in db [:expenses :row] row)
+      :dispatch
+      [:modal
+       {:show? true
+        :child [modal/save-expense "Modifica spesa" [:update-expense]]}]})))
+
+(rf/reg-event-db
+ :load-category-expenses
+ (fn [db [_ result]]
+   (assoc-in db [:categories :expenses :rows] result)))
+
+(rf/reg-event-fx
+ :show-category-expenses
+ (fn [{db :db} [_ category]]
+   (assoc
+    (ajax/get-request (str "/api/expense/find-by-current-month-and-category/"
+                           (:id category))
+                      [:load-category-expenses]
+                      [:bad-response])
+    :dispatch [:do-show-category-expenses category])))
+
+(rf/reg-event-fx
+ :do-show-category-expenses
+ (fn [{db :db} [_ category]]
+   {:db db
+    :dispatch
+    [:modal
+     {:show? true
+      :child [modal/category-expenses category]}]}))
