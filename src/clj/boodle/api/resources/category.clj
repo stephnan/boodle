@@ -23,12 +23,15 @@
   (model/select-by-name name))
 
 (defn find-category-monthly-expenses
+  "Return the monthly expenses for the category `id`."
   [id]
   (let [from (ud/first-day-of-month)
         to (ud/last-day-of-month)]
     (model/select-category-monthly-expenses from to id)))
 
 (defn build-categories-expenses-vec
+  "Build a vector with the monthly expenses for all the categories.
+  If there are not expenses for a category, a record with `:amount` 0 is added."
   []
   (let [categories (find-all)]
     (reduce
@@ -43,6 +46,7 @@
      categories)))
 
 (defn format-categories-and-monthly-expenses
+  "Return the total amount of monthly expenses grouped by categories."
   []
   (let [categories-expenses (build-categories-expenses-vec)]
     (reduce-kv
