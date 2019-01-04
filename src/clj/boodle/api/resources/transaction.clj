@@ -34,7 +34,7 @@
   [request]
   (let [transaction (ur/request-body->map request)]
     (-> (numbers/record-str->double transaction :amount)
-        (ud/record-str->record-date :date)
+        (ud/record-str->date :date)
         (assoc :id-aim (numbers/str->integer (:id-aim transaction)))
         model/insert!)))
 

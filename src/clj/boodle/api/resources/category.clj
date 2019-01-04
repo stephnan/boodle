@@ -22,6 +22,26 @@
   [name]
   (model/select-by-name name))
 
+(defn find-category-monthly-expenses
+  []
+  (let [from (ud/first-day-of-month)
+        to (ud/last-day-of-month)]
+    (model/select-categories-with-monthly-expenses from to)))
+
+(defn format-categories-and-monthly-expenses
+  []
+  (let [categories-expenses (find-category-monthly-expenses)]
+    (reduce-kv
+     (fn [m k v]
+       (let [category (first (map :category v))
+             monthly-budget (first (map :monthly-budget v))
+             total (apply + (->> (map :amount v) (map numbers/or-zero)))]
+         (assoc m k {:name category
+                     :monthly-budget monthly-budget
+                     :total total})))
+     {}
+     (group-by :id-category categories-expenses))))
+
 (defn insert!
   [request]
   (-> request
@@ -41,7 +61,7 @@
   (-> expense
       (assoc :id-category id-category)
       (numbers/record-str->double :id-category)
-      (ud/record-str->record-date :date)))
+      (ud/record-str->date :date)))
 
 (defn- update-expenses-category
   [expenses id-category]
@@ -71,6 +91,8 @@
       (response/ok (find-all)))
     (GET "/find/:id" [id]
       (response/ok (find-by-id id)))
+    (GET "/find-category-monthly-expenses" []
+      (response/ok (format-categories-and-monthly-expenses)))
     (POST "/insert" request
       (response/ok (insert! request)))
     (PUT "/update" request

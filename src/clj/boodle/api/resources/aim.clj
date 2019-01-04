@@ -50,7 +50,7 @@
       model/delete!))
 
 (defn format-aims-and-totals
-  "Return a map of aims with the their total amounts."
+  "Return a map of aims with their total amounts."
   []
   (let [aims (model/select-aims-with-transactions)]
     (reduce-kv
@@ -87,7 +87,7 @@
     {:amount (numbers/str->double (:target aim))
      :item (:name aim)
      :id-category id-category
-     :date (:date (ud/record-str->record-date aim :date))
+     :date (:date (ud/record-str->date aim :date))
      :from-savings true}))
 
 (defn achieved!

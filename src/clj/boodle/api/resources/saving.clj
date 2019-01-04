@@ -30,7 +30,7 @@
   (-> request
       ur/request-body->map
       (numbers/record-str->double :amount)
-      (ud/record-str->record-date :date)
+      (ud/record-str->date :date)
       model/insert!))
 
 (defn update!

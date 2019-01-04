@@ -3,6 +3,7 @@
             [boodle.api.resources.expense :as e]
             [boodle.model.categories :as model]
             [boodle.model.expenses :as es]
+            [boodle.utils.dates :as ud]
             [boodle.utils.resource :as ur]
             [clojure.test :refer :all]))
 
@@ -18,6 +19,24 @@
   (with-redefs [model/select-by-name (fn [n] n)]
     (is (= (c/find-by-name "test") "test"))))
 
+(deftest find-category-monthly-expenses-test
+  (with-redefs [model/select-categories-with-monthly-expenses (fn [f t] f)]
+    (let [f (ud/first-day-of-month)
+          t (ud/last-day-of-month)]
+      (is (= (c/find-category-monthly-expenses) f)))))
+
+(deftest format-categories-and-monthly-expenses-test
+  (with-redefs [c/find-category-monthly-expenses (fn [] [{:id-category 1,
+                                                         :category "test",
+                                                         :amount 5,
+                                                         :monthly-budget 50}
+                                                        {:id-category 1,
+                                                         :category "test",
+                                                         :amount 5,
+                                                         :monthly-budget 50}])]
+    (is (= (c/format-categories-and-monthly-expenses)
+           {1 {:name "test", :monthly-budget 50, :total 10}}))))
+
 (deftest insert-test
   (with-redefs [ur/request-body->map (fn [req] req)
                 model/insert! (fn [category] category)]
@@ -25,18 +44,18 @@
       (is (= (c/insert! category) {:name "test" :monthly-budget 0})))))
 
 (deftest update-test
-  (with-redefs [ur/request-body->map (fn [req] req)
-                model/update! (fn [category] category)]
-    (let [category {:name "test update"}]
-      (is (= (c/update! category) {:name "test update" :monthly-budget 0})))))
+(with-redefs [ur/request-body->map (fn [req] req)
+              model/update! (fn [category] category)]
+  (let [category {:name "test update"}]
+    (is (= (c/update! category) {:name "test update" :monthly-budget 0})))))
 
 (deftest delete-test
-  (with-redefs [ur/request-body->map (fn [req] req)
-                e/find-by-category (fn [category] [{:name "test"
-                                                   :amount 3.50
-                                                   :id-category 1
-                                                   :date "14/07/2018"}])
-                es/update! (fn [expense] expense)
-                model/delete! (fn [id] id)]
-    (let [body {:old-category "1" :new-category "2"}]
-      (is (= (c/delete! body) "1")))))
+(with-redefs [ur/request-body->map (fn [req] req)
+              e/find-by-category (fn [category] [{:name "test"
+                                                 :amount 3.50
+                                                 :id-category 1
+                                                 :date "14/07/2018"}])
+              es/update! (fn [expense] expense)
+              model/delete! (fn [id] id)]
+  (let [body {:old-category "1" :new-category "2"}]
+    (is (= (c/delete! body) "1")))))
