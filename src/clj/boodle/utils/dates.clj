@@ -21,7 +21,21 @@
   [date-str]
   (jt/local-date "dd/MM/yyyy" date-str))
 
-(defn record-str->record-date
+(defn first-day-of-month
+  "Get the first day of the current month."
+  []
+  (-> (jt/local-date)
+      (jt/property :day-of-month)
+      jt/with-min-value))
+
+(defn last-day-of-month
+  "Get the last day of the current month."
+  []
+  (-> (jt/local-date)
+      (jt/property :day-of-month)
+      jt/with-max-value))
+
+(defn record-str->date
   [record k]
   (let [s (k record)
         d (if s (to-local-date s) (today))]
