@@ -4,6 +4,7 @@
             [camel-snake-kebab.core :refer [->camelCaseString]]
             [camel-snake-kebab.extras :refer [transform-keys]]
             ["react-dom" :refer [findDOMNode]]
+            ["moment" :as moment]
             ["pikaday" :as pikaday]
             [cljs-time.core :as tt]
             [cljs-time.coerce :as tc]
@@ -76,7 +77,8 @@
       (fn [this]
         (let [default-opts
               {:field (findDOMNode this)
-               :default-date @date-atom
+               :default-date (-> (moment. @date-atom "DD/MM/YYYY" "it")
+                                 (.toDate))
                :set-default-date true
                :i18n i18n
                :first-day (first-day-of-week :mon)
