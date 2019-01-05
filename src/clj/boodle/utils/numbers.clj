@@ -36,20 +36,24 @@
 (defn record-str->integer
   [record k]
   (let [s (k record)]
-    (if (empty? s)
-      (assoc record k 0)
-      (->> (s/replace s #"," ".")
-           Integer/parseInt
-           (assoc record k)))))
+    (if (string? s)
+      (if (empty? s)
+        (assoc record k 0)
+        (->> (s/replace s #"," ".")
+             Integer/parseInt
+             (assoc record k)))
+      record)))
 
 (defn record-str->double
   [record k]
   (let [s (k record)]
-    (if (empty? s)
-      (assoc record k 0)
-      (->> (s/replace s #"," ".")
-           Double/parseDouble
-           (assoc record k)))))
+    (if (string? s)
+      (if (empty? s)
+        (assoc record k 0)
+        (->> (s/replace s #"," ".")
+             Double/parseDouble
+             (assoc record k)))
+      record)))
 
 (defn str->double
   [s]
