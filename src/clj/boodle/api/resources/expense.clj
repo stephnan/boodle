@@ -56,6 +56,7 @@
   (-> request
       ur/request-body->map
       (numbers/record-str->double :amount)
+      (numbers/record-str->integer :id-category)
       (ud/record-str->date :date)
       model/update!))
 
