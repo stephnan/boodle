@@ -62,6 +62,13 @@
 (defn- watch
   [ratom predicate func])
 
+(defn- string->js-date
+  [s]
+  (let [lang (translate :it :pikaday/lang)]
+    (-> s
+        (moment. "DD/MM/YYYY" lang)
+        (.toDate))))
+
 (defn date-selector
   "Return a date-selector reagent component. Takes a single map as its
   argument, with the following keys:
@@ -77,8 +84,7 @@
       (fn [this]
         (let [default-opts
               {:field (findDOMNode this)
-               :default-date (-> (moment. @date-atom "DD/MM/YYYY" "it")
-                                 (.toDate))
+               :default-date (string->js-date @date-atom)
                :set-default-date true
                :i18n i18n
                :first-day (first-day-of-week :mon)

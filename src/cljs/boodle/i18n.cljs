@@ -84,7 +84,8 @@
      :expenses "Spese"}
 
     :pikaday
-    {:previous-month "Mese precedente"
+    {:lang "it"
+     :previous-month "Mese precedente"
      :next-month "Mese successivo"
      :january "Gennaio"
      :february "Febbraio"
