@@ -63,7 +63,7 @@
             {:date-atom (rf/subscribe [:expenses-from])
              :pikaday-attrs
              {:onSelect #(rf/dispatch [:expenses-change-from %])
-              :format "DD/MM/YYYY"}}]]]]]
+              :format (translate :it :pikaday/date-format)}}]]]]]
        [:div.level-item.has-text-centered
         [:div.field.is-horizontal
          [:div.field-label.is-normal
@@ -73,7 +73,7 @@
            [pikaday/date-selector
             {:date-atom (rf/subscribe [:expenses-to])
              :pikaday-attrs {:onSelect #(rf/dispatch [:expenses-change-to %])
-                             :format "DD/MM/YYYY"}}]]]]]
+                             :format (translate :it :pikaday/date-format)}}]]]]]
        [:div.level-item.has-text-centered
         [:div.field.is-horizontal
          [:div.field-label.is-normal

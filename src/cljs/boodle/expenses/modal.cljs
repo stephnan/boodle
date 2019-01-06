@@ -20,7 +20,7 @@
         [pikaday/date-selector
          {:date-atom (rf/subscribe [:expense-modal-date])
           :pikaday-attrs {:onSelect #(rf/dispatch [:expense-change-date %])
-                          :format "DD/MM/YYYY"}}]]]
+                          :format (translate :it :pikaday/date-format)}}]]]
       [:div.field
        [:label.label (translate :it :expenses/modal.category)]
        [:div.control

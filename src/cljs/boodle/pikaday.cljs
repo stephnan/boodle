@@ -64,9 +64,10 @@
 
 (defn- string->js-date
   [s]
-  (let [lang (translate :it :pikaday/lang)]
+  (let [date-format (translate :it :pikaday/date-format)
+        lang (translate :it :pikaday/lang)]
     (-> s
-        (moment. "DD/MM/YYYY" lang)
+        (moment. date-format lang)
         (.toDate))))
 
 (defn date-selector
@@ -129,7 +130,7 @@
           :placeholder (translate :it :date.placeholder)}
          (:input-attrs props)])})))
 
-(def custom-formatter (tf/formatter "dd/MM/yyyy"))
+(def custom-formatter (tf/formatter (translate :it :pikaday/date-format)))
 
 (defn date->string
   [value]
