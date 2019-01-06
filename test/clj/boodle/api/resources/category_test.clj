@@ -56,13 +56,13 @@
   (with-redefs [ur/request-body->map (fn [req] req)
                 model/insert! (fn [category] category)]
     (let [category {:name "test"}]
-      (is (= (c/insert! category) {:name "test" :monthly-budget 0})))))
+      (is (= (c/insert! category) {:name "test"})))))
 
 (deftest update-test
   (with-redefs [ur/request-body->map (fn [req] req)
                 model/update! (fn [category] category)]
     (let [category {:name "test update"}]
-      (is (= (c/update! category) {:name "test update" :monthly-budget 0})))))
+      (is (= (c/update! category) {:name "test update"})))))
 
 (deftest delete-test
   (with-redefs [ur/request-body->map (fn [req] req)
