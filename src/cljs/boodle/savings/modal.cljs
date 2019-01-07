@@ -151,8 +151,7 @@
      [:div.modal-card-head
       [:h5.modal-card-title (translate :it :aims/modal.delete-title)]]
      [:section.modal-card-body
-      [:p.has-text-centered
-       {:style {:color common/red}}
+      [:p.has-text-centered.has-text-danger
        [:i.fa.fa-exclamation-triangle]
        (translate :it :aims/modal.delete-confirm)
        [:i.fa.fa-exclamation-triangle]]]
@@ -227,8 +226,7 @@
      [:div.modal-card-head
       [:h5.modal-card-title (translate :it :funds/modal.delete-title)]]
      [:section.modal-card-body
-      [:p.has-text-centered
-       {:style {:color common/red}}
+      [:p.has-text-centered.has-text-danger
        [:i.fa.fa-exclamation-triangle]
        (translate :it :funds/modal.delete-confirm)
        [:i.fa.fa-exclamation-triangle]]]

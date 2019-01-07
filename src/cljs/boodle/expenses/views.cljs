@@ -114,17 +114,31 @@
       [:h5.title.is-5.has-text-centered.is-uppercase
        (str month " " year)])))
 
+(defn card-header-bg-color
+  [category]
+  (let [total (:total category)
+        budget (:monthly-budget category)]
+    (cond
+      (or (nil? budget) (= budget 0)) "#22c65b"
+      (>= total budget) "#ff3860"
+      (>= total (* budget 0.8)) "#ffdb4a"
+      :else "#22c65b")))
+
+(defn card-header-text-color
+  [category]
+  (let [total (:total category)
+        budget (:monthly-budget category)]
+    (cond
+      (or (nil? budget) (= budget 0)) "#fff"
+      (>= total budget) "#fff"
+      (>= total (* budget 0.8)) "#363636"
+      :else "#fff")))
+
 (defn total-budget
   [category]
   (let [total (:total category)
-        budget (:monthly-budget category)
-        color (cond
-                (or (nil? budget) (= budget 0)) common/green
-                (>= total budget) common/red
-                (>= total (* budget 0.8)) common/orange
-                :else common/green)]
+        budget (:monthly-budget category)]
     [:p
-     {:style {:color color}}
      (str (common/format-number total)
           (translate :it :currency)
           " / "
@@ -139,7 +153,9 @@
     {:style {:cursor "pointer"}
      :on-click #(rf/dispatch [:show-category-expenses category])}
     [:header.card-header
+     {:style {:background-color (card-header-bg-color category)}}
      [:p.card-header-title.is-centered
+      {:style {:color (card-header-text-color category)}}
       (:name category)]]
     [:div.card-content
      [:div.content.has-text-centered

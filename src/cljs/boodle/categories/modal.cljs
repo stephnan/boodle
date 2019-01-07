@@ -47,8 +47,7 @@
       [:h5.modal-card-title (translate :it :categories/modal.delete-title)]]
      [:section.modal-card-body
       [v/modal-validation-msg-box]
-      [:p.has-text-centered
-       {:style {:color common/red}}
+      [:p.has-text-centered.has-text-danger
        [:i.fa.fa-exclamation-triangle]
        (translate :it :categories/modal.delete-confirm)
        [:i.fa.fa-exclamation-triangle]]

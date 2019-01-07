@@ -19,16 +19,14 @@
             (translate :it :aims/table.total)]]]
          [:tbody
           [:tr
-           [:td.has-text-centered.has-text-info
+           [:td.has-text-centered.has-text-success
             (str (common/format-number total)
                  (translate :it :currency))]]]]]])))
 
 (defn render-amount
-  [amount]
-  (let [amount-str (common/format-neg-or-pos amount)
-        color (if (pos? amount) common/green common/red)]
-    [:td
-     {:style {:color color}}
+  [amount td-color]
+  (let [amount-str (common/format-neg-or-pos amount)]
+    [td-color
      (str amount-str (translate :it :currency))]))
 
 (defn render-summary-row
@@ -38,9 +36,9 @@
     [:tr {:key (random-uuid)}
      [:td
       (:name aim-values)]
-     (render-amount (:target aim-values))
-     (render-amount (:saved aim-values))
-     (render-amount (:left aim-values))
+     (render-amount (:target aim-values) :td.has-text-info)
+     (render-amount (:saved aim-values) :td.has-text-success)
+     (render-amount (:left aim-values) :td.has-text-danger)
      [:td
       [:nav.level
        [:div.level-item.has-text-centered

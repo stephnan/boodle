@@ -26,10 +26,9 @@
             (translate :it :savings/table.total)]]]
          [:tbody
           [:tr
-           [:td.has-text-centered
-            {:style {:color common/green}}
-            [savings/total]]
            [:td.has-text-centered.has-text-info
+            [savings/total]]
+           [:td.has-text-centered.has-text-success
             (str (common/format-number (+ total-savings total-aims))
                  (translate :it :currency))]]]]]])))
 

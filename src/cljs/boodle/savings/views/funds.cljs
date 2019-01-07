@@ -17,7 +17,7 @@
             (translate :it :funds/table.total)]]]
          [:tbody
           [:tr
-           [:td.has-text-centered.has-text-info
+           [:td.has-text-centered.has-text-success
             (str (common/format-number total)
                  (translate :it :currency))]]]]]])))
 
@@ -25,12 +25,11 @@
   [row]
   (when-let [amount (:amount row)]
     (let [amount-str (common/format-neg-or-pos amount)
-          color (if (pos? amount) common/green common/red)]
+          td-color (if (pos? amount) :td.has-text-success :td.has-text-danger)]
       [:tr {:key (random-uuid)}
        [:td (:date row)]
        [:td (:name row)]
-       [:td
-        {:style {:color color}}
+       [td-color
         (str amount-str (translate :it :currency))]
        [:td
         [:nav.level

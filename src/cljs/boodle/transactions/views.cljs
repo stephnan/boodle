@@ -23,26 +23,22 @@
             (translate :it :transactions/label.left)]]]
          [:tbody
           [:tr
-           [:td.has-text-centered
-            {:style {:color common/green}}
+           [:td.has-text-centered.has-text-info
             (str (common/format-number target) (translate :it :currency))]
-           [:td.has-text-centered
-            {:style {:color common/orange}}
+           [:td.has-text-centered.has-text-success
             (str (common/format-number saved) (translate :it :currency))]
-           [:td.has-text-centered
-            {:style {:color common/red}}
+           [:td.has-text-centered.has-text-danger
             (str (common/format-number left) (translate :it :currency))]]]]]])))
 
 (defn render-transaction-row
   [row]
   (when-let [amount (:amount row)]
     (let [amount-str (common/format-neg-or-pos amount)
-          color (if (pos? amount) common/green common/red)]
+          td-color (if (pos? amount) :td.has-text-success :td.has-text-danger)]
       [:tr {:key (random-uuid)}
        [:td (:date row)]
        [:td (:item row)]
-       [:td
-        {:style {:color color}}
+       [td-color
         (str amount-str (translate :it :currency))]])))
 
 (defn transactions-table
