@@ -112,7 +112,6 @@
   [db transfer]
   (let [id (js/parseInt (:id-aim transfer))
         aims (:active-aims db)
-        _ (.log js/console (type (:id (first aims))))
         aim (first (filter #(= (:id %) id) aims))]
     (:name aim)))
 
