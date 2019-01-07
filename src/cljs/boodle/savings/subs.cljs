@@ -13,6 +13,17 @@
  (fn [db _]
    (get-in db [:savings :row])))
 
+(rf/reg-sub-raw
+ :funds
+ (fn [db _]
+   (rf/dispatch [:get-funds])
+   (r/reaction (:funds @db))))
+
+(rf/reg-sub
+ :funds-row
+ (fn [db _]
+   (get-in db [:funds :row])))
+
 (rf/reg-sub
  :transfer-row
  (fn [db _]

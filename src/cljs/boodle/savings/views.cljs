@@ -4,6 +4,7 @@
             [boodle.modal :as modal]
             [boodle.savings.views.achieved-aims :as achieved]
             [boodle.savings.views.active-aims :as active]
+            [boodle.savings.views.funds :as funds]
             [boodle.savings.views.savings :as savings]
             [re-frame.core :as rf]))
 
@@ -32,11 +33,15 @@
       [savings/buttons]
       [:hr]
 
+      [common/page-title (translate :it :funds/page.title)]
+      [funds/total]
+      [funds/table]
+      [:hr]
+
       [common/page-title (translate :it :aims/page.title)]
       [active/total]
       [active/dropdown]
       [active/buttons]
-
       [modal/modal]
       [:hr]
 
