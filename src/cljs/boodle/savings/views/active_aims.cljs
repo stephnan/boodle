@@ -15,6 +15,14 @@
         [:h5.title.is-size-5 (translate :it :aims/label.total)
          (str (common/format-number total) (translate :it :currency))]]])))
 
+(defn render-amount
+  [amount]
+  (let [amount-str (common/format-neg-or-pos amount)
+        color (if (pos? amount) common/green common/red)]
+    [:td
+     {:style {:color color}}
+     (str amount-str (translate :it :currency))]))
+
 (defn render-summary-row
   [[k v]]
   (let [aim-id (name k)
@@ -22,15 +30,9 @@
     [:tr {:key (random-uuid)}
      [:td
       (:name aim-values)]
-     [:td
-      (str (common/format-neg-or-pos (:target aim-values))
-           (translate :it :currency))]
-     [:td
-      (str (common/format-neg-or-pos (:saved aim-values))
-           (translate :it :currency))]
-     [:td
-      (str (common/format-neg-or-pos (:left aim-values))
-           (translate :it :currency))]
+     (render-amount (:target aim-values))
+     (render-amount (:saved aim-values))
+     (render-amount (:left aim-values))
      [:td
       [:nav.level
        [:div.level-item.has-text-centered
