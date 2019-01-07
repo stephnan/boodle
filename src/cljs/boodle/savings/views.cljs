@@ -17,9 +17,21 @@
           total-aims (:total aims)]
       [:nav.level
        [:div.level-item.has-text-centered
-        [:h5.title.is-size-5 (translate :it :savings/label.total)
-         (str (common/format-number (+ total-savings total-aims))
-              (translate :it :currency))]]])))
+        [:table.table
+         [:thead
+          [:tr
+           [:th.has-text-centered
+            (translate :it :savings/table.total-unassigned)]
+           [:th.has-text-centered
+            (translate :it :savings/table.total)]]]
+         [:tbody
+          [:tr
+           [:td.has-text-centered
+            {:style {:color common/green}}
+            [savings/total]]
+           [:td.has-text-centered.has-text-info
+            (str (common/format-number (+ total-savings total-aims))
+                 (translate :it :currency))]]]]]])))
 
 (defn home-panel
   []
@@ -28,31 +40,52 @@
      [common/header]
      [:div.container {:style {:margin-top "1em"}}
       [common/page-title (translate :it :savings/page.title)]
-      [savings/total]
-      [savings/table]
-      [savings/buttons]
+      [total]
+      [:nav.level
+       [:div.level-item.has-text-centered
+        [savings/table]]]
+      [:nav.level
+       [:div.level-item.has-text-centered
+        [savings/buttons]]]
       [:hr]
 
-      [common/page-title (translate :it :funds/page.title)]
-      [funds/total]
-      [funds/table]
-      [funds/buttons]
+      [:h4.title.is-4.has-text-centered
+       (translate :it :funds/page.title)]
+      [:nav.level
+       [:div.level-item.has-text-centered
+        [funds/total]]]
+      [:nav.level
+       [:div.level-item.has-text-centered
+        [funds/table]]]
+      [:nav.level
+       [:div.level-item.has-text-centered
+        [funds/buttons]]]
       [:hr]
 
-      [common/page-title (translate :it :aims/page.title)]
-      [active/total]
+      [:h4.title.is-4.has-text-centered
+       (translate :it :aims/page.title)]
+      [:nav.level
+       [:div.level-item.has-text-centered
+        [active/total]]]
       [active/dropdown]
       [modal/modal]
-      [:hr]
-      [active/table]
-      [active/buttons]
-      [:hr]
-      [total]
+      [active/amounts]
+      [:nav.level
+       [:div.level-item.has-text-centered
+        [active/table]]]
+      [:nav.level
+       [:div.level-item.has-text-centered
+        [active/buttons]]]
       [:hr]
 
-      [common/page-title (translate :it :aims/label.archive)]
-      [achieved/dropdown]
-      [:hr]
-      [achieved/achieved-on]
-      [:div
-       [achieved/table]]]]))
+      [:h4.title.is-4.has-text-centered
+       (translate :it :aims/label.archive)]
+      [:nav.level
+       [:div.level-item.has-text-centered
+        [achieved/dropdown]]]
+      [:nav.level
+       [:div.level-item.has-text-centered
+        [achieved/achieved-on]]]
+      [:nav.level
+       [:div.level-item.has-text-centered
+        [achieved/table]]]]]))

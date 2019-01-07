@@ -10,8 +10,16 @@
           total (:total rows)]
       [:nav.level
        [:div.level-item.has-text-centered
-        [:h5.title.is-size-5 (translate :it :funds/label.total-funds)
-         (str (common/format-number total) (translate :it :currency))]]])))
+        [:table.table
+         [:thead
+          [:tr
+           [:th.has-text-centered
+            (translate :it :funds/table.total)]]]
+         [:tbody
+          [:tr
+           [:td.has-text-centered.has-text-info
+            (str (common/format-number total)
+                 (translate :it :currency))]]]]]])))
 
 (defn render-row
   [row]
@@ -38,17 +46,16 @@
   (fn []
     (let [rows @(rf/subscribe [:funds])
           funds (:funds rows)]
-      [:div {:style {:padding-bottom "1em"}}
-       [:table.table.is-striped.is-fullwidth
-        [:thead
-         [:tr
-          [:th (translate :it :funds/table.date)]
-          [:th (translate :it :funds/table.name)]
-          [:th (translate :it :funds/table.amount)]
-          [:th.has-text-centered
-           (translate :it :expenses/table.actions)]]]
-        [:tbody
-         (doall (map render-row funds))]]])))
+      [:table.table.is-striped.is-fullwidth
+       [:thead
+        [:tr
+         [:th (translate :it :funds/table.date)]
+         [:th (translate :it :funds/table.name)]
+         [:th (translate :it :funds/table.amount)]
+         [:th.has-text-centered
+          (translate :it :expenses/table.actions)]]]
+       [:tbody
+        (doall (map render-row funds))]])))
 
 (defn buttons
   []

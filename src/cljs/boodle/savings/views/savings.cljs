@@ -8,10 +8,7 @@
   (fn []
     (let [rows @(rf/subscribe [:savings])
           total (:total rows)]
-      [:nav.level
-       [:div.level-item.has-text-centered
-        [:h5.title.is-size-5 (translate :it :savings/label.total-unassigned)
-         (str (common/format-number total) (translate :it :currency))]]])))
+      (str (common/format-number total) (translate :it :currency)))))
 
 (defn render-row
   [row]
@@ -30,15 +27,14 @@
   (fn []
     (let [rows @(rf/subscribe [:savings])
           savings (:savings rows)]
-      [:div {:style {:padding-bottom "1em"}}
-       [:table.table.is-striped.is-fullwidth
-        [:thead
-         [:tr
-          [:th (translate :it :savings/table.date)]
-          [:th (translate :it :savings/table.item)]
-          [:th (translate :it :savings/table.amount)]]]
-        [:tbody
-         (doall (map render-row savings))]]])))
+      [:table.table.is-striped.is-fullwidth
+       [:thead
+        [:tr
+         [:th (translate :it :savings/table.date)]
+         [:th (translate :it :savings/table.item)]
+         [:th (translate :it :savings/table.amount)]]]
+       [:tbody
+        (doall (map render-row savings))]])))
 
 (defn buttons
   []

@@ -12,8 +12,16 @@
           total (:total rows)]
       [:nav.level
        [:div.level-item.has-text-centered
-        [:h5.title.is-size-5 (translate :it :aims/label.total)
-         (str (common/format-number total) (translate :it :currency))]]])))
+        [:table.table
+         [:thead
+          [:tr
+           [:th.has-text-centered
+            (translate :it :aims/table.total)]]]
+         [:tbody
+          [:tr
+           [:td.has-text-centered.has-text-info
+            (str (common/format-number total)
+                 (translate :it :currency))]]]]]])))
 
 (defn render-amount
   [amount]
@@ -62,16 +70,19 @@
        [:tbody
         (doall (map render-summary-row (:aims @rows)))]])))
 
+(defn amounts
+  []
+  (fn []
+    (when-let [aim-selected @(rf/subscribe [:selected-active-aim])]
+      [t/amounts])))
+
 (defn table
   []
   (fn []
     (let [aim-selected (rf/subscribe [:selected-active-aim])]
       (if @aim-selected
-        [:div {:style {:padding-bottom "1em"}}
-         [t/amounts]
-         [t/transactions-table :active-aim-transactions]]
-        [:div {:style {:padding-bottom "1em"}}
-         [summary-table]]))))
+        [t/transactions-table :active-aim-transactions]
+        [summary-table]))))
 
 (defn dropdown
   []

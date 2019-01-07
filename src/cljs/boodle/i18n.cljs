@@ -29,7 +29,8 @@
      :summary.table-aim "Meta"
      :summary.table-left "Rimanente"
      :summary.table-saved "Risparmiato"
-     :summary.table-target "Obiettivo"}
+     :summary.table-target "Obiettivo"
+     :table.total "Totale"}
 
     :button.cancel "Annulla"
     :button.close "Chiudi"
@@ -87,7 +88,6 @@
     :funds
     {:button.add "Aggiungi fondo"
      :button.transfer "Trasferisci importo"
-     :label.total-funds "Totale fondi: "
      :message.amount "Importo: deve essere un numero (es.: 3,55)"
      :message.name "Nome: è obbligatorio"
      :modal.add-title "Aggiungi fondo"
@@ -100,7 +100,8 @@
      :page.title "Fondi"
      :table.amount "Importo"
      :table.date "Data"
-     :table.name "Name"}
+     :table.name "Name"
+     :table.total "Totale"}
 
     :header
     {:boodle "boodle"
@@ -144,8 +145,6 @@
     {:button.add "Aggiungi risparmio"
      :label.active-aims "Mete attive"
      :label.funds "Fondi"
-     :label.total "Totale risparmi: "
-     :label.total-unassigned "Totale non assegnati: "
      :message.aim "Meta: selezionare una meta"
      :message.amount "Importo: deve essere un numero (es.: 3,55)"
      :message.fund "Fondo: selezionare un fondo"
@@ -161,12 +160,14 @@
      :page.title "Risparmi"
      :table.amount "Importo"
      :table.date "Data"
-     :table.item "Motivo"}
+     :table.item "Motivo"
+     :table.total "Totale"
+     :table.total-unassigned "Non assegnati"}
 
     :transactions
-    {:label.left "Rimanente: "
-     :label.saved "Risparmiato: "
-     :label.target "Obiettivo: "
+    {:label.left "Rimanente"
+     :label.saved "Risparmiato"
+     :label.target "Obiettivo"
      :message.amount "Importo: deve essere un numero (es.: 3,55)"
      :message.item "Motivo: è obbligatorio"
      :modal.amount "Importo (€)"

@@ -116,7 +116,9 @@
    [:div.modal-card-head
     [:h5.modal-card-title (:name category)]]
    [:section.modal-card-body
-    [expenses-table]]
+    [:nav.level
+     [:div.level-item.has-text-centered
+      [expenses-table]]]]
    [:footer.modal-card-foot
     [:button.button
      {:title (translate :it :button.cancel)

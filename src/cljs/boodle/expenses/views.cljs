@@ -168,8 +168,12 @@
       [:hr]
 
       [search-fields]
-      [expenses-buttons]
+      [:nav.level
+       [:div.level-item.has-text-centered
+        [expenses-buttons]]]
+
       [modal/modal]
 
-      [:div {:style {:padding-top ".1em"}}
-       [expenses-table]]]]))
+      [:nav.level
+       [:div.level-item.has-text-centered
+        [expenses-table]]]]]))

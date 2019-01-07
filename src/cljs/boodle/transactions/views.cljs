@@ -12,17 +12,26 @@
           left (:left @rows)]
       [:nav.level
        [:div.level-item.has-text-centered
-        [:h5.title.is-size-5 (translate :it :transactions/label.target)
-         [:strong {:style {:color common/green}}
-          (str (common/format-number target) (translate :it :currency))]]]
-       [:div.level-item.has-text-centered
-        [:h5.title.is-size-5 (translate :it :transactions/label.saved)
-         [:strong {:style {:color common/orange}}
-          (str (common/format-number saved) (translate :it :currency))]]]
-       [:div.level-item.has-text-centered
-        [:h5.title.is-size-5 (translate :it :transactions/label.left)
-         [:strong {:style {:color common/red}}
-          (str (common/format-number left) (translate :it :currency))]]]])))
+        [:table.table
+         [:thead
+          [:tr
+           [:th.has-text-centered
+            (translate :it :transactions/label.target)]
+           [:th.has-text-centered
+            (translate :it :transactions/label.saved)]
+           [:th.has-text-centered
+            (translate :it :transactions/label.left)]]]
+         [:tbody
+          [:tr
+           [:td.has-text-centered
+            {:style {:color common/green}}
+            (str (common/format-number target) (translate :it :currency))]
+           [:td.has-text-centered
+            {:style {:color common/orange}}
+            (str (common/format-number saved) (translate :it :currency))]
+           [:td.has-text-centered
+            {:style {:color common/red}}
+            (str (common/format-number left) (translate :it :currency))]]]]]])))
 
 (defn render-transaction-row
   [row]
