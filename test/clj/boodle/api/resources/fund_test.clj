@@ -21,9 +21,9 @@
 (deftest insert-test
   (with-redefs [ur/request-body->map (fn [req] req)
                 model/insert! (fn [fund] fund)]
-    (let [fund {:name "test" :amount "3,5"}]
+    (let [fund {:name "test"}]
       (is (= (f/insert! fund)
-             {:name "test" :amount 3.50 :date (jt/local-date)})))))
+             {:name "test" :amount 0 :date (jt/local-date)})))))
 
 (deftest update-test
   (with-redefs [ur/request-body->map (fn [req] req)

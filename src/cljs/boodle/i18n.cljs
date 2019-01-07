@@ -84,6 +84,7 @@
 
     :funds
     {:button.add "Aggiungi fondo"
+     :button.transfer "Trasferisci importo"
      :label.total-funds "Totale fondi: "
      :message.amount "Importo: deve essere un numero (es.: 3,55)"
      :message.name "Nome: è obbligatorio"
@@ -140,14 +141,17 @@
     :savings
     {:button.add "Aggiungi risparmio"
      :label.active-aims "Mete attive"
+     :label.funds "Fondi"
      :label.total "Totale risparmi: "
      :label.total-unassigned "Totale non assegnati: "
      :message.aim "Meta: selezionare una meta"
      :message.amount "Importo: deve essere un numero (es.: 3,55)"
+     :message.fund "Fondo: selezionare un fondo"
      :message.item "Motivo: è obbligatorio"
      :message.name "Nome: è obbligatorio"
      :message.target "Obiettivo: deve essere un numero (es.: 3,55)"
-     :message.transfer "Trasferimento fondi su meta: "
+     :message.aim-transfer "Trasferimento fondi su meta: "
+     :message.fund-transfer "Trasferimento fondi su fondo: "
      :modal.add-title "Aggiungi risparmio"
      :modal.amount "Importo"
      :modal.item "Motivo"

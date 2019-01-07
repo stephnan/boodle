@@ -227,19 +227,6 @@
                       [:bad-response])
     :db (assoc-in db [:expenses :params] {}))))
 
-(rf/reg-event-fx
- :edit-expense
- (fn [{db :db} [_ id]]
-   (let [expenses (get-in db [:expenses :rows])
-         row (-> (first (filter #(= (:id %) id) expenses))
-                 (update :amount common/format-number))
-         title (translate :it :expenses/modal.edit-title)]
-     {:db (assoc-in db [:expenses :row] row)
-      :dispatch
-      [:modal
-       {:show? true
-        :child [modal/save-expense title [:update-expense]]}]})))
-
 (rf/reg-event-db
  :load-category-expenses
  (fn [db [_ result]]

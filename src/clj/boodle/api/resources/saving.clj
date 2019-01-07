@@ -1,5 +1,6 @@
 (ns boodle.api.resources.saving
-  (:require [boodle.model.savings :as model]
+  (:require [boodle.model.funds :as f]
+            [boodle.model.savings :as model]
             [boodle.model.transactions :as t]
             [boodle.utils.dates :as ud]
             [boodle.utils.numbers :as numbers]
@@ -58,6 +59,28 @@
         (assoc :date (ud/today))
         (model/insert!))))
 
+(defn- update-fund!
+  [id amount]
+  (-> (first (f/select-by-id id))
+      (update :amount + amount)
+      f/update!))
+
+(defn transfer-to-fund!
+  "Transfer the amount from savings to a fund."
+  [request]
+  (let [transfer (ur/request-body->map request)
+        id-fund (numbers/str->integer (:id-fund transfer))
+        amount (numbers/str->double (:amount transfer))
+        t (-> transfer
+              (assoc :id-fund id-fund)
+              (assoc :amount amount)
+              (assoc :date (ud/today)))]
+    (update-fund! id-fund amount)
+    (-> t
+        (assoc :amount (- (:amount t)))
+        (assoc :date (ud/today))
+        (model/insert!))))
+
 (defroutes routes
   (context "/api/saving" [id]
     (GET "/find" []
@@ -71,4 +94,6 @@
     (DELETE "/delete/:id" [id]
       (response/ok (delete! id)))
     (PUT "/transfer/aim" request
-      (response/ok (transfer-to-aim! request)))))
+      (response/ok (transfer-to-aim! request)))
+    (PUT "/transfer/fund" request
+      (response/ok (transfer-to-fund! request)))))

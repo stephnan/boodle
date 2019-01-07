@@ -30,10 +30,6 @@
           [:div.field.is-grouped.is-grouped-centered
            [:p.control
             [:button.button
-             {:on-click #(rf/dispatch [:edit-fund (:id row)])}
-             [:i.fa.fa-pencil]]]
-           [:p.control
-            [:button.button
              {:on-click #(rf/dispatch [:remove-fund (:id row)])}
              [:i.fa.fa-remove]]]]]]]])))
 
@@ -60,4 +56,8 @@
    [:p.control
     [:button.button.is-primary
      {:on-click #(rf/dispatch [:add-fund])}
-     (translate :it :funds/button.add)]]])
+     (translate :it :funds/button.add)]]
+   [:p.control
+    [:button.button.is-primary
+     {:on-click #(rf/dispatch [:fund-transfer-amount])}
+     (translate :it :funds/button.transfer)]]])

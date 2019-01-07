@@ -1,5 +1,6 @@
 (ns boodle.api.resources.saving-test
   (:require [boodle.api.resources.saving :as s]
+            [boodle.model.funds :as f]
             [boodle.model.savings :as model]
             [boodle.model.transactions :as t]
             [boodle.utils.resource :as ur]
@@ -43,4 +44,14 @@
     (let [transfer {:id-aim "1" :item "test transfer" :amount "20"}]
       (is (= (s/transfer-to-aim! transfer)
              {:id-aim 1 :item "test transfer"
+              :amount -20.0 :date (jt/local-date)})))))
+
+(deftest transfer-to-fund-test
+  (with-redefs [ur/request-body->map (fn [req] req)
+                f/select-by-id (fn [id] [{:amount 0}])
+                f/update! (fn [fund] fund)
+                model/insert! (fn [params] params)]
+    (let [transfer {:id-fund "1" :item "test transfer" :amount "20"}]
+      (is (= (s/transfer-to-fund! transfer)
+             {:id-fund 1 :item "test transfer"
               :amount -20.0 :date (jt/local-date)})))))

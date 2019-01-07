@@ -23,11 +23,6 @@
  (fn [db [_ value]]
    (assoc-in db [:funds :row :name] value)))
 
-(rf/reg-event-db
- :fund-change-amount
- (fn [db [_ value]]
-   (assoc-in db [:funds :row :amount] value)))
-
 (rf/reg-event-fx
  :add-fund
  (fn [{db :db} [_ _]]
@@ -45,19 +40,11 @@
    [{:message (translate :it :funds/message.name)
      :check-fn v/not-empty?}]))
 
-(defn validate-amount
-  [fund]
-  (v/validate-input
-   (:amount fund)
-   [{:message (translate :it :funds/message.amount)
-     :check-fn v/valid-amount?}]))
-
 (defn validate-fund
   [fund]
   (let [result []]
     (-> result
-        (into (validate-name fund))
-        (into (validate-amount fund)))))
+        (into (validate-name fund)))))
 
 (rf/reg-event-fx
  :save-fund
@@ -78,8 +65,7 @@
  :edit-fund
  (fn [{db :db} [_ id]]
    (let [funds (get-in db [:funds :funds])
-         row (-> (first (filter #(= (:id %) id) funds))
-                 (update :amount common/format-number))
+         row (first (filter #(= (:id %) id) funds))
          title (translate :it :funds/modal.edit-title)]
      {:db (assoc-in db [:funds :row] row)
       :dispatch

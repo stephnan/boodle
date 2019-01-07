@@ -57,7 +57,9 @@
 
 (defn str->double
   [s]
-  (if (empty? s)
-    0
-    (let [n (s/replace s #"," ".")]
-      (Double/parseDouble n))))
+  (if (string? s)
+    (if (empty? s)
+      0
+      (let [n (s/replace s #"," ".")]
+        (Double/parseDouble n)))
+    s))

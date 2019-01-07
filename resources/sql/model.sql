@@ -41,7 +41,7 @@ CREATE TABLE savings (
 CREATE TABLE funds (
   id serial PRIMARY KEY,
   name VARCHAR(30) NOT NULL,
-  amount NUMERIC(10,2) NOT NULL,
+  amount NUMERIC(10,2),
   date DATE
 );
 

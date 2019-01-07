@@ -28,7 +28,7 @@
   [request]
   (-> request
       ur/request-body->map
-      (numbers/record-str->double :amount)
+      (assoc :amount 0)
       (ud/record-str->date :date)
       model/insert!))
 

@@ -38,15 +38,15 @@
         :on-click #(rf/dispatch [:close-modal])}
        (translate :it :button.cancel)]]]))
 
-(defn transfer-amount
+(defn transfer-aim-amount
   [title save-event]
   (let [row @(rf/subscribe [:transfer-row])
-        active-aims (conj @(rf/subscribe [:active-aims]) {:id "" :name ""})]
+        active-aims (conj @(rf/subscribe [:active-aims]) {:id-aim "" :name ""})]
     [:div.modal-card
      [:div.modal-card-head
       [:h5.modal-card-title title]]
      [:section.modal-card-body
-      [v/validation-msg-box]
+      [v/modal-validation-msg-box]
       [:div.field
        [:label.label (translate :it :savings/label.active-aims)]
        [:div.control
@@ -74,6 +74,42 @@
         :on-click #(rf/dispatch [:close-modal])}
        (translate :it :button.cancel)]]]))
 
+(defn transfer-fund-amount
+  [title save-event]
+  (let [row @(rf/subscribe [:transfer-row])
+        funds (conj (:funds @(rf/subscribe [:funds])) {:id-fund "" :name ""})]
+    [:div.modal-card
+     [:div.modal-card-head
+      [:h5.modal-card-title title]]
+     [:section.modal-card-body
+      [v/modal-validation-msg-box]
+      [:div.field
+       [:label.label (translate :it :savings/label.funds)]
+       [:div.control
+        [:div.select
+         [:select
+          {:value (v/or-empty-string (:id-fund row))
+           :on-change #(rf/dispatch [:transfer-change-fund
+                                     (-> % .-target .-value)])}
+          (map common/render-option funds)]]]]
+      [:div.field
+       [:label.label (translate :it :savings/modal.amount)]
+       [:div.control
+        [:input.input
+         {:type "text"
+          :value (:amount row)
+          :on-change #(rf/dispatch [:transfer-change-amount
+                                    (-> % .-target .-value)])}]]]]
+     [:footer.modal-card-foot
+      [:button.button.is-success
+       {:title (translate :it :button.ok)
+        :on-click #(rf/dispatch save-event)}
+       (translate :it :button.ok)]
+      [:button.button
+       {:title (translate :it :button.cancel)
+        :on-click #(rf/dispatch [:close-modal])}
+       (translate :it :button.cancel)]]]))
+
 (defn save-aim
   [title save-event]
   (let [row @(rf/subscribe [:aims-row])]
@@ -81,7 +117,7 @@
      [:div.modal-card-head
       [:h5.modal-card-title title]]
      [:section.modal-card-body
-      [v/validation-msg-box]
+      [v/modal-validation-msg-box]
       [:div.field
        [:label.label (translate :it :aims/modal.name)]
        [:div.control
@@ -173,14 +209,6 @@
          {:type "text"
           :value (v/or-empty-string (:name row))
           :on-change #(rf/dispatch [:fund-change-name
-                                    (-> % .-target .-value)])}]]]
-      [:div.field
-       [:label.label (translate :it :funds/modal.amount)]
-       [:div.control
-        [:input.input
-         {:type "text"
-          :value (:amount row)
-          :on-change #(rf/dispatch [:fund-change-amount
                                     (-> % .-target .-value)])}]]]]
      [:footer.modal-card-foot
       [:button.button.is-success
