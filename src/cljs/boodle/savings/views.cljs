@@ -13,6 +13,8 @@
   (fn []
     (let [savings @(rf/subscribe [:savings])
           total-savings (:total savings)
+          funds @(rf/subscribe [:funds])
+          total-funds (:total funds)
           aims @(rf/subscribe [:aims-summary])
           total-aims (:total aims)]
       [:nav.level
@@ -29,7 +31,7 @@
            [:td.has-text-centered.has-text-info
             [savings/total]]
            [:td.has-text-centered.has-text-success
-            (str (common/format-number (+ total-savings total-aims))
+            (str (common/format-number (+ total-savings total-funds total-aims))
                  (translate :it :currency))]]]]]])))
 
 (defn home-panel
