@@ -7,6 +7,7 @@
     {:button.achieved "Raggiunta"
      :button.add-transaction "Aggiungi movimento"
      :button.create "Crea meta"
+     :button.transfer "Trasferisci importo"
      :label.achieved "Raggiunte"
      :label.achieved-on "Raggiunta il: "
      :label.active "Attive"
@@ -138,7 +139,6 @@
 
     :savings
     {:button.add "Aggiungi risparmio"
-     :button.transfer "Trasferisci importo"
      :label.active-aims "Mete attive"
      :label.total "Totale risparmi: "
      :label.total-unassigned "Totale non assegnati: "
@@ -147,6 +147,7 @@
      :message.item "Motivo: è obbligatorio"
      :message.name "Nome: è obbligatorio"
      :message.target "Obiettivo: deve essere un numero (es.: 3,55)"
+     :message.transfer "Trasferimento fondi su meta: "
      :modal.add-title "Aggiungi risparmio"
      :modal.amount "Importo"
      :modal.item "Motivo"

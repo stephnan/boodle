@@ -45,7 +45,7 @@
       numbers/str->integer
       model/delete!))
 
-(defn transfer!
+(defn transfer-to-aim!
   "Transfer the amount from savings to an aim and track the transaction."
   [request]
   (let [transfer (ur/request-body->map request)
@@ -70,5 +70,5 @@
       (response/ok (update! request)))
     (DELETE "/delete/:id" [id]
       (response/ok (delete! id)))
-    (PUT "/transfer" request
-      (response/ok (transfer! request)))))
+    (PUT "/transfer/aim" request
+      (response/ok (transfer-to-aim! request)))))

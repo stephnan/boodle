@@ -46,8 +46,4 @@
    [:p.control
     [:button.button.is-primary
      {:on-click #(rf/dispatch [:add-saving])}
-     (translate :it :savings/button.add)]]
-   [:p.control
-    [:button.button.is-primary
-     {:on-click #(rf/dispatch [:transfer-amount])}
-     (translate :it :savings/button.transfer)]]])
+     (translate :it :savings/button.add)]]])

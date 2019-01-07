@@ -112,4 +112,8 @@
        [:p.control
         [:button.button.is-primary
          {:on-click #(rf/dispatch [:create-aim])}
-         (translate :it :aims/button.create)]]])))
+         (translate :it :aims/button.create)]]
+       [:p.control
+        [:button.button.is-primary
+         {:on-click #(rf/dispatch [:aim-transfer-amount])}
+         (translate :it :aims/button.transfer)]]])))

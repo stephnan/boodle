@@ -36,11 +36,11 @@
   (with-redefs [model/delete! (fn [id] id)]
     (is (= (s/delete! "1") 1))))
 
-(deftest transfer-test
+(deftest transfer-to-aim-test
   (with-redefs [ur/request-body->map (fn [req] req)
                 t/insert! (fn [params] params)
                 model/insert! (fn [params] params)]
     (let [transfer {:id-aim "1" :item "test transfer" :amount "20"}]
-      (is (= (s/transfer! transfer)
+      (is (= (s/transfer-to-aim! transfer)
              {:id-aim 1 :item "test transfer"
               :amount -20.0 :date (jt/local-date)})))))

@@ -84,7 +84,7 @@
    (assoc-in db [:transfer :row :amount] value)))
 
 (rf/reg-event-fx
- :transfer-amount
+ :aim-transfer-amount
  (fn [{db :db} [_ _]]
    (let [title (translate :it :savings/modal.transfer-title)]
      {:db db
@@ -92,7 +92,7 @@
       [[:get-active-aims]
        [:modal
         {:show? true
-         :child [modal/transfer-amount title [:transfer]]}]]})))
+         :child [modal/transfer-amount title [:aim-transfer]]}]]})))
 
 (defn validate-aim
   [transfer]
@@ -108,16 +108,30 @@
         (into (validate-aim transfer))
         (into (validate-amount transfer)))))
 
+(defn aim-name
+  [db transfer]
+  (let [id (js/parseInt (:id-aim transfer))
+        aims (:active-aims db)
+        _ (.log js/console (type (:id (first aims))))
+        aim (first (filter #(= (:id %) id) aims))]
+    (:name aim)))
+
+(defn transfer-message
+  [aim]
+  (str (translate :it :savings/message.transfer) aim))
+
 (rf/reg-event-fx
- :transfer
+ :aim-transfer
  (fn [{db :db} [_ _]]
    (let [transfer (get-in db [:transfer :row])
-         not-valid (validate-transfer transfer)]
+         not-valid (validate-transfer transfer)
+         aim (aim-name db transfer)
+         message (transfer-message aim)]
      (if-not (empty? not-valid)
        (rf/dispatch [:modal-validation-error not-valid])
        (assoc
-        (ajax/put-request "/api/saving/transfer"
-                          (assoc transfer :item "Trasferimento fondi")
+        (ajax/put-request "/api/saving/transfer/aim"
+                          (assoc transfer :item message)
                           [:refresh-savings-aims]
                           [:bad-response])
         :db (-> db
