@@ -10,7 +10,7 @@
      :label.achieved "Raggiunte"
      :label.achieved-on "Raggiunta il: "
      :label.active "Attive"
-     :label.archive "Archivo"
+     :label.archive "Archivio mete"
      :label.total "Totale mete: "
      :message.category "Categoria: selezionare una categoria"
      :modal.achieved-title "Meta raggiunta?"
