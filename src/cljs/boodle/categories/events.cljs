@@ -39,12 +39,12 @@
  :edit-category
  (fn [{db :db} [_ id]]
    (let [categories (get-in db [:categories :rows])
-         row (first (filter #(= (:id %) id) categories))]
+         row (first (filter #(= (:id %) id) categories))
+         title (translate :it :categories/modal.edit-title)]
      {:db (assoc-in db [:categories :row] row)
       :dispatch
-      [:modal {:show? true :child [modal/save-category
-                                   "Modifica categoria"
-                                   [:update-category]]}]})))
+      [:modal {:show? true
+               :child [modal/save-category title [:update-category]]}]})))
 
 (defn validate-name
   [category]
@@ -61,11 +61,11 @@
 (rf/reg-event-fx
  :create-category
  (fn [{db :db} [_ _]]
-   {:db (assoc-in db [:categories :row] nil)
-    :dispatch
-    [:modal {:show? true :child [modal/save-category
-                                 "Crea categoria"
-                                 [:save-category]]}]}))
+   (let [title (translate :it :categories/modal.create-title)]
+     {:db (assoc-in db [:categories :row] nil)
+      :dispatch
+      [:modal {:show? true
+               :child [modal/save-category title [:save-category]]}]})))
 
 (rf/reg-event-fx
  :save-category

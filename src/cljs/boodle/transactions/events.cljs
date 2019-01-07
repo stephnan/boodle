@@ -58,13 +58,12 @@
 (rf/reg-event-fx
  :create-transaction
  (fn [{db :db} [_ id-aim]]
-   {:db (assoc-in db [:aims :transactions :row] nil)
-    :dispatch
-    [:modal
-     {:show? true
-      :child [modal/save-transaction
-              "Crea movimento"
-              [:save-transaction id-aim]]}]}))
+   (let [title (translate :it :transactions/modal.create-title)]
+     {:db (assoc-in db [:aims :transactions :row] nil)
+      :dispatch
+      [:modal
+       {:show? true
+        :child [modal/save-transaction title [:save-transaction id-aim]]}]})))
 
 (rf/reg-event-fx
  :save-transaction
