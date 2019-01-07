@@ -36,6 +36,7 @@
   [request]
   (-> request
       ur/request-body->map
+      (numbers/record-str->double :amount)
       model/update!))
 
 (defn delete!

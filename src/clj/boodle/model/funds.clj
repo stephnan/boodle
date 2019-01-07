@@ -4,7 +4,7 @@
 
 (defn select-all
   []
-  (db/query {:select [:*] :from [:funds] :order-by [[:date :desc]]}))
+  (db/query {:select [:*] :from [:funds] :order-by [[:name :asc]]}))
 
 (defn select-by-id
   [id]

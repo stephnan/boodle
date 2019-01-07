@@ -23,7 +23,19 @@
        [:td (:name row)]
        [:td
         {:style {:color color}}
-        (str amount-str (translate :it :currency))]])))
+        (str amount-str (translate :it :currency))]
+       [:td
+        [:nav.level
+         [:div.level-item.has-text-centered
+          [:div.field.is-grouped.is-grouped-centered
+           [:p.control
+            [:button.button
+             {:on-click #(rf/dispatch [:edit-fund (:id row)])}
+             [:i.fa.fa-pencil]]]
+           [:p.control
+            [:button.button
+             {:on-click #(rf/dispatch [:remove-fund (:id row)])}
+             [:i.fa.fa-remove]]]]]]]])))
 
 (defn table
   []
@@ -36,7 +48,9 @@
          [:tr
           [:th (translate :it :funds/table.date)]
           [:th (translate :it :funds/table.name)]
-          [:th (translate :it :funds/table.amount)]]]
+          [:th (translate :it :funds/table.amount)]
+          [:th.has-text-centered
+           (translate :it :expenses/table.actions)]]]
         [:tbody
          (doall (map render-row funds))]]])))
 

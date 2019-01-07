@@ -191,3 +191,25 @@
        {:title (translate :it :button.cancel)
         :on-click #(rf/dispatch [:close-modal])}
        (translate :it :button.cancel)]]]))
+
+(defn delete-fund
+  []
+  (let [row @(rf/subscribe [:funds-row])]
+    [:div.modal-card
+     [:div.modal-card-head
+      [:h5.modal-card-title (translate :it :funds/modal.delete-title)]]
+     [:section.modal-card-body
+      [:p.has-text-centered
+       {:style {:color common/red}}
+       [:i.fa.fa-exclamation-triangle]
+       (translate :it :funds/modal.delete-confirm)
+       [:i.fa.fa-exclamation-triangle]]]
+     [:footer.modal-card-foot
+      [:button.button.is-danger
+       {:title (translate :it :funds/button-delete)
+        :on-click #(rf/dispatch [:delete-fund])}
+       (translate :it :funds/modal.button-delete)]
+      [:button.button
+       {:title (translate :it :button.cancel)
+        :on-click #(rf/dispatch [:close-modal])}
+       (translate :it :button.cancel)]]]))
