@@ -39,3 +39,11 @@
           [:th (translate :it :funds/table.amount)]]]
         [:tbody
          (doall (map render-row funds))]]])))
+
+(defn buttons
+  []
+  [:div.field.is-grouped.is-grouped-centered
+   [:p.control
+    [:button.button.is-primary
+     {:on-click #(rf/dispatch [:add-fund])}
+     (translate :it :funds/button.add)]]])

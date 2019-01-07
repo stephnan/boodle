@@ -86,11 +86,14 @@
      :label.total-funds "Totale fondi: "
      :message.amount "Importo: deve essere un numero (es.: 3,55)"
      :message.name "Nome: è obbligatorio"
+<<<<<<< HEAD
      :modal.add-title "Aggiungi fondo"
      :modal.button-delete "Cancella fondo"
      :modal.delete-confirm " Confermi la cancellazione del fondo? "
      :modal.delete-title "Cancella fondo"
      :modal.edit-title "Modifica fondo"
+=======
+>>>>>>> Add insert fund
      :modal.name "Nome"
      :modal.amount "Importo"
      :page.title "Fondi"

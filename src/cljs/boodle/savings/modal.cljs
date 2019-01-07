@@ -157,3 +157,37 @@
        {:title (translate :it :button.cancel)
         :on-click #(rf/dispatch [:close-modal])}
        (translate :it :button.cancel)]]]))
+
+(defn save-fund
+  [title save-event]
+  (let [row @(rf/subscribe [:funds-row])]
+    [:div.modal-card
+     [:div.modal-card-head
+      [:h5.modal-card-title title]]
+     [:section.modal-card-body
+      [v/modal-validation-msg-box]
+      [:div.field
+       [:label.label (translate :it :funds/modal.name)]
+       [:div.control
+        [:input.input
+         {:type "text"
+          :value (v/or-empty-string (:name row))
+          :on-change #(rf/dispatch [:fund-change-name
+                                    (-> % .-target .-value)])}]]]
+      [:div.field
+       [:label.label (translate :it :funds/modal.amount)]
+       [:div.control
+        [:input.input
+         {:type "text"
+          :value (:amount row)
+          :on-change #(rf/dispatch [:fund-change-amount
+                                    (-> % .-target .-value)])}]]]]
+     [:footer.modal-card-foot
+      [:button.button.is-success
+       {:title (translate :it :button.ok)
+        :on-click #(rf/dispatch save-event)}
+       (translate :it :button.ok)]
+      [:button.button
+       {:title (translate :it :button.cancel)
+        :on-click #(rf/dispatch [:close-modal])}
+       (translate :it :button.cancel)]]]))

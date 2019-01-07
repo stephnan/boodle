@@ -6,6 +6,7 @@
             [boodle.expenses.subs]
             [boodle.savings.events.achieved-aims]
             [boodle.savings.events.active-aims]
+            [boodle.savings.events.funds]
             [boodle.savings.events.savings]
             [boodle.savings.subs]
             [boodle.transactions.events]

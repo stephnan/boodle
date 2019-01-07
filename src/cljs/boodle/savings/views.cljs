@@ -36,16 +36,17 @@
       [common/page-title (translate :it :funds/page.title)]
       [funds/total]
       [funds/table]
+      [funds/buttons]
       [:hr]
 
       [common/page-title (translate :it :aims/page.title)]
       [active/total]
       [active/dropdown]
-      [active/buttons]
       [modal/modal]
       [:hr]
-
       [active/table]
+      [active/buttons]
+      [:hr]
       [total]
       [:hr]
 

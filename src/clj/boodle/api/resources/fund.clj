@@ -45,7 +45,7 @@
       model/delete!))
 
 (defroutes routes
-  (context "/api/funds" [id]
+  (context "/api/fund" [id]
     (GET "/find" []
       (response/ok (find-all)))
     (GET "/find/:id" [id]

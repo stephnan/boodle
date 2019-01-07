@@ -1,6 +1,9 @@
 (ns boodle.savings.events.funds
   (:require [boodle.ajax :as ajax]
+<<<<<<< HEAD
             [boodle.common :as common]
+=======
+>>>>>>> Add insert fund
             [boodle.i18n :refer [translate]]
             [boodle.savings.modal :as modal]
             [boodle.validation :as v]
@@ -31,12 +34,20 @@
 (rf/reg-event-fx
  :add-fund
  (fn [{db :db} [_ _]]
+<<<<<<< HEAD
    (let [title (translate :it :funds/modal.add-title)]
      {:db db
       :dispatch
       [:modal
        {:show? true
         :child [modal/save-fund title [:save-fund]]}]})))
+=======
+   {:db db
+    :dispatch
+    [:modal
+     {:show? true
+      :child [modal/save-fund "Aggiungi fondo" [:save-fund]]}]}))
+>>>>>>> Add insert fund
 
 (defn validate-name
   [fund]
@@ -73,6 +84,7 @@
                            [:bad-response])
         :db (assoc db :show-modal-validation false)
         :dispatch [:modal {:show? false :child nil}])))))
+<<<<<<< HEAD
 
 (rf/reg-event-fx
  :edit-fund
@@ -123,3 +135,5 @@
                            [:get-funds]
                            [:bad-response])
       :dispatch [:modal {:show? false :child nil}]))))
+=======
+>>>>>>> Add insert fund
