@@ -30,11 +30,12 @@
 (rf/reg-event-fx
  :add-saving
  (fn [{db :db} [_ _]]
-   {:db db
-    :dispatch
-    [:modal
-     {:show? true
-      :child [modal/save-saving "Aggiungi risparmio" [:save-saving]]}]}))
+   (let [title (translate :it :savings/modal.add-title)]
+     {:db db
+      :dispatch
+      [:modal
+       {:show? true
+        :child [modal/save-saving title [:save-saving]]}]})))
 
 (defn validate-item
   [saving]
@@ -85,12 +86,13 @@
 (rf/reg-event-fx
  :transfer-amount
  (fn [{db :db} [_ _]]
-   {:db db
-    :dispatch-n
-    [[:get-active-aims]
-     [:modal
-      {:show? true
-       :child [modal/transfer-amount "Trasferisci importo" [:transfer]]}]]}))
+   (let [title (translate :it :savings/modal.transfer-title)]
+     {:db db
+      :dispatch-n
+      [[:get-active-aims]
+       [:modal
+        {:show? true
+         :child [modal/transfer-amount title [:transfer]]}]]})))
 
 (defn validate-aim
   [transfer]

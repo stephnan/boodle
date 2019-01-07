@@ -96,11 +96,12 @@
 (rf/reg-event-fx
  :create-aim
  (fn [{db :db} [_ _]]
-   {:db (assoc-in db [:aims :row] nil)
-    :dispatch
-    [:modal
-     {:show? true
-      :child [modal/save-aim "Crea meta" [:save-aim]]}]}))
+   (let [title (translate :it :aims/modal.create-title)]
+     {:db (assoc-in db [:aims :row] nil)
+      :dispatch
+      [:modal
+       {:show? true
+        :child [modal/save-aim title [:save-aim]]}]})))
 
 (rf/reg-event-fx
  :save-aim
@@ -133,12 +134,13 @@
                  second
                  (assoc :id id)
                  (assoc :achieved false)
-                 (update :target common/format-number))]
+                 (update :target common/format-number))
+         title (translate :it :aims/modal.edit-title)]
      {:db (assoc-in db [:aims :row] row)
       :dispatch
       [:modal
        {:show? true
-        :child [modal/save-aim "Modifica meta" [:update-aim]]}]})))
+        :child [modal/save-aim title [:update-aim]]}]})))
 
 (rf/reg-event-fx
  :update-aim

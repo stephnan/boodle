@@ -102,12 +102,13 @@
  (fn [{db :db} [_ id]]
    (let [expenses (get-in db [:expenses :rows])
          row (-> (first (filter #(= (:id %) id) expenses))
-                 (update :amount common/format-number))]
+                 (update :amount common/format-number))
+         title (translate :it :expenses/:modal.edit-title)]
      {:db (assoc-in db [:expenses :row] row)
       :dispatch
       [:modal
        {:show? true
-        :child [modal/save-expense "Modifica spesa" [:update-expense]]}]})))
+        :child [modal/save-expense title [:update-expense]]}]})))
 
 (rf/reg-event-fx
  :update-expense
@@ -132,11 +133,12 @@
 (rf/reg-event-fx
  :create-expense
  (fn [{db :db} [_ _]]
-   {:db (assoc-in db [:expenses :row] nil)
-    :dispatch
-    [:modal
-     {:show? true
-      :child [modal/save-expense "Crea spesa" [:save-expense]]}]}))
+   (let [title (translate :it :expenses/modal.create-title)]
+     {:db (assoc-in db [:expenses :row] nil)
+      :dispatch
+      [:modal
+       {:show? true
+        :child [modal/save-expense title [:save-expense]]}]})))
 
 (rf/reg-event-fx
  :save-expense
@@ -230,12 +232,13 @@
  (fn [{db :db} [_ id]]
    (let [expenses (get-in db [:expenses :rows])
          row (-> (first (filter #(= (:id %) id) expenses))
-                 (update :amount common/format-number))]
+                 (update :amount common/format-number))
+         title (translate :it :expenses/modal.edit-title)]
      {:db (assoc-in db [:expenses :row] row)
       :dispatch
       [:modal
        {:show? true
-        :child [modal/save-expense "Modifica spesa" [:update-expense]]}]})))
+        :child [modal/save-expense title [:update-expense]]}]})))
 
 (rf/reg-event-db
  :load-category-expenses
