@@ -73,10 +73,6 @@
                            [:bad-response])
         :db (assoc db :show-modal-validation false)
         :dispatch [:modal {:show? false :child nil}])))))
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> Add update and delete fund
 
 (rf/reg-event-fx
  :edit-fund
@@ -84,7 +80,7 @@
    (let [funds (get-in db [:funds :funds])
          row (-> (first (filter #(= (:id %) id) funds))
                  (update :amount common/format-number))
-         title (translate :it :funds/modal.edit-title)])]
+         title (translate :it :funds/modal.edit-title)]
      {:db (assoc-in db [:funds :row] row)
       :dispatch
       [:modal
