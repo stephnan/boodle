@@ -72,8 +72,8 @@ I tried my best to stick to its conventions. Every Boodle topic (expenses,
 savings, categories, aims, funds, etc.) has its own set of events, subscriptions
 and views.
 
-This not only makes the code easier to understand, it also lets me focus on what
-a panel should do instead of how.
+This not only makes the code easier to understand, it also lets me focus on
+*what* a panel should do instead of *how*.
 
 I also tried to isolate page components as much as possible. The rule of thumb
 is: if there is a subscription involved, that is a component I can *inject*
