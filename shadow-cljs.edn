@@ -11,7 +11,7 @@
                 [kibu/pushy "0.3.8"]
                 [re-frame "0.10.6"]
                 [reagent "0.8.1"]
-                [reagent-utils "0.3.1"]
+                [reagent-utils "0.3.2"]
                 [refactor-nrepl "2.4.0"]
                 [tongue "0.2.5"]]
  :builds {:boodle {:target :browser
