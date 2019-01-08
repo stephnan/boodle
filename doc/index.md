@@ -88,7 +88,7 @@ application. Thanks to [tongue](https://github.com/tonsky/tongue), localizing
 Clojure/ClojureScript applications is easy.
 
 Anything you see on the screen is ready to be translated. If you plan to change
-Boodle language, you can find the translations in
+the language, you can find the translations in
 [i18n.cljs](https://github.com/manuel-uberti/boodle/blob/master/src/cljs/boodle/i18n.cljs).
 
 You should also check out
