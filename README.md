@@ -20,6 +20,10 @@ I used [Bulma](https://bulma.io/) for the UI, and I customised
 [re-frame-modal](https://github.com/benhowell/re-frame-modal) and
 [cljs-pikaday](https://github.com/timgilbert/cljs-pikaday) to play well with it.
 
+Check the
+[documentation](https://github.com/manuel-uberti/boodle/blob/master/doc/index.md)
+for more details.
+
 ## Usage
 
 To run boodle, install a Java JDK/JRE suitable for your system. I usually use
