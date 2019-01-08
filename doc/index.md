@@ -28,7 +28,7 @@ immensely helpful and kind.
 
 ### Tooling
 
-Boodle is build and developed with [Clojure
+Boodle is built and developed with [Clojure
 CLI](https://clojure.org/guides/getting_started) and
 [shadow-cljs](http://shadow-cljs.org/).
 
