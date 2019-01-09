@@ -1,18 +1,6 @@
 (ns boodle.utils.numbers
   (:require [clojure.string :as s]))
 
-(defn en->ita
-  [x]
-  (-> x
-      .toString
-      (s/replace #"\." ",")))
-
-(defn convert-amount
-  [m k]
-  (->> (get m k 0)
-       en->ita
-       (assoc m k)))
-
 (defn or-zero
   [x]
   (if x
