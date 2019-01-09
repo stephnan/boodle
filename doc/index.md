@@ -1,9 +1,9 @@
 # boodle
 
-Boodle is an accounting [single-page
-application](https://en.wikipedia.org/wiki/Single-page_application), born out of
-my desire to learn more about Clojure and ClojureScript and build something
-useful for the family.
+Boodle is a [single-page
+application](https://en.wikipedia.org/wiki/Single-page_application) for
+accounting, born out of my desire to learn more about Clojure and ClojureScript
+and build something useful for the family.
 
 ## Overview and rationale
 
