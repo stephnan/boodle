@@ -1,5 +1,5 @@
 (ns boodle.services.postgresql
-  (:require [boodle.services.configuration :as config]
+  (:require [boodle.services.configuration :refer [config]]
             [boodle.utils.dates :as ud]
             [boodle.utils.exceptions :as ex]
             [cheshire.core :as cheshire]
@@ -57,10 +57,10 @@
 
 (defn- make-datasource-options
   []
-  (let [host (get-in config/config [:postgresql :host])
-        db-name (get-in config/config [:postgresql :db-name])
-        user (get-in config/config [:postgresql :user])
-        password (get-in config/config [:postgresql :password])]
+  (let [host (get-in config [:postgresql :host])
+        db-name (get-in config [:postgresql :db-name])
+        user (get-in config [:postgresql :user])
+        password (get-in config [:postgresql :password])]
     {:auto-commit        true
      :read-only          false
      :connection-timeout 30000

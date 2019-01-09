@@ -1,5 +1,6 @@
-{:postgresql {:host "localhost"
+{:http {:port 8080}
+ :i18n {:date-format "dd/MM/yyyy"}
+ :postgresql {:host "localhost"
               :db-name "boodle"
               :user "admin"
-              :password "admin"}
- :http {:port 8080}}
+              :password "admin"}}
