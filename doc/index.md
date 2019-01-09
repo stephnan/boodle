@@ -81,7 +81,7 @@ wherever I need. Take a look at the [expenses
 views](https://github.com/manuel-uberti/boodle/blob/master/src/cljs/boodle/expenses/views.cljs)
 for an example of what I mean.
 
-### Localization
+## Localization
 
 Boodle is localized in Italian, but I didn’t want it to be an Italian-only
 application. Thanks to [tongue](https://github.com/tonsky/tongue), localizing
