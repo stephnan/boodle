@@ -22,9 +22,9 @@
 
 (defn stop-server!
   []
-  (when-not (nil? @server)
-    (@server :timeout 100)
-    (reset! server nil)))
+  (when (nil? @server)
+    (reset! server nil)
+    (@server :timeout 100)))
 
 (defn start-server!
   []
