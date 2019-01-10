@@ -93,7 +93,7 @@
 (defn- update-existing-expenses
   [old-category new-category]
   (let [expenses (e/find-by-category old-category)]
-    (when-not (empty? expenses)
+    (when (seq expenses)
       (-> (update-expenses-category expenses new-category)
           save-expenses))))
 
