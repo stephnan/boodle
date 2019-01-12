@@ -1,6 +1,8 @@
-{:source-paths ["src/cljs"]
- :nrepl {:port 8777
-         :middleware [refactor-nrepl.middleware/wrap-refactor]}
+{:builds {:boodle {:asset-path "/js"
+                   :modules {:main {:entries [boodle.core]}}
+                   :output-dir "resources/public/js"
+                   :target :browser}}
+
  :dependencies [[bidi "2.1.5"]
                 [binaryage/devtools "0.9.10"]
                 [camel-snake-kebab "0.4.0" :exclusions [org.clojure/clojure]]
@@ -14,7 +16,8 @@
                 [reagent-utils "0.3.2"]
                 [refactor-nrepl "2.4.0"]
                 [tongue "0.2.5"]]
- :builds {:boodle {:target :browser
-                   :output-dir "resources/public/js"
-                   :asset-path "/js"
-                   :modules {:main {:entries [boodle.core]}}}}}
+
+ :nrepl {:middleware [refactor-nrepl.middleware/wrap-refactor]
+         :port 8777}
+
+ :source-paths ["src/cljs"]}
