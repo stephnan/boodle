@@ -26,18 +26,27 @@ for more details.
 
 ## Usage
 
-To run boodle, install a Java JDK/JRE suitable for your system. I usually use
-[OpenJDK](https://openjdk.java.net/), but your mileage may vary. Install Clojure
-following the official [Getting
-Started](https://clojure.org/guides/getting_started), and then install and
-configure [PostgreSQL](https://www.postgresql.org) on your machine.
+### Prerequisites
+
+To run boodle, you need:
+
+- a Java JDK/JRE suitable for your system (I use
+  [OpenJDK](https://openjdk.java.net/))
+- [Clojure](https://clojure.org/guides/getting_started)
+- [PostgreSQL](https://www.postgresql.org)
+- [yarn](https://yarnpkg.com/en/)
+- [gulp](https://gulpjs.com/)
+- [shadow-cljs](http://shadow-cljs.org/)
+
+### Database setup
 
 Set up the database with the necessary tables and permissions you find in
 [model.sql](https://github.com/manuel-uberti/boodle/blob/master/resources/sql/model.sql).
 Check also `conf/config.edn` to adjust the database connection parameters.
 
-Install [yarn](https://yarnpkg.com/en/) and [gulp](https://gulpjs.com/), and
-then run:
+### Compiling
+
+From the project root, run:
 
 ```console
 $ yarn
@@ -46,20 +55,23 @@ $ yarn
 $ gulp
 ```
 
-Install [shadow-cljs](http://shadow-cljs.org/) and compile the ClojureScript
-files with:
+Compile the ClojureScript files with:
 
 ```console
 $ shadow-cljs compile boodle
 ```
 
-Then fire up the server with:
+### Running
+
+From the project root, fire up the server with:
 
 ```console
 $ clj -A:run
 ```
 
 You can now browse at `http://localhost:8080` and interact with boodle.
+
+## Extra
 
 The included `etc/boodle.service` is a basic [systemd
 unit](https://www.freedesktop.org/software/systemd/man/systemd.unit.html) that
@@ -69,7 +81,7 @@ home server.
 ## Tests
 
 Unit tests are configured with [kaocha](https://github.com/lambdaisland/kaocha)
-and can be run with:
+and can be run from the project root with:
 
 ```console
 $ ./bin/kaocha
