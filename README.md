@@ -71,13 +71,6 @@ $ clj -A:run
 
 You can now browse at `http://localhost:8080` and interact with boodle.
 
-## Extra
-
-The included `etc/boodle.service` is a basic [systemd
-unit](https://www.freedesktop.org/software/systemd/man/systemd.unit.html) that
-executes `etc/deploy.sh` to update, build and run boodle automatically on my
-home server.
-
 ## Tests
 
 Unit tests are configured with [kaocha](https://github.com/lambdaisland/kaocha)
@@ -86,6 +79,13 @@ and can be run from the project root with:
 ```console
 $ ./bin/kaocha
 ```
+
+## Extra
+
+The included `etc/boodle.service` is a basic [systemd
+unit](https://www.freedesktop.org/software/systemd/man/systemd.unit.html) that
+executes `etc/deploy.sh` to update, build and run boodle automatically on my
+home server.
 
 ## License
 
