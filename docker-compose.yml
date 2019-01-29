@@ -1,0 +1,21 @@
+version: "3"
+services:
+  app:
+    image: manuel-uberti/boodle
+    build: . # TODO: remove this line when the image is pushed to Docker Cloud
+    restart: unless-stopped
+    depends_on: ["database"]
+    ports: ["8080:8080"]
+    volumes:
+    - "./conf/config.docker.edn:/data/conf/config.edn"
+  database:
+    image: postgres:alpine
+    restart: unless-stopped
+    volumes:
+    - "./resources/sql/model.sql:/docker-entrypoint-initdb.d/boodle.sql"
+    - "database:/var/lib/postgresql/data"
+    environment:
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: boodle
+volumes:
+  database:
