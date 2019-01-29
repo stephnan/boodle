@@ -11,6 +11,7 @@
                 [com.andrewmcveigh/cljs-time "0.5.2"]
                 [day8.re-frame/http-fx "0.1.6"]
                 [kibu/pushy "0.3.8"]
+                [org.clojure/google-closure-library "0.0-20170809-b9c14c6b"]
                 [re-frame "0.10.6"]
                 [reagent "0.8.1"]
                 [reagent-utils "0.3.2"]

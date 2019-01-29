@@ -26,6 +26,13 @@ for more details.
 
 ## Usage
 
+### The fast way: using [Docker](https://docs.docker.com/get-started/) and [Docker Compose](https://docs.docker.com/compose/overview/)
+```
+git clone https://github.com/manuel-uberti/boodle.git && cd boodle
+docker-compose up -d
+```
+You can now access boodle at http://localhost:8080.
+
 ### Prerequisites
 
 To run boodle, you need:
