@@ -101,7 +101,7 @@ home server.
 
 ## License
 
-Copyright © (iterate inc 2019) Manuel Uberti
+Copyright © (iterate inc 2017) Manuel Uberti
 
 Distributed under the Eclipse Public License either version 1.0 or (at
 your option) any later version.
