@@ -73,8 +73,8 @@ You can now browse at `http://localhost:8080` and interact with boodle.
 
 ### Docker and Docker Compose
 
-Thanks to [Moritz Marquardt](https://github.com/moqmar), you can run boodle via
-[Docker](https://docs.docker.com/get-started/) and [Docker
+Thanks to [Moritz Marquardt](https://github.com/moqmar), you can also run boodle
+via [Docker](https://docs.docker.com/get-started/) and [Docker
 Compose](https://docs.docker.com/compose/overview/):
 
 ```console
