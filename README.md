@@ -81,7 +81,7 @@ Compose](https://docs.docker.com/compose/overview/):
 $ git clone https://github.com/manuel-uberti/boodle.git && cd boodle
 $ docker-compose up -d
 ```
-You can now access boodle at http://localhost:8080.
+You can now access boodle at `http://localhost:8080`.
 
 ## Tests
 
