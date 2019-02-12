@@ -4,10 +4,12 @@
             [boodle.utils.exceptions :as ex]
             [cheshire.core :as cheshire]
             [clojure.java.jdbc :as jdbc]
+            [clojure.string :as s]
             [hikari-cp.core :as hikari]
             [honeysql.core :as sql]
             [honeysql.format :as fmt]
-            [java-time :as jt]
+            [java-time.local :as jl]
+            [java-time.pre-java8 :as jp]
             [mount.core :as mount]
             [taoensso.timbre :as log])
   (:import [clojure.lang IPersistentMap IPersistentVector]
@@ -18,13 +20,13 @@
   Date
   (result-set-read-column [v _ _]
     (-> v
-        jt/local-date
+        jl/local-date
         ud/format-date))
 
   Timestamp
   (result-set-read-column [v _ _]
     (-> v
-        jt/local-date
+        jl/local-date
         ud/format-date))
 
   PGobject
@@ -51,9 +53,9 @@
 
 (extend-protocol jdbc/ISQLValue
   java.time.LocalDateTime
-  (sql-value [v] (jt/sql-timestamp v))
+  (sql-value [v] (jp/sql-timestamp v))
   java.time.LocalDate
-  (sql-value [v] (jt/sql-timestamp v)))
+  (sql-value [v] (jp/sql-timestamp v)))
 
 (defn- make-datasource-options
   []
@@ -93,12 +95,12 @@
 (defn snake-case->kebab-case
   [column]
   (when (keyword? column)
-    (keyword (clojure.string/replace (name column) #"_" "-"))))
+    (keyword (s/replace (name column) #"_" "-"))))
 
 (defn kebab-case->snake-case
   [column]
   (when (keyword? column)
-    (keyword (clojure.string/replace (name column) #"-" "_"))))
+    (keyword (s/replace (name column) #"-" "_"))))
 
 (defn format-input-keywords
   "Convert `input` keywords from kebab-case to snake_case."
