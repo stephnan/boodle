@@ -23,7 +23,7 @@
         org.postgresql/postgresql {:mvn/version "42.2.5"}
         org.slf4j/slf4j-simple {:mvn/version "1.7.26"}
         ring {:mvn/version "1.7.1"}
-        ring-middleware-format {:mvn/version "0.7.3"}
+        ring-middleware-format {:mvn/version "0.7.4"}
         ring/ring-defaults {:mvn/version "0.3.2"}
         ring/ring-json {:mvn/version "0.4.0"}
         ring/ring-mock {:mvn/version "0.3.2"}
