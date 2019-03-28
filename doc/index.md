@@ -7,7 +7,7 @@ and build something useful for the family.
 
 ## Overview and rationale
 
-These are Boodle main features:
+Boodle main features:
 
 - expense tracking
 - monthly budgeting
