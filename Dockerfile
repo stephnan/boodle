@@ -11,4 +11,4 @@ RUN echo "@testing http://nl.alpinelinux.org/alpine/edge/testing" >> /etc/apk/re
     cd /data && shadow-cljs compile boodle &&\
     clojure -e ''
 
-CMD ["/usr/local/bin/clj", "-A:run"]
+CMD ["/usr/local/bin/clojure", "-A:run"]
