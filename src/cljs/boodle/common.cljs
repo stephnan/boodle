@@ -23,7 +23,8 @@
       [:div.container
        [:nav.navbar.is-transparent
         [:div.navbar-brand
-         [:h1.title.is-1.navbar-item (translate :it :header/boodle)]
+         [:div.navbar-item
+          [:h2.title.is-2 (translate :it :header/boodle)]]
          [(navbar-burger show-burger-menu)
           {:role "button"
            :on-click #(rf/dispatch [:show-menu])}
