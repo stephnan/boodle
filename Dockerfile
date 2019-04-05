@@ -4,7 +4,7 @@ ADD . /data
 WORKDIR /data
 
 RUN echo "@testing http://nl.alpinelinux.org/alpine/edge/testing" >> /etc/apk/repositories &&\
-    apk add --no-cache yarn rlwrap@testing git &&\
+    apk add --no-cache yarn readline rlwrap@testing git &&\
     yarn global add shadow-cljs gulp-cli &&\
     yarn &&\
     cd /data/resources/src && yarn && gulp &&\
