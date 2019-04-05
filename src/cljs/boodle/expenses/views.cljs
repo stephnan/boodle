@@ -114,39 +114,22 @@
       [:h5.title.is-5.has-text-centered.is-uppercase
        (str month " " year)])))
 
-(defn card-header-bg-color
+(defn message
   [category]
   (let [total (:total category)
         budget (:monthly-budget category)]
     (cond
       (or (nil? budget) (= budget 0))
-      :header.card-header.category-card-green
+      :article.message.is-success
 
       (>= total budget)
-      :header.card-header.category-card-red
+      :article.message.is-danger
 
       (>= total (* budget 0.8))
-      :header.card-header.category-card-orange
+      :article.message.is-warning
 
       :else
-      :header.card-header.category-card-green)))
-
-(defn card-header-text-color
-  [category]
-  (let [total (:total category)
-        budget (:monthly-budget category)]
-    (cond
-      (or (nil? budget) (= budget 0))
-      :p.card-header-title.is-centered.category-card-white
-
-      (>= total budget)
-      :p.card-header-title.is-centered.category-card-white
-
-      (>= total (* budget 0.8))
-      :p.card-header-title.is-centered.category-card-black
-
-      :else
-      :p.card-header-title.is-centered.category-card-white)))
+      :article.message.is-success)))
 
 (defn total-budget
   [category]
@@ -159,26 +142,24 @@
           (common/format-number budget)
           (translate :it :currency))]))
 
-(defn render-card
+(defn render-message
   [category]
   [:div.column.is-2
    {:key (:id category)}
-   [:div.card.category-card
+   [(message category)
     {:style {:cursor "pointer"}
      :on-click #(rf/dispatch [:show-category-expenses category])}
-    [(card-header-bg-color category)
-     [(card-header-text-color category)
-      (:name category)]]
-    [:div.card-content
-     [:div.content.has-text-centered
-      (total-budget category)]]]])
+    [:div.message-header
+     (:name category)]
+    [:div.message-body
+     (total-budget category)]]])
 
-(defn categories-cards
+(defn categories-messages
   []
   (fn []
     (let [categories (rf/subscribe [:categories-monthly-expenses])]
       [:div.columns.is-multiline
-       (doall (map render-card @categories))])))
+       (doall (map render-message @categories))])))
 
 (defn home-panel
   []
@@ -191,7 +172,7 @@
       [v/validation-msg-box]
 
       [current-month]
-      [categories-cards]
+      [categories-messages]
 
       [:hr]
 
