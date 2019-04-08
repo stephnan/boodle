@@ -5,7 +5,9 @@
                       :main-opts ["-m" "depot.outdated.main"]}
            :run {:main-opts ["-m" "boodle.core"]}
            :test {:extra-deps {lambdaisland/kaocha {:mvn/version "0.0-389"}}
-                  :extra-paths ["test/clj"]}}
+                  :extra-paths ["test/clj"]}
+           :zprint {:extra-deps {zprint {:mvn/version "0.4.15"}}
+                    :main-opts  ["-m" "zprint.main"]}}
 
  :deps {cheshire {:mvn/version "5.8.1"}
         clojure.java-time {:mvn/version "0.3.2"}
@@ -26,7 +28,6 @@
         ring-middleware-format {:mvn/version "0.7.4"}
         ring/ring-defaults {:mvn/version "0.3.2"}
         ring/ring-json {:mvn/version "0.4.0"}
-        ring/ring-mock {:mvn/version "0.3.2"}
-        zprint {:mvn/version "0.4.15"}}
+        ring/ring-mock {:mvn/version "0.3.2"}}
 
  :paths ["src/clj" "resources"]}
