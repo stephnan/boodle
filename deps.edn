@@ -5,9 +5,7 @@
                       :main-opts ["-m" "depot.outdated.main"]}
            :run {:main-opts ["-m" "boodle.core"]}
            :test {:extra-deps {lambdaisland/kaocha {:mvn/version "0.0-389"}}
-                  :extra-paths ["test/clj"]}
-           :zprint {:extra-deps {zprint {:mvn/version "0.4.15"}}
-                    :main-opts  ["-m" "zprint.main"]}}
+                  :extra-paths ["test/clj"]}}
 
  :deps {cheshire {:mvn/version "5.8.1"}
         clojure.java-time {:mvn/version "0.3.2"}
