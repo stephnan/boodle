@@ -1,6 +1,7 @@
 (ns boodle.services.configuration
-  (:require [clojure.edn :as edn]
-            [mount.core :as mount]))
+  (:require [aero.core :as aero]
+            [clojure.java.io :as io]))
 
-(mount/defstate config
-  :start (-> "conf/config.edn" slurp edn/read-string))
+(defn config
+  []
+  (aero/read-config (io/resource "config/config.edn")))

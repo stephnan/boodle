@@ -6,12 +6,12 @@ Simple accounting SPA in Clojure and ClojureScript.
 
 boodle uses these Clojure/ClojureScript libraries:
 
+- [aero](https://github.com/juxt/aero)
 - [bidi](https://github.com/juxt/bidi)
 - [compojure](https://github.com/weavejester/compojure)
 - [hikari-cp](https://github.com/tomekw/hikari-cp)
 - [honeysql](https://github.com/jkk/honeysql)
 - [http-kit](http://www.http-kit.org/)
-- [mount](https://github.com/tolitius/mount)
 - [re-frame](https://github.com/Day8/re-frame)
 - [ring](https://github.com/ring-clojure/ring)
 - [tongue](https://github.com/tonsky/tongue)
