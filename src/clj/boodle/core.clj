@@ -1,14 +1,13 @@
 (ns boodle.core
   (:gen-class)
-  (:require [boodle.services.configuration :as config]
+  (:require [boodle.services.configuration :refer [config]]
             [boodle.services.http :as http]
             [boodle.services.postgresql :as db]))
 
 (defn -main
   [& args]
-  (let [conf (config/config)]
-    (db/connect! conf)
-    (http/start-server! conf)))
+  (db/connect! config)
+  (http/start-server! config))
 
 (defn reset
   []
