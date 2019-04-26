@@ -3,7 +3,7 @@
             [boodle.templates :as templates]
             [compojure.core :as compojure]
             [compojure.route :as route]
-            [org.httpkit.server :as server]
+            [org.httpkit.server :as httpkit]
             [ring.middleware.reload :as reload]
             [ring.util.http-response :as response]))
 
@@ -27,4 +27,4 @@
 (defn start-server!
   [config]
   (let [port (get-in config [:http :port])]
-    (reset! server (server/run-server app {:port port}))))
+    (reset! server (httpkit/run-server app {:port port}))))
