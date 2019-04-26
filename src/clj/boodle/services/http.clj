@@ -1,10 +1,8 @@
 (ns boodle.services.http
   (:require [boodle.api.routes :as api]
-            [boodle.services.configuration :as config]
             [boodle.templates :as templates]
             [compojure.core :as compojure]
             [compojure.route :as route]
-            [mount.core :as mount]
             [org.httpkit.server :as server]
             [ring.middleware.reload :as reload]
             [ring.util.http-response :as response]))
@@ -27,10 +25,6 @@
     (reset! server nil)))
 
 (defn start-server!
-  []
-  (let [port (get-in config/config [:http :port])]
+  [config]
+  (let [port (get-in config [:http :port])]
     (reset! server (server/run-server app {:port port}))))
-
-(mount/defstate http-server
-  :start (start-server!)
-  :stop (stop-server!))

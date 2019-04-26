@@ -6,7 +6,7 @@ services:
     depends_on: ["database"]
     ports: ["8080:8080"]
     volumes:
-    - "./conf/config.docker.edn:/data/conf/config.edn"
+    - "./resources/config/config.docker.edn:/data/conf/config.edn"
   database:
     image: postgres:alpine
     restart: unless-stopped

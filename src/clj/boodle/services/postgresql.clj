@@ -1,6 +1,5 @@
 (ns boodle.services.postgresql
-  (:require [boodle.services.configuration :refer [config]]
-            [boodle.utils.dates :as ud]
+  (:require [boodle.utils.dates :as ud]
             [boodle.utils.exceptions :as ex]
             [cheshire.core :as cheshire]
             [clojure.java.jdbc :as jdbc]
@@ -10,7 +9,6 @@
             [honeysql.format :as fmt]
             [java-time.local :as jl]
             [java-time.pre-java8 :as jp]
-            [mount.core :as mount]
             [taoensso.timbre :as log])
   (:import [clojure.lang IPersistentMap IPersistentVector]
            [java.sql Date Timestamp]
@@ -58,7 +56,7 @@
   (sql-value [v] (jp/sql-timestamp v)))
 
 (defn- make-datasource-options
-  []
+  [config]
   (let [host (get-in config [:postgresql :host])
         db-name (get-in config [:postgresql :db-name])
         user (get-in config [:postgresql :user])
@@ -80,17 +78,19 @@
      :port-number        5432
      :register-mbeans    false}))
 
+(def datasource (atom nil))
+
 (defn connect!
-  []
-  (hikari/make-datasource (make-datasource-options)))
+  [config]
+  (->> config
+       make-datasource-options
+       hikari/make-datasource
+       (reset! datasource)))
 
 (defn disconnect!
   [datasource]
-  (hikari/close-datasource datasource))
-
-(mount/defstate datasource
-  :start (connect!)
-  :stop (disconnect! datasource))
+  (hikari/close-datasource @datasource)
+  (reset! datasource nil))
 
 (defn snake-case->kebab-case
   [column]
@@ -137,7 +137,7 @@
   [sqlmap]
   (let [q (sql/format sqlmap)]
     (try
-      (jdbc/with-db-connection [conn {:datasource datasource}]
+      (jdbc/with-db-connection [conn {:datasource @datasource}]
         (->> q
              (jdbc/query conn)
              (map format-output-keywords)))
@@ -150,7 +150,7 @@
   [sqlmap]
   (let [q (sql/format sqlmap)]
     (try
-      (jdbc/with-db-connection [conn {:datasource datasource}]
+      (jdbc/with-db-connection [conn {:datasource @datasource}]
         (jdbc/execute! conn q))
       (catch Exception e
         (log/error (ex/get-stacktrace e))

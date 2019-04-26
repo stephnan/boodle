@@ -43,27 +43,23 @@ something new.
 Boodle runs on [PostgreSQL](https://www.postgresql.org/), which is always my
 go-to database when it comes to personal projects.
 
-Thanks to [mount](https://github.com/tolitius/mount), there are three main
-components:
+Thanks to [aero](https://github.com/juxt/aero), I only need to read the
+configuration for Boodle from `resources/config/config.edn`. Aero makes them
+available to the rest of the system.
 
-- [configuration](https://github.com/manuel-uberti/boodle/blob/master/src/clj/boodle/services/configuration.clj)
-- [database](https://github.com/manuel-uberti/boodle/blob/master/src/clj/boodle/services/postgresql.clj)
-- [HTTP server](https://github.com/manuel-uberti/boodle/blob/master/src/clj/boodle/services/http.clj)
-
-The `configuration` component loads the necessary configuration parameters from
-`conf/config.edn` and makes them available to the rest of the system.
-
-The `database` component contains all I need to interact with PostgreSQL.
-Besides the database connection, this component provides two functions the
-[model
+The
+[`postgresql`](https://github.com/manuel-uberti/boodle/tree/master/src/clj/boodle/services/postgresql.clj)
+namespace contains all I need to interact with PostgreSQL. Besides the database
+connection stored in an atom, there are two functions the [model
 layer](https://github.com/manuel-uberti/boodle/tree/master/src/clj/boodle/model)
 uses to read and write data: `query` and `execute!`.
 
-The `HTTP server` component is in charge of starting the HTTP server and setting
-up the routes for navigation. Boodle is a single-page application, but to avoid
-`404` errors on random page reloading, I added server-side routes matching the
-corresponding client-side panels: expenses (`/`), savings (`/savings`), and
-categories (`/categories`).
+The
+[`http`](https://github.com/manuel-uberti/boodle/tree/master/src/clj/boodle/services/http.clj)
+namespace handle HTTP server and sets the routes for navigation. Boodle is a
+single-page application, but to avoid `404` errors on random page reloading,
+I added server-side routes matching the corresponding client-side panels:
+expenses (`/`), savings (`/savings`), and categories (`/categories`).
 
 ### Client-side
 
