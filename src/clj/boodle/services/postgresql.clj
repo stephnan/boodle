@@ -88,7 +88,7 @@
        (reset! datasource)))
 
 (defn disconnect!
-  [datasource]
+  []
   (hikari/close-datasource @datasource)
   (reset! datasource nil))
 
