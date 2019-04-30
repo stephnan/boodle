@@ -1,34 +1,33 @@
 (ns boodle.api.resources.category-test
   (:require
-   [boodle.api.resources.category :as c]
-   [boodle.api.resources.expense :as e]
-   [boodle.model.categories :as model]
-   [boodle.model.expenses :as es]
-   [boodle.utils.dates :as ud]
-   [boodle.utils.resource :as ur]
+   [boodle.api.resources.category :as category]
+   [boodle.api.resources.expense :as expense]
+   [boodle.model.categories :as categories]
+   [boodle.model.expenses :as expenses]
+   [boodle.utils.resource :as resource]
    [clojure.test :refer :all]))
 
 (deftest find-all-test
-  (with-redefs [model/select-all (fn [] {:name "test"})]
-    (is (= (c/find-all) {:name "test"}))))
+  (with-redefs [categories/select-all (fn [] {:name "test"})]
+    (is (= (category/find-all) {:name "test"}))))
 
 (deftest find-by-id-test
-  (with-redefs [model/select-by-id (fn [id] id)]
-    (is (= (c/find-by-id "1") 1))))
+  (with-redefs [categories/select-by-id (fn [id] id)]
+    (is (= (category/find-by-id "1") 1))))
 
 (deftest find-by-name-test
-  (with-redefs [model/select-by-name (fn [n] n)]
-    (is (= (c/find-by-name "test") "test"))))
+  (with-redefs [categories/select-by-name (fn [n] n)]
+    (is (= (category/find-by-name "test") "test"))))
 
 (deftest find-category-monthly-totals-test
-  (with-redefs [model/select-category-monthly-expenses (fn [f t id] id)]
-    (is (= (c/find-category-monthly-totals 1) 1))))
+  (with-redefs [categories/select-category-monthly-expenses (fn [f t id] id)]
+    (is (= (category/find-category-monthly-totals 1) 1))))
 
 (deftest build-categories-expenses-vec-test
-  (with-redefs [c/find-all (fn [] [{:id 1
+  (with-redefs [category/find-all (fn [] [{:id 1
                                    :name "test-a"
                                    :monthly-budget 50}])
-                c/find-category-monthly-totals (fn [id]
+                category/find-category-monthly-totals (fn [id]
                                                  [{:id 1
                                                    :name "test-a"
                                                    :amount 5
@@ -37,12 +36,12 @@
                                                    :name "test-a"
                                                    :amount 5
                                                    :monthly-budget 50}])]
-    (is (= (c/build-categories-expenses-vec)
+    (is (= (category/build-categories-expenses-vec)
            [{:id 1 :name "test-a" :monthly-budget 50 :amount 5}
             {:id 1 :name "test-a" :monthly-budget 50 :amount 5}]))))
 
 (deftest format-categories-and-totals-test
-  (with-redefs [c/build-categories-expenses-vec (fn [] [{:id 1
+  (with-redefs [category/build-categories-expenses-vec (fn [] [{:id 1
                                                         :name "test"
                                                         :amount 5
                                                         :monthly-budget 50}
@@ -50,28 +49,28 @@
                                                         :name "test"
                                                         :amount 5
                                                         :monthly-budget 50}])]
-    (is (= (c/format-categories-and-totals)
+    (is (= (category/format-categories-and-totals)
            {1 {:id 1 :name "test" :monthly-budget 50 :total 10}}))))
 
 (deftest insert-test
-  (with-redefs [ur/request-body->map (fn [req] req)
-                model/insert! (fn [category] category)]
+  (with-redefs [resource/request-body->map (fn [req] req)
+                categories/insert! (fn [category] category)]
     (let [category {:name "test"}]
-      (is (= (c/insert! category) {:name "test"})))))
+      (is (= (category/insert! category) {:name "test"})))))
 
 (deftest update-test
-  (with-redefs [ur/request-body->map (fn [req] req)
-                model/update! (fn [category] category)]
+  (with-redefs [resource/request-body->map (fn [req] req)
+                categories/update! (fn [category] category)]
     (let [category {:name "test update"}]
-      (is (= (c/update! category) {:name "test update"})))))
+      (is (= (category/update! category) {:name "test update"})))))
 
 (deftest delete-test
-  (with-redefs [ur/request-body->map (fn [req] req)
-                e/find-by-category (fn [category] [{:name "test"
-                                                   :amount 3.50
-                                                   :id-category 1
-                                                   :date "14/07/2018"}])
-                es/update! (fn [expense] expense)
-                model/delete! (fn [id] id)]
+  (with-redefs [resource/request-body->map (fn [req] req)
+                expense/find-by-category (fn [category] [{:name "test"
+                                                          :amount 3.50
+                                                          :id-category 1
+                                                          :date "14/07/2018"}])
+                expenses/update! (fn [expense] expense)
+                categories/delete! (fn [id] id)]
     (let [body {:old-category "1" :new-category "2"}]
-      (is (= (c/delete! body) "1")))))
+      (is (= (category/delete! body) "1")))))

@@ -1,11 +1,10 @@
 (ns boodle.expenses.views
   (:require
-   [boodle.categories.views :as cv]
    [boodle.common :as common]
    [boodle.i18n :refer [translate]]
    [boodle.modal :as modal]
    [boodle.pikaday :as pikaday]
-   [boodle.validation :as v]
+   [boodle.validation :as validation]
    [re-frame.core :as rf]))
 
 (defn render-row
@@ -83,7 +82,7 @@
           [:div.field
            [:div.select
             [:select
-             {:value (v/or-empty-string (:categories @params))
+             {:value (validation/or-empty-string (:categories @params))
               :on-change #(rf/dispatch [:expenses-change-categories
                                         (-> % .-target .-value)])}
              (map common/render-option categories)]]]]]]])))
@@ -170,7 +169,7 @@
 
      [:div.container
       [common/page-title (translate :it :expenses/page.title)]
-      [v/validation-msg-box]
+      [validation/validation-msg-box]
 
       [current-month]
       [categories-messages]

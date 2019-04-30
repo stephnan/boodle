@@ -2,8 +2,8 @@
   (:require
    [boodle.common :as common]
    [boodle.i18n :refer [translate]]
-   [boodle.transactions.views :as t]
-   [boodle.validation :as v]
+   [boodle.transactions.views :as transactions.views]
+   [boodle.validation :as validation]
    [re-frame.core :as rf]))
 
 (defn total
@@ -73,14 +73,14 @@
   []
   (fn []
     (when-let [aim-selected @(rf/subscribe [:selected-active-aim])]
-      [t/amounts])))
+      [transactions.views/amounts])))
 
 (defn table
   []
   (fn []
     (let [aim-selected (rf/subscribe [:selected-active-aim])]
       (if @aim-selected
-        [t/transactions-table :active-aim-transactions]
+        [transactions.views/transactions-table :active-aim-transactions]
         [summary-table]))))
 
 (defn dropdown
@@ -97,7 +97,7 @@
           [:div.field
            [:div.select
             [:select.u-full-width
-             {:value (v/or-empty-string (:active @params))
+             {:value (validation/or-empty-string (:active @params))
               :on-change #(rf/dispatch [:aims-change-active
                                         (-> % .-target .-value)])}
              (doall

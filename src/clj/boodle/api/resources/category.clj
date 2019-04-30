@@ -1,34 +1,34 @@
 (ns boodle.api.resources.category
   (:require
-   [boodle.api.resources.expense :as e]
-   [boodle.model.categories :as model]
-   [boodle.model.expenses :as es]
-   [boodle.utils.dates :as ud]
+   [boodle.api.resources.expense :as expense]
+   [boodle.model.categories :as categories]
+   [boodle.model.expenses :as expenses]
+   [boodle.utils.dates :as dates]
    [boodle.utils.numbers :as numbers]
-   [boodle.utils.resource :as ur]
+   [boodle.utils.resource :as resource]
    [compojure.core :refer [context defroutes GET POST PUT]]
    [ring.util.http-response :as response]))
 
 (defn find-all
   []
-  (model/select-all))
+  (categories/select-all))
 
 (defn find-by-id
   [id]
   (-> id
       numbers/str->integer
-      model/select-by-id))
+      categories/select-by-id))
 
 (defn find-by-name
   [name]
-  (model/select-by-name name))
+  (categories/select-by-name name))
 
 (defn find-category-monthly-totals
   "Return the monthly expenses for the category `id`."
   [id]
-  (let [from (ud/first-day-of-month)
-        to (ud/last-day-of-month)]
-    (model/select-category-monthly-expenses from to id)))
+  (let [from (dates/first-day-of-month)
+        to (dates/last-day-of-month)]
+    (categories/select-category-monthly-expenses from to id)))
 
 (defn build-categories-expenses-vec
   "Build a vector with the monthly expenses for all the categories.
@@ -64,23 +64,23 @@
 (defn insert!
   [request]
   (-> request
-      ur/request-body->map
+      resource/request-body->map
       (numbers/record-str->double :monthly-budget)
-      model/insert!))
+      categories/insert!))
 
 (defn update!
   [request]
   (-> request
-      ur/request-body->map
+      resource/request-body->map
       (numbers/record-str->double :monthly-budget)
-      model/update!))
+      categories/update!))
 
 (defn- update-expense-category
   [expense id-category]
   (-> expense
       (assoc :id-category id-category)
       (numbers/record-str->double :id-category)
-      (ud/record-str->date :date)))
+      (dates/record-str->date :date)))
 
 (defn- update-expenses-category
   [expenses id-category]
@@ -89,20 +89,20 @@
 (defn- save-expenses
   [expenses]
   (doseq [e expenses]
-    (es/update! e)))
+    (expenses/update! e)))
 
 (defn- update-existing-expenses
   [old-category new-category]
-  (let [expenses (e/find-by-category old-category)]
+  (let [expenses (expense/find-by-category old-category)]
     (when (seq expenses)
       (-> (update-expenses-category expenses new-category)
           save-expenses))))
 
 (defn delete!
   [request]
-  (let [{:keys [old-category new-category]} (ur/request-body->map request)]
+  (let [{:keys [old-category new-category]} (resource/request-body->map request)]
     (update-existing-expenses old-category new-category)
-    (model/delete! old-category)))
+    (categories/delete! old-category)))
 
 (defroutes routes
   (context "/api/category" [id]

@@ -3,7 +3,7 @@
    [boodle.ajax :as ajax]
    [boodle.i18n :refer [translate]]
    [boodle.transactions.modal :as modal]
-   [boodle.validation :as v]
+   [boodle.validation :as validation]
    [re-frame.core :as rf]))
 
 (rf/reg-event-db
@@ -37,17 +37,17 @@
 
 (defn validate-item
   [transaction]
-  (v/validate-input
+  (validation/validate-input
    (:item transaction)
    [{:message (translate :it :transactions/message.item)
-     :check-fn v/not-empty?}]))
+     :check-fn validation/not-empty?}]))
 
 (defn validate-amount
   [transaction]
-  (v/validate-input
+  (validation/validate-input
    (:amount transaction)
    [{:message (translate :it :transactions/message.amount)
-     :check-fn v/valid-amount?}]))
+     :check-fn validation/valid-amount?}]))
 
 (defn validate-transaction
   [transaction]

@@ -4,7 +4,7 @@
    [boodle.common :as common]
    [boodle.i18n :refer [translate]]
    [boodle.savings.modal :as modal]
-   [boodle.validation :as v]
+   [boodle.validation :as validation]
    [re-frame.core :as rf]))
 
 (rf/reg-event-db
@@ -75,17 +75,17 @@
 
 (defn validate-name
   [aim]
-  (v/validate-input
+  (validation/validate-input
    (:name aim)
    [{:message (translate :it :savings/message.name)
-     :check-fn v/not-empty?}]))
+     :check-fn validation/not-empty?}]))
 
 (defn validate-target
   [aim]
-  (v/validate-input
+  (validation/validate-input
    (:target aim)
    [{:message (translate :it :savings/message.target)
-     :check-fn v/valid-amount?}]))
+     :check-fn validation/valid-amount?}]))
 
 (defn validate-aim
   [aim]

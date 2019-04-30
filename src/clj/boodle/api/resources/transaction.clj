@@ -1,27 +1,27 @@
 (ns boodle.api.resources.transaction
   (:require
-   [boodle.model.transactions :as model]
-   [boodle.utils.dates :as ud]
+   [boodle.model.transactions :as transactions]
+   [boodle.utils.dates :as dates]
    [boodle.utils.numbers :as numbers]
-   [boodle.utils.resource :as ur]
+   [boodle.utils.resource :as resource]
    [compojure.core :refer [context defroutes DELETE GET POST PUT]]
    [ring.util.http-response :as response]))
 
 (defn find-all
   []
-  (model/select-all))
+  (transactions/select-all))
 
 (defn find-by-id
   [id]
-  (model/select-by-id id))
+  (transactions/select-by-id id))
 
 (defn find-by-item
   [item]
-  (model/select-by-item item))
+  (transactions/select-by-item item))
 
 (defn find-by-aim
   [id-aim]
-  (let [ts (model/select-by-aim (numbers/str->integer id-aim))
+  (let [ts (transactions/select-by-aim (numbers/str->integer id-aim))
         target (first (map :target ts))
         saved (apply + (->> (map :amount ts) (map numbers/or-zero)))
         left (- target saved)]
@@ -33,25 +33,25 @@
 
 (defn insert!
   [request]
-  (let [transaction (ur/request-body->map request)]
+  (let [transaction (resource/request-body->map request)]
     (-> (numbers/record-str->double transaction :amount)
-        (ud/record-str->date :date)
+        (dates/record-str->date :date)
         (assoc :id-aim (numbers/str->integer (:id-aim transaction)))
-        model/insert!)))
+        transactions/insert!)))
 
 (defn update!
   [request]
-  (let [transaction (ur/request-body->map request)]
+  (let [transaction (resource/request-body->map request)]
     (-> (numbers/record-str->double transaction :amount)
         (assoc :id (numbers/str->integer (:id transaction)))
         (assoc :id-aim (numbers/str->integer (:id-aim transaction)))
-        model/update!)))
+        transactions/update!)))
 
 (defn delete!
   [id]
   (-> id
       numbers/str->integer
-      model/delete!))
+      transactions/delete!))
 
 (defroutes routes
   (context "/api/transaction" [id]

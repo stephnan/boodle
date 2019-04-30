@@ -2,13 +2,13 @@
   (:require
    [boodle.common :as common]
    [boodle.i18n :refer [translate]]
-   [boodle.transactions.views :as t]
-   [boodle.validation :as v]
+   [boodle.transactions.views :as transactions.views]
+   [boodle.validation :as validation]
    [re-frame.core :as rf]))
 
 (defn table
   []
-  [t/transactions-table :achieved-aim-transactions])
+  [transactions.views/transactions-table :achieved-aim-transactions])
 
 (defn dropdown
   []
@@ -25,7 +25,7 @@
           [:div.field
            [:div.select
             [:select
-             {:value (v/or-empty-string (get-in @params [:achieved :id]))
+             {:value (validation/or-empty-string (get-in @params [:achieved :id]))
               :on-change #(rf/dispatch [:aims-change-achieved
                                         (-> % .-target .-value)])}
              (map common/render-option achieved-aims)]]]]]]])))

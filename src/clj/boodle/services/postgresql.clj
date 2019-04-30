@@ -1,7 +1,7 @@
 (ns boodle.services.postgresql
   (:require
-   [boodle.utils.dates :as ud]
-   [boodle.utils.exceptions :as ex]
+   [boodle.utils.dates :as dates]
+   [boodle.utils.exceptions :as exceptions]
    [cheshire.core :as cheshire]
    [clojure.java.jdbc :as jdbc]
    [clojure.string :as s]
@@ -21,13 +21,13 @@
   (result-set-read-column [v _ _]
     (-> v
         jl/local-date
-        ud/format-date))
+        dates/format-date))
 
   Timestamp
   (result-set-read-column [v _ _]
     (-> v
         jl/local-date
-        ud/format-date))
+        dates/format-date))
 
   PGobject
   (result-set-read-column [pgobj _metadata _index]
@@ -144,7 +144,7 @@
              (jdbc/query conn)
              (map format-output-keywords)))
       (catch Exception e
-        (log/error (ex/get-stacktrace e))
+        (log/error (exceptions/get-stacktrace e))
         (throw (ex-info "Exception in query" {:sqlmap sqlmap :query q}))))))
 
 (defn execute!
@@ -155,5 +155,5 @@
       (jdbc/with-db-connection [conn {:datasource @datasource}]
         (jdbc/execute! conn q))
       (catch Exception e
-        (log/error (ex/get-stacktrace e))
+        (log/error (exceptions/get-stacktrace e))
         (throw (ex-info "Exception in execute!" {:sqlmap sqlmap :query q}))))))

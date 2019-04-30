@@ -5,7 +5,7 @@
    [boodle.expenses.modal :as modal]
    [boodle.i18n :refer [translate]]
    [boodle.pikaday :refer [date->string]]
-   [boodle.validation :as v]
+   [boodle.validation :as validation]
    [re-frame.core :as rf]))
 
 (rf/reg-event-db
@@ -71,24 +71,24 @@
 
 (defn validate-date
   [expense]
-  (v/validate-input
+  (validation/validate-input
    (:date expense)
    [{:message (translate :it :expenses/message.date)
-     :check-fn v/valid-date?}]))
+     :check-fn validation/valid-date?}]))
 
 (defn validate-amount
   [expense]
-  (v/validate-input
+  (validation/validate-input
    (:amount expense)
    [{:message (translate :it :expenses/message.amount)
-     :check-fn v/valid-amount?}]))
+     :check-fn validation/valid-amount?}]))
 
 (defn validate-category
   [expense]
-  (v/validate-input
+  (validation/validate-input
    (:id-category expense)
    [{:message (translate :it :expenses/message.category)
-     :check-fn v/not-empty?}]))
+     :check-fn validation/not-empty?}]))
 
 (defn validate-expense
   [expense]
@@ -180,17 +180,17 @@
 
 (defn validate-from
   [params]
-  (v/validate-input
+  (validation/validate-input
    (:from params)
    [{:message (translate :it :expenses/message.from)
-     :check-fn v/valid-date?}]))
+     :check-fn validation/valid-date?}]))
 
 (defn validate-to
   [params]
-  (v/validate-input
+  (validation/validate-input
    (:to params)
    [{:message (translate :it :expenses/message.to)
-     :check-fn v/valid-optional-date?}]))
+     :check-fn validation/valid-optional-date?}]))
 
 (defn validate-params
   [params]

@@ -3,7 +3,7 @@
    [boodle.ajax :as ajax]
    [boodle.i18n :refer [translate]]
    [boodle.savings.modal :as modal]
-   [boodle.validation :as v]
+   [boodle.validation :as validation]
    [re-frame.core :as rf]))
 
 (rf/reg-event-db
@@ -41,10 +41,10 @@
 
 (defn validate-category
   [aim]
-  (v/validate-input
+  (validation/validate-input
    (:category aim)
    [{:message (translate :it :aims/message.category)
-     :check-fn v/not-empty?}]))
+     :check-fn validation/not-empty?}]))
 
 (defn validate-aim
   [aim]

@@ -2,7 +2,7 @@
   (:require
    [boodle.common :as common]
    [boodle.i18n :refer [translate]]
-   [boodle.validation :as v]
+   [boodle.validation :as validation]
    [re-frame.core :as rf]))
 
 (defn save-category
@@ -12,13 +12,13 @@
      [:div.modal-card-head
       [:h5.modal-card-title title]]
      [:section.modal-card-body
-      [v/modal-validation-msg-box]
+      [validation/modal-validation-msg-box]
       [:div.field
        [:label.label (translate :it :categories/modal.name)]
        [:div.control
         [:input.input
          {:type "text"
-          :value (v/or-empty-string (:name row))
+          :value (validation/or-empty-string (:name row))
           :on-change #(rf/dispatch [:categories-change-name
                                     (-> % .-target .-value)])}]]]
       [:div.field
@@ -26,7 +26,7 @@
        [:div.control
         [:input.input
          {:type "text"
-          :value (v/or-empty-string (:monthly-budget row))
+          :value (validation/or-empty-string (:monthly-budget row))
           :on-change #(rf/dispatch [:categories-change-monthly-budget
                                     (-> % .-target .-value)])}]]]]
      [:footer.modal-card-foot
@@ -47,7 +47,7 @@
      [:div.modal-card-head
       [:h5.modal-card-title (translate :it :categories/modal.delete-title)]]
      [:section.modal-card-body
-      [v/modal-validation-msg-box]
+      [validation/modal-validation-msg-box]
       [:p.has-text-centered.has-text-danger
        [:i.fa.fa-exclamation-triangle]
        (translate :it :categories/modal.delete-confirm)
@@ -58,7 +58,7 @@
        [:div.control
         [:div.select
          [:select
-          {:value (v/or-empty-string new-category)
+          {:value (validation/or-empty-string new-category)
            :on-change #(rf/dispatch [:categories-change-category
                                      (-> % .-target .-value)])}
           (map common/render-option categories)]]]]]

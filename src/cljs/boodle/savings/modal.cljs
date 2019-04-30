@@ -2,7 +2,7 @@
   (:require
    [boodle.common :as common]
    [boodle.i18n :refer [translate]]
-   [boodle.validation :as v]
+   [boodle.validation :as validation]
    [re-frame.core :as rf]))
 
 (defn save-saving
@@ -12,13 +12,13 @@
      [:div.modal-card-head
       [:h5.modal-card-title title]]
      [:section.modal-card-body
-      [v/modal-validation-msg-box]
+      [validation/modal-validation-msg-box]
       [:div.field
        [:label.label (translate :it :savings/modal.item)]
        [:div.control
         [:input.input
          {:type "text"
-          :value (v/or-empty-string (:item row))
+          :value (validation/or-empty-string (:item row))
           :on-change #(rf/dispatch [:saving-change-item
                                     (-> % .-target .-value)])}]]]
       [:div.field
@@ -47,13 +47,13 @@
      [:div.modal-card-head
       [:h5.modal-card-title title]]
      [:section.modal-card-body
-      [v/modal-validation-msg-box]
+      [validation/modal-validation-msg-box]
       [:div.field
        [:label.label (translate :it :savings/label.active-aims)]
        [:div.control
         [:div.select
          [:select
-          {:value (v/or-empty-string (:id-aim row))
+          {:value (validation/or-empty-string (:id-aim row))
            :on-change #(rf/dispatch [:transfer-change-active-aim
                                      (-> % .-target .-value)])}
           (map common/render-option active-aims)]]]]
@@ -83,13 +83,13 @@
      [:div.modal-card-head
       [:h5.modal-card-title title]]
      [:section.modal-card-body
-      [v/modal-validation-msg-box]
+      [validation/modal-validation-msg-box]
       [:div.field
        [:label.label (translate :it :savings/label.funds)]
        [:div.control
         [:div.select
          [:select
-          {:value (v/or-empty-string (:id-fund row))
+          {:value (validation/or-empty-string (:id-fund row))
            :on-change #(rf/dispatch [:transfer-change-fund
                                      (-> % .-target .-value)])}
           (map common/render-option funds)]]]]
@@ -118,13 +118,13 @@
      [:div.modal-card-head
       [:h5.modal-card-title title]]
      [:section.modal-card-body
-      [v/modal-validation-msg-box]
+      [validation/modal-validation-msg-box]
       [:div.field
        [:label.label (translate :it :aims/modal.name)]
        [:div.control
         [:input.input
          {:type "text"
-          :value (v/or-empty-string (:name row))
+          :value (validation/or-empty-string (:name row))
           :on-change #(rf/dispatch [:aim-change-name
                                     (-> % .-target .-value)])}]]]
       [:div.field
@@ -174,13 +174,13 @@
      [:div.modal-card-head
       [:h5.modal-card-title (translate :it :aims/modal.achieved-title)]]
      [:section.modal-card-body
-      [v/modal-validation-msg-box]
+      [validation/modal-validation-msg-box]
       [:div.field
        [:label.label (translate :it :aims/modal.category)]
        [:div.control
         [:div.select
          [:select
-          {:value (v/or-empty-string (:category row))
+          {:value (validation/or-empty-string (:category row))
            :on-change #(rf/dispatch [:aim-change-category
                                      (-> % .-target .-value)])}
           (map common/render-option categories)]]]]]
@@ -201,13 +201,13 @@
      [:div.modal-card-head
       [:h5.modal-card-title title]]
      [:section.modal-card-body
-      [v/modal-validation-msg-box]
+      [validation/modal-validation-msg-box]
       [:div.field
        [:label.label (translate :it :funds/modal.name)]
        [:div.control
         [:input.input
          {:type "text"
-          :value (v/or-empty-string (:name row))
+          :value (validation/or-empty-string (:name row))
           :on-change #(rf/dispatch [:fund-change-name
                                     (-> % .-target .-value)])}]]]]
      [:footer.modal-card-foot

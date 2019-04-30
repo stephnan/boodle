@@ -3,7 +3,7 @@
    [boodle.common :as common]
    [boodle.i18n :refer [translate]]
    [boodle.pikaday :as pikaday]
-   [boodle.validation :as v]
+   [boodle.validation :as validation]
    [re-frame.core :as rf]))
 
 (defn save-expense
@@ -14,7 +14,7 @@
      [:div.modal-card-head
       [:h5.modal-card-title title]]
      [:section.modal-card-body
-      [v/modal-validation-msg-box]
+      [validation/modal-validation-msg-box]
       [:div.field
        [:label.label (translate :it :expenses/modal.date)]
        [:div.control
@@ -27,7 +27,7 @@
        [:div.control
         [:div.select
          [:select
-          {:value (v/or-empty-string (:id-category row))
+          {:value (validation/or-empty-string (:id-category row))
            :on-change #(rf/dispatch [:expense-change-category
                                      (-> % .-target .-value)])}
           (map common/render-option categories)]]]]
@@ -36,7 +36,7 @@
        [:div.control
         [:input.input
          {:type "text"
-          :value (v/or-empty-string (:item row))
+          :value (validation/or-empty-string (:item row))
           :on-change #(rf/dispatch [:expense-change-item
                                     (-> % .-target .-value)])}]]]
       [:div.field

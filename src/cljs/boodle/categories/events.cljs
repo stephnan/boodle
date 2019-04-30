@@ -3,7 +3,7 @@
    [boodle.ajax :as ajax]
    [boodle.categories.modal :as modal]
    [boodle.i18n :refer [translate]]
-   [boodle.validation :as v]
+   [boodle.validation :as validation]
    [re-frame.core :as rf]))
 
 (rf/reg-event-db
@@ -49,10 +49,10 @@
 
 (defn validate-name
   [category]
-  (v/validate-input
+  (validation/validate-input
    (:name category)
    [{:message (translate :it :categories/message.name)
-     :check-fn v/not-empty?}]))
+     :check-fn validation/not-empty?}]))
 
 (defn validate-category
   [category]
@@ -113,10 +113,10 @@
 
 (defn validate-new-category
   [new-id]
-  (v/validate-input
+  (validation/validate-input
    new-id
    [{:message (translate :it :categories/message.new)
-     :check-fn v/not-empty?}]))
+     :check-fn validation/not-empty?}]))
 
 (defn validate-deletion
   [new-id]

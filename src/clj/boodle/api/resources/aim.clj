@@ -1,59 +1,59 @@
 (ns boodle.api.resources.aim
   (:require
-   [boodle.model.expenses :as es]
-   [boodle.model.aims :as model]
-   [boodle.utils.dates :as ud]
+   [boodle.model.expenses :as expenses]
+   [boodle.model.aims :as aims]
+   [boodle.utils.dates :as dates]
    [boodle.utils.numbers :as numbers]
-   [boodle.utils.resource :as ur]
+   [boodle.utils.resource :as resource]
    [compojure.core :refer [context defroutes DELETE GET POST PUT]]
    [ring.util.http-response :as response]))
 
 (defn find-all
   []
-  (model/select-all))
+  (aims/select-all))
 
 (defn find-by-id
   [id]
   (-> id
       numbers/str->integer
-      model/select-by-id))
+      aims/select-by-id))
 
 (defn find-by-name
   [name]
-  (model/select-by-name name))
+  (aims/select-by-name name))
 
 (defn find-active
   []
-  (model/select-active))
+  (aims/select-active))
 
 (defn find-achieved
   []
-  (model/select-achieved))
+  (aims/select-achieved))
 
 (defn insert!
   [request]
   (-> request
-      ur/request-body->map
+      resource/request-body->map
       (numbers/record-str->double :target)
-      model/insert!))
+      aims/insert!))
 
 (defn update!
   [request]
-  (let [aim (ur/request-body->map request)]
+  (let [aim (resource/request-body->map request)]
     (-> (numbers/record-str->double aim :target)
         (assoc :id (numbers/str->integer (:id aim)))
-        model/update!)))
+        aims/update!)))
 
 (defn delete!
   [id]
   (-> id
       numbers/str->integer
-      model/delete!))
+      aims/delete!))
 
 (defn format-aims-and-totals
   "Return a map of aims with their total amounts."
   []
-  (let [aims (model/select-aims-with-transactions)]
+  (let [aims (aims/select-aims-with-transactions)]
     (reduce-kv
      (fn [m k v]
        (let [aim (first (map :aim v))
@@ -78,8 +78,8 @@
   (-> (numbers/record-str->double aim :target)
       (assoc :id (numbers/str->integer (:id aim)))
       (assoc :achieved achieved)
-      (assoc :achieved_on (ud/today))
-      (model/update!)))
+      (assoc :achieved_on (dates/today))
+      (aims/update!)))
 
 (defn aim->expense
   "Convert `aim` into an expense for the given `category`."
@@ -88,16 +88,16 @@
     {:amount (numbers/str->double (:target aim))
      :item (:name aim)
      :id-category id-category
-     :date (:date (ud/record-str->date aim :date))
+     :date (:date (dates/record-str->date aim :date))
      :from-savings true}))
 
 (defn achieved!
   "Mark an aim as achieved and track it on expenses."
   [request]
-  (let [params (ur/request-body->map request)
+  (let [params (resource/request-body->map request)
         aim (-> (:id params) find-by-id first)]
     (mark-aim-achieved aim (:achieved params))
-    (es/insert! (aim->expense aim (:category params)))))
+    (expenses/insert! (aim->expense aim (:category params)))))
 
 (defroutes routes
   (context "/api/aim" [id]

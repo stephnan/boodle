@@ -1,71 +1,71 @@
 (ns boodle.api.resources.expense
   (:require
-   [boodle.model.expenses :as model]
-   [boodle.utils.dates :as ud]
+   [boodle.model.expenses :as expenses]
+   [boodle.utils.dates :as dates]
    [boodle.utils.numbers :as numbers]
-   [boodle.utils.resource :as ur]
+   [boodle.utils.resource :as resource]
    [compojure.core :refer [context defroutes DELETE GET POST PUT]]
    [ring.util.http-response :as response]))
 
 (defn find-all
   []
-  (model/select-all))
+  (expenses/select-all))
 
 (defn find-by-id
   [id]
   (-> id
       numbers/str->integer
-      model/select-by-id))
+      expenses/select-by-id))
 
 (defn find-by-item
   [item]
-  (model/select-by-item item))
+  (expenses/select-by-item item))
 
 (defn find-by-category
   [id-category]
   (-> id-category
       numbers/str->integer
-      model/select-by-category))
+      expenses/select-by-category))
 
 (defn find-by-date-and-categories
   [request]
   (let [{from :from to :to categories :categories}
-        (ur/request-body->map request)
-        from (ud/to-local-date from)
-        to (if (nil? to) (ud/today) (ud/to-local-date to))
+        (resource/request-body->map request)
+        from (dates/to-local-date from)
+        to (if (nil? to) (dates/today) (dates/to-local-date to))
         cs (numbers/strs->integers categories)]
-    (model/select-by-date-and-categories from to cs)))
+    (expenses/select-by-date-and-categories from to cs)))
 
 (defn find-by-current-month-and-category
   [id-category]
-  (let [from (ud/first-day-of-month)
-        to (ud/last-day-of-month)
+  (let [from (dates/first-day-of-month)
+        to (dates/last-day-of-month)
         id (numbers/str->integer id-category)]
-    (model/select-by-date-and-categories from to id)))
+    (expenses/select-by-date-and-categories from to id)))
 
 (defn insert!
   [request]
   (-> request
-      ur/request-body->map
+      resource/request-body->map
       (numbers/record-str->double :amount)
       (numbers/record-str->integer :id-category)
-      (ud/record-str->date :date)
-      model/insert!))
+      (dates/record-str->date :date)
+      expenses/insert!))
 
 (defn update!
   [request]
   (-> request
-      ur/request-body->map
+      resource/request-body->map
       (numbers/record-str->double :amount)
       (numbers/record-str->integer :id-category)
-      (ud/record-str->date :date)
-      model/update!))
+      (dates/record-str->date :date)
+      expenses/update!))
 
 (defn delete!
   [id]
   (-> id
       numbers/str->integer
-      model/delete!))
+      expenses/delete!))
 
 (defroutes routes
   (context "/api/expense" [id]

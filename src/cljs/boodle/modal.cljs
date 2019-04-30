@@ -1,7 +1,6 @@
 (ns boodle.modal
   (:require
    [boodle.i18n :refer [translate]]
-   [boodle.validation :as v]
    [re-frame.core :as rf]))
 
 (defn modal-panel

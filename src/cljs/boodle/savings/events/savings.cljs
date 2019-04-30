@@ -3,7 +3,7 @@
    [boodle.ajax :as ajax]
    [boodle.i18n :refer [translate]]
    [boodle.savings.modal :as modal]
-   [boodle.validation :as v]
+   [boodle.validation :as validation]
    [re-frame.core :as rf]))
 
 (rf/reg-event-db
@@ -40,17 +40,17 @@
 
 (defn validate-item
   [saving]
-  (v/validate-input
+  (validation/validate-input
    (:item saving)
    [{:message (translate :it :savings/message.item)
-     :check-fn v/not-empty?}]))
+     :check-fn validation/not-empty?}]))
 
 (defn validate-amount
   [saving]
-  (v/validate-input
+  (validation/validate-input
    (:amount saving)
    [{:message (translate :it :savings/message.amount)
-     :check-fn v/valid-amount?}]))
+     :check-fn validation/valid-amount?}]))
 
 (defn validate-saving
   [saving]
@@ -102,10 +102,10 @@
 
 (defn validate-aim
   [transfer]
-  (v/validate-input
+  (validation/validate-input
    (:id-aim transfer)
    [{:message (translate :it :savings/message.aim)
-     :check-fn v/not-empty?}]))
+     :check-fn validation/not-empty?}]))
 
 (defn validate-aim-transfer
   [transfer]
@@ -162,10 +162,10 @@
 
 (defn validate-fund
   [transfer]
-  (v/validate-input
+  (validation/validate-input
    (:id-fund transfer)
    [{:message (translate :it :savings/message.fund)
-     :check-fn v/not-empty?}]))
+     :check-fn validation/not-empty?}]))
 
 (defn validate-fund-transfer
   [transfer]

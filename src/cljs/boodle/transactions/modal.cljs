@@ -1,7 +1,7 @@
 (ns boodle.transactions.modal
   (:require
    [boodle.i18n :refer [translate]]
-   [boodle.validation :as v]
+   [boodle.validation :as validation]
    [re-frame.core :as rf]))
 
 (defn save-transaction
@@ -11,13 +11,13 @@
      [:div.modal-card-head
       [:h5.modal-card-title title]]
      [:section.modal-card-body
-      [v/modal-validation-msg-box]
+      [validation/modal-validation-msg-box]
       [:div.field
        [:label.label (translate :it :transactions/modal.item)]
        [:div.control
         [:input.input
          {:type "text"
-          :value (v/or-empty-string (:item row))
+          :value (validation/or-empty-string (:item row))
           :on-change #(rf/dispatch [:transaction-change-item
                                     (-> % .-target .-value)])}]]]
       [:div.field
@@ -25,7 +25,7 @@
        [:div.control
         [:input.input
          {:type "text"
-          :value (v/or-empty-string (:amount row))
+          :value (validation/or-empty-string (:amount row))
           :on-change #(rf/dispatch [:transaction-change-amount
                                     (-> % .-target .-value)])}]]]]
      [:footer.modal-card-foot

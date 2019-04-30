@@ -1,15 +1,15 @@
 (ns boodle.api.resources.fund
   (:require
-   [boodle.model.funds :as model]
-   [boodle.utils.dates :as ud]
+   [boodle.model.funds :as funds]
+   [boodle.utils.dates :as dates]
    [boodle.utils.numbers :as numbers]
-   [boodle.utils.resource :as ur]
+   [boodle.utils.resource :as resource]
    [compojure.core :refer [context defroutes DELETE GET POST PUT]]
    [ring.util.http-response :as response]))
 
 (defn find-all
   []
-  (let [funds (model/select-all)
+  (let [funds (funds/select-all)
         total (apply + (map :amount funds))]
     (-> {}
         (assoc :funds funds)
@@ -19,32 +19,32 @@
   [id]
   (-> id
       numbers/str->integer
-      model/select-by-id))
+      funds/select-by-id))
 
 (defn find-by-name
   [name]
-  (model/select-by-name name))
+  (funds/select-by-name name))
 
 (defn insert!
   [request]
   (-> request
-      ur/request-body->map
+      resource/request-body->map
       (assoc :amount 0)
-      (ud/record-str->date :date)
-      model/insert!))
+      (dates/record-str->date :date)
+      funds/insert!))
 
 (defn update!
   [request]
   (-> request
-      ur/request-body->map
+      resource/request-body->map
       (numbers/record-str->double :amount)
-      model/update!))
+      funds/update!))
 
 (defn delete!
   [id]
   (-> id
       numbers/str->integer
-      model/delete!))
+      funds/delete!))
 
 (defroutes routes
   (context "/api/fund" [id]

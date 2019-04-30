@@ -3,7 +3,7 @@
    [boodle.common :as common]
    [boodle.i18n :refer [translate]]
    [boodle.modal :as modal]
-   [boodle.validation :as v]
+   [boodle.validation :as validation]
    [re-frame.core :as rf]))
 
 (defn render-row
@@ -58,7 +58,7 @@
 
      [:div.container
       [common/page-title (translate :it :categories/page.title)]
-      [v/validation-msg-box]
+      [validation/validation-msg-box]
       [modal/modal]
 
       [categories-buttons]
