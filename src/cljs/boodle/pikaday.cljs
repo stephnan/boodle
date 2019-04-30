@@ -1,15 +1,16 @@
 (ns boodle.pikaday
   "A modified version of https://github.com/timgilbert/cljs-pikaday"
-  (:require [boodle.i18n :refer [translate]]
-            [camel-snake-kebab.core :refer [->camelCaseString]]
-            [camel-snake-kebab.extras :refer [transform-keys]]
-            ["react-dom" :refer [findDOMNode]]
-            ["moment" :as moment]
-            ["pikaday" :as pikaday]
-            [cljs-time.core :as tt]
-            [cljs-time.coerce :as tc]
-            [cljs-time.format :as tf]
-            [reagent.core :as reagent :refer [atom]]))
+  (:require
+   [boodle.i18n :refer [translate]]
+   [camel-snake-kebab.core :refer [->camelCaseString]]
+   [camel-snake-kebab.extras :refer [transform-keys]]
+   ["react-dom" :refer [findDOMNode]]
+   ["moment" :as moment]
+   ["pikaday" :as pikaday]
+   [cljs-time.core :as tt]
+   [cljs-time.coerce :as tc]
+   [cljs-time.format :as tf]
+   [reagent.core :as reagent :refer [atom]]))
 
 (def i18n
   "See: https://github.com/dbushell/Pikaday#internationalization"

@@ -1,9 +1,10 @@
 (ns boodle.savings.events.achieved-aims
-  (:require [boodle.ajax :as ajax]
-            [boodle.i18n :refer [translate]]
-            [boodle.savings.modal :as modal]
-            [boodle.validation :as v]
-            [re-frame.core :as rf]))
+  (:require
+   [boodle.ajax :as ajax]
+   [boodle.i18n :refer [translate]]
+   [boodle.savings.modal :as modal]
+   [boodle.validation :as v]
+   [re-frame.core :as rf]))
 
 (rf/reg-event-db
  :load-achieved

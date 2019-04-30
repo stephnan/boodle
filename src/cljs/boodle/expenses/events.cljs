@@ -1,11 +1,12 @@
 (ns boodle.expenses.events
-  (:require [boodle.ajax :as ajax]
-            [boodle.common :as common]
-            [boodle.expenses.modal :as modal]
-            [boodle.i18n :refer [translate]]
-            [boodle.pikaday :refer [date->string]]
-            [boodle.validation :as v]
-            [re-frame.core :as rf]))
+  (:require
+   [boodle.ajax :as ajax]
+   [boodle.common :as common]
+   [boodle.expenses.modal :as modal]
+   [boodle.i18n :refer [translate]]
+   [boodle.pikaday :refer [date->string]]
+   [boodle.validation :as v]
+   [re-frame.core :as rf]))
 
 (rf/reg-event-db
  :expenses-change-from

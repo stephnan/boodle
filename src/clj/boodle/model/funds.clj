@@ -1,6 +1,7 @@
 (ns boodle.model.funds
-  (:require [boodle.services.postgresql :as db]
-            [honeysql.helpers :as hh]))
+  (:require
+   [boodle.services.postgresql :as db]
+   [honeysql.helpers :as hh]))
 
 (defn select-all
   []

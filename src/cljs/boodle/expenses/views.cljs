@@ -1,11 +1,12 @@
 (ns boodle.expenses.views
-  (:require [boodle.categories.views :as cv]
-            [boodle.common :as common]
-            [boodle.i18n :refer [translate]]
-            [boodle.modal :as modal]
-            [boodle.pikaday :as pikaday]
-            [boodle.validation :as v]
-            [re-frame.core :as rf]))
+  (:require
+   [boodle.categories.views :as cv]
+   [boodle.common :as common]
+   [boodle.i18n :refer [translate]]
+   [boodle.modal :as modal]
+   [boodle.pikaday :as pikaday]
+   [boodle.validation :as v]
+   [re-frame.core :as rf]))
 
 (defn render-row
   [row]

@@ -1,12 +1,13 @@
 (ns boodle.api.resources.category
-  (:require [boodle.api.resources.expense :as e]
-            [boodle.model.categories :as model]
-            [boodle.model.expenses :as es]
-            [boodle.utils.dates :as ud]
-            [boodle.utils.numbers :as numbers]
-            [boodle.utils.resource :as ur]
-            [compojure.core :refer [context defroutes GET POST PUT]]
-            [ring.util.http-response :as response]))
+  (:require
+   [boodle.api.resources.expense :as e]
+   [boodle.model.categories :as model]
+   [boodle.model.expenses :as es]
+   [boodle.utils.dates :as ud]
+   [boodle.utils.numbers :as numbers]
+   [boodle.utils.resource :as ur]
+   [compojure.core :refer [context defroutes GET POST PUT]]
+   [ring.util.http-response :as response]))
 
 (defn find-all
   []

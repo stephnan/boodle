@@ -1,7 +1,8 @@
 (ns boodle.model.categories
-  (:require [boodle.services.postgresql :as db]
-            [honeysql.core :as hc]
-            [honeysql.helpers :as hh]))
+  (:require
+   [boodle.services.postgresql :as db]
+   [honeysql.core :as hc]
+   [honeysql.helpers :as hh]))
 
 (defn select-all
   []

@@ -1,8 +1,9 @@
 (ns boodle.core
   (:gen-class)
-  (:require [boodle.services.configuration :refer [config]]
-            [boodle.services.http :as http]
-            [boodle.services.postgresql :as db]))
+  (:require
+   [boodle.services.configuration :refer [config]]
+   [boodle.services.http :as http]
+   [boodle.services.postgresql :as db]))
 
 (defn -main
   [& args]

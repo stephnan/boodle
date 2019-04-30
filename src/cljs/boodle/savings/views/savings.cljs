@@ -1,7 +1,8 @@
 (ns boodle.savings.views.savings
-  (:require [boodle.common :as common]
-            [boodle.i18n :refer [translate]]
-            [re-frame.core :as rf]))
+  (:require
+   [boodle.common :as common]
+   [boodle.i18n :refer [translate]]
+   [re-frame.core :as rf]))
 
 (defn total
   []

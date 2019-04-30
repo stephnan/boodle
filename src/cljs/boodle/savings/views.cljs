@@ -1,12 +1,13 @@
 (ns boodle.savings.views
-  (:require [boodle.common :as common]
-            [boodle.i18n :refer [translate]]
-            [boodle.modal :as modal]
-            [boodle.savings.views.achieved-aims :as achieved]
-            [boodle.savings.views.active-aims :as active]
-            [boodle.savings.views.funds :as funds]
-            [boodle.savings.views.savings :as savings]
-            [re-frame.core :as rf]))
+  (:require
+   [boodle.common :as common]
+   [boodle.i18n :refer [translate]]
+   [boodle.modal :as modal]
+   [boodle.savings.views.achieved-aims :as achieved]
+   [boodle.savings.views.active-aims :as active]
+   [boodle.savings.views.funds :as funds]
+   [boodle.savings.views.savings :as savings]
+   [re-frame.core :as rf]))
 
 (defn total
   []

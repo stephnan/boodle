@@ -1,9 +1,10 @@
 (ns boodle.savings.views.achieved-aims
-  (:require [boodle.common :as common]
-            [boodle.i18n :refer [translate]]
-            [boodle.transactions.views :as t]
-            [boodle.validation :as v]
-            [re-frame.core :as rf]))
+  (:require
+   [boodle.common :as common]
+   [boodle.i18n :refer [translate]]
+   [boodle.transactions.views :as t]
+   [boodle.validation :as v]
+   [re-frame.core :as rf]))
 
 (defn table
   []

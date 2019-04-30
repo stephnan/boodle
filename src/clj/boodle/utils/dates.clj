@@ -1,8 +1,9 @@
 (ns boodle.utils.dates
-  (:require [boodle.services.configuration :refer [config]]
-            [java-time.core :as jt]
-            [java-time.format :as jf]
-            [java-time.local :as jl]))
+  (:require
+   [boodle.services.configuration :refer [config]]
+   [java-time.core :as jt]
+   [java-time.format :as jf]
+   [java-time.local :as jl]))
 
 (def date-format (get-in config [:i18n :date-format] "dd/MM/yyyy"))
 

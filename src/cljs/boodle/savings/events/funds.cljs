@@ -1,10 +1,11 @@
 (ns boodle.savings.events.funds
-  (:require [boodle.ajax :as ajax]
-            [boodle.common :as common]
-            [boodle.i18n :refer [translate]]
-            [boodle.savings.modal :as modal]
-            [boodle.validation :as v]
-            [re-frame.core :as rf]))
+  (:require
+   [boodle.ajax :as ajax]
+   [boodle.common :as common]
+   [boodle.i18n :refer [translate]]
+   [boodle.savings.modal :as modal]
+   [boodle.validation :as v]
+   [re-frame.core :as rf]))
 
 (rf/reg-event-db
  :load-funds

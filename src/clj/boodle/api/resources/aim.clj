@@ -1,11 +1,12 @@
 (ns boodle.api.resources.aim
-  (:require [boodle.model.expenses :as es]
-            [boodle.model.aims :as model]
-            [boodle.utils.dates :as ud]
-            [boodle.utils.numbers :as numbers]
-            [boodle.utils.resource :as ur]
-            [compojure.core :refer [context defroutes DELETE GET POST PUT]]
-            [ring.util.http-response :as response]))
+  (:require
+   [boodle.model.expenses :as es]
+   [boodle.model.aims :as model]
+   [boodle.utils.dates :as ud]
+   [boodle.utils.numbers :as numbers]
+   [boodle.utils.resource :as ur]
+   [compojure.core :refer [context defroutes DELETE GET POST PUT]]
+   [ring.util.http-response :as response]))
 
 (defn find-all
   []

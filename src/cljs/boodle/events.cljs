@@ -1,7 +1,8 @@
 (ns boodle.events
-  (:require [boodle.ajax :as ajax]
-            [boodle.db :as db]
-            [re-frame.core :as rf]))
+  (:require
+   [boodle.ajax :as ajax]
+   [boodle.db :as db]
+   [re-frame.core :as rf]))
 
 (rf/reg-event-db
  :initialize-db

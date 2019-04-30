@@ -1,9 +1,10 @@
 (ns boodle.expenses.modal
-  (:require [boodle.common :as common]
-            [boodle.i18n :refer [translate]]
-            [boodle.pikaday :as pikaday]
-            [boodle.validation :as v]
-            [re-frame.core :as rf]))
+  (:require
+   [boodle.common :as common]
+   [boodle.i18n :refer [translate]]
+   [boodle.pikaday :as pikaday]
+   [boodle.validation :as v]
+   [re-frame.core :as rf]))
 
 (defn save-expense
   [title save-event]

@@ -1,7 +1,8 @@
 (ns boodle.transactions.modal
-  (:require [boodle.i18n :refer [translate]]
-            [boodle.validation :as v]
-            [re-frame.core :as rf]))
+  (:require
+   [boodle.i18n :refer [translate]]
+   [boodle.validation :as v]
+   [re-frame.core :as rf]))
 
 (defn save-transaction
   [title save-event]

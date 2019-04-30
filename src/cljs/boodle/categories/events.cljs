@@ -1,9 +1,10 @@
 (ns boodle.categories.events
-  (:require [boodle.ajax :as ajax]
-            [boodle.categories.modal :as modal]
-            [boodle.i18n :refer [translate]]
-            [boodle.validation :as v]
-            [re-frame.core :as rf]))
+  (:require
+   [boodle.ajax :as ajax]
+   [boodle.categories.modal :as modal]
+   [boodle.i18n :refer [translate]]
+   [boodle.validation :as v]
+   [re-frame.core :as rf]))
 
 (rf/reg-event-db
  :load-categories

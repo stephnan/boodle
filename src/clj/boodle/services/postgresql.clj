@@ -1,18 +1,20 @@
 (ns boodle.services.postgresql
-  (:require [boodle.utils.dates :as ud]
-            [boodle.utils.exceptions :as ex]
-            [cheshire.core :as cheshire]
-            [clojure.java.jdbc :as jdbc]
-            [clojure.string :as s]
-            [hikari-cp.core :as hikari]
-            [honeysql.core :as sql]
-            [honeysql.format :as fmt]
-            [java-time.local :as jl]
-            [java-time.pre-java8 :as jp]
-            [taoensso.timbre :as log])
-  (:import [clojure.lang IPersistentMap IPersistentVector]
-           [java.sql Date Timestamp]
-           org.postgresql.util.PGobject))
+  (:require
+   [boodle.utils.dates :as ud]
+   [boodle.utils.exceptions :as ex]
+   [cheshire.core :as cheshire]
+   [clojure.java.jdbc :as jdbc]
+   [clojure.string :as s]
+   [hikari-cp.core :as hikari]
+   [honeysql.core :as sql]
+   [honeysql.format :as fmt]
+   [java-time.local :as jl]
+   [java-time.pre-java8 :as jp]
+   [taoensso.timbre :as log])
+  (:import
+   [clojure.lang IPersistentMap IPersistentVector]
+   [java.sql Date Timestamp]
+   org.postgresql.util.PGobject))
 
 (extend-protocol jdbc/IResultSetReadColumn
   Date
