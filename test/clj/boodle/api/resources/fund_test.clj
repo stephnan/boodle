@@ -1,9 +1,10 @@
 (ns boodle.api.resources.fund-test
-  (:require [boodle.api.resources.fund :as f]
-            [boodle.model.funds :as model]
-            [boodle.utils.resource :as ur]
-            [clojure.test :refer :all]
-            [java-time :as jt]))
+  (:require
+   [boodle.api.resources.fund :as f]
+   [boodle.model.funds :as model]
+   [boodle.utils.resource :as ur]
+   [clojure.test :refer :all]
+   [java-time :as jt]))
 
 (deftest find-all-test
   (with-redefs [model/select-all (fn [] [{:name "test" :amount 3.5}])]

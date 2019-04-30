@@ -1,11 +1,12 @@
 (ns boodle.api.resources.category-test
-  (:require [boodle.api.resources.category :as c]
-            [boodle.api.resources.expense :as e]
-            [boodle.model.categories :as model]
-            [boodle.model.expenses :as es]
-            [boodle.utils.dates :as ud]
-            [boodle.utils.resource :as ur]
-            [clojure.test :refer :all]))
+  (:require
+   [boodle.api.resources.category :as c]
+   [boodle.api.resources.expense :as e]
+   [boodle.model.categories :as model]
+   [boodle.model.expenses :as es]
+   [boodle.utils.dates :as ud]
+   [boodle.utils.resource :as ur]
+   [clojure.test :refer :all]))
 
 (deftest find-all-test
   (with-redefs [model/select-all (fn [] {:name "test"})]

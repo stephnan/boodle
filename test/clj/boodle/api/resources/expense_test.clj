@@ -1,9 +1,10 @@
 (ns boodle.api.resources.expense-test
-  (:require [boodle.api.resources.expense :as e]
-            [boodle.model.expenses :as model]
-            [boodle.utils.dates :as ud]
-            [boodle.utils.resource :as ur]
-            [clojure.test :refer :all]))
+  (:require
+   [boodle.api.resources.expense :as e]
+   [boodle.model.expenses :as model]
+   [boodle.utils.dates :as ud]
+   [boodle.utils.resource :as ur]
+   [clojure.test :refer :all]))
 
 (deftest find-all-test
   (with-redefs [model/select-all (fn [] [{:item "test" :amount 3.50}])]

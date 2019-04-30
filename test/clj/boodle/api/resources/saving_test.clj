@@ -1,11 +1,12 @@
 (ns boodle.api.resources.saving-test
-  (:require [boodle.api.resources.saving :as s]
-            [boodle.model.funds :as f]
-            [boodle.model.savings :as model]
-            [boodle.model.transactions :as t]
-            [boodle.utils.resource :as ur]
-            [clojure.test :refer :all]
-            [java-time :as jt]))
+  (:require
+   [boodle.api.resources.saving :as s]
+   [boodle.model.funds :as f]
+   [boodle.model.savings :as model]
+   [boodle.model.transactions :as t]
+   [boodle.utils.resource :as ur]
+   [clojure.test :refer :all]
+   [java-time :as jt]))
 
 (deftest find-all-test
   (with-redefs [model/select-all (fn [] [{:item "test" :amount 3.5}])]

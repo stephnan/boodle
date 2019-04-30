@@ -1,10 +1,11 @@
 (ns boodle.api.resources.aim-test
-  (:require [boodle.api.resources.aim :as a]
-            [boodle.model.aims :as model]
-            [boodle.model.expenses :as es]
-            [boodle.utils.dates :as ud]
-            [boodle.utils.resource :as ur]
-            [clojure.test :refer :all]))
+  (:require
+   [boodle.api.resources.aim :as a]
+   [boodle.model.aims :as model]
+   [boodle.model.expenses :as es]
+   [boodle.utils.dates :as ud]
+   [boodle.utils.resource :as ur]
+   [clojure.test :refer :all]))
 
 (deftest find-all-test
   (with-redefs [model/select-all (fn [] [{:item "test" :target 10.50}])]
