@@ -12,9 +12,9 @@
    [java-time.pre-java8 :as jp]
    [taoensso.timbre :as log])
   (:import
-   [clojure.lang IPersistentMap IPersistentVector]
-   [java.sql Date Timestamp]
-   org.postgresql.util.PGobject))
+   (clojure.lang IPersistentMap IPersistentVector)
+   (java.sql Date Timestamp)
+   (org.postgresql.util PGobject)))
 
 (extend-protocol jdbc/IResultSetReadColumn
   Date
