@@ -39,55 +39,56 @@
   []
   (fn []
     [:div
+     [modal/modal]
      [common/header]
      [:div.container {:style {:margin-top "1em"}}
       [common/page-title (translate :it :savings/page.title)]
-      [total]
-      [:nav.level
-       [:div.level-item.has-text-centered
-        [savings/table]]]
-      [:nav.level
-       [:div.level-item.has-text-centered
-        [savings/buttons]]]
-      [:hr]
+      [:nav.panel
+       [:p.panel-heading (translate :it :savings/page.title)]
+       [:div.panel-block {:style {:display "block"}}
+        [:nav.level
+         [:div.level-item.has-text-centered
+          [total]]]]
+       [:div.panel-block
+        [savings/table]]
+       [:div.panel-block {:style {:display "block"}}
+        [:nav.level
+         [:div.level-item.has-text-centered
+          [savings/buttons]]]]]
 
-      [:h4.title.is-4.has-text-centered
-       (translate :it :funds/page.title)]
-      [:nav.level
-       [:div.level-item.has-text-centered
-        [funds/total]]]
-      [:nav.level
-       [:div.level-item.has-text-centered
-        [funds/table]]]
-      [:nav.level
-       [:div.level-item.has-text-centered
-        [funds/buttons]]]
-      [:hr]
+      [:nav.panel
+       [:p.panel-heading (translate :it :funds/page.title)]
+       [:div.panel-block {:style {:display "block"}}
+        [:nav.level
+         [:div.level-item.has-text-centered
+          [funds/total]]]]
+       [:div.panel-block
+        [funds/table]]
+       [:div.panel-block {:style {:display "block"}}
+        [:nav.level
+         [:div.level-item.has-text-centered
+          [funds/buttons]]]]]
 
-      [:h4.title.is-4.has-text-centered
-       (translate :it :aims/page.title)]
-      [:nav.level
-       [:div.level-item.has-text-centered
-        [active/total]]]
-      [active/dropdown]
-      [modal/modal]
-      [active/amounts]
-      [:nav.level
-       [:div.level-item.has-text-centered
-        [active/table]]]
-      [:nav.level
-       [:div.level-item.has-text-centered
-        [active/buttons]]]
-      [:hr]
+      [:nav.panel
+       [:p.panel-heading (translate :it :aims/page.title)]
+       [:div.panel-block {:style {:display "block"}}
+        [:nav.level
+         [:div.level-item.has-text-centered
+          [active/total]]]]
+       [:div.panel-block {:style {:display "block"}}
+        [active/dropdown]
+        [active/amounts]]
+       [:div.panel-block
+        [active/table]]
+       [:div.panel-block {:style {:display "block"}}
+        [:nav.level
+         [:div.level-item.has-text-centered
+          [active/buttons]]]]]
 
-      [:h4.title.is-4.has-text-centered
-       (translate :it :aims/label.archive)]
-      [:nav.level
-       [:div.level-item.has-text-centered
-        [achieved/dropdown]]]
-      [:nav.level
-       [:div.level-item.has-text-centered
-        [achieved/achieved-on]]]
-      [:nav.level
-       [:div.level-item.has-text-centered
+      [:nav.panel
+       [:p.panel-heading (translate :it :aims/label.archive)]
+       [:div.panel-block {:style {:display "block"}}
+        [achieved/dropdown]
+        [achieved/achieved-on]]
+       [:div.panel-block
         [achieved/table]]]]]))
