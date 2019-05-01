@@ -167,22 +167,26 @@
     [:div
      [common/header]
 
-     [:div.container
-      [common/page-title (translate :it :expenses/page.title)]
-      [validation/validation-msg-box]
+     [:section.hero
+      [:div.hero-body
+       [:div.container
+        [common/page-title (translate :it :expenses/page.title)]
+        [validation/validation-msg-box]
 
-      [current-month]
-      [categories-messages]
+        [current-month]
+        [categories-messages]
 
-      [:hr]
+        [:hr]
 
-      [search-fields]
-      [:nav.level
-       [:div.level-item.has-text-centered
-        [expenses-buttons]]]
+        [search-fields]
+        [:nav.level
+         [:div.level-item.has-text-centered
+          [expenses-buttons]]]
 
-      [modal/modal]
+        [modal/modal]
 
-      [:nav.level
-       [:div.level-item.has-text-centered
-        [expenses-table]]]]]))
+        [:nav.level
+         [:div.level-item.has-text-centered
+          [expenses-table]]]]]]
+
+     [common/footer]]))

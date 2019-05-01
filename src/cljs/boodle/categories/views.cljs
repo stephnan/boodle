@@ -56,14 +56,18 @@
     [:div
      [common/header]
 
-     [:div.container
-      [common/page-title (translate :it :categories/page.title)]
-      [validation/validation-msg-box]
-      [modal/modal]
+     [:section.hero
+      [:div.hero-body
+       [:div.container
+        [common/page-title (translate :it :categories/page.title)]
+        [validation/validation-msg-box]
+        [modal/modal]
 
-      [categories-buttons]
+        [categories-buttons]
 
-      [:hr]
+        [:hr]
 
-      [:div {:style {:padding-top ".1em"}}
-       [categories-table]]]]))
+        [:div {:style {:padding-top ".1em"}}
+         [categories-table]]]]]
+
+     [common/footer]]))

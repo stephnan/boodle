@@ -39,14 +39,18 @@
           [:a.navbar-item {:href "/savings"}
            (translate :it :header/savings)]
           [:a.navbar-item {:href "/categories"}
-           (translate :it :header/categories)]]]
-        [:div.navbar-end
-         [:div.navbar-item
-          [:p "Developed with "
-           [:i.fa.fa-heart]
-           " by "
-           [:a {:href "https://manuel-uberti.github.io"}
-            "Manuel Uberti"]]]]]])))
+           (translate :it :header/categories)]]]]])))
+
+(defn footer
+  []
+  (fn []
+    [:footer.footer
+     [:div.content.has-text-centered
+      [:p "Developed with "
+       [:i.fa.fa-heart]
+       " by "
+       [:a {:href "https://manuel-uberti.github.io"}
+        "Manuel Uberti"]]]]))
 
 (defn page-title
   [title]
