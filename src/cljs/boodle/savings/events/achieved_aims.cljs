@@ -75,3 +75,17 @@
    {:db db
     :dispatch-n [[:get-active-aims] [:get-achieved-aims]
                  [:get-aims-with-transactions]]}))
+
+(rf/reg-event-fx
+ :aims-change-achieved
+ (fn [{db :db} [_ value]]
+   (if (or (nil? value) (empty? value))
+     {:db (assoc-in db [:aims :params :achieved] nil)
+      :dispatch [:load-achieved-aim-transactions value]}
+     (let [aims (:achieved-aims db)
+           row (first (filter #(= (str (:id %)) value) aims))]
+       (assoc
+        (ajax/get-request (str "/api/transaction/aim/" value)
+                          [:load-achieved-aim-transactions]
+                          [:bad-response])
+        :db (assoc-in db [:aims :params :achieved] row))))))

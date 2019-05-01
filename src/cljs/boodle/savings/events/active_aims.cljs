@@ -29,20 +29,6 @@
                         [:bad-response])
       :db (assoc-in db [:aims :params :active] value)))))
 
-(rf/reg-event-fx
- :aims-change-achieved
- (fn [{db :db} [_ value]]
-   (if (or (nil? value) (empty? value))
-     {:db (assoc-in db [:aims :params :achieved] value)
-      :dispatch [:load-achieved-aim-transactions value]}
-     (let [aims (:achieved-aims db)
-           row (first (filter #(= (str (:id %)) value) aims))]
-       (assoc
-        (ajax/get-request (str "/api/transaction/aim/" value)
-                          [:load-achieved-aim-transactions]
-                          [:bad-response])
-        :db (assoc-in db [:aims :params :achieved] row))))))
-
 (rf/reg-event-db
  :load-active
  (fn [db [_ result]]
