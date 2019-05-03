@@ -42,7 +42,8 @@ To run boodle, you need:
 
 Set up the database with the necessary tables and permissions you find in
 [model.sql](https://github.com/manuel-uberti/boodle/blob/master/resources/sql/model.sql).
-Check also `conf/config.edn` to adjust the database connection parameters.
+Check also `resources/config/config.edn` to adjust the database connection
+parameters.
 
 ### Compiling
 
