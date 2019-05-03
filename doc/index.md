@@ -44,7 +44,7 @@ Boodle runs on [PostgreSQL](https://www.postgresql.org/), which is always my
 go-to database when it comes to personal projects.
 
 Thanks to [aero](https://github.com/juxt/aero), I only need to read the
-configuration for Boodle from `resources/config/config.edn`. Aero makes them
+configuration for Boodle from `resources/config/config.edn`. Aero makes it
 available to the rest of the system.
 
 The
