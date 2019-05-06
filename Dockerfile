@@ -7,7 +7,7 @@ RUN echo "@testing http://nl.alpinelinux.org/alpine/edge/testing" >> /etc/apk/re
     apk add --no-cache yarn git &&\
     yarn global add shadow-cljs gulp-cli &&\
     yarn &&\
-    cd /data/resources/src && yarn && gulp &&\
+    cd /data/resources/src && gulp &&\
     cd /data && shadow-cljs compile boodle &&\
     clojure -e ''
 

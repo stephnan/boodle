@@ -52,7 +52,6 @@ From the project root, run:
 ```console
 $ yarn
 $ cd resources/src
-$ yarn
 $ gulp
 ```
 

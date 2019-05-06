@@ -3,7 +3,7 @@ var gulpcli = require('gulp-cli');
 var cleanCSS = require('gulp-clean-css');
 var rename = require("gulp-rename");
 var concat = require('gulp-concat');
-var pkg = require('./package.json');
+var pkg = require('../../package.json');
 var sass = require('gulp-sass');
 
 sass.compiler = require('node-sass');
@@ -17,8 +17,8 @@ gulp.task('sass', function () {
 
 // Minify compiled CSS
 gulp.task('minify-css', function() {
-    return gulp.src(['node_modules/font-awesome/css/font-awesome.css',
-                     'node_modules/bulma/css/bulma.min.css',
+    return gulp.src(['../../node_modules/font-awesome/css/font-awesome.css',
+                     '../../node_modules/bulma/css/bulma.min.css',
                      'css/*.css'
                     ])
         .pipe(concat('boodle.css'))
@@ -29,7 +29,7 @@ gulp.task('minify-css', function() {
 
 // Copy vendor libraries from /node_modules into /vendor
 gulp.task('copy', function() {
-    gulp.src(['node_modules/font-awesome/fonts/*'])
+    gulp.src(['../../node_modules/font-awesome/fonts/*'])
         .pipe(gulp.dest('../public/fonts'));
 });
 
