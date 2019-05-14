@@ -99,20 +99,6 @@
   (when (keyword? column)
     (keyword (s/replace (name column) #"_" "-"))))
 
-(defn kebab-case->snake-case
-  [column]
-  (when (keyword? column)
-    (keyword (s/replace (name column) #"-" "_"))))
-
-(defn format-input-keywords
-  "Convert `input` keywords from kebab-case to snake_case."
-  [input]
-  (reduce-kv
-   (fn [m k v]
-     (assoc m (kebab-case->snake-case k) v))
-   {}
-   input))
-
 (defn format-output-keywords
   "Convert `output` keywords from snake_case to kebab-case."
   [output]
