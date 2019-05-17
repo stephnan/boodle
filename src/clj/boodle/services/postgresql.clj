@@ -34,7 +34,7 @@
 
   PGobject
   (read-column-by-index [pgobj _metadata _index]
-    (let [type  (.getType pgobj)
+    (let [type (.getType pgobj)
           value (.getValue pgobj)]
       (case type
         "json" (cheshire/parse-string value true)

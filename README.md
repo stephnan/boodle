@@ -12,6 +12,7 @@ boodle uses these Clojure/ClojureScript libraries:
 - [hikari-cp](https://github.com/tomekw/hikari-cp)
 - [honeysql](https://github.com/jkk/honeysql)
 - [http-kit](http://www.http-kit.org/)
+- [next.jdbc](https://github.com/seancorfield/next-jdbc)
 - [re-frame](https://github.com/Day8/re-frame)
 - [ring](https://github.com/ring-clojure/ring)
 - [tongue](https://github.com/tonsky/tongue)
