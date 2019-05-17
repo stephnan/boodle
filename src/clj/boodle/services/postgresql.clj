@@ -3,34 +3,37 @@
    [boodle.utils.dates :as dates]
    [boodle.utils.exceptions :as exceptions]
    [cheshire.core :as cheshire]
-   [clojure.java.jdbc :as jdbc]
    [clojure.string :as s]
    [hikari-cp.core :as hikari]
-   [honeysql.core :as sql]
+   [honeysql.core :as honey]
    [honeysql.format :as fmt]
    [java-time.local :as jl]
    [java-time.pre-java8 :as jp]
+   [next.jdbc :as jdbc]
+   [next.jdbc.prepare :as prepare]
+   [next.jdbc.result-set :as result-set]
+   [next.jdbc.sql :as sql]
    [taoensso.timbre :as log])
   (:import
    (clojure.lang IPersistentMap IPersistentVector)
    (java.sql Date Timestamp)
    (org.postgresql.util PGobject)))
 
-(extend-protocol jdbc/IResultSetReadColumn
+(extend-protocol result-set/ReadableColumn
   Date
-  (result-set-read-column [v _ _]
+  (read-column-by-index [v _ _]
     (-> v
         jl/local-date
         dates/format-date))
 
   Timestamp
-  (result-set-read-column [v _ _]
+  (read-column-by-index [v _ _]
     (-> v
         jl/local-date
         dates/format-date))
 
   PGobject
-  (result-set-read-column [pgobj _metadata _index]
+  (read-column-by-index [pgobj _metadata _index]
     (let [type  (.getType pgobj)
           value (.getValue pgobj)]
       (case type
@@ -45,17 +48,22 @@
     (.setType "jsonb")
     (.setValue (cheshire/generate-string value))))
 
-(extend-protocol jdbc/ISQLValue
+(extend-protocol prepare/SettableParameter
   IPersistentMap
-  (sql-value [value] (to-pg-json value))
-  IPersistentVector
-  (sql-value [value] (to-pg-json value)))
+  (set-parameter [v s i]
+    (.setObject s i (to-pg-json v)))
 
-(extend-protocol jdbc/ISQLValue
+  IPersistentVector
+  (set-parameter [v s i]
+    (.setObject s i (to-pg-json v)))
+
   java.time.LocalDateTime
-  (sql-value [v] (jp/sql-timestamp v))
+  (set-parameter [v s i]
+    (.setObject s i (jp/sql-timestamp v)))
+
   java.time.LocalDate
-  (sql-value [v] (jp/sql-timestamp v)))
+  (set-parameter [v s i]
+    (.setObject s i (jp/sql-timestamp v))))
 
 (defn- make-datasource-options
   [config]
@@ -91,8 +99,9 @@
 
 (defn disconnect!
   []
-  (hikari/close-datasource @datasource)
-  (reset! datasource nil))
+  (when @datasource
+    (hikari/close-datasource @datasource)
+    (reset! datasource nil)))
 
 (defn snake-case->kebab-case
   [column]
@@ -123,11 +132,11 @@
 (defn query
   "Run a query using the map in `sqlmap`."
   [sqlmap]
-  (let [q (sql/format sqlmap)]
+  (let [q (honey/format sqlmap)]
     (try
-      (jdbc/with-db-connection [conn {:datasource @datasource}]
+      (jdbc/with-transaction [dx @datasource]
         (->> q
-             (jdbc/query conn)
+             (jdbc/execute! dx)
              (map format-output-keywords)))
       (catch Exception e
         (log/error (exceptions/get-stacktrace e))
@@ -136,10 +145,10 @@
 (defn execute!
   "Execute an insert/update/delete query using the map in `sqlmap`."
   [sqlmap]
-  (let [q (sql/format sqlmap)]
+  (let [q (honey/format sqlmap)]
     (try
-      (jdbc/with-db-connection [conn {:datasource @datasource}]
-        (jdbc/execute! conn q))
+      (jdbc/with-transaction [dx @datasource]
+        (jdbc/execute! dx q))
       (catch Exception e
         (log/error (exceptions/get-stacktrace e))
         (throw (ex-info "Exception in execute!" {:sqlmap sqlmap :query q}))))))
