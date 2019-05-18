@@ -128,21 +128,8 @@
 (defmethod fmt/fn-handler "not-true" [_ col qstr]
   (str (fmt/to-sql col) " is not " (fmt/to-sql qstr) " true"))
 
-(defn query
-  "Run a query using the map in `sqlmap`."
-  [sqlmap]
-  (let [q (honey/format sqlmap)]
-    (try
-      (jdbc/with-transaction [dx @datasource]
-        (->> q
-             (jdbc/execute! dx)
-             (map format-output-keywords)))
-      (catch Exception e
-        (log/error (exceptions/get-stacktrace e))
-        (throw (ex-info "Exception in query" {:sqlmap sqlmap :query q}))))))
-
 (defn execute!
-  "Execute an insert/update/delete query using the map in `sqlmap`."
+  "Execute query (select/insert/update/delete) using the map in `sqlmap`."
   [sqlmap]
   (let [q (honey/format sqlmap)]
     (try
@@ -151,3 +138,9 @@
       (catch Exception e
         (log/error (exceptions/get-stacktrace e))
         (throw (ex-info "Exception in execute!" {:sqlmap sqlmap :query q}))))))
+
+(defn query
+  "Run a SELECT query using the map in `sqlmap` and format output keywords."
+  [sqlmap]
+  (->> (execute! sqlmap)
+       (map format-output-keywords)))
