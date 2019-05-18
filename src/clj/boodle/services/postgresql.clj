@@ -12,7 +12,6 @@
    [next.jdbc :as jdbc]
    [next.jdbc.prepare :as prepare]
    [next.jdbc.result-set :as result-set]
-   [next.jdbc.sql :as sql]
    [taoensso.timbre :as log])
   (:import
    (clojure.lang IPersistentMap IPersistentVector)
