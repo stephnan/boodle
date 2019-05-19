@@ -54,15 +54,15 @@
   "Return a map of aims with their total amounts."
   []
   (let [aims (aims/select-aims-with-transactions)]
-    (reduce-kv
-     (fn [m k v]
-       (let [aim (first (map :aim v))
-             target (first (map :target v))
-             saved (apply + (->> (map :amount v) (map numbers/or-zero)))
-             left (- target saved)]
-         (assoc m k {:name aim :target target :saved saved :left left})))
-     {}
-     (group-by :id aims))))
+    (reduce-kv (fn [m k v]
+                 (let [aim (first (map :aim v))
+                       target (first (map :target v))
+                       saved (apply + (->> (map :amount v)
+                                           (map numbers/or-zero)))
+                       left (- target saved)]
+                   (assoc m k {:name aim :target target :saved saved :left left})))
+               {}
+               (group-by :id aims))))
 
 (defn aims-with-transactions
   "Get aims with their transactions and the saved totals."

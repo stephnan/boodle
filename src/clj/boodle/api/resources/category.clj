@@ -35,31 +35,30 @@
   If there are not expenses for a category, a record with `:amount` 0 is added."
   []
   (let [categories (find-all)]
-    (reduce
-     (fn [acc el]
-       (let [id (:id el)
-             category-expenses (find-category-monthly-totals id)]
-         (if (empty? category-expenses)
-           acc
-           (into acc category-expenses))))
-     []
-     categories)))
+    (reduce (fn [acc el]
+              (let [id (:id el)
+                    category-expenses (find-category-monthly-totals id)]
+                (if (empty? category-expenses)
+                  acc
+                  (into acc category-expenses))))
+            []
+            categories)))
 
 (defn format-categories-and-totals
   "Return the total amount of monthly expenses grouped by categories."
   []
   (let [categories-expenses (build-categories-expenses-vec)]
-    (reduce-kv
-     (fn [m k v]
-       (let [category (first (map :name v))
-             monthly-budget (first (map :monthly-budget v))
-             total (apply + (->> (map :amount v) (map numbers/or-zero)))]
-         (assoc m k {:id k
-                     :name category
-                     :monthly-budget monthly-budget
-                     :total total})))
-     {}
-     (group-by :id categories-expenses))))
+    (reduce-kv (fn [m k v]
+                 (let [category (first (map :name v))
+                       monthly-budget (first (map :monthly-budget v))
+                       total (apply + (->> (map :amount v)
+                                           (map numbers/or-zero)))]
+                   (assoc m k {:id k
+                               :name category
+                               :monthly-budget monthly-budget
+                               :total total})))
+               {}
+               (group-by :id categories-expenses))))
 
 (defn insert!
   [request]

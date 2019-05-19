@@ -110,11 +110,10 @@
 (defn format-output-keywords
   "Convert `output` keywords from snake_case to kebab-case."
   [output]
-  (reduce-kv
-   (fn [m k v]
-     (assoc m (snake-case->kebab-case k) v))
-   {}
-   output))
+  (reduce-kv (fn [m k v]
+               (assoc m (snake-case->kebab-case k) v))
+             {}
+             output))
 
 (defmethod fmt/fn-handler "ilike" [_ col qstr]
   (str (fmt/to-sql col) " ilike " (fmt/to-sql qstr)))
