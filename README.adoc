@@ -1,0 +1,114 @@
+= boodle
+
+Simple accounting SPA in Clojure and ClojureScript.
+
+image::https://github.com/manuel-uberti/boodle/blob/master/resources/img/screenshot.png[Screenshot]
+
+boodle uses these Clojure/ClojureScript libraries:
+
+* https://github.com/juxt/aero[aero]
+* https://github.com/juxt/bidi[bidi]
+* https://github.com/weavejester/compojure[compojure]
+* https://github.com/tomekw/hikari-cp[hikari-cp]
+* https://github.com/jkk/honeysql[honeysql]
+* http://www.http-kit.org/[http-kit]
+* https://github.com/seancorfield/next-jdbc[next.jdbc]
+* https://github.com/Day8/re-frame[re-frame]
+* https://github.com/ring-clojure/ring[ring]
+* https://github.com/tonsky/tongue[tongue]
+
+I used https://bulma.io/[Bulma] for the UI, and I customised
+https://github.com/benhowell/re-frame-modal[re-frame-modal] and
+https://github.com/timgilbert/cljs-pikaday[cljs-pikaday] to play well with it.
+
+Check the
+https://github.com/manuel-uberti/boodle/blob/master/doc/index.md[documentation]
+for more details.
+
+== Usage
+
+=== Prerequisites
+
+To run boodle, you need:
+
+* a Java JDK/JRE suitable for your system (I use
+https://openjdk.java.net/[OpenJDK])
+* https://clojure.org/guides/getting_started[Clojure]
+* https://www.postgresql.org[PostgreSQL]
+* https://yarnpkg.com/en/[yarn]
+* https://gulpjs.com/[gulp]
+* http://shadow-cljs.org/[shadow-cljs]
+
+=== Database setup
+
+Set up the database with the necessary tables and permissions you find in
+https://github.com/manuel-uberti/boodle/blob/master/resources/sql/model.sql[model.sql].
+Check also `resources/config/config.edn` to adjust the database connection
+parameters.
+
+=== Compiling
+
+From the project root, run:
+
+[source,console]
+----
+$ yarn
+$ cd resources/src
+$ gulp
+----
+
+Compile the ClojureScript files with:
+
+[source,console]
+----
+$ shadow-cljs compile boodle
+----
+
+=== Running
+
+From the project root, fire up the server with:
+
+[source,console]
+----
+$ clj -A:run
+----
+
+You can now browse at `+http://localhost:8080+` and interact with boodle.
+
+=== Docker and Docker Compose
+
+Thanks to https://github.com/moqmar[Moritz Marquardt], you can also run boodle
+via https://docs.docker.com/get-started/[Docker] and
+https://docs.docker.com/compose/overview/[Docker Compose]:
+
+[source,console]
+----
+$ git clone https://github.com/manuel-uberti/boodle.git && cd boodle
+$ docker-compose up -d
+----
+
+You can now access boodle at `+http://localhost:8080+`.
+
+== Tests
+
+Unit tests are configured with https://github.com/lambdaisland/kaocha[kaocha]
+and can be run from the project root with:
+
+[source,console]
+----
+$ ./bin/kaocha
+----
+
+== Extra
+
+The included `etc/boodle.service` is a basic
+https://www.freedesktop.org/software/systemd/man/systemd.unit.html[systemd unit]
+that executes `etc/deploy.sh` to update, build and run boodle automatically on
+my home server.
+
+== License
+
+Copyright © (iterate inc 2017) Manuel Uberti
+
+Distributed under the Eclipse Public License either version 1.0 or (at
+your option) any later version.

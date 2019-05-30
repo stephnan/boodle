@@ -1,0 +1,94 @@
+= boodle
+
+Boodle is a https://en.wikipedia.org/wiki/Single-page_application[single-page
+application] for accounting, born out of my desire to learn more about Clojure
+and ClojureScript and build something useful for the family.
+
+== Overview and rationale
+
+Boodle main features:
+
+* expense tracking
+* monthly budgeting
+* savings management
+* short-term and long-term goal planning
+
+Boodle tries to be as simple as possible, providing only the functionalities I
+need at home. It's not, and it doesn't want to be, a replacement for more
+powerful tools such as https://www.ledger-cli.org/[ledger].
+
+Boodle is intentionally provided as a self-hosted application. It's been running
+on my home server since its first deploy in mid-2017, and I do not plan to
+install it and run it elsewhere. I open-sourced it because it was about time to
+give something back to the Clojure community, which over the years has been
+immensely helpful and kind.
+
+== Architecture
+
+=== Tooling
+
+Boodle is built and developed with
+https://clojure.org/guides/getting_started[Clojure CLI] and
+http://shadow-cljs.org/[shadow-cljs].
+
+Originally there were https://leiningen.org/[Leiningen] and
+https://github.com/bhauman/lein-figwheel[Figwheel] behind the curtains, but in
+the end the differences in the overall development experience are negligible. I
+changed developing tools only to explore the Clojure ecosystem and learn
+something new.
+
+=== Server-side
+
+Boodle runs on https://www.postgresql.org/[PostgreSQL], which is always my go-to
+database when it comes to personal projects.
+
+Thanks to https://github.com/juxt/aero[aero], I only need to read the
+configuration for Boodle from `resources/config/config.edn`. Aero makes it
+available to the rest of the system.
+
+The
+https://github.com/manuel-uberti/boodle/tree/master/src/clj/boodle/services/postgresql.clj[`postgresql`]
+namespace contains all I need to interact with PostgreSQL. Besides the database
+connection stored in an atom, there are two functions the
+https://github.com/manuel-uberti/boodle/tree/master/src/clj/boodle/model[model
+layer] uses to read and write data: `query` and `execute!`.
+
+The
+https://github.com/manuel-uberti/boodle/tree/master/src/clj/boodle/services/http.clj[`http`]
+namespace handle HTTP server and sets the routes for navigation. Boodle is a
+single-page application, but to avoid `404` errors on random page reloading, I
+added server-side routes matching the corresponding client-side panels: expenses
+(`/`), savings (`/savings`), and categories (`/categories`).
+
+=== Client-side
+
+The core of the client-side is https://github.com/Day8/re-frame[re-frame], and I
+tried my best to stick to its conventions. Every Boodle topic (expenses,
+savings, categories, aims, funds, etc.) has its own set of events, subscriptions
+and views.
+
+This not only makes the code easier to understand, it also lets me focus on
+_what_ a panel should do instead of _how_.
+
+I also tried to isolate page components as much as possible. The rule of thumb
+is: if there is a subscription involved, that is a component I can _inject_
+wherever I need. Take a look at the
+https://github.com/manuel-uberti/boodle/blob/master/src/cljs/boodle/expenses/views.cljs[expenses
+views] for an example of what I mean.
+
+== Localization
+
+Boodle is localized in Italian, but I didn't want it to be an Italian-only
+application. Thanks to https://github.com/tonsky/tongue[tongue], localizing
+Clojure/ClojureScript applications is easy.
+
+Anything you see on the screen is ready to be translated. If you plan to change
+the language, you can find the translations in
+https://github.com/manuel-uberti/boodle/blob/master/src/cljs/boodle/i18n.cljs[i18n.cljs].
+
+You should also check out
+https://github.com/manuel-uberti/boodle/blob/master/src/clj/boodle/utils/dates.clj[dates.clj]
+and
+https://github.com/manuel-uberti/boodle/blob/master/src/clj/boodle/utils/numbers.clj[numbers.clj],
+which take care of the localization of dates and amounts according to Italian
+standards.
