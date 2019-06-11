@@ -20,7 +20,6 @@ boodle uses these Clojure/ClojureScript libraries:
 I used https://bulma.io/[Bulma] for the UI, and I customised
 https://github.com/benhowell/re-frame-modal[re-frame-modal] and
 https://github.com/timgilbert/cljs-pikaday[cljs-pikaday] to play well with it.
-
 Check the
 https://github.com/manuel-uberti/boodle/blob/master/doc/index.md[documentation]
 for more details.
