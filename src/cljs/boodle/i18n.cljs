@@ -34,7 +34,7 @@
 
     :button.cancel "Annulla"
     :button.close "Chiudi"
-    :button.ok "Ok"
+    :button.ok "OK"
     :currency "€"
     :date.placeholder "dd/mm/yyyy"
 
