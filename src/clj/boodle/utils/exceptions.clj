@@ -11,6 +11,6 @@
        ~@body
        (str s#))))
 
-(defn get-stacktrace
+(defn stacktrace
   [e]
   (with-err-str (repl/pst e 36)))

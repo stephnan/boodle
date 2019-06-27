@@ -135,7 +135,7 @@
       (jdbc/with-transaction [dx @datasource]
         (jdbc/execute! dx q))
       (catch Exception e
-        (log/error (exceptions/get-stacktrace e))
+        (log/error (exceptions/stacktrace e))
         (throw (ex-info "Exception in execute!" {:sqlmap sqlmap :query q}))))))
 
 (defn query
