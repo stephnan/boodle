@@ -58,13 +58,6 @@
     [:h3.title.is-3.has-text-centered
      title]))
 
-(defn get-category-name
-  [category categories]
-  (->> categories
-       (filter #(= (:id %) category))
-       (map :name)
-       first))
-
 (defn render-option
   [item]
   [:option
