@@ -1,2 +1,1 @@
-#kaocha/v1
-{:plugins [:kaocha.plugin/notifier]}
+#kaocha/v1 {}
