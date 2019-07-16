@@ -6,7 +6,7 @@ and ClojureScript and build something useful for the family.
 
 == Overview and rationale
 
-Boodle main features:
+Boodle main features are:
 
 * expense tracking
 * monthly budgeting
