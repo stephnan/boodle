@@ -32,10 +32,10 @@ https://clojure.org/guides/getting_started[Clojure CLI] and
 http://shadow-cljs.org/[shadow-cljs].
 
 Originally there were https://leiningen.org/[Leiningen] and
-https://github.com/bhauman/lein-figwheel[Figwheel] behind the curtains, but in
-the end the differences in the overall development experience are negligible. I
+https://github.com/bhauman/lein-figwheel[Figwheel] behind the curtains. I
 changed developing tools only to explore the Clojure ecosystem and learn
-something new.
+something new, not because there is something wrong with the previously used
+tools.
 
 === Server-side
 
@@ -43,8 +43,8 @@ Boodle runs on https://www.postgresql.org/[PostgreSQL], which is always my go-to
 database when it comes to personal projects.
 
 Thanks to https://github.com/juxt/aero[aero], I only need to read the
-configuration for Boodle from `resources/config/config.edn`. Aero makes it
-available to the rest of the system.
+configuration from `resources/config/config.edn`. Aero makes it available to the
+rest of the system.
 
 The
 https://github.com/manuel-uberti/boodle/tree/master/src/clj/boodle/services/postgresql.clj[`postgresql`]
