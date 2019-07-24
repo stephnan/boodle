@@ -9,7 +9,6 @@ boodle uses these Clojure/ClojureScript libraries:
 * https://github.com/juxt/aero[aero]
 * https://github.com/juxt/bidi[bidi]
 * https://github.com/weavejester/compojure[compojure]
-* https://github.com/tomekw/hikari-cp[hikari-cp]
 * https://github.com/jkk/honeysql[honeysql]
 * http://www.http-kit.org/[http-kit]
 * https://github.com/seancorfield/next-jdbc[next.jdbc]
