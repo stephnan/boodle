@@ -69,7 +69,9 @@
 
 (defn connect!
   [config]
-  (reset! datasource (:postgresql config)))
+  (let [db-spec (:postgresql config)
+        ^HikariDataSource ds (connection/->pool HikariDataSource db-spec)]
+    (reset! datasource ds)))
 
 (defn disconnect!
   []
@@ -106,8 +108,7 @@
   [sqlmap]
   (let [q (honey/format sqlmap)]
     (try
-      (with-open [^HikariDataSource ds (connection/->pool HikariDataSource @datasource)]
-        (jdbc/execute! ds q))
+      (jdbc/execute! @datasource q)
       (catch Exception e
         (log/error (exceptions/stacktrace e))
         (throw (ex-info "Exception in execute!" {:sqlmap sqlmap :query q}))))))
