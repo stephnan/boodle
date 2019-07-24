@@ -4,17 +4,18 @@
    [boodle.utils.exceptions :as exceptions]
    [cheshire.core :as cheshire]
    [clojure.string :as s]
-   [hikari-cp.core :as hikari]
    [honeysql.core :as honey]
    [honeysql.format :as fmt]
    [java-time.local :as jl]
    [java-time.pre-java8 :as jp]
    [next.jdbc :as jdbc]
+   [next.jdbc.connection :as connection]
    [next.jdbc.prepare :as prepare]
    [next.jdbc.result-set :as result-set]
    [taoensso.timbre :as log])
   (:import
    (clojure.lang IPersistentMap IPersistentVector)
+   (com.zaxxer.hikari HikariDataSource)
    (java.sql Date Timestamp)
    (org.postgresql.util PGobject)))
 
@@ -64,42 +65,15 @@
   (set-parameter [v s i]
     (.setObject s i (jp/sql-timestamp v))))
 
-(defn- make-datasource-options
-  [config]
-  (let [host (get-in config [:postgresql :host])
-        db-name (get-in config [:postgresql :db-name])
-        user (get-in config [:postgresql :user])
-        password (get-in config [:postgresql :password])]
-    {:auto-commit        true
-     :read-only          false
-     :connection-timeout 30000
-     :validation-timeout 5000
-     :idle-timeout       600000
-     :max-lifetime       1800000
-     :minimum-idle       10
-     :maximum-pool-size  10
-     :pool-name          "db-pool"
-     :adapter            "postgresql"
-     :username           user
-     :password           password
-     :database-name      db-name
-     :server-name        host
-     :port-number        5432
-     :register-mbeans    false}))
-
 (def datasource (atom nil))
 
 (defn connect!
   [config]
-  (->> config
-       make-datasource-options
-       hikari/make-datasource
-       (reset! datasource)))
+  (reset! datasource (:postgresql config)))
 
 (defn disconnect!
   []
   (when @datasource
-    (hikari/close-datasource @datasource)
     (reset! datasource nil)))
 
 (defn snake-case->kebab-case
@@ -132,8 +106,8 @@
   [sqlmap]
   (let [q (honey/format sqlmap)]
     (try
-      (jdbc/with-transaction [dx @datasource]
-        (jdbc/execute! dx q))
+      (with-open [^HikariDataSource ds (connection/->pool HikariDataSource @datasource)]
+        (jdbc/execute! ds q))
       (catch Exception e
         (log/error (exceptions/stacktrace e))
         (throw (ex-info "Exception in execute!" {:sqlmap sqlmap :query q}))))))
