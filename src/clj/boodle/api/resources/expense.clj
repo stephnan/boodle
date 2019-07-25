@@ -8,78 +8,79 @@
    [ring.util.http-response :as response]))
 
 (defn find-all
-  []
-  (expenses/select-all))
+  [request]
+  (-> request
+      :datasource
+      expenses/select-all))
 
 (defn find-by-id
-  [id]
-  (-> id
-      numbers/str->integer
-      expenses/select-by-id))
-
-(defn find-by-item
-  [item]
-  (expenses/select-by-item item))
+  [request id]
+  (let [ds (:datasource request)
+        id (numbers/str->integer id)]
+    (expenses/select-by-id ds id)))
 
 (defn find-by-category
-  [id-category]
-  (-> id-category
-      numbers/str->integer
-      expenses/select-by-category))
+  [request id-category]
+  (let [ds (:datasource request)
+        id-category (numbers/str->integer id-category)]
+    (expenses/select-by-category ds id-category)))
 
 (defn find-by-date-and-categories
   [request]
-  (let [{from :from to :to categories :categories}
-        (resource/request-body->map request)
+  (let [ds (:datasource request)
+        {from :from to :to categories :categories} (resource/request-body->map request)
         from (dates/to-local-date from)
         to (if (nil? to) (dates/today) (dates/to-local-date to))
         cs (numbers/strs->integers categories)]
-    (expenses/select-by-date-and-categories from to cs)))
+    (expenses/select-by-date-and-categories ds from to cs)))
 
 (defn find-by-current-month-and-category
-  [id-category]
-  (let [from (dates/first-day-of-month)
+  [request id-category]
+  (let [ds (:datasource request)
+        from (dates/first-day-of-month)
         to (dates/last-day-of-month)
         id (numbers/str->integer id-category)]
-    (expenses/select-by-date-and-categories from to id)))
+    (expenses/select-by-date-and-categories ds from to id)))
 
 (defn insert!
   [request]
-  (-> request
-      resource/request-body->map
-      (numbers/record-str->double :amount)
-      (numbers/record-str->integer :id-category)
-      (dates/record-str->date :date)
-      expenses/insert!))
+  (let [ds (:datasource request)
+        req (resource/request-body->map request)
+        record (-> req
+                   (numbers/record-str->double :amount)
+                   (numbers/record-str->integer :id-category)
+                   (dates/record-str->date :date))]
+    (expenses/insert! ds record)))
 
 (defn update!
   [request]
-  (-> request
-      resource/request-body->map
-      (numbers/record-str->double :amount)
-      (numbers/record-str->integer :id-category)
-      (dates/record-str->date :date)
-      expenses/update!))
+  (let [ds (:datasource request)
+        req (resource/request-body->map request)
+        record (-> req
+                   (numbers/record-str->double :amount)
+                   (numbers/record-str->integer :id-category)
+                   (dates/record-str->date :date))]
+    (expenses/update! ds record)))
 
 (defn delete!
-  [id]
-  (-> id
-      numbers/str->integer
-      expenses/delete!))
+  [request id]
+  (let [ds (:datasource request)
+        id (numbers/str->integer id)]
+    (expenses/delete! ds id)))
 
 (defroutes routes
   (context "/api/expense" [id]
-    (GET "/find" []
-      (response/ok (find-all)))
-    (GET "/find/:id" [id]
-      (response/ok (find-by-id id)))
+    (GET "/find" request
+      (response/ok (find-all request)))
+    (GET "/find/:id" [id :as request]
+      (response/ok (find-by-id request id)))
     (POST "/find-by-date-and-categories" request
       (response/ok (find-by-date-and-categories request)))
-    (GET "/find-by-current-month-and-category/:id" [id]
-      (response/ok (find-by-current-month-and-category id)))
+    (GET "/find-by-current-month-and-category/:id" [id :as request]
+      (response/ok (find-by-current-month-and-category request id)))
     (POST "/insert" request
       (response/ok (insert! request)))
     (PUT "/update" request
       (response/ok (update! request)))
-    (DELETE "/delete/:id" [id]
-      (response/ok (delete! id)))))
+    (DELETE "/delete/:id" [id :as request]
+      (response/ok (delete! request id)))))

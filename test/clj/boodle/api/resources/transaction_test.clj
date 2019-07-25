@@ -7,21 +7,16 @@
    [clojure.test :refer :all]))
 
 (deftest find-all-test
-  (with-redefs [model/select-all (fn [] {:item "test"})]
-    (is (= (transaction/find-all) {:item "test"}))))
+  (with-redefs [model/select-all (fn [ds] {:item "test"})]
+    (is (= (transaction/find-all {}) {:item "test"}))))
 
 (deftest find-by-id-test
-  (with-redefs [model/select-by-id (fn [id] id)]
-    (is (= (transaction/find-by-id "1") "1"))))
-
-(deftest find-by-item-test
-  (with-redefs [model/select-by-item (fn [n] n)]
-    (is (= (transaction/find-by-item "test") "test"))))
+  (with-redefs [model/select-by-id (fn [ds id] id)]
+    (is (= (transaction/find-by-id {} "1") 1))))
 
 (deftest find-by-aim-test
-  (with-redefs [model/select-by-aim
-                (fn [id] [{:id 1 :target 1 :amount 1}])]
-    (is (= (transaction/find-by-aim 1)
+  (with-redefs [model/select-by-aim (fn [ds id] [{:id 1 :target 1 :amount 1}])]
+    (is (= (transaction/find-by-aim {} 1)
            {:transactions [{:id 1, :target 1, :amount 1}],
             :target 1,
             :saved 1,
@@ -29,7 +24,7 @@
 
 (deftest insert-test
   (with-redefs [resource/request-body->map (fn [req] req)
-                model/insert! (fn [transaction] transaction)]
+                model/insert! (fn [ds transaction] transaction)]
     (let [transaction {:item "test" :amount "3,5"
                        :id-aim "1" :date "15/07/2018"}]
       (is (= (transaction/insert! transaction)
@@ -38,7 +33,7 @@
 
 (deftest update-test
   (with-redefs [resource/request-body->map (fn [req] req)
-                model/update! (fn [transaction] transaction)]
+                model/update! (fn [ds transaction] transaction)]
     (let [transaction {:id "1" :item "test" :amount "3,5"
                        :id-aim "1" :date "15/07/2018"}]
       (is (= (transaction/update! transaction)
@@ -46,5 +41,5 @@
               :id-aim 1 :date "15/07/2018"})))))
 
 (deftest delete-test
-  (with-redefs [model/delete! (fn [id] id)]
-    (is (= (transaction/delete! "1") 1))))
+  (with-redefs [model/delete! (fn [ds id] id)]
+    (is (= (transaction/delete! {} "1") 1))))

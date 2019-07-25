@@ -9,51 +9,54 @@
    [ring.util.http-response :as response]))
 
 (defn find-all
-  []
-  (aims/select-all))
+  [request]
+  (-> request
+      :datasource
+      aims/select-all))
 
 (defn find-by-id
-  [id]
-  (-> id
-      numbers/str->integer
-      aims/select-by-id))
-
-(defn find-by-name
-  [name]
-  (aims/select-by-name name))
+  [request id]
+  (let [ds (:datasource request)
+        id (numbers/str->integer id)]
+    (aims/select-by-id request id)))
 
 (defn find-active
-  []
-  (aims/select-active))
+  [request]
+  (-> request
+      :datasource
+      aims/select-active))
 
 (defn find-achieved
-  []
-  (aims/select-achieved))
+  [request]
+  (-> request
+      :datasource
+      aims/select-achieved))
 
 (defn insert!
   [request]
-  (-> request
-      resource/request-body->map
-      (numbers/record-str->double :target)
-      aims/insert!))
+  (let [ds (:datasource request)
+        req (resource/request-body->map request)
+        record (numbers/record-str->double req :target)]
+    (aims/insert! ds record)))
 
 (defn update!
   [request]
-  (let [aim (resource/request-body->map request)]
-    (-> (numbers/record-str->double aim :target)
-        (assoc :id (numbers/str->integer (:id aim)))
-        aims/update!)))
+  (let [ds (:datasource request)
+        req (resource/request-body->map request)
+        record (-> (numbers/record-str->double req :target)
+                   (assoc :id (numbers/str->integer (:id req))))]
+    (aims/update! ds record)))
 
 (defn delete!
-  [id]
-  (-> id
-      numbers/str->integer
-      aims/delete!))
+  [request id]
+  (let [ds (:datasource request)
+        id (numbers/str->integer id)]
+    (aims/delete! ds id)))
 
 (defn format-aims-and-totals
   "Return a map of aims with their total amounts."
-  []
-  (let [aims (aims/select-aims-with-transactions)]
+  [datasource]
+  (let [aims (aims/select-aims-with-transactions datasource)]
     (reduce-kv (fn [m k v]
                  (let [aim (first (map :aim v))
                        target (first (map :target v))
@@ -66,20 +69,20 @@
 
 (defn aims-with-transactions
   "Get aims with their transactions and the saved totals."
-  []
-  (let [aims (format-aims-and-totals)]
+  [request]
+  (let [aims (format-aims-and-totals (:datasource request))]
     (-> {}
         (assoc :aims aims)
         (assoc :total (reduce + 0 (map :saved (vals aims)))))))
 
 (defn mark-aim-achieved
   "Mark `aim` as achieved using the value of `achieved`."
-  [aim achieved]
-  (-> (numbers/record-str->double aim :target)
-      (assoc :id (numbers/str->integer (:id aim)))
-      (assoc :achieved achieved)
-      (assoc :achieved_on (dates/today))
-      (aims/update!)))
+  [datasource aim achieved]
+  (let [record (-> (numbers/record-str->double aim :target)
+                   (assoc :id (numbers/str->integer (:id aim)))
+                   (assoc :achieved achieved)
+                   (assoc :achieved_on (dates/today)))]
+    (aims/update! datasource record)))
 
 (defn aim->expense
   "Convert `aim` into an expense for the given `category`."
@@ -94,28 +97,29 @@
 (defn achieved!
   "Mark an aim as achieved and track it on expenses."
   [request]
-  (let [params (resource/request-body->map request)
-        aim (-> (:id params) find-by-id first)]
-    (mark-aim-achieved aim (:achieved params))
-    (expenses/insert! (aim->expense aim (:category params)))))
+  (let [ds (:datasource request)
+        req (resource/request-body->map request)
+        aim (->> (:id req) (find-by-id req) first)]
+    (mark-aim-achieved ds aim (:achieved req))
+    (expenses/insert! ds (aim->expense aim (:category req)))))
 
 (defroutes routes
   (context "/api/aim" [id]
-    (GET "/find" []
-      (response/ok (find-all)))
-    (GET "/find/:id" [id]
-      (response/ok (find-by-id id)))
-    (GET "/active" []
-      (response/ok (find-active)))
-    (GET "/achieved" []
-      (response/ok (find-achieved)))
+    (GET "/find" request
+      (response/ok (find-all request)))
+    (GET "/find/:id" [id :as request]
+      (response/ok (find-by-id request id)))
+    (GET "/active" request
+      (response/ok (find-active request)))
+    (GET "/achieved" request
+      (response/ok (find-achieved request)))
     (PUT "/achieved" request
       (response/ok (achieved! request)))
     (POST "/insert" request
       (response/ok (insert! request)))
     (PUT "/update" request
       (response/ok (update! request)))
-    (DELETE "/delete/:id" [id]
-      (response/ok (delete! id)))
-    (GET "/transactions" []
-      (response/ok (aims-with-transactions)))))
+    (DELETE "/delete/:id" [id :as request]
+      (response/ok (delete! request id)))
+    (GET "/transactions" request
+      (response/ok (aims-with-transactions request)))))

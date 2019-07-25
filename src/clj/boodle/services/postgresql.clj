@@ -9,13 +9,11 @@
    [java-time.local :as jl]
    [java-time.pre-java8 :as jp]
    [next.jdbc :as jdbc]
-   [next.jdbc.connection :as connection]
    [next.jdbc.prepare :as prepare]
    [next.jdbc.result-set :as result-set]
    [taoensso.timbre :as log])
   (:import
    (clojure.lang IPersistentMap IPersistentVector)
-   (com.zaxxer.hikari HikariDataSource)
    (java.sql Date Timestamp)
    (org.postgresql.util PGobject)))
 
@@ -65,19 +63,6 @@
   (set-parameter [v s i]
     (.setObject s i (jp/sql-timestamp v))))
 
-(def datasource (atom nil))
-
-(defn connect!
-  [config]
-  (let [db-spec (:postgresql config)
-        ^HikariDataSource ds (connection/->pool HikariDataSource db-spec)]
-    (reset! datasource ds)))
-
-(defn disconnect!
-  []
-  (when @datasource
-    (reset! datasource nil)))
-
 (defn snake-case->kebab-case
   [column]
   (when (keyword? column)
@@ -105,16 +90,16 @@
 
 (defn execute!
   "Execute query (select/insert/update/delete) using the map in `sqlmap`."
-  [sqlmap]
+  [datasource sqlmap]
   (let [q (honey/format sqlmap)]
     (try
-      (jdbc/execute! @datasource q)
+      (jdbc/execute! datasource q)
       (catch Exception e
         (log/error (exceptions/stacktrace e))
         (throw (ex-info "Exception in execute!" {:sqlmap sqlmap :query q}))))))
 
 (defn query
   "Run a SELECT query using the map in `sqlmap` and format output keywords."
-  [sqlmap]
-  (->> (execute! sqlmap)
+  [datasource sqlmap]
+  (->> (execute! datasource sqlmap)
        (map format-output-keywords)))

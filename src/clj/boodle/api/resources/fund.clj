@@ -8,53 +8,51 @@
    [ring.util.http-response :as response]))
 
 (defn find-all
-  []
-  (let [funds (funds/select-all)
+  [request]
+  (let [ds (:datasource request)
+        funds (funds/select-all ds)
         total (apply + (map :amount funds))]
     (-> {}
         (assoc :funds funds)
         (assoc :total total))))
 
 (defn find-by-id
-  [id]
-  (-> id
-      numbers/str->integer
-      funds/select-by-id))
-
-(defn find-by-name
-  [name]
-  (funds/select-by-name name))
+  [request id]
+  (let [ds (:datasource request)
+        id (numbers/str->integer id)]
+    (funds/select-by-id ds id)))
 
 (defn insert!
   [request]
-  (-> request
-      resource/request-body->map
-      (assoc :amount 0)
-      (dates/record-str->date :date)
-      funds/insert!))
+  (let [ds (:datasource request)
+        req (resource/request-body->map request)
+        record (-> req
+                   (assoc :amount 0)
+                   (dates/record-str->date :date))]
+    (funds/insert! ds record)))
 
 (defn update!
   [request]
-  (-> request
-      resource/request-body->map
-      (numbers/record-str->double :amount)
-      funds/update!))
+  (let [ds (:datasource request)
+        req (resource/request-body->map request)
+        record (numbers/record-str->double req :amount)]
+    (funds/update! ds record)))
 
 (defn delete!
-  [id]
-  (-> id
-      numbers/str->integer
-      funds/delete!))
+  [request id]
+  (let [ds (:datasource request)
+        id (numbers/str->integer id)]
+    (funds/delete! ds id)))
 
 (defroutes routes
   (context "/api/fund" [id]
-    (GET "/find" []
-      (response/ok (find-all)))
-    (GET "/find/:id" [id]
-      (response/ok (find-by-id id)))
+    (GET "/find" request
+      (response/ok (find-all request)))
+    (GET "/find/:id" [id :as request]
+      (response/ok (find-by-id request id)))
     (POST "/insert" request
       (response/ok (insert! request)))
     (PUT "/update" request
       (response/ok (update! request)))
-    (DELETE "/delete/:id" [id]
-      (response/ok (delete! id)))))
+    (DELETE "/delete/:id" [id :as request]
+      (response/ok (delete! request id)))))

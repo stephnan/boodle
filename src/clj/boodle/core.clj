@@ -3,14 +3,17 @@
   (:require
    [boodle.services.configuration :refer [config]]
    [boodle.services.http :as http]
-   [boodle.services.postgresql :as db]))
+   [next.jdbc.connection :as connection])
+  (:import
+   (com.zaxxer.hikari HikariDataSource)))
 
 (defn -main
   [& args]
-  (db/connect! config)
-  (http/start-server! config))
+  (let [port (get-in config [:http :port])
+        db-spec (:postgresql config)
+        ^HikariDataSource ds (connection/->pool HikariDataSource db-spec)]
+    (http/start-server! ds port)))
 
 (defn reset
   []
-  (http/stop-server!)
-  (db/disconnect!))
+  (http/stop-server!))
