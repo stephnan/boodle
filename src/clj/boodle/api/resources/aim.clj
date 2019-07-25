@@ -2,9 +2,7 @@
   (:require
    [boodle.model.expenses :as expenses]
    [boodle.model.aims :as aims]
-   [boodle.utils.dates :as dates]
-   [boodle.utils.numbers :as numbers]
-   [boodle.utils.resource :as resource]
+   [boodle.utils :as utils]
    [compojure.core :refer [context defroutes DELETE GET POST PUT]]
    [ring.util.http-response :as response]))
 
@@ -17,7 +15,7 @@
 (defn find-by-id
   [request id]
   (let [ds (:datasource request)
-        id (numbers/str->integer id)]
+        id (utils/str->integer id)]
     (aims/select-by-id request id)))
 
 (defn find-active
@@ -35,22 +33,22 @@
 (defn insert!
   [request]
   (let [ds (:datasource request)
-        req (resource/request-body->map request)
-        record (numbers/record-str->double req :target)]
+        req (utils/request-body->map request)
+        record (utils/record-str->double req :target)]
     (aims/insert! ds record)))
 
 (defn update!
   [request]
   (let [ds (:datasource request)
-        req (resource/request-body->map request)
-        record (-> (numbers/record-str->double req :target)
-                   (assoc :id (numbers/str->integer (:id req))))]
+        req (utils/request-body->map request)
+        record (-> (utils/record-str->double req :target)
+                   (assoc :id (utils/str->integer (:id req))))]
     (aims/update! ds record)))
 
 (defn delete!
   [request id]
   (let [ds (:datasource request)
-        id (numbers/str->integer id)]
+        id (utils/str->integer id)]
     (aims/delete! ds id)))
 
 (defn format-aims-and-totals
@@ -61,7 +59,7 @@
                  (let [aim (first (map :aim v))
                        target (first (map :target v))
                        saved (apply + (->> (map :amount v)
-                                           (map numbers/or-zero)))
+                                           (map utils/or-zero)))
                        left (- target saved)]
                    (assoc m k {:name aim :target target :saved saved :left left})))
                {}
@@ -78,27 +76,27 @@
 (defn mark-aim-achieved
   "Mark `aim` as achieved using the value of `achieved`."
   [datasource aim achieved]
-  (let [record (-> (numbers/record-str->double aim :target)
-                   (assoc :id (numbers/str->integer (:id aim)))
+  (let [record (-> (utils/record-str->double aim :target)
+                   (assoc :id (utils/str->integer (:id aim)))
                    (assoc :achieved achieved)
-                   (assoc :achieved_on (dates/today)))]
+                   (assoc :achieved_on (utils/today)))]
     (aims/update! datasource record)))
 
 (defn aim->expense
   "Convert `aim` into an expense for the given `category`."
   [aim category]
-  (let [id-category (numbers/str->integer category)]
-    {:amount (numbers/str->double (:target aim))
+  (let [id-category (utils/str->integer category)]
+    {:amount (utils/str->double (:target aim))
      :item (:name aim)
      :id-category id-category
-     :date (:date (dates/record-str->date aim :date))
+     :date (:date (utils/record-str->date aim :date))
      :from-savings true}))
 
 (defn achieved!
   "Mark an aim as achieved and track it on expenses."
   [request]
   (let [ds (:datasource request)
-        req (resource/request-body->map request)
+        req (utils/request-body->map request)
         aim (->> (:id req) (find-by-id req) first)]
     (mark-aim-achieved ds aim (:achieved req))
     (expenses/insert! ds (aim->expense aim (:category req)))))

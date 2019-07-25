@@ -2,8 +2,7 @@
   (:require
    [boodle.api.resources.transaction :as transaction]
    [boodle.model.transactions :as model]
-   [boodle.utils.dates :as dates]
-   [boodle.utils.resource :as resource]
+   [boodle.utils :as utils]
    [clojure.test :refer :all]))
 
 (deftest find-all-test
@@ -23,16 +22,16 @@
             :left 0}))))
 
 (deftest insert-test
-  (with-redefs [resource/request-body->map (fn [req] req)
+  (with-redefs [utils/request-body->map (fn [req] req)
                 model/insert! (fn [ds transaction] transaction)]
     (let [transaction {:item "test" :amount "3,5"
                        :id-aim "1" :date "15/07/2018"}]
       (is (= (transaction/insert! transaction)
              {:item "test" :amount 3.50
-              :id-aim 1 :date (dates/to-local-date "15/07/2018")})))))
+              :id-aim 1 :date (utils/to-local-date "15/07/2018")})))))
 
 (deftest update-test
-  (with-redefs [resource/request-body->map (fn [req] req)
+  (with-redefs [utils/request-body->map (fn [req] req)
                 model/update! (fn [ds transaction] transaction)]
     (let [transaction {:id "1" :item "test" :amount "3,5"
                        :id-aim "1" :date "15/07/2018"}]

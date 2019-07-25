@@ -1,7 +1,6 @@
 (ns boodle.services.postgresql
   (:require
-   [boodle.utils.dates :as dates]
-   [boodle.utils.exceptions :as exceptions]
+   [boodle.utils :as utils]
    [cheshire.core :as cheshire]
    [clojure.string :as s]
    [honeysql.core :as honey]
@@ -22,13 +21,13 @@
   (read-column-by-index [v _ _]
     (-> v
         jl/local-date
-        dates/format-date))
+        utils/format-date))
 
   Timestamp
   (read-column-by-index [v _ _]
     (-> v
         jl/local-date
-        dates/format-date))
+        utils/format-date))
 
   PGobject
   (read-column-by-index [pgobj _metadata _index]
@@ -95,7 +94,7 @@
     (try
       (jdbc/execute! datasource q)
       (catch Exception e
-        (log/error (exceptions/stacktrace e))
+        (log/error (utils/stacktrace e))
         (throw (ex-info "Exception in execute!" {:sqlmap sqlmap :query q}))))))
 
 (defn query

@@ -1,9 +1,7 @@
 (ns boodle.api.resources.transaction
   (:require
    [boodle.model.transactions :as transactions]
-   [boodle.utils.dates :as dates]
-   [boodle.utils.numbers :as numbers]
-   [boodle.utils.resource :as resource]
+   [boodle.utils :as utils]
    [compojure.core :refer [context defroutes DELETE GET POST PUT]]
    [ring.util.http-response :as response]))
 
@@ -16,15 +14,15 @@
 (defn find-by-id
   [request id]
   (let [ds (:datasource request)
-        id (numbers/str->integer id)]
+        id (utils/str->integer id)]
     (transactions/select-by-id request id)))
 
 (defn find-by-aim
   [request id-aim]
   (let [ds (:datasource request)
-        ts (transactions/select-by-aim ds (numbers/str->integer id-aim))
+        ts (transactions/select-by-aim ds (utils/str->integer id-aim))
         target (first (map :target ts))
-        saved (apply + (->> (map :amount ts) (map numbers/or-zero)))
+        saved (apply + (->> (map :amount ts) (map utils/or-zero)))
         left (- target saved)]
     (-> {}
         (assoc :transactions ts)
@@ -35,25 +33,25 @@
 (defn insert!
   [request]
   (let [ds (:datasource request)
-        req (resource/request-body->map request)
-        record (-> (numbers/record-str->double req :amount)
-                   (dates/record-str->date :date)
-                   (assoc :id-aim (numbers/str->integer (:id-aim req))))]
+        req (utils/request-body->map request)
+        record (-> (utils/record-str->double req :amount)
+                   (utils/record-str->date :date)
+                   (assoc :id-aim (utils/str->integer (:id-aim req))))]
     (transactions/insert! ds record)))
 
 (defn update!
   [request]
   (let [ds (:datasource request)
-        req (resource/request-body->map request)
-        record (-> (numbers/record-str->double req :amount)
-                   (assoc :id (numbers/str->integer (:id req)))
-                   (assoc :id-aim (numbers/str->integer (:id-aim req))))]
+        req (utils/request-body->map request)
+        record (-> (utils/record-str->double req :amount)
+                   (assoc :id (utils/str->integer (:id req)))
+                   (assoc :id-aim (utils/str->integer (:id-aim req))))]
     (transactions/update! ds record)))
 
 (defn delete!
   [request id]
   (let [ds (:datasource request)
-        id (numbers/str->integer id)]
+        id (utils/str->integer id)]
     (transactions/delete! ds id)))
 
 (defroutes routes

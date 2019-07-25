@@ -4,7 +4,7 @@
    [boodle.model.funds :as funds]
    [boodle.model.savings :as savings]
    [boodle.model.transactions :as transactions]
-   [boodle.utils.resource :as resource]
+   [boodle.utils :as utils]
    [clojure.test :refer :all]
    [java-time :as jt]))
 
@@ -18,14 +18,14 @@
     (is (= (saving/find-by-id {} "1") 1))))
 
 (deftest insert-test
-  (with-redefs [resource/request-body->map (fn [req] req)
+  (with-redefs [utils/request-body->map (fn [req] req)
                 savings/insert! (fn [ds saving] saving)]
     (let [saving {:item "test" :amount "3,5"}]
       (is (= (saving/insert! saving)
              {:item "test" :amount 3.50 :date (jt/local-date)})))))
 
 (deftest update-test
-  (with-redefs [resource/request-body->map (fn [req] req)
+  (with-redefs [utils/request-body->map (fn [req] req)
                 savings/update! (fn [ds saving] saving)]
     (let [saving {:item "test update"}]
       (is (= (saving/update! saving) {:item "test update"})))))
@@ -35,7 +35,7 @@
     (is (= (saving/delete! {} "1") 1))))
 
 (deftest transfer-to-aim-test
-  (with-redefs [resource/request-body->map (fn [req] req)
+  (with-redefs [utils/request-body->map (fn [req] req)
                 transactions/insert! (fn [ds params] params)
                 savings/insert! (fn [ds params] params)]
     (let [transfer {:id-aim "1" :item "test transfer" :amount "20"}]
@@ -44,7 +44,7 @@
               :amount -20.0 :date (jt/local-date)})))))
 
 (deftest transfer-to-fund-test
-  (with-redefs [resource/request-body->map (fn [req] req)
+  (with-redefs [utils/request-body->map (fn [req] req)
                 funds/select-by-id (fn [ds id] [{:amount 0}])
                 funds/update! (fn [ds fund] fund)
                 savings/insert! (fn [ds params] params)]

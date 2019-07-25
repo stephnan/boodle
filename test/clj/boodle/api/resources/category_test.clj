@@ -4,7 +4,7 @@
    [boodle.api.resources.expense :as expense]
    [boodle.model.categories :as categories]
    [boodle.model.expenses :as expenses]
-   [boodle.utils.resource :as resource]
+   [boodle.utils :as utils]
    [clojure.test :refer :all]))
 
 (deftest find-all-test
@@ -50,19 +50,19 @@
            {1 {:id 1 :name "test" :monthly-budget 50 :total 10}}))))
 
 (deftest insert-test
-  (with-redefs [resource/request-body->map (fn [req] req)
+  (with-redefs [utils/request-body->map (fn [req] req)
                 categories/insert! (fn [ds category] category)]
     (let [category {:name "test"}]
       (is (= (category/insert! category) {:name "test"})))))
 
 (deftest update-test
-  (with-redefs [resource/request-body->map (fn [req] req)
+  (with-redefs [utils/request-body->map (fn [req] req)
                 categories/update! (fn [ds category] category)]
     (let [category {:name "test update"}]
       (is (= (category/update! category) {:name "test update"})))))
 
 (deftest delete-test
-  (with-redefs [resource/request-body->map (fn [req] req)
+  (with-redefs [utils/request-body->map (fn [req] req)
                 expense/find-by-category (fn [req category] [{:name "test"
                                                               :amount 3.50
                                                               :id-category 1

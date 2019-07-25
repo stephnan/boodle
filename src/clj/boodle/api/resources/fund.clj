@@ -1,9 +1,7 @@
 (ns boodle.api.resources.fund
   (:require
    [boodle.model.funds :as funds]
-   [boodle.utils.dates :as dates]
-   [boodle.utils.numbers :as numbers]
-   [boodle.utils.resource :as resource]
+   [boodle.utils :as utils]
    [compojure.core :refer [context defroutes DELETE GET POST PUT]]
    [ring.util.http-response :as response]))
 
@@ -19,29 +17,29 @@
 (defn find-by-id
   [request id]
   (let [ds (:datasource request)
-        id (numbers/str->integer id)]
+        id (utils/str->integer id)]
     (funds/select-by-id ds id)))
 
 (defn insert!
   [request]
   (let [ds (:datasource request)
-        req (resource/request-body->map request)
+        req (utils/request-body->map request)
         record (-> req
                    (assoc :amount 0)
-                   (dates/record-str->date :date))]
+                   (utils/record-str->date :date))]
     (funds/insert! ds record)))
 
 (defn update!
   [request]
   (let [ds (:datasource request)
-        req (resource/request-body->map request)
-        record (numbers/record-str->double req :amount)]
+        req (utils/request-body->map request)
+        record (utils/record-str->double req :amount)]
     (funds/update! ds record)))
 
 (defn delete!
   [request id]
   (let [ds (:datasource request)
-        id (numbers/str->integer id)]
+        id (utils/str->integer id)]
     (funds/delete! ds id)))
 
 (defroutes routes

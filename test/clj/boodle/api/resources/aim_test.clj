@@ -3,8 +3,7 @@
    [boodle.api.resources.aim :as aim]
    [boodle.model.aims :as aims]
    [boodle.model.expenses :as expenses]
-   [boodle.utils.dates :as dates]
-   [boodle.utils.resource :as resource]
+   [boodle.utils :as utils]
    [clojure.test :refer :all]))
 
 (deftest find-all-test
@@ -24,13 +23,13 @@
     (is (= (aim/find-achieved {}) {:item "test"}))))
 
 (deftest insert-test
-  (with-redefs [resource/request-body->map (fn [req] req)
+  (with-redefs [utils/request-body->map (fn [req] req)
                 aims/insert! (fn [ds aim] aim)]
     (let [aim {:name "test" :target "3,5"}]
       (is (= (aim/insert! aim) {:name "test" :target 3.50})))))
 
 (deftest update-test
-  (with-redefs [resource/request-body->map (fn [req] req)
+  (with-redefs [utils/request-body->map (fn [req] req)
                 aims/update! (fn [ds aim] aim)]
     (let [aim {:id "1" :name "test update" :target "3,5"}]
       (is (= (aim/update! aim) {:id 1 :name "test update" :target 3.50})))))
@@ -59,7 +58,7 @@
               :target 3.5
               :name "test achieved"
               :achieved true
-              :achieved_on (dates/today)})))))
+              :achieved_on (utils/today)})))))
 
 (deftest aim->expense-test
   (let [aim {:name "test achieved" :target "3,5"}]
@@ -70,7 +69,7 @@
             :from-savings true}))))
 
 (deftest achieved-test
-  (with-redefs [resource/request-body->map (fn [req] req)
+  (with-redefs [utils/request-body->map (fn [req] req)
                 aim/find-by-id (fn [req id] [{:id "1"
                                               :name "test achieved"
                                               :target "3,5"

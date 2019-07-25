@@ -3,9 +3,7 @@
    [boodle.api.resources.expense :as expense]
    [boodle.model.categories :as categories]
    [boodle.model.expenses :as expenses]
-   [boodle.utils.dates :as dates]
-   [boodle.utils.numbers :as numbers]
-   [boodle.utils.resource :as resource]
+   [boodle.utils :as utils]
    [compojure.core :refer [context defroutes GET POST PUT]]
    [ring.util.http-response :as response]))
 
@@ -18,15 +16,15 @@
 (defn find-by-id
   [request id]
   (let [ds (:datasource request)
-        id (numbers/str->integer id)]
+        id (utils/str->integer id)]
     (categories/select-by-id ds id)))
 
 (defn find-category-monthly-totals
   "Return the monthly expenses for the category `id`."
   [request id]
   (let [ds (:datasource request)
-        from (dates/first-day-of-month)
-        to (dates/last-day-of-month)]
+        from (utils/first-day-of-month)
+        to (utils/last-day-of-month)]
     (categories/select-category-monthly-expenses ds from to id)))
 
 (defn build-categories-expenses-vec
@@ -51,7 +49,7 @@
                  (let [category (first (map :name v))
                        monthly-budget (first (map :monthly-budget v))
                        total (apply + (->> (map :amount v)
-                                           (map numbers/or-zero)))]
+                                           (map utils/or-zero)))]
                    (assoc m k {:id k
                                :name category
                                :monthly-budget monthly-budget
@@ -62,23 +60,23 @@
 (defn insert!
   [request]
   (let [ds (:datasource request)
-        req (resource/request-body->map request)
-        record (numbers/record-str->double req :monthly-budget)]
+        req (utils/request-body->map request)
+        record (utils/record-str->double req :monthly-budget)]
     (categories/insert! ds (dissoc record :datasource))))
 
 (defn update!
   [request]
   (let [ds (:datasource request)
-        req (resource/request-body->map request)
-        record (numbers/record-str->double req :monthly-budget)]
+        req (utils/request-body->map request)
+        record (utils/record-str->double req :monthly-budget)]
     (categories/update! ds (dissoc record :datasource))))
 
 (defn- update-expense-category
   [expense id-category]
   (-> expense
       (assoc :id-category id-category)
-      (numbers/record-str->double :id-category)
-      (dates/record-str->date :date)))
+      (utils/record-str->double :id-category)
+      (utils/record-str->date :date)))
 
 (defn- update-expenses-category
   [expenses id-category]
@@ -100,7 +98,7 @@
 (defn delete!
   [request]
   (let [ds (:datasource request)
-        {:keys [old-category new-category]} (resource/request-body->map request)]
+        {:keys [old-category new-category]} (utils/request-body->map request)]
     (update-existing-expenses request old-category new-category)
     (categories/delete! ds old-category)))
 

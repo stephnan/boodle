@@ -87,8 +87,6 @@ the language, you can find the translations in
 https://github.com/manuel-uberti/boodle/blob/master/src/cljs/boodle/i18n.cljs[i18n.cljs].
 
 You should also check out
-https://github.com/manuel-uberti/boodle/blob/master/src/clj/boodle/utils/dates.clj[dates.clj]
-and
-https://github.com/manuel-uberti/boodle/blob/master/src/clj/boodle/utils/numbers.clj[numbers.clj],
+https://github.com/manuel-uberti/boodle/blob/master/src/clj/boodle/utils.clj[utils.clj]
 which take care of the localization of dates and amounts according to Italian
 standards.

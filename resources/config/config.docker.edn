@@ -1,5 +1,4 @@
 {:http {:port 8080}
- :i18n {:date-format "dd/MM/yyyy"}
  :postgresql {:dbtype "postgres"
               :host "localhost"
               :dbname "boodle"

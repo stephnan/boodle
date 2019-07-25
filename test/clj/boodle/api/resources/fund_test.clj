@@ -2,7 +2,7 @@
   (:require
    [boodle.api.resources.fund :as fund]
    [boodle.model.funds :as funds]
-   [boodle.utils.resource :as resource]
+   [boodle.utils :as utils]
    [clojure.test :refer :all]
    [java-time :as jt]))
 
@@ -16,14 +16,14 @@
     (is (= (fund/find-by-id {} "1") 1))))
 
 (deftest insert-test
-  (with-redefs [resource/request-body->map (fn [req] req)
+  (with-redefs [utils/request-body->map (fn [req] req)
                 funds/insert! (fn [ds fund] fund)]
     (let [fund {:name "test"}]
       (is (= (fund/insert! fund)
              {:name "test" :amount 0 :date (jt/local-date)})))))
 
 (deftest update-test
-  (with-redefs [resource/request-body->map (fn [req] req)
+  (with-redefs [utils/request-body->map (fn [req] req)
                 funds/update! (fn [ds fund] fund)]
     (let [fund {:name "test update"}]
       (is (= (fund/update! fund) {:name "test update"})))))

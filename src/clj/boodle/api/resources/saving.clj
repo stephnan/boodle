@@ -3,9 +3,7 @@
    [boodle.model.funds :as funds]
    [boodle.model.savings :as savings]
    [boodle.model.transactions :as transactions]
-   [boodle.utils.dates :as dates]
-   [boodle.utils.numbers :as numbers]
-   [boodle.utils.resource :as resource]
+   [boodle.utils :as utils]
    [compojure.core :refer [context defroutes DELETE GET POST PUT]]
    [ring.util.http-response :as response]))
 
@@ -21,43 +19,43 @@
 (defn find-by-id
   [request id]
   (let [ds (:datasource request)
-        id (numbers/str->integer id)]
+        id (utils/str->integer id)]
     (savings/select-by-id ds id)))
 
 (defn insert!
   [request]
   (let [ds (:datasource request)
-        req (resource/request-body->map request)
+        req (utils/request-body->map request)
         record (-> req
-                   (numbers/record-str->double :amount)
-                   (dates/record-str->date :date))]
+                   (utils/record-str->double :amount)
+                   (utils/record-str->date :date))]
     (savings/insert! ds record)))
 
 (defn update!
   [request]
   (let [ds (:datasource request)
-        record (resource/request-body->map request)]
+        record (utils/request-body->map request)]
     (savings/update! ds record)))
 
 (defn delete!
   [request id]
   (let [ds (:datasource request)
-        id (numbers/str->integer id)]
+        id (utils/str->integer id)]
     (savings/delete! ds id)))
 
 (defn transfer-to-aim!
   "Transfer the amount from savings to an aim and track the transaction."
   [request]
   (let [ds (:datasource request)
-        req (resource/request-body->map request)
+        req (utils/request-body->map request)
         transfer (-> req
-                     (numbers/record-str->double :amount)
-                     (assoc :id-aim (numbers/str->integer (:id-aim req)))
-                     (assoc :date (dates/today)))]
+                     (utils/record-str->double :amount)
+                     (assoc :id-aim (utils/str->integer (:id-aim req)))
+                     (assoc :date (utils/today)))]
     (transactions/insert! ds transfer)
     (let [saving (-> transfer
                      (assoc :amount (- (:amount transfer)))
-                     (assoc :date (dates/today)))]
+                     (assoc :date (utils/today)))]
       (savings/insert! ds saving))))
 
 (defn- update-fund!
@@ -71,17 +69,17 @@
   "Transfer the amount from savings to a fund."
   [request]
   (let [ds (:datasource request)
-        req (resource/request-body->map request)
-        id-fund (numbers/str->integer (:id-fund req))
-        amount (numbers/str->double (:amount req))
+        req (utils/request-body->map request)
+        id-fund (utils/str->integer (:id-fund req))
+        amount (utils/str->double (:amount req))
         transfer (-> req
                      (assoc :id-fund id-fund)
                      (assoc :amount amount)
-                     (assoc :date (dates/today)))]
+                     (assoc :date (utils/today)))]
     (update-fund! ds id-fund amount)
     (let [saving (-> transfer
                      (assoc :amount (- (:amount transfer)))
-                     (assoc :date (dates/today)))]
+                     (assoc :date (utils/today)))]
       (savings/insert! ds saving))))
 
 (defroutes routes
