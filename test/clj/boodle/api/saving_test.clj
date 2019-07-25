@@ -1,6 +1,6 @@
-(ns boodle.api.resources.saving-test
+(ns boodle.api.saving-test
   (:require
-   [boodle.api.resources.saving :as saving]
+   [boodle.api.saving :as saving]
    [boodle.model.funds :as funds]
    [boodle.model.savings :as savings]
    [boodle.model.transactions :as transactions]

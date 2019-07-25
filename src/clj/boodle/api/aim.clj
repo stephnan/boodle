@@ -1,4 +1,4 @@
-(ns boodle.api.resources.aim
+(ns boodle.api.aim
   (:require
    [boodle.model.expenses :as expenses]
    [boodle.model.aims :as aims]

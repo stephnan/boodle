@@ -1,4 +1,4 @@
-(ns boodle.api.resources.saving
+(ns boodle.api.saving
   (:require
    [boodle.model.funds :as funds]
    [boodle.model.savings :as savings]

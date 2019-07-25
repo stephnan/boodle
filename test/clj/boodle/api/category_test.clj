@@ -1,7 +1,7 @@
-(ns boodle.api.resources.category-test
+(ns boodle.api.category-test
   (:require
-   [boodle.api.resources.category :as category]
-   [boodle.api.resources.expense :as expense]
+   [boodle.api.category :as category]
+   [boodle.api.expense :as expense]
    [boodle.model.categories :as categories]
    [boodle.model.expenses :as expenses]
    [boodle.utils :as utils]

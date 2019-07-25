@@ -1,6 +1,6 @@
-(ns boodle.api.resources.expense-test
+(ns boodle.api.expense-test
   (:require
-   [boodle.api.resources.expense :as expense]
+   [boodle.api.expense :as expense]
    [boodle.model.expenses :as expenses]
    [boodle.utils :as utils]
    [clojure.test :refer :all]))

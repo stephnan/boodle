@@ -1,6 +1,6 @@
-(ns boodle.api.resources.transaction-test
+(ns boodle.api.transaction-test
   (:require
-   [boodle.api.resources.transaction :as transaction]
+   [boodle.api.transaction :as transaction]
    [boodle.model.transactions :as model]
    [boodle.utils :as utils]
    [clojure.test :refer :all]))

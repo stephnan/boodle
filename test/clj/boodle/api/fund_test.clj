@@ -1,6 +1,6 @@
-(ns boodle.api.resources.fund-test
+(ns boodle.api.fund-test
   (:require
-   [boodle.api.resources.fund :as fund]
+   [boodle.api.fund :as fund]
    [boodle.model.funds :as funds]
    [boodle.utils :as utils]
    [clojure.test :refer :all]

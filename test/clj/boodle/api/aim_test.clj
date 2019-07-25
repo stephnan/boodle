@@ -1,6 +1,6 @@
-(ns boodle.api.resources.aim-test
+(ns boodle.api.aim-test
   (:require
-   [boodle.api.resources.aim :as aim]
+   [boodle.api.aim :as aim]
    [boodle.model.aims :as aims]
    [boodle.model.expenses :as expenses]
    [boodle.utils :as utils]
