@@ -95,7 +95,7 @@
     (PUT "/update" request
       (response/ok (update! request)))
     (DELETE "/delete/:id" [id :as request]
-      (response/ok (delete! id)))
+      (response/ok (delete! request id)))
     (PUT "/transfer/aim" request
       (response/ok (transfer-to-aim! request)))
     (PUT "/transfer/fund" request
