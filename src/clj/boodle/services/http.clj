@@ -52,7 +52,7 @@
        (compojure/GET "/" [] (response/ok (index-html)))
        (compojure/GET "/savings" [] (response/ok (index-html)))
        (compojure/GET "/categories" [] (response/ok (index-html)))
-       api/routes)
+       api-routes)
       (add-datasource datasource)
       reload/wrap-reload))
 
