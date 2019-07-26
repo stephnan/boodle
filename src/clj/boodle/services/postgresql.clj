@@ -62,19 +62,6 @@
   (set-parameter [v s i]
     (.setObject s i (jp/sql-timestamp v))))
 
-(defn snake-case->kebab-case
-  [column]
-  (when (keyword? column)
-    (keyword (s/replace (name column) #"_" "-"))))
-
-(defn format-output-keywords
-  "Convert `output` keywords from snake_case to kebab-case."
-  [output]
-  (reduce-kv (fn [m k v]
-               (assoc m (snake-case->kebab-case k) v))
-             {}
-             output))
-
 (defmethod fmt/fn-handler "ilike" [_ col qstr]
   (str (fmt/to-sql col) " ilike " (fmt/to-sql qstr)))
 
@@ -96,6 +83,19 @@
       (catch Exception e
         (log/error (utils/stacktrace e))
         (throw (ex-info "Exception in execute!" {:sqlmap sqlmap :query q}))))))
+
+(defn snake-case->kebab-case
+  [column]
+  (when (keyword? column)
+    (keyword (s/replace (name column) #"_" "-"))))
+
+(defn format-output-keywords
+  "Convert `output` keywords from snake_case to kebab-case."
+  [output]
+  (reduce-kv (fn [m k v]
+               (assoc m (snake-case->kebab-case k) v))
+             {}
+             output))
 
 (defn query
   "Run a SELECT query using the map in `sqlmap` and format output keywords."
