@@ -1,4 +1,4 @@
-(ns boodle.api.expense
+(ns boodle.api.expenses
   (:require
    [boodle.model.expenses :as expenses]
    [boodle.utils :as utils]

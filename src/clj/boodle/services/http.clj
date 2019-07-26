@@ -1,11 +1,11 @@
 (ns boodle.services.http
   (:require
-   [boodle.api.aim :as aim]
-   [boodle.api.category :as category]
-   [boodle.api.expense :as expense]
-   [boodle.api.fund :as fund]
-   [boodle.api.saving :as saving]
-   [boodle.api.transaction :as transaction]
+   [boodle.api.aims :as aims]
+   [boodle.api.categories :as categories]
+   [boodle.api.expenses :as expenses]
+   [boodle.api.funds :as funds]
+   [boodle.api.savings :as savings]
+   [boodle.api.transactions :as transactions]
    [compojure.core :as compojure]
    [compojure.route :as route]
    [hiccup.page :as hiccup]
@@ -33,12 +33,12 @@
     [:script "boodle.core.init();"]]))
 
 (compojure/defroutes api-routes
-  (compojure/wrap-routes aim/routes restful/wrap-restful-format)
-  (compojure/wrap-routes category/routes restful/wrap-restful-format)
-  (compojure/wrap-routes expense/routes restful/wrap-restful-format)
-  (compojure/wrap-routes fund/routes restful/wrap-restful-format)
-  (compojure/wrap-routes saving/routes restful/wrap-restful-format)
-  (compojure/wrap-routes transaction/routes restful/wrap-restful-format))
+  (compojure/wrap-routes aims/routes restful/wrap-restful-format)
+  (compojure/wrap-routes categories/routes restful/wrap-restful-format)
+  (compojure/wrap-routes expenses/routes restful/wrap-restful-format)
+  (compojure/wrap-routes funds/routes restful/wrap-restful-format)
+  (compojure/wrap-routes savings/routes restful/wrap-restful-format)
+  (compojure/wrap-routes transactions/routes restful/wrap-restful-format))
 
 (defn add-datasource
   [handler datasource]

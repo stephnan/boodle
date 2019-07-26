@@ -1,4 +1,4 @@
-(ns boodle.api.transaction
+(ns boodle.api.transactions
   (:require
    [boodle.model.transactions :as transactions]
    [boodle.utils :as utils]

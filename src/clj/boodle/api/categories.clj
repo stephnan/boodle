@@ -1,8 +1,8 @@
-(ns boodle.api.category
+(ns boodle.api.categories
   (:require
-   [boodle.api.expense :as expense]
+   [boodle.api.expenses :as expenses]
    [boodle.model.categories :as categories]
-   [boodle.model.expenses :as expenses]
+   [boodle.model.expenses :as m-expenses]
    [boodle.utils :as utils]
    [compojure.core :refer [context defroutes GET POST PUT]]
    [ring.util.http-response :as response]))
@@ -85,12 +85,12 @@
 (defn- save-expenses
   [datasource expenses]
   (doseq [e expenses]
-    (expenses/update! datasource e)))
+    (m-expenses/update! datasource e)))
 
 (defn- update-existing-expenses
   [request old-category new-category]
   (let [ds (:datasource request)
-        expenses (expense/find-by-category request old-category)]
+        expenses (expenses/find-by-category request old-category)]
     (when (seq expenses)
       (->> (update-expenses-category expenses new-category)
            (save-expenses ds)))))

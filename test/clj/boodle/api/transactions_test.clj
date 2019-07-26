@@ -1,21 +1,21 @@
-(ns boodle.api.transaction-test
+(ns boodle.api.transactions-test
   (:require
-   [boodle.api.transaction :as transaction]
+   [boodle.api.transactions :as transactions]
    [boodle.model.transactions :as model]
    [boodle.utils :as utils]
    [clojure.test :refer :all]))
 
 (deftest find-all-test
   (with-redefs [model/select-all (fn [ds] {:item "test"})]
-    (is (= (transaction/find-all {}) {:item "test"}))))
+    (is (= (transactions/find-all {}) {:item "test"}))))
 
 (deftest find-by-id-test
   (with-redefs [model/select-by-id (fn [ds id] id)]
-    (is (= (transaction/find-by-id {} "1") 1))))
+    (is (= (transactions/find-by-id {} "1") 1))))
 
 (deftest find-by-aim-test
   (with-redefs [model/select-by-aim (fn [ds id] [{:id 1 :target 1 :amount 1}])]
-    (is (= (transaction/find-by-aim {} 1)
+    (is (= (transactions/find-by-aim {} 1)
            {:transactions [{:id 1, :target 1, :amount 1}],
             :target 1,
             :saved 1,
@@ -26,7 +26,7 @@
                 model/insert! (fn [ds transaction] transaction)]
     (let [transaction {:item "test" :amount "3,5"
                        :id-aim "1" :date "15/07/2018"}]
-      (is (= (transaction/insert! transaction)
+      (is (= (transactions/insert! transaction)
              {:item "test" :amount 3.50
               :id-aim 1 :date (utils/to-local-date "15/07/2018")})))))
 
@@ -35,10 +35,10 @@
                 model/update! (fn [ds transaction] transaction)]
     (let [transaction {:id "1" :item "test" :amount "3,5"
                        :id-aim "1" :date "15/07/2018"}]
-      (is (= (transaction/update! transaction)
+      (is (= (transactions/update! transaction)
              {:id 1 :item "test" :amount 3.5
               :id-aim 1 :date "15/07/2018"})))))
 
 (deftest delete-test
   (with-redefs [model/delete! (fn [ds id] id)]
-    (is (= (transaction/delete! {} "1") 1))))
+    (is (= (transactions/delete! {} "1") 1))))
