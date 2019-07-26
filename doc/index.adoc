@@ -42,23 +42,16 @@ tools.
 Boodle runs on https://www.postgresql.org/[PostgreSQL], which is always my go-to
 database when it comes to personal projects.
 
-Thanks to https://github.com/juxt/aero[aero], I only need to read the
-configuration from `resources/config/config.edn`. Aero makes it available to the
-rest of the system.
+The initialisation is simple. I read the global configuration with
+https://github.com/juxt/aero[aero] to get the details for the database
+connection and the HTTP server. Then I call
+`boodle.services.http/start-server!`, which makes the datasource available to
+all my routes thanks to a handy Ring handler
+(`boodle.services.http/add-datasource`).
 
-The
-https://github.com/manuel-uberti/boodle/tree/master/src/clj/boodle/services/postgresql.clj[`postgresql`]
-namespace contains all I need to interact with PostgreSQL. Besides the database
-connection stored in an atom, there are two functions the
-https://github.com/manuel-uberti/boodle/tree/master/src/clj/boodle/model[model
-layer] uses to read and write data: `query` and `execute!`.
-
-The
-https://github.com/manuel-uberti/boodle/tree/master/src/clj/boodle/services/http.clj[`http`]
-namespace handle HTTP server and sets the routes for navigation. Boodle is a
-single-page application, but to avoid `404` errors on random page reloading, I
-added server-side routes matching the corresponding client-side panels: expenses
-(`/`), savings (`/savings`), and categories (`/categories`).
+Boodle is a single-page application, but to avoid `404` errors on random page
+reloading, I added server-side routes matching the corresponding client-side
+panels: expenses (`/`), savings (`/savings`), and categories (`/categories`).
 
 === Client-side
 
