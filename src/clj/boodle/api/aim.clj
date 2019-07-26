@@ -16,7 +16,7 @@
   [request id]
   (let [ds (:datasource request)
         id (utils/str->integer id)]
-    (aims/select-by-id request id)))
+    (aims/select-by-id ds id)))
 
 (defn find-active
   [request]
@@ -97,7 +97,7 @@
   [request]
   (let [ds (:datasource request)
         req (utils/request-body->map request)
-        aim (->> (:id req) (find-by-id req) first)]
+        aim (->> (:id req) (find-by-id request) first)]
     (mark-aim-achieved ds aim (:achieved req))
     (expenses/insert! ds (aim->expense aim (:category req)))))
 
