@@ -47,7 +47,8 @@ https://github.com/juxt/aero[aero] to get the details for the database
 connection and the HTTP server. Then I call
 `boodle.services.http/start-server!`, which makes the datasource available to
 all my routes thanks to a handy Ring handler
-(`boodle.services.http/add-datasource`).
+(`boodle.services.http/add-datasource`) and starts
+http://www.http-kit.org/[http-kit].
 
 Boodle is a single-page application, but to avoid `404` errors on random page
 reloading, I added server-side routes matching the corresponding client-side
