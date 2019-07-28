@@ -45,7 +45,7 @@
 
 (deftest transfer-to-fund-test
   (with-redefs [utils/request-body->map (fn [req] req)
-                funds/select-by-id (fn [ds id] [{:amount 0}])
+                funds/select-by-id (fn [ds id] {:amount 0})
                 funds/update! (fn [ds fund] fund)
                 model/insert! (fn [ds params] params)]
     (let [transfer {:id-fund "1" :item "test transfer" :amount "20"}]

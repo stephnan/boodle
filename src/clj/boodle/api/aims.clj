@@ -97,7 +97,7 @@
   [request]
   (let [ds (:datasource request)
         req (utils/request-body->map request)
-        aim (->> (:id req) (find-by-id request) first)]
+        aim (find-by-id request (:id req))]
     (mark-aim-achieved ds aim (:achieved req))
     (expenses/insert! ds (aim->expense aim (:category req)))))
 

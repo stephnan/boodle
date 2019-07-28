@@ -70,10 +70,10 @@
 
 (deftest achieved-test
   (with-redefs [utils/request-body->map (fn [req] req)
-                aims/find-by-id (fn [req id] [{:id "1"
+                aims/find-by-id (fn [req id] {:id "1"
                                               :name "test achieved"
                                               :target "3,5"
-                                              :category 1}])
+                                              :category 1})
                 model/update! (fn [ds aims] aims)
                 expenses/insert! (fn [ds e] e)]
     (let [aim {:id "1" :name "test achieved"

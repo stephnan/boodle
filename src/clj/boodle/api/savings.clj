@@ -61,7 +61,6 @@
 (defn- update-fund!
   [datasource id amount]
   (let [record (-> (funds/select-by-id datasource id)
-                   first
                    (update :amount + amount))]
     (funds/update! datasource record)))
 

@@ -102,3 +102,13 @@
   [datasource sqlmap]
   (->> (execute! datasource sqlmap)
        (map format-output-keywords)))
+
+(defn query-one!
+  "Run the query in `sqlmap`, get only one result and format output keywords."
+  [datasource sqlmap]
+  (let [q (honey/format sqlmap)]
+    (try
+      (format-output-keywords (jdbc/execute-one! datasource q))
+      (catch Exception e
+        (log/error (utils/stacktrace e))
+        (throw (ex-info "Exception in query-one!" {:sqlmap sqlmap :query q}))))))

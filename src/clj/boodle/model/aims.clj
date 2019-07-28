@@ -10,7 +10,7 @@
 
 (defn select-by-id
   [datasource id]
-  (db/query datasource {:select [:*] :from [:aims] :where [:= :id id]}))
+  (db/query-one! datasource {:select [:*] :from [:aims] :where [:= :id id]}))
 
 (defn select-by-name
   [datasource aim-name]
