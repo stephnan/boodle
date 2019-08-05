@@ -99,8 +99,18 @@ $ ./bin/kaocha
 
 == Linting
 
-I use https://github.com/borkdude/clj-kondo[clj-kondo] to check my code. Refer
-to its README if you want to know more.
+I use https://github.com/borkdude/clj-kondo[clj-kondo] to check my code. As per
+its instructions, you should create a `.clj-kondo` directory at the root of
+`boodle` and run:
+
+[source,console]
+----
+$ clj-kondo --lint (clj -Spath) --cache
+----
+
+Note that I am using a slightly different syntax from the one suggested
+https://github.com/borkdude/clj-kondo#project-setup[here] because I use Fish
+shell. Refer to the `clj-kondo` README if you want to know more.
 
 == Extra
 
