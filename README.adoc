@@ -99,7 +99,7 @@ $ ./bin/kaocha
 
 == Linting
 
-I use [clj-kondo](https://github.com/borkdude/clj-kondo) to check my code. Refer
+I use https://github.com/borkdude/clj-kondo[clj-kondo] to check my code. Refer
 to its README if you want to know more.
 
 == Extra
