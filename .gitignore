@@ -5,15 +5,12 @@ pom.xml
 pom.xml.asc
 *.jar
 *.class
-/.lein-*
 /.nrepl-port
 *cider-repl boodle*
-.hgignore
-.hg/
 /resources/public
 /resources/src/node_modules
 /resources/src/css/boodle.css
 .shadow-cljs
 node_modules
 .cpcache
-.eastwood
+.clj-kondo
