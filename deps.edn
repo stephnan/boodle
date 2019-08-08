@@ -11,7 +11,7 @@
         com.zaxxer/HikariCP {:mvn/version "3.3.1"}
         compojure {:mvn/version "1.6.1"}
         hiccup {:mvn/version "1.0.5"}
-        honeysql {:mvn/version "0.9.4"}
+        honeysql {:mvn/version "0.9.5"}
         http-kit {:mvn/version "2.3.0"}
         metosin/ring-http-response {:mvn/version "0.9.1"}
         org.clojure/clojure {:mvn/version "1.10.1"}
