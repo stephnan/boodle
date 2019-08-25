@@ -9,7 +9,7 @@
    (com.zaxxer.hikari HikariDataSource)))
 
 (defn -main
-  [& args]
+  [& _]
   (let [config (aero/read-config (io/resource "config/config.edn"))
         port (get-in config [:http :port])
         db-spec (:postgresql config)
