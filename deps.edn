@@ -9,7 +9,7 @@
         com.zaxxer/HikariCP {:mvn/version "3.3.1"}
         compojure {:mvn/version "1.6.1"}
         hiccup {:mvn/version "1.0.5"}
-        honeysql {:mvn/version "0.9.5"}
+        honeysql {:mvn/version "0.9.6"}
         http-kit {:mvn/version "2.3.0"}
         lambdaisland/kaocha {:mvn/version "0.0-529"}
         metosin/ring-http-response {:mvn/version "0.9.1"}
@@ -22,6 +22,6 @@
         ring/ring-defaults {:mvn/version "0.3.2"}
         ring/ring-json {:mvn/version "0.5.0"}
         ring/ring-mock {:mvn/version "0.4.0"}
-        seancorfield/next.jdbc {:mvn/version "1.0.5"}}
+        seancorfield/next.jdbc {:mvn/version "1.0.6"}}
 
  :paths ["src/clj" "test/clj" "resources"]}
