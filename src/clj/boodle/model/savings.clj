@@ -5,15 +5,15 @@
 
 (defn select-all
   [datasource]
-  (db/query datasource {:select [:*] :from [:savings] :order-by [[:date :desc]]}))
+  (db/query! datasource {:select [:*] :from [:savings] :order-by [[:date :desc]]}))
 
 (defn select-by-id
   [datasource id]
-  (db/query datasource {:select [:*] :from [:savings] :where [:= :id id]}))
+  (db/query-one! datasource {:select [:*] :from [:savings] :where [:= :id id]}))
 
 (defn select-by-item
   [datasource savings-item]
-  (db/query datasource {:select [:*] :from [:savings] :where [:= :item savings-item]}))
+  (db/query! datasource {:select [:*] :from [:savings] :where [:= :item savings-item]}))
 
 (defn insert!
   [datasource {i :item a :amount d :date}]

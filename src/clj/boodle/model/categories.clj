@@ -6,11 +6,11 @@
 
 (defn select-all
   [datasource]
-  (db/query datasource {:select [:*] :from [:categories]}))
+  (db/query! datasource {:select [:*] :from [:categories]}))
 
 (defn select-by-id
   [datasource id]
-  (db/query datasource {:select [:*] :from [:categories] :where [:= :id id]}))
+  (db/query-one! datasource {:select [:*] :from [:categories] :where [:= :id id]}))
 
 (defn select-category-monthly-expenses
   "Find expenses for category `id`, in the month delimited by `from` and `to`."
@@ -24,7 +24,7 @@
                                       [:<= :e.date to]
                                       [:= :c.id id])) :t])
               hc/build)]
-    (db/query datasource q)))
+    (db/query! datasource q)))
 
 (defn insert!
   [datasource {n :name mb :monthly-budget}]

@@ -97,7 +97,7 @@
              {}
              output))
 
-(defn query
+(defn query!
   "Run a SELECT query using the map in `sqlmap` and format output keywords."
   [datasource sqlmap]
   (->> (execute! datasource sqlmap)

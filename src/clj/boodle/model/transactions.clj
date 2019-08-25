@@ -6,15 +6,15 @@
 
 (defn select-all
   [datasource]
-  (db/query datasource {:select [:*] :from [:transactions]}))
+  (db/query! datasource {:select [:*] :from [:transactions]}))
 
 (defn select-by-id
   [datasource id]
-  (db/query datasource {:select [:*] :from [:transactions] :where [:= :id id]}))
+  (db/query-one! datasource {:select [:*] :from [:transactions] :where [:= :id id]}))
 
 (defn select-by-item
   [datasource transaction-item]
-  (db/query datasource {:select [:*]
+  (db/query! datasource {:select [:*]
                         :from [:transactions]
                         :where [:= :item transaction-item]}))
 
@@ -28,7 +28,7 @@
               (hh/where [:= :a.id id-aim])
               (hh/order-by [:date :desc])
               hc/build)]
-    (db/query datasource q)))
+    (db/query! datasource q)))
 
 (defn insert!
   [datasource {ia :id-aim i :item a :amount d :date}]

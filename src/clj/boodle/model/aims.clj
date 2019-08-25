@@ -6,7 +6,7 @@
 
 (defn select-all
   [datasource]
-  (db/query datasource {:select [:*] :from [:aims]}))
+  (db/query! datasource {:select [:*] :from [:aims]}))
 
 (defn select-by-id
   [datasource id]
@@ -14,15 +14,15 @@
 
 (defn select-by-name
   [datasource aim-name]
-  (db/query datasource {:select [:*] :from [:aims] :where [:= :name aim-name]}))
+  (db/query! datasource {:select [:*] :from [:aims] :where [:= :name aim-name]}))
 
 (defn select-active
   [datasource]
-  (db/query datasource {:select [:*] :from [:aims] :where [:= :achieved false]}))
+  (db/query! datasource {:select [:*] :from [:aims] :where [:= :achieved false]}))
 
 (defn select-achieved
   [datasource]
-  (db/query datasource {:select [:*] :from [:aims] :where [:= :achieved true]}))
+  (db/query! datasource {:select [:*] :from [:aims] :where [:= :achieved true]}))
 
 (defn select-aims-with-transactions
   [datasource]
@@ -31,7 +31,7 @@
               (hh/right-join [:aims :a] [:= :a.id :t.id_aim])
               (hh/where [:= :a.achieved false])
               hc/build)]
-    (db/query datasource q)))
+    (db/query! datasource q)))
 
 (defn insert!
   [datasource {n :name t :target}]

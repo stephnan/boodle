@@ -17,15 +17,15 @@
                             (hh/order-by [:e.date :desc])
                             (hh/limit 10)) :t])
               hc/build)]
-    (db/query datasource q)))
+    (db/query! datasource q)))
 
 (defn select-by-id
   [datasource id]
-  (db/query datasource {:select [:*] :from [:expenses] :where [:= :id id]}))
+  (db/query-one! datasource {:select [:*] :from [:expenses] :where [:= :id id]}))
 
 (defn select-by-category
   [datasource id-category]
-  (db/query datasource {:select [:*] :from [:expenses]
+  (db/query! datasource {:select [:*] :from [:expenses]
                         :where [:= :id_category id-category]}))
 
 (defn categories-filter
@@ -58,7 +58,7 @@
                              from to categories)
                             (hh/order-by [:e.date :desc])) :t])
               hc/build)]
-    (db/query datasource q)))
+    (db/query! datasource q)))
 
 (defn insert!
   [datasource {d :date ic :id-category i :item a :amount fs :from-savings}]

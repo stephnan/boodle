@@ -5,7 +5,7 @@
 
 (defn select-all
   [datasource]
-  (db/query datasource {:select [:*] :from [:funds] :order-by [[:name :asc]]}))
+  (db/query! datasource {:select [:*] :from [:funds] :order-by [[:name :asc]]}))
 
 (defn select-by-id
   [datasource id]
@@ -13,7 +13,7 @@
 
 (defn select-by-name
   [datasource fund-name]
-  (db/query datasource {:select [:*] :from [:funds] :where [:= :name fund-name]}))
+  (db/query! datasource {:select [:*] :from [:funds] :where [:= :name fund-name]}))
 
 (defn insert!
   [datasource {n :name a :amount d :date}]
