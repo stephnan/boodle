@@ -59,7 +59,7 @@ Compile the ClojureScript files with:
 
 [source,console]
 ----
-$ shadow-cljs compile boodle
+$ npx shadow-cljs compile boodle
 ----
 
 === Running
