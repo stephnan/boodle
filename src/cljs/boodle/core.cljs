@@ -25,13 +25,13 @@
     (fn []
       [views/show-panel @active-panel])))
 
-(defn mount-root
+(defn ^:dev/after-load mount-root
   []
   (rf/clear-subscription-cache!)
   (reagent/render [main-panel]
                   (.getElementById js/document "app")))
 
-(defn ^:export init
+(defn init
   []
   (routes/app-routes)
   (rf/dispatch-sync [:initialize-db])
