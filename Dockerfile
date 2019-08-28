@@ -8,7 +8,7 @@ RUN echo "@testing http://nl.alpinelinux.org/alpine/edge/testing" >> /etc/apk/re
     yarn global add shadow-cljs gulp-cli &&\
     yarn &&\
     cd /data/resources/src && gulp &&\
-    cd /data && npx shadow-cljs compile boodle &&\
+    cd /data && shadow-cljs compile boodle &&\
     clojure -e ''
 
 CMD ["/usr/local/bin/clojure", "-A:run"]
