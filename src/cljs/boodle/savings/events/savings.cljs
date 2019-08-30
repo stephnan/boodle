@@ -13,7 +13,7 @@
 
 (rf/reg-event-fx
  :get-savings
- (fn [{db :db} [_ value]]
+ (fn [_ _]
    (ajax/get-request "/api/saving/find"
                      [:load-savings]
                      [:bad-response])))

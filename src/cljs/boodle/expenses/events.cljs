@@ -55,7 +55,7 @@
 
 (rf/reg-event-fx
  :refresh-categories-monthly-expenses
- (fn [{db :db} [_ result]]
+ (fn [_ [_ result]]
    (assoc
     (ajax/get-request "/api/category/find-category-monthly-expenses"
                       [:load-categories-monthly-expenses]
@@ -64,7 +64,7 @@
 
 (rf/reg-event-fx
  :get-expenses-rows
- (fn [{db :db} _]
+ (fn [_ _]
    (ajax/get-request "/api/expense/find"
                      [:refresh-categories-monthly-expenses]
                      [:bad-response])))
@@ -119,7 +119,6 @@
                        [:get-expenses-rows]
                        [:get-expenses-by-date])
          expense (get-in db [:expenses :row])
-         id (:id expense)
          not-valid (validate-expense expense)]
      (if-not (empty? not-valid)
        (rf/dispatch [:modal-validation-error not-valid])
@@ -235,7 +234,7 @@
 
 (rf/reg-event-fx
  :show-category-expenses
- (fn [{db :db} [_ category]]
+ (fn [_ [_ category]]
    (assoc
     (ajax/get-request (str "/api/expense/find-by-current-month-and-category/"
                            (:id category))

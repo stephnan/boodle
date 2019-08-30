@@ -1,7 +1,6 @@
 (ns boodle.savings.events.funds
   (:require
    [boodle.ajax :as ajax]
-   [boodle.common :as common]
    [boodle.i18n :refer [translate]]
    [boodle.savings.modal :as modal]
    [boodle.validation :as validation]
@@ -14,7 +13,7 @@
 
 (rf/reg-event-fx
  :get-funds
- (fn [{db :db} [_ value]]
+ (fn [_ _]
    (ajax/get-request "/api/fund/find"
                      [:load-funds]
                      [:bad-response])))

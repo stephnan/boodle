@@ -72,7 +72,7 @@
 (defn amounts
   []
   (fn []
-    (when-let [aim-selected @(rf/subscribe [:selected-active-aim])]
+    (when @(rf/subscribe [:selected-active-aim])
       [transactions.views/amounts])))
 
 (defn table

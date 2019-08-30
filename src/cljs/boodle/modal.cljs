@@ -1,6 +1,5 @@
 (ns boodle.modal
   (:require
-   [boodle.i18n :refer [translate]]
    [re-frame.core :as rf]))
 
 (defn modal-panel
@@ -8,12 +7,11 @@
   [:div.modal-wrapper
    [:div.modal-backdrop
     {:on-click (fn [event]
-                 (do
-                   (rf/dispatch [:modal {:show? (not show?)
-                                         :child nil
-                                         :size :default}])
-                   (.preventDefault event)
-                   (.stopPropagation event)))}]
+                 (rf/dispatch [:modal {:show? (not show?)
+                                       :child nil
+                                       :size :default}])
+                 (.preventDefault event)
+                 (.stopPropagation event))}]
    [:div.modal-child
     {:style {:width (case size
                       :extra-small "15%"

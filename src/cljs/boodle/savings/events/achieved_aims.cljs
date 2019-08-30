@@ -14,7 +14,7 @@
 
 (rf/reg-event-fx
  :get-achieved-aims
- (fn [{db :db} _]
+ (fn [_ _]
    (ajax/get-request "/api/aim/achieved"
                      [:load-achieved]
                      [:bad-response])))
@@ -54,9 +54,8 @@
 
 (rf/reg-event-fx
  :do-mark-aim-achieved
- (fn [{db :db} [_ id]]
+ (fn [{db :db} [_ _]]
    (let [aim (get-in db [:aims :row])
-         id (:id aim)
          not-valid (validate-aim aim)]
      (if-not (empty? not-valid)
        (rf/dispatch [:modal-validation-error not-valid])

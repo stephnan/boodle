@@ -61,7 +61,7 @@
   (clj->js (transform-keys ->camelCaseString opts)))
 
 (defn- watch
-  [ratom predicate func])
+  [_ _ _])
 
 (defn- string->js-date
   [s]
@@ -78,8 +78,8 @@
   max-date-atom: atom representing the maximum date for the selector.
   min-date-atom: atom representing the minimum date for the selector.
   pikaday-attrs: a map of options to be passed to the Pikaday constructor.
-  input-attrs: a map of options to be used as <input> tag attributes."
-  [{:keys [date-atom max-date-atom min-date-atom pikaday-attrs input-attrs]}]
+  input-attrs (ignored): a map of options to be used as <input> tag attributes."
+  [{:keys [date-atom max-date-atom min-date-atom pikaday-attrs _]}]
   (let [instance-atom (atom nil)]
     (reagent/create-class
      {:component-did-mount
@@ -97,12 +97,12 @@
           ;; This code could probably be neater
           (when date-atom
             (add-watch date-atom :update-instance
-                       (fn [key ref old new]
+                       (fn [_ _ _ new]
                          ;; `true` skips onSelect() callback
                          (.setDate instance new true))))
           (when min-date-atom
             (add-watch min-date-atom :update-min-date
-                       (fn [key ref old new]
+                       (fn [_ _ _ new]
                          (.setMinDate instance new)
                          ;; If new max date is less than selected
                          ;; date, reset actual date to max
@@ -110,14 +110,14 @@
                            (reset! date-atom new)))))
           (when max-date-atom
             (add-watch max-date-atom :update-max-date
-                       (fn [key ref old new]
+                       (fn [_ _ _ new]
                          (.setMaxDate instance new)
                          ;; If new max date is less than selected
                          ;; date, reset actual date to max
                          (if (> @date-atom new)
                            (reset! date-atom new)))))))
       :component-will-unmount
-      (fn [this]
+      (fn [_]
         (.destroy @instance-atom)
         (remove-watch instance-atom :update-instance)
         (remove-watch instance-atom :update-min-date)

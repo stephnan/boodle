@@ -67,7 +67,7 @@
    value
    (fn [v]
      (if (seqable? v)
-       (not (empty? v))
+       (seq v)
        true))))
 
 (defn validate-input
@@ -82,7 +82,7 @@
 (defn validation-msg-box
   []
   (fn []
-    (when-let [show @(rf/subscribe [:show-validation])]
+    (when @(rf/subscribe [:show-validation])
       (let [validation-message (rf/subscribe [:validation-msg])]
         [:article.message.is-danger
          [:div.message-body
@@ -93,7 +93,7 @@
 (defn modal-validation-msg-box
   []
   (fn []
-    (when-let [show @(rf/subscribe [:show-modal-validation])]
+    (when @(rf/subscribe [:show-modal-validation])
       (let [validation-message (rf/subscribe [:modal-validation-msg])]
         [:article.message.is-danger
          [:div.message-body

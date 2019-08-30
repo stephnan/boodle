@@ -147,24 +147,23 @@
 
 (defn delete-aim
   []
-  (let [row @(rf/subscribe [:aims-row])]
-    [:div.modal-card
-     [:div.modal-card-head
-      [:h5.modal-card-title (translate :it :aims/modal.delete-title)]]
-     [:section.modal-card-body
-      [:p.has-text-centered.has-text-danger
-       [:i.fa.fa-exclamation-triangle]
-       (translate :it :aims/modal.delete-confirm)
-       [:i.fa.fa-exclamation-triangle]]]
-     [:footer.modal-card-foot
-      [:button.button.is-danger
-       {:title (translate :it :aims/button-delete)
-        :on-click #(rf/dispatch [:delete-aim])}
-       (translate :it :aims/modal.button-delete)]
-      [:button.button
-       {:title (translate :it :button.cancel)
-        :on-click #(rf/dispatch [:close-modal])}
-       (translate :it :button.cancel)]]]))
+  [:div.modal-card
+   [:div.modal-card-head
+    [:h5.modal-card-title (translate :it :aims/modal.delete-title)]]
+   [:section.modal-card-body
+    [:p.has-text-centered.has-text-danger
+     [:i.fa.fa-exclamation-triangle]
+     (translate :it :aims/modal.delete-confirm)
+     [:i.fa.fa-exclamation-triangle]]]
+   [:footer.modal-card-foot
+    [:button.button.is-danger
+     {:title (translate :it :aims/button-delete)
+      :on-click #(rf/dispatch [:delete-aim])}
+     (translate :it :aims/modal.button-delete)]
+    [:button.button
+     {:title (translate :it :button.cancel)
+      :on-click #(rf/dispatch [:close-modal])}
+     (translate :it :button.cancel)]]])
 
 (defn mark-aim-achieved
   []
@@ -222,21 +221,20 @@
 
 (defn delete-fund
   []
-  (let [row @(rf/subscribe [:funds-row])]
-    [:div.modal-card
-     [:div.modal-card-head
-      [:h5.modal-card-title (translate :it :funds/modal.delete-title)]]
-     [:section.modal-card-body
-      [:p.has-text-centered.has-text-danger
-       [:i.fa.fa-exclamation-triangle]
-       (translate :it :funds/modal.delete-confirm)
-       [:i.fa.fa-exclamation-triangle]]]
-     [:footer.modal-card-foot
-      [:button.button.is-danger
-       {:title (translate :it :funds/button-delete)
-        :on-click #(rf/dispatch [:delete-fund])}
-       (translate :it :funds/modal.button-delete)]
-      [:button.button
-       {:title (translate :it :button.cancel)
-        :on-click #(rf/dispatch [:close-modal])}
-       (translate :it :button.cancel)]]]))
+  [:div.modal-card
+   [:div.modal-card-head
+    [:h5.modal-card-title (translate :it :funds/modal.delete-title)]]
+   [:section.modal-card-body
+    [:p.has-text-centered.has-text-danger
+     [:i.fa.fa-exclamation-triangle]
+     (translate :it :funds/modal.delete-confirm)
+     [:i.fa.fa-exclamation-triangle]]]
+   [:footer.modal-card-foot
+    [:button.button.is-danger
+     {:title (translate :it :funds/button-delete)
+      :on-click #(rf/dispatch [:delete-fund])}
+     (translate :it :funds/modal.button-delete)]
+    [:button.button
+     {:title (translate :it :button.cancel)
+      :on-click #(rf/dispatch [:close-modal])}
+     (translate :it :button.cancel)]]])

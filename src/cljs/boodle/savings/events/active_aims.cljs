@@ -37,14 +37,14 @@
 
 (rf/reg-event-fx
  :get-active-aims
- (fn [{db :db} _]
+ (fn [_ _]
    (ajax/get-request "/api/aim/active"
                      [:load-active]
                      [:bad-response])))
 
 (rf/reg-event-fx
  :get-aims-with-transactions
- (fn [{db :db} _]
+ (fn [_ _]
    (ajax/get-request "/api/aim/transactions"
                      [:load-summary]
                      [:bad-response])))
@@ -133,7 +133,6 @@
  :update-aim
  (fn [{db :db} [_ _]]
    (let [aim (get-in db [:aims :row])
-         id (:id aim)
          not-valid (validate-aim aim)]
      (if-not (empty? not-valid)
        (rf/dispatch [:modal-validation-error not-valid])

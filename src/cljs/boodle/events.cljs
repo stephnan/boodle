@@ -1,6 +1,5 @@
 (ns boodle.events
   (:require
-   [boodle.ajax :as ajax]
    [boodle.db :as db]
    [re-frame.core :as rf]))
 
@@ -16,7 +15,7 @@
 
 (rf/reg-event-fx
  :bad-response
- (fn [{db :db} [_ response]]
+ (fn [_ [_ response]]
    (.log js/console response)
    {:dispatch [:show-error (get-in response [:response :error])]}))
 
@@ -42,12 +41,12 @@
 
 (rf/reg-event-fx
  :validation-error
- (fn [{db :db} [_ response]]
+ (fn [_ [_ response]]
    {:dispatch [:show-validation response]}))
 
 (rf/reg-event-fx
  :modal-validation-error
- (fn [{db :db} [_ response]]
+ (fn [_ [_ response]]
    {:dispatch [:show-modal-validation response]}))
 
 (rf/reg-event-db

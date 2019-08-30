@@ -14,7 +14,7 @@
 
 (rf/reg-event-fx
  :get-categories
- (fn [{db :db} _]
+ (fn [_ _]
    (ajax/get-request "/api/category/find"
                      [:load-categories]
                      [:bad-response])))
@@ -85,7 +85,7 @@
 
 (rf/reg-event-fx
  :update-category
- (fn [{db :db} [_ id]]
+ (fn [{db :db} [_ _]]
    (let [category (get-in db [:categories :row])
          not-valid (validate-category category)]
      (if-not (empty? not-valid)
@@ -146,7 +146,7 @@
 
 (rf/reg-event-fx
  :get-categories-monthly-expenses
- (fn [{db :db} _]
+ (fn [_ _]
    (ajax/get-request "/api/category/find-category-monthly-expenses"
                      [:load-categories-monthly-expenses]
                      [:bad-response])))
