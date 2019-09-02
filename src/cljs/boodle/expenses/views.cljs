@@ -5,7 +5,8 @@
    [boodle.modal :as modal]
    [boodle.pikaday :as pikaday]
    [boodle.validation :as validation]
-   [re-frame.core :as rf]))
+   [re-frame.core :as rf])
+  (:require-macros [better-cond.core :refer [defnc]]))
 
 (defn render-row
   [row]
@@ -114,22 +115,14 @@
       [:h5.title.is-5.has-text-centered.is-uppercase
        (str month " " year)])))
 
-(defn message
+(defnc message
   [category]
-  (let [total (:total category)
+  :let [total (:total category)
         budget (:monthly-budget category)]
-    (cond
-      (or (nil? budget) (= budget 0))
-      :article.message.is-success
-
-      (>= total budget)
-      :article.message.is-danger
-
-      (>= total (* budget 0.8))
-      :article.message.is-warning
-
-      :else
-      :article.message.is-success)))
+  (or (nil? budget) (= budget 0)) :article.message.is-success
+  (>= total budget) :article.message.is-danger
+  (>= total (* budget 0.8)) :article.message.is-warning
+  :article.message.is-success)
 
 (defn total-budget
   [category]

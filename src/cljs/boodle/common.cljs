@@ -2,7 +2,8 @@
   (:require
    [boodle.i18n :refer [translate]]
    [cljs.pprint :as pp]
-   [re-frame.core :as rf]))
+   [re-frame.core :as rf])
+  (:require-macros [better-cond.core :refer [defnc]]))
 
 (defn navbar-burger
   [active]
@@ -65,17 +66,15 @@
     :value (:id item)}
    (:name item)])
 
-(defn format-number
+(defnc format-number
   [n]
-  (cond
-    (nil? n) "0"
-    (= n 0) "0"
-    :else (-> (pp/cl-format nil "~,2f" n)
-              (clojure.string/replace #"\." ","))))
+  (nil? n) "0"
+  (= n 0) "0"
+  (-> (pp/cl-format nil "~,2f" n)
+               (clojure.string/replace #"\." ",")))
 
-(defn format-neg-or-pos
+(defnc format-neg-or-pos
   [n]
-  (cond
-    (zero? n) "0"
-    (pos? n) (str "+" (format-number n))
-    :else (format-number n)))
+  (zero? n) "0"
+  (pos? n) (str "+" (format-number n))
+  (format-number n))

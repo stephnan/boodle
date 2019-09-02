@@ -1,0 +1,2 @@
+{:lint-as {better-cond.core/defnc clojure.core/defn}
+ :linters {:unresolved-symbol {:exclude [(better-cond.core/defnc)]}}}

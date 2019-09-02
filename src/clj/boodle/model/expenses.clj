@@ -1,5 +1,6 @@
 (ns boodle.model.expenses
   (:require
+   [better-cond.core :refer [defnc]]
    [boodle.services.postgresql :as db]
    [honeysql.core :as hc]
    [honeysql.helpers :as hh]))
@@ -35,14 +36,13 @@
       [:in :e.id_category xs]
       [:= :e.id_category xs])))
 
-(defn select-by-date-and-categories-where
+(defnc select-by-date-and-categories-where
   [m from to categories]
-  (cond
-    (and from to categories)
-    (hh/where
-     m [:>= :e.date from] [:<= :e.date to] (categories-filter categories))
-    (and from to)
-    (hh/where m [:>= :e.date from] [:<= :e.date to])))
+  (and from to categories)
+  (hh/where
+   m [:>= :e.date from] [:<= :e.date to] (categories-filter categories))
+  (and from to)
+  (hh/where m [:>= :e.date from] [:<= :e.date to]))
 
 (defn select-by-date-and-categories
   [datasource from to categories]

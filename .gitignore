@@ -13,4 +13,4 @@ pom.xml.asc
 .shadow-cljs
 node_modules
 .cpcache
-.clj-kondo
+.clj-kondo/.cache
