@@ -1,9 +1,0 @@
-[Unit]
-Description=Service to run an instance of boodle
-
-[Service]
-WorkingDirectory=/home/manuel/boodle/etc
-ExecStart=/home/manuel/boodle/etc/deploy.sh
-
-[Install]
-WantedBy=multi-user.target

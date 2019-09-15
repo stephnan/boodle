@@ -112,13 +112,6 @@ Note that I am using a slightly different syntax from the one suggested
 https://github.com/borkdude/clj-kondo#project-setup[here] because I use Fish
 shell. Refer to the `clj-kondo` README if you want to know more.
 
-== Extra
-
-The included `etc/boodle.service` is a basic
-https://www.freedesktop.org/software/systemd/man/systemd.unit.html[systemd unit]
-that executes `etc/deploy.sh` to update, build and run boodle automatically on
-my home server.
-
 == License
 
 Copyright © (iterate inc 2017) Manuel Uberti
