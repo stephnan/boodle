@@ -7,5 +7,5 @@ cd resources/src
 yarn
 gulp
 cd ../..
-shadow-cljs release boodle
+npx shadow-cljs release boodle
 clj -A:run
