@@ -7,7 +7,7 @@
         cheshire {:mvn/version "5.9.0"}
         clojure.java-time {:mvn/version "0.3.2"}
         com.taoensso/timbre {:mvn/version "4.10.0"}
-        com.zaxxer/HikariCP {:mvn/version "3.4.0"}
+        com.zaxxer/HikariCP {:mvn/version "3.4.1"}
         compojure {:mvn/version "1.6.1"}
         hiccup {:mvn/version "1.0.5"}
         honeysql {:mvn/version "0.9.8"}
