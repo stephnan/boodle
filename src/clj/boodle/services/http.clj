@@ -60,7 +60,7 @@
 
 (defn stop-server!
   []
-  (when-not (nil? @server)
+  (when @server
     (@server :timeout 100)
     (reset! server nil)))
 
