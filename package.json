@@ -4,16 +4,18 @@
     "create-react-class": "^15.6.3",
     "font-awesome": "^4.7.0",
     "global": "^4.3.2",
-    "gulp": "^3.9.1",
-    "gulp-clean-css": "^3.9.0",
-    "gulp-cli": "^1.4.0",
-    "gulp-concat": "^2.6.1",
-    "gulp-rename": "^1.2.2",
-    "gulp-sass": "^4.0.2",
     "moment": "^2.22.2",
     "pikaday": "^1.8.0",
     "react": "^16.6.3",
     "react-dom": "^16.6.3",
     "tar": "^4.4.8"
+  },
+  "devDependencies": {
+    "gulp": "^4.0.0",
+    "gulp-clean-css": "^4.0.0",
+    "gulp-cli": "^1.4.0",
+    "gulp-concat": "^2.6.1",
+    "gulp-rename": "^1.4.0",
+    "gulp-sass": "^4.0.2"
   }
 }
