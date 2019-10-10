@@ -16,7 +16,7 @@
                 [reagent "0.8.1"]
                 [reagent-utils "0.3.3"]
                 [refactor-nrepl "2.4.0"]
-                [tongue "0.2.7"]]
+                [tongue "0.2.8"]]
 
  :nrepl {:middleware [refactor-nrepl.middleware/wrap-refactor]
          :port 8777}
