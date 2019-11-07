@@ -82,5 +82,5 @@ https://github.com/manuel-uberti/boodle/blob/master/src/cljs/boodle/i18n.cljs[i1
 
 You should also check out
 https://github.com/manuel-uberti/boodle/blob/master/src/clj/boodle/utils.clj[utils.clj]
-which take care of the localization of dates and amounts according to Italian
+which takes care of the localization of dates and amounts according to Italian
 standards.
