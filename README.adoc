@@ -16,7 +16,7 @@ boodle uses these Clojure/ClojureScript libraries:
 * https://github.com/ring-clojure/ring[ring]
 * https://github.com/tonsky/tongue[tongue]
 
-I used https://bulma.io/[Bulma] for the UI, and I customised
+I used https://bulma.io/[Bulma] for the UI and customised
 https://github.com/benhowell/re-frame-modal[re-frame-modal] and
 https://github.com/timgilbert/cljs-pikaday[cljs-pikaday] to play well with it.
 Check the
