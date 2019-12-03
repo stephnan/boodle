@@ -1,6 +1,7 @@
 (ns boodle.api.expenses
   (:require
    [boodle.model.expenses :as expenses]
+   [boodle.model.savings :as savings]
    [boodle.utils :as utils]
    [compojure.core :refer [context defroutes DELETE GET POST PUT]]
    [ring.util.http-response :as response]))
@@ -48,6 +49,10 @@
                    (utils/record-str->double :amount)
                    (utils/record-str->integer :id-category)
                    (utils/record-str->date :date))]
+    (when (:from-savings record)
+      (savings/insert! ds {:item (:item record)
+                           :amount (- (:amount record))
+                           :date (:date record)}))
     (expenses/insert! ds record)))
 
 (defn update!
