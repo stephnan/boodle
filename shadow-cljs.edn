@@ -15,7 +15,7 @@
                 [re-frame "0.11.0"]
                 [reagent "0.9.1"]
                 [reagent-utils "0.3.3"]
-                [refactor-nrepl "2.4.0"]
+                [refactor-nrepl "2.5.0"]
                 [tongue "0.2.9"]]
 
  :nrepl {:middleware [refactor-nrepl.middleware/wrap-refactor]
