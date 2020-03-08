@@ -17,7 +17,7 @@
    [boodle.views :as views]
    [day8.re-frame.http-fx]
    [re-frame.core :as rf]
-   [reagent.core :as reagent]))
+   [reagent.dom :as reagent]))
 
 (defn main-panel
   []
