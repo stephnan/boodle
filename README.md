@@ -16,12 +16,8 @@ boodle uses these Clojure/ClojureScript libraries:
 - [ring](https://github.com/ring-clojure/ring)
 - [tongue](https://github.com/tonsky/tongue)
 
-I used [Bulma](https://bulma.io/) for the UI and customised
-[re-frame-modal](https://github.com/benhowell/re-frame-modal) and
-[cljs-pikaday](https://github.com/timgilbert/cljs-pikaday) to play well
-with it. Check the
-[documentation](https://github.com/manuel-uberti/boodle/blob/master/doc/index.adoc)
-for more details.
+I used [Bulma](https://bulma.io/) for the UI and customised [re-frame-modal](https://github.com/benhowell/re-frame-modal) and [cljs-pikaday](https://github.com/timgilbert/cljs-pikaday) to play
+well with it. Check the [documentation](https://github.com/manuel-uberti/boodle/blob/master/doc/index.md) for more details.
 
 Usage
 =====
@@ -42,10 +38,8 @@ To run boodle, you need:
 Database setup
 --------------
 
-Set up the database with the necessary tables and permissions you find
-in
-[model.sql](https://github.com/manuel-uberti/boodle/blob/master/resources/sql/model.sql).
-Check also `resources/config/config.edn` to adjust the database
+Set up the database with the necessary tables and permissions you find in
+[model.sql](https://github.com/manuel-uberti/boodle/blob/master/resources/sql/model.sql). Check also `resources/config/config.edn` to adjust the database
 connection parameters.
 
 Compiling
@@ -73,9 +67,8 @@ You can now browse at `http://localhost:8080` and interact with boodle.
 Docker and Docker Compose
 -------------------------
 
-Thanks to [Moritz Marquardt](https://github.com/moqmar), you can also
-run boodle via [Docker](https://docs.docker.com/get-started/) and
-[Docker Compose](https://docs.docker.com/compose/overview/):
+Thanks to [Moritz Marquardt](https://github.com/moqmar), you can also run boodle via [Docker](https://docs.docker.com/get-started/) and [Docker
+Compose](https://docs.docker.com/compose/overview/):
 
     $ git clone https://github.com/manuel-uberti/boodle.git && cd boodle
     $ docker-compose up -d
@@ -85,24 +78,20 @@ You can now access boodle at `http://localhost:8080`.
 Tests
 =====
 
-Unit tests are configured with
-[kaocha](https://github.com/lambdaisland/kaocha) and can be run from the
-project root with:
+Unit tests are configured with [kaocha](https://github.com/lambdaisland/kaocha) and can be run from the project root with:
 
     $ ./bin/kaocha
 
 Linting
 =======
 
-I use [clj-kondo](https://github.com/borkdude/clj-kondo) to check my
-code. As per its instructions, you should create a `.clj-kondo`
-directory at the root of `boodle` and run:
+I use [clj-kondo](https://github.com/borkdude/clj-kondo) to check my code. As per its instructions, you should create a
+`.clj-kondo` directory at the root of `boodle` and run:
 
     $ clj-kondo --lint (clj -Spath) --cache
 
-Note that I am using a slightly different syntax from the one suggested
-[here](https://github.com/borkdude/clj-kondo#project-setup) because
-I use Fish shell. Refer to the `clj-kondo` README if you want to know
+Note that I am using a slightly different syntax from the one suggested [here](https://github.com/borkdude/clj-kondo#project-setup)
+because I use Fish shell. Refer to the `clj-kondo` README if you want to know
 more.
 
 License
@@ -110,5 +99,5 @@ License
 
 Copyright © (iterate inc 2017) Manuel Uberti
 
-Distributed under the Eclipse Public License either version 1.0 or (at
-your option) any later version.
+Distributed under the Eclipse Public License either version 1.0 or (at your
+option) any later version.
