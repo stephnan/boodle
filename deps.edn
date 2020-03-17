@@ -23,6 +23,6 @@
         ring/ring-defaults {:mvn/version "0.3.2"}
         ring/ring-json {:mvn/version "0.5.0"}
         ring/ring-mock {:mvn/version "0.4.0"}
-        seancorfield/next.jdbc {:mvn/version "1.0.395"}}
+        seancorfield/next.jdbc {:mvn/version "1.0.409"}}
 
  :paths ["src/clj" "test/clj" "resources"]}
