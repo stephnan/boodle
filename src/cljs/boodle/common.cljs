@@ -50,7 +50,7 @@
       [:p "Developed with "
        [:i.fa.fa-heart]
        " by "
-       [:a {:href "https://manuel-uberti.github.io"}
+       [:a {:href "https://www.manueluberti.eu"}
         "Manuel Uberti"]]]]))
 
 (defn page-title
