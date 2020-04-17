@@ -20,10 +20,10 @@ I used [Bulma](https://bulma.io/) for the UI and customised [re-frame-modal](htt
 well with it. Check the [documentation](https://github.com/manuel-uberti/boodle/blob/master/doc/index.md) for more details.
 
 
-Usage
-=====
-Prerequisites
--------------
+# Usage
+
+## Prerequisites
+
 To run boodle, you need:
 
 - a Java JDK/JRE suitable for your system (I use
@@ -35,15 +35,15 @@ To run boodle, you need:
 - [shadow-cljs](http://shadow-cljs.org/)
 
 
-Database setup
---------------
+## Database setup
+
 Set up the database with the necessary tables and permissions you find in
 [model.sql](https://github.com/manuel-uberti/boodle/blob/master/resources/sql/model.sql). Check also `resources/config/config.edn` to adjust the database
 connection parameters.
 
 
-Compiling
----------
+## Compiling
+
 From the project root, run:
 
     $ yarn
@@ -55,8 +55,8 @@ Compile the ClojureScript files with:
     $ npx shadow-cljs compile boodle
 
 
-Running
--------
+## Running
+
 From the project root, fire up the server with:
 
     $ clj -A:run
@@ -64,8 +64,8 @@ From the project root, fire up the server with:
 You can now browse at `http://localhost:8080` and interact with boodle.
 
 
-Docker and Docker Compose
--------------------------
+## Docker and Docker Compose
+
 Thanks to [Moritz Marquardt](https://github.com/moqmar), you can also run boodle via [Docker](https://docs.docker.com/get-started/) and [Docker
 Compose](https://docs.docker.com/compose/overview/):
 
@@ -75,15 +75,15 @@ Compose](https://docs.docker.com/compose/overview/):
 You can now access boodle at `http://localhost:8080`.
 
 
-Tests
-=====
+## Tests
+
 Unit tests are configured with [kaocha](https://github.com/lambdaisland/kaocha) and can be run from the project root with:
 
     $ ./bin/kaocha
 
 
-Linting
-=======
+## Linting
+
 I use [clj-kondo](https://github.com/borkdude/clj-kondo) to check my code. As per its instructions, you should create a
 `.clj-kondo` directory at the root of `boodle` and run:
 
@@ -92,8 +92,8 @@ I use [clj-kondo](https://github.com/borkdude/clj-kondo) to check my code. As p
 Refer to the `clj-kondo` README if you want to know more.
 
 
-License
-=======
+# License
+
 Copyright © (iterate inc 2017) Manuel Uberti
 
 Distributed under the Eclipse Public License either version 1.0 or (at your
