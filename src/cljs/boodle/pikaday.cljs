@@ -106,7 +106,7 @@
                          (.setMinDate instance new)
                          ;; If new max date is less than selected
                          ;; date, reset actual date to max
-                         (if (< @date-atom new)
+                         (when (< @date-atom new)
                            (reset! date-atom new)))))
           (when max-date-atom
             (add-watch max-date-atom :update-max-date
@@ -114,7 +114,7 @@
                          (.setMaxDate instance new)
                          ;; If new max date is less than selected
                          ;; date, reset actual date to max
-                         (if (> @date-atom new)
+                         (when (> @date-atom new)
                            (reset! date-atom new)))))))
       :component-will-unmount
       (fn [_]
