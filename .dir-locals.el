@@ -2,7 +2,7 @@
 ;;; For more information see (info "(emacs) Directory Variables")
 
 ((nil
-  (cider-default-cljs-repl . shadow-select)
+  (cider-default-cljs-repl . shadow)
   (cider-preferred-build-tool . clojure-cli)
   (cider-known-endpoints . (("hathaway" "localhost" "8777"))))
  (emacs-lisp-mode
