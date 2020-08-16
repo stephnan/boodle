@@ -1,6 +1,6 @@
 {:http {:port 8080}
  :postgresql {:dbtype "postgres"
-              :host "localhost"
+              :host "database"
               :dbname "boodle"
               :username "admin"
               :password "admin"}}
