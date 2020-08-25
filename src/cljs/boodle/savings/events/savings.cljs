@@ -33,10 +33,8 @@
  (fn [{db :db} [_ _]]
    (let [title (translate :it :savings/modal.add-title)]
      {:db db
-      :dispatch
-      [:modal
-       {:show? true
-        :child [modal/save-saving title [:save-saving]]}]})))
+      :fx [[:dispatch
+            [:modal {:show? true :child [modal/save-saving title [:save-saving]]}]]]})))
 
 (defn validate-item
   [saving]
@@ -72,7 +70,7 @@
                            [:get-savings]
                            [:bad-response])
         :db (assoc db :show-modal-validation false)
-        :dispatch [:modal {:show? false :child nil}])))))
+        :fx [[:dispatch [:modal {:show? false :child nil}]]])))))
 
 (rf/reg-event-db
  :transfer-change-active-aim
@@ -94,11 +92,10 @@
  (fn [{db :db} [_ _]]
    (let [title (translate :it :savings/modal.transfer-title)]
      {:db db
-      :dispatch-n
-      [[:get-active-aims]
-       [:modal
-        {:show? true
-         :child [modal/transfer-aim-amount title [:aim-transfer]]}]]})))
+      :fx [[:dispatch [:get-active-aims]]
+           [:dispatch [:modal
+                       {:show? true
+                        :child [modal/transfer-aim-amount title [:aim-transfer]]}]]]})))
 
 (defn validate-aim
   [transfer]
@@ -147,18 +144,18 @@
  :refresh-savings-aims
  (fn [{db :db} [_ _]]
    {:db db
-    :dispatch-n [[:get-savings] [:get-aims-with-transactions]]}))
+    :fx [[:dispatch [:get-savings]]
+         [:dispatch [:get-aims-with-transactions]]]}))
 
 (rf/reg-event-fx
  :fund-transfer-amount
  (fn [{db :db} [_ _]]
    (let [title (translate :it :savings/modal.transfer-title)]
      {:db db
-      :dispatch-n
-      [[:get-funds]
-       [:modal
-        {:show? true
-         :child [modal/transfer-fund-amount title [:fund-transfer]]}]]})))
+      :fx [[:dispatch [:get-funds]]
+           [:dispatch [:modal
+                       {:show? true
+                        :child [modal/transfer-fund-amount title [:fund-transfer]]}]]]})))
 
 (defn validate-fund
   [transfer]
@@ -203,4 +200,5 @@
  :refresh-savings-funds
  (fn [{db :db} [_ _]]
    {:db db
-    :dispatch-n [[:get-savings] [:get-funds]]}))
+    :fx [[:dispatch [:get-savings]]
+         [:dispatch [:get-funds]]]}))

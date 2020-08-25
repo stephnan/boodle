@@ -43,9 +43,10 @@
          row (first (filter #(= (:id %) id) categories))
          title (translate :it :categories/modal.edit-title)]
      {:db (assoc-in db [:categories :row] row)
-      :dispatch
-      [:modal {:show? true
-               :child [modal/save-category title [:update-category]]}]})))
+      :fx [[:dispatch
+            [:modal
+             {:show? true
+              :child [modal/save-category title [:update-category]]}]]]})))
 
 (defn validate-name
   [category]
@@ -64,9 +65,9 @@
  (fn [{db :db} [_ _]]
    (let [title (translate :it :categories/modal.create-title)]
      {:db (assoc-in db [:categories :row] nil)
-      :dispatch
-      [:modal {:show? true
-               :child [modal/save-category title [:save-category]]}]})))
+      :fx [[:dispatch
+            [:modal {:show? true
+                     :child [modal/save-category title [:save-category]]}]]]})))
 
 (rf/reg-event-fx
  :save-category
@@ -81,7 +82,7 @@
                            [:get-categories]
                            [:bad-response])
         :db (assoc db :show-modal-validation false)
-        :dispatch [:modal {:show? false :child nil}])))))
+        :fx [[:dispatch [:modal {:show? false :child nil}]]])))))
 
 (rf/reg-event-fx
  :update-category
@@ -96,7 +97,7 @@
                           [:get-categories]
                           [:bad-response])
         :db (assoc db :show-modal-validation false)
-        :dispatch [:modal {:show? false :child nil}])))))
+        :fx [[:dispatch [:modal {:show? false :child nil}]]])))))
 
 (rf/reg-event-fx
  :remove-category
@@ -106,10 +107,8 @@
      {:db (-> db
               (assoc-in [:categories :row] row)
               (assoc-in [:categories :new] nil))
-      :dispatch
-      [:modal
-       {:show? true
-        :child [modal/delete-category]}]})))
+      :fx [[:dispatch [:modal {:show? true
+                               :child [modal/delete-category]}]]]})))
 
 (defn validate-new-category
   [new-id]
@@ -136,7 +135,7 @@
                            {:old-category old-id :new-category new-id}
                            [:get-categories]
                            [:bad-response])
-        :dispatch [:modal {:show? false :child nil}])))))
+        :fx [[:dispatch [:modal {:show? false :child nil}]]])))))
 
 (rf/reg-event-db
  :load-categories-monthly-expenses

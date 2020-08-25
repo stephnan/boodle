@@ -61,10 +61,10 @@
  (fn [{db :db} [_ id-aim]]
    (let [title (translate :it :transactions/modal.create-title)]
      {:db (assoc-in db [:aims :transactions :row] nil)
-      :dispatch
-      [:modal
-       {:show? true
-        :child [modal/save-transaction title [:save-transaction id-aim]]}]})))
+      :fx [[:dispatch
+            [:modal
+             {:show? true
+              :child [modal/save-transaction title [:save-transaction id-aim]]}]]]})))
 
 (rf/reg-event-fx
  :save-transaction
@@ -79,4 +79,4 @@
                            [:get-aim-transactions id-aim]
                            [:bad-response])
         :db (assoc db :show-modal-validation false)
-        :dispatch [:modal {:show? false :child nil}])))))
+        :fx [[:dispatch [:modal {:show? false :child nil}]]])))))

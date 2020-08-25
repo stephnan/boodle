@@ -60,7 +60,7 @@
     (ajax/get-request "/api/category/find-category-monthly-expenses"
                       [:load-categories-monthly-expenses]
                       [:bad-response])
-    :dispatch [:load-expenses result])))
+    :fx [[:dispatch [:load-expenses result]]])))
 
 (rf/reg-event-fx
  :get-expenses-rows
@@ -106,10 +106,9 @@
                  (update :amount common/format-number))
          title (translate :it :expenses/:modal.edit-title)]
      {:db (assoc-in db [:expenses :row] row)
-      :dispatch
-      [:modal
-       {:show? true
-        :child [modal/save-expense title [:update-expense]]}]})))
+      :fx [[:dispatch
+            [:modal {:show? true
+                     :child [modal/save-expense title [:update-expense]]}]]]})))
 
 (rf/reg-event-fx
  :update-expense
@@ -128,17 +127,16 @@
                           success-evn
                           [:bad-response])
         :db (assoc db :show-modal-validation false)
-        :dispatch [:modal {:show? false :child nil}])))))
+        :fx [[:dispatch [:modal {:show? false :child nil}]]])))))
 
 (rf/reg-event-fx
  :create-expense
  (fn [{db :db} [_ _]]
    (let [title (translate :it :expenses/modal.create-title)]
      {:db (assoc-in db [:expenses :row] nil)
-      :dispatch
-      [:modal
-       {:show? true
-        :child [modal/save-expense title [:save-expense]]}]})))
+      :fx [[:dispatch
+            [:modal {:show? true
+                     :child [modal/save-expense title [:save-expense]]}]]]})))
 
 (rf/reg-event-fx
  :save-expense
@@ -153,7 +151,7 @@
                            [:get-expenses-rows]
                            [:bad-response])
         :db (assoc db :show-modal-validation false)
-        :dispatch [:modal {:show? false :child nil}])))))
+        :fx [[:dispatch [:modal {:show? false :child nil}]]])))))
 
 (rf/reg-event-fx
  :remove-expense
@@ -161,10 +159,7 @@
    (let [expenses (get-in db [:expenses :rows])
          row (first (filter #(= (:id %) id) expenses))]
      {:db (assoc-in db [:expenses :row] row)
-      :dispatch
-      [:modal
-       {:show? true
-        :child [modal/delete-expense]}]})))
+      :fx [[:dispatch [:modal {:show? true :child [modal/delete-expense]}]]]})))
 
 (rf/reg-event-fx
  :delete-expense
@@ -175,7 +170,7 @@
       (ajax/delete-request (str "/api/expense/delete/" id)
                            [:get-expenses-rows]
                            [:bad-response])
-      :dispatch [:modal {:show? false :child nil}]))))
+      :fx [[:dispatch [:modal {:show? false :child nil}]]]))))
 
 (defn validate-from
   [params]
@@ -240,13 +235,10 @@
                            (:id category))
                       [:load-category-expenses]
                       [:bad-response])
-    :dispatch [:do-show-category-expenses category])))
+    :fx [[:dispatch [:do-show-category-expenses category]]])))
 
 (rf/reg-event-fx
  :do-show-category-expenses
  (fn [{db :db} [_ category]]
    {:db db
-    :dispatch
-    [:modal
-     {:show? true
-      :child [modal/category-expenses category]}]}))
+    :fx [[:dispatch [:modal {:show? true :child [modal/category-expenses category]}]]]}))

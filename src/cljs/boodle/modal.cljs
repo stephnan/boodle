@@ -33,4 +33,4 @@
  :close-modal
  (fn [{db :db} [_ _]]
    {:db (assoc db :show-modal-validation false)
-    :dispatch [:modal {:show? false :child nil}]}))
+    :fx [[:dispatch [:modal {:show? false :child nil}]]]}))

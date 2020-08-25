@@ -85,10 +85,8 @@
  (fn [{db :db} [_ _]]
    (let [title (translate :it :aims/modal.create-title)]
      {:db (assoc-in db [:aims :row] nil)
-      :dispatch
-      [:modal
-       {:show? true
-        :child [modal/save-aim title [:save-aim]]}]})))
+      :fx [[:dispatch
+            [:modal {:show? true :child [modal/save-aim title [:save-aim]]}]]]})))
 
 (rf/reg-event-fx
  :save-aim
@@ -110,7 +108,8 @@
  :refresh-active-aims
  (fn [{db :db} [_ _]]
    {:db db
-    :dispatch-n [[:get-active-aims] [:get-aims-with-transactions]]}))
+    :fx [[:dispatch [:get-active-aims]]
+         [:dispatch [:get-aims-with-transactions]]]}))
 
 (rf/reg-event-fx
  :edit-aim
@@ -124,10 +123,8 @@
                  (update :target common/format-number))
          title (translate :it :aims/modal.edit-title)]
      {:db (assoc-in db [:aims :row] row)
-      :dispatch
-      [:modal
-       {:show? true
-        :child [modal/save-aim title [:update-aim]]}]})))
+      :fx [[:dispatch
+            [:modal {:show? true :child [modal/save-aim title [:update-aim]]}]]]})))
 
 (rf/reg-event-fx
  :update-aim
@@ -149,10 +146,7 @@
  :remove-aim
  (fn [{db :db} [_ id]]
    {:db (assoc-in db [:aims :row :id] id)
-    :dispatch
-    [:modal
-     {:show? true
-      :child [modal/delete-aim]}]}))
+    :fx [[:dispatch [:modal {:show? true :child [modal/delete-aim]}]]]}))
 
 (rf/reg-event-fx
  :delete-aim
@@ -163,5 +157,5 @@
                            [:refresh-active-aims]
                            [:bad-response])
       :db db
-      :dispatch-n (list [:modal {:show? false :child nil}]
-                        [:get-active-aims])))))
+      :fx [[:dispatch [:modal {:show? false :child nil}]]
+           [:dispatch [:get-active-aims]]]))))

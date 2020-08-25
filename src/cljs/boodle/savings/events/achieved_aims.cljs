@@ -29,10 +29,7 @@
                  (assoc :id id)
                  (assoc :achieved true))]
      {:db (assoc-in db [:aims :row] row)
-      :dispatch
-      [:modal
-       {:show? true
-        :child [modal/mark-aim-achieved]}]})))
+      :fx [[:dispatch [:modal {:show? true :child [modal/mark-aim-achieved]}]]]})))
 
 (rf/reg-event-db
  :aim-change-category
@@ -72,15 +69,16 @@
  :refresh-aims
  (fn [{db :db} [_ _]]
    {:db db
-    :dispatch-n [[:get-active-aims] [:get-achieved-aims]
-                 [:get-aims-with-transactions]]}))
+    :fx [[:dispatch [:get-active-aims]]
+         [:dispatch [:get-achieved-aims]]
+         [:dispatch [:get-aims-with-transactions]]]}))
 
 (rf/reg-event-fx
  :aims-change-achieved
  (fn [{db :db} [_ value]]
    (if (or (nil? value) (empty? value))
      {:db (assoc-in db [:aims :params :achieved] nil)
-      :dispatch [:load-achieved-aim-transactions value]}
+      :fx [[:dispatch [:load-achieved-aim-transactions value]]]}
      (let [aims (:achieved-aims db)
            row (first (filter #(= (str (:id %)) value) aims))]
        (assoc

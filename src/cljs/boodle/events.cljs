@@ -17,7 +17,7 @@
  :bad-response
  (fn [_ [_ response]]
    (.log js/console response)
-   {:dispatch [:show-error (get-in response [:response :error])]}))
+   {:fx [[:dispatch [:show-error (get-in response [:response :error])]]]}))
 
 (rf/reg-event-db
  :modal
@@ -42,12 +42,12 @@
 (rf/reg-event-fx
  :validation-error
  (fn [_ [_ response]]
-   {:dispatch [:show-validation response]}))
+   {:fx [[:dispatch [:show-validation response]]]}))
 
 (rf/reg-event-fx
  :modal-validation-error
  (fn [_ [_ response]]
-   {:dispatch [:show-modal-validation response]}))
+   {:fx [[:dispatch [:show-modal-validation response]]]}))
 
 (rf/reg-event-db
  :show-validation

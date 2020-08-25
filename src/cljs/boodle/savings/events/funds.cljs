@@ -28,10 +28,8 @@
  (fn [{db :db} [_ _]]
    (let [title (translate :it :funds/modal.add-title)]
      {:db db
-      :dispatch
-      [:modal
-       {:show? true
-        :child [modal/save-fund title [:save-fund]]}]})))
+      :fx [[:dispatch
+            [:modal {:show? true :child [modal/save-fund title [:save-fund]]}]]]})))
 
 (defn validate-name
   [fund]
@@ -59,7 +57,7 @@
                            [:get-funds]
                            [:bad-response])
         :db (assoc db :show-modal-validation false)
-        :dispatch [:modal {:show? false :child nil}])))))
+        :fx [[:dispatch [:modal {:show? false :child nil}]]])))))
 
 (rf/reg-event-fx
  :edit-fund
@@ -68,10 +66,8 @@
          row (first (filter #(= (:id %) id) funds))
          title (translate :it :funds/modal.edit-title)]
      {:db (assoc-in db [:funds :row] row)
-      :dispatch
-      [:modal
-       {:show? true
-        :child [modal/save-fund title [:update-fund]]}]})))
+      :fx [[:dispatch
+            [:modal {:show? true :child [modal/save-fund title [:update-fund]]}]]]})))
 
 (rf/reg-event-fx
  :update-fund
@@ -86,7 +82,7 @@
                           [:get-funds]
                           [:bad-response])
         :db (assoc db :show-modal-validation false)
-        :dispatch [:modal {:show? false :child nil}])))))
+        :fx [[:dispatch [:modal {:show? false :child nil}]]])))))
 
 (rf/reg-event-fx
  :remove-fund
@@ -94,10 +90,7 @@
    (let [funds (get-in db [:funds :funds])
          row (first (filter #(= (:id %) id) funds))]
      {:db (assoc-in db [:funds :row] row)
-      :dispatch
-      [:modal
-       {:show? true
-        :child [modal/delete-fund]}]})))
+      :fx [[:dispatch [:modal {:show? true :child [modal/delete-fund]}]]]})))
 
 (rf/reg-event-fx
  :delete-fund
@@ -108,4 +101,4 @@
       (ajax/delete-request (str "/api/fund/delete/" id)
                            [:get-funds]
                            [:bad-response])
-      :dispatch [:modal {:show? false :child nil}]))))
+      :fx [[:dispatch [:modal {:show? false :child nil}]]]))))
