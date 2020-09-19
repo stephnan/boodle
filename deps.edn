@@ -11,7 +11,7 @@
         compojure {:mvn/version "1.6.2"}
         hiccup {:mvn/version "1.0.5"}
         honeysql {:mvn/version "1.0.444"}
-        http-kit {:mvn/version "2.4.0"}
+        http-kit {:mvn/version "2.5.0"}
         lambdaisland/kaocha {:mvn/version "1.0.690"}
         metosin/ring-http-response {:mvn/version "0.9.1"}
         org.clojure/clojure {:mvn/version "1.10.1"}
