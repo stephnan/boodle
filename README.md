@@ -59,7 +59,7 @@ Compile the ClojureScript files with:
 
 From the project root, fire up the server with:
 
-    $ clj -A:run
+    $ clj -M:run
 
 You can now browse at `http://localhost:8080` and interact with boodle.
 
