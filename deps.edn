@@ -1,7 +1,7 @@
 {:aliases {:outdated {:extra-deps {antq/antq {:mvn/version "RELEASE"}}
                       :main-opts ["-m" "antq.core"]}
            :run {:main-opts ["-m" "boodle.core"]}
-           :test {:extra-deps {lambdaisland/kaocha {:mvn/version "1.0.726"}}}}
+           :test {:extra-deps {lambdaisland/kaocha {:mvn/version "1.0.732"}}}}
 
  :deps {aero/aero {:mvn/version "1.1.6"}
         better-cond/better-cond {:mvn/version "2.1.0"}
