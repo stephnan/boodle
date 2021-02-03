@@ -14,3 +14,9 @@ pom.xml.asc
 node_modules
 .cpcache
 .clj-kondo/.cache
+.yarn/*
+!.yarn/cache
+!.yarn/releases
+!.yarn/plugins
+!.yarn/sdks
+!.yarn/versions
