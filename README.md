@@ -30,7 +30,6 @@ To run boodle, you need:
   [OpenJDK](https://openjdk.java.net/))
 - [Clojure](https://clojure.org/guides/getting_started)
 - [PostgreSQL](https://www.postgresql.org)
-- [yarn](https://yarnpkg.com/en/)
 - [gulp](https://gulpjs.com/)
 - [shadow-cljs](http://shadow-cljs.org/)
 
@@ -46,7 +45,7 @@ connection parameters.
 
 From the project root, run:
 
-    $ yarn
+    $ npm install
     $ cd resources/src
     $ gulp
 
