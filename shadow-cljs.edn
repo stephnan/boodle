@@ -8,7 +8,7 @@
                 [camel-snake-kebab "0.4.2" :exclusions [org.clojure/clojure]]
                 [cljs-ajax "0.8.1"]
                 [com.andrewmcveigh/cljs-time "0.5.2"]
-                [day8.re-frame/http-fx "0.2.2"]
+                [day8.re-frame/http-fx "0.2.3"]
                 [kibu/pushy "0.3.8"]
                 [re-frame "1.2.0"]
                 [reagent "1.0.0"]
