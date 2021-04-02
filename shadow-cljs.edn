@@ -15,7 +15,6 @@
                 [reagent-utils "0.3.3"]
                 [tongue "0.2.10"]]
 
- :nrepl {:middleware [refactor-nrepl.middleware/wrap-refactor]
-         :port 8777}
+ :nrepl {:port 8777}
 
  :source-paths ["src/cljs"]}
